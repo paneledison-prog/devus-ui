@@ -10,6 +10,7 @@ import { Avatar, AvatarGroup } from '../../components/Avatar/Avatar';
 import { Logo } from '../../components/Logo/Logo';
 import { CaseStudyTemplate } from '../../components/CaseStudy/CaseStudy';
 import { WorkspaceDemo } from '../../components/Workspace/Workspace';
+import { CrmDemo } from '../../components/Crm/Crm';
 import './templates.css';
 
 function LandingTemplate() {
@@ -152,5 +153,15 @@ export const templateItems: TemplateItem[] = [
     preview: <div style={{ width: 1200, height: 740 }}><WorkspaceDemo /></div>,
     code: `<WorkspaceDemo />\n\n// Start in dark mode:\n<WorkspaceDemo defaultTheme="dark" />`,
     prompt: templatePrompt('AI workspace demo', 'A working AI-assistant app with its own light and dark theme. Top bar with Chat / Agent mode tabs, a search box (Ctrl+K) that jumps to pages, projects, chats and apps, a theme toggle, notifications and invite. Left sidebar with navigation, projects, recents and a connect-apps footer. Views: Welcome (copy-to-clipboard command boxes, a terminal card, and a connect-your-apps dialog), New chat (a working composer with a model menu that shows usage bars, suggestion cards, simulated replies), Projects, Artifacts (New artifact adds a card), Apps marketplace (search, connect and disconnect toggles), Plans (Starter and Pro), Agent views (Active runs with progress, Plugins with trigger and skill switches, Mobile pairing with a phone mock). Light surface is white on #f2f2f2, dark surface is #1b1b1b on #2a2a2a, with a blue accent. No real third-party logos.', 'Switch, native form controls, role=tablist, role=dialog, aria-live thread'),
+  },
+  {
+    name: 'CRM workspace demo',
+    variants: 2,
+    tileZoom: 0.22,
+    defaultZoom: 0.75,
+    standalone: <CrmDemo startAt="signup" />,
+    preview: <div style={{ width: 1200, height: 740 }}><CrmDemo startAt="app" /></div>,
+    code: `<CrmDemo startAt="signup" />\n\n// Jump straight to the companies table:\n<CrmDemo startAt="app" />\n\n// Dark theme:\n<CrmDemo startAt="app" defaultTheme="dark" />`,
+    prompt: templatePrompt('CRM workspace demo', 'A working CRM app with its own light and dark theme, built around flexible records, connected context and faster go-to-market workflows. Journey: (1) sign-up with username, work email and password (validated) above a fading line-art city skyline; (2) company setup that analyzes the email domain with a step checklist and a company card; (3) the app: sidebar with a workspace switcher, a quick-actions command box, inboxes, a Coworker assistant, General (Agents, Schedule, Customers, Companies, Emails, Report, Apps), favorites, and a Getting Started checklist popover with progress. Companies table: view select, sort by revenue, filter, search, column settings, row selection, New Company dialog, colored category pills, linked domains, founders and a totals footer. Inbox: conversation list, activity timeline, chat bubbles, a status control (open, in progress, resolved) and a Coworker side panel that drafts an email with Dismiss and Send. Compose email dialog with recipient chips and an @ variable picker (core and company variables shown as colored tokens). Coworker page with a composer and a connect-your-tools bar. All data is fictional; no real company logos.', 'native form controls, role=dialog, aria-live, a textarea mirrored by a highlighted layer for variable tokens'),
   },
 ];

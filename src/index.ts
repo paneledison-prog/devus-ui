@@ -13,3 +13,4 @@ export * from './components/Logo/Logo';
 export * from './components/Blocks/Blocks';
 export * from './components/CaseStudy/CaseStudy';
 export * from './components/Workspace/Workspace';
+export * from './components/Crm/Crm';

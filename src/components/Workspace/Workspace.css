@@ -6,7 +6,7 @@
   --ws-dark-btn: #2c2c2c; --ws-dark-btn-fg: #f2f2f2; --ws-new: #ff5c80; --ws-new-bg: #3a1620; --ws-shadow: 0 0 0 1px #2a2a2a; }
 .ws-frame *, .ws-frame *::before, .ws-frame *::after { box-sizing: border-box; }
 .ws-frame h1, .ws-frame h2, .ws-frame h3, .ws-frame h4, .ws-frame p, .ws-frame ul { margin: 0; padding: 0; }
-.ws-frame button { font: inherit; color: inherit; cursor: pointer; }
+:where(.ws-frame) button { font: inherit; color: inherit; cursor: pointer; }
 .ws-frame svg { flex: none; }
 .ws-app { position: relative; display: flex; flex-direction: column; width: 100%; height: 100%; overflow: hidden; border-radius: 24px; background: var(--ws-bg); box-shadow: 0 0 0 1px var(--ws-line); }
 
