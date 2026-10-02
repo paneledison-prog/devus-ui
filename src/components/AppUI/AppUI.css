@@ -134,3 +134,7 @@ button.app-row:active { background: var(--default); }
 .app-phone .app-tabbar--floating .app-tabbar__item[aria-current="page"] { background: var(--surface); box-shadow: none; }
 .app-phone .app-story__ring .ui-avatar { box-shadow: 0 0 0 3px var(--surface); }
 .app-phone .app-week__day[aria-pressed="true"] { background: var(--surface); }
+
+/* Bottom sheet inside a phone: white sheet over a dimmed screen (scrim), so the phone stays visually whole. */
+.app-phone .app-sheet { background: var(--surface); position: relative; z-index: 2; }
+.app-phone__body:has(.app-sheet)::before { content: ""; position: absolute; inset: 0; z-index: 1; background: rgb(0 0 0 / .32); pointer-events: none; }
