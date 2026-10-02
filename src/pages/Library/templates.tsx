@@ -9,6 +9,7 @@ import { Progress } from '../../components/Progress/Progress';
 import { Avatar, AvatarGroup } from '../../components/Avatar/Avatar';
 import { Logo } from '../../components/Logo/Logo';
 import { CaseStudyTemplate } from '../../components/CaseStudy/CaseStudy';
+import { WorkspaceDemo } from '../../components/Workspace/Workspace';
 import './templates.css';
 
 function LandingTemplate() {
@@ -136,5 +137,14 @@ export const templateItems: TemplateItem[] = [
     preview: <div style={{ width: 1280, height: 800, overflow: 'hidden', borderRadius: 16 }}><CaseStudyTemplate /></div>,
     code: `<CaseStudyTemplate\n  name="Orbit AI"\n  overview="A workspace for teams building with open models. We rebuilt the product around discovery, setup and secure deployment."\n  scope="Visual system, design direction, product redesign"\n/>`,
     prompt: templatePrompt('Case study', 'Dark portfolio case-study page. A thin sticky header (logo, mono nav, two buttons). Below it, two columns: on the left a sticky details list (Name, Overview, Scope) in small monospace labels; on the right a vertical stack of light product screens: a sky-gradient banner with an asterisk mark, a Starter / Pro plan chooser, a welcome screen, the same screen dimmed under a connect-your-apps dialog, a new-chat screen and an artifacts grid. Each product screen is designed on a fixed 1140x662 canvas and scaled to the column width.', 'a ScaledShot wrapper (ResizeObserver + CSS transform), app shell with sidebar, plan cards, dialog, composer'),
+  },
+  {
+    name: 'AI workspace demo',
+    variants: 2,
+    tileZoom: 0.22,
+    defaultZoom: 0.75,
+    preview: <div style={{ width: 1200, height: 740 }}><WorkspaceDemo /></div>,
+    code: `<WorkspaceDemo />\n\n// Start in dark mode:\n<WorkspaceDemo defaultTheme="dark" />`,
+    prompt: templatePrompt('AI workspace demo', 'A working AI-assistant app with its own light and dark theme. Top bar with Chat / Agent mode tabs, a search box (Ctrl+K) that jumps to pages, projects, chats and apps, a theme toggle, notifications and invite. Left sidebar with navigation, projects, recents and a connect-apps footer. Views: Welcome (copy-to-clipboard command boxes, a terminal card, and a connect-your-apps dialog), New chat (a working composer with a model menu that shows usage bars, suggestion cards, simulated replies), Projects, Artifacts (New artifact adds a card), Apps marketplace (search, connect and disconnect toggles), Plans (Starter and Pro), Agent views (Active runs with progress, Plugins with trigger and skill switches, Mobile pairing with a phone mock). Light surface is white on #f2f2f2, dark surface is #1b1b1b on #2a2a2a, with a blue accent. No real third-party logos.', 'Switch, native form controls, role=tablist, role=dialog, aria-live thread'),
   },
 ];
