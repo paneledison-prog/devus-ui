@@ -1,8 +1,8 @@
 /* Mobile-app style elements. Touch targets are at least 44px tall. */
 
 /* ---------- Phone viewport ---------- */
-/* iPhone proportions: 147.6 mm tall x 71.6 mm wide (ratio 2.0615). 284px wide = 3.97px per mm, so 585px tall. */
-.app-phone { display: flex; width: 284px; aspect-ratio: 71.6 / 147.6; padding: 7px; border-radius: 46px; background: var(--surface);
+/* Modern iPhone display proportions: ratio ~2.18 (284 x 618 px). */
+.app-phone { display: flex; width: 284px; aspect-ratio: 284 / 618; padding: 7px; border-radius: 46px; background: var(--surface);
   box-shadow: 0 0 0 1px var(--separator); }
 .app-phone__screen { position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden; border-radius: 40px;
   background: var(--background); color: var(--foreground); font-family: var(--font-sans); text-align: left; }
@@ -126,7 +126,7 @@ button.app-row:active { background: var(--default); }
 /* ---------- Borderless phone: a flat rounded screen, no bezel, outline or shadow ---------- */
 :root { --app-card-bg: var(--background); }
 [data-theme="dark"] { --app-card-bg: var(--default); }
-.app-phone { padding: 0; border-radius: 48px; background: var(--surface); box-shadow: none; overflow: hidden; }
+.app-phone { padding: 0; border-radius: 36px; background: var(--surface); box-shadow: none; overflow: hidden; }
 .app-phone__screen { border-radius: 0; background: var(--surface); }
 .app-phone .app-card, .app-phone .app-group, .app-phone .app-week, .app-phone .app-sheet { background: var(--app-card-bg); box-shadow: none; }
 .app-phone .app-bar--large .app-bar__action { background: var(--app-card-bg); box-shadow: none; }
