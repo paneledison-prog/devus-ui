@@ -11,7 +11,7 @@ function StatusIcons() {
   );
 }
 
-/** Phone viewport used to show mobile-style elements in context. Screen is 260x540. */
+/** Phone viewport used to show mobile-style elements in context. Outer size 284x585 px, the exact iPhone ratio (71.6 x 147.6 mm). */
 export function PhoneFrame({ children }: { children: ReactNode }) {
   return (
     <div className="app-phone">
