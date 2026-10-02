@@ -42,11 +42,11 @@ src/
 ## Design tokens
 CSS variables in `src/styles/tokens.css`: colors (`--accent`, `--default`, `--danger`, `--surface`, `--foreground`, `--muted`, `--separator`, field and shadow tokens), radii, a 4px spacing scale, Inter type scale. Dark mode is `[data-theme="dark"]` on `<html>` (homepage toggle persists to localStorage key `devus-theme`; Storybook uses the themes addon). The dark values are approximations. Scrollbars are global in src/styles/index.css: thin, transparent track, thumb = foreground at 22% (38% on hover) via --scrollbar-thumb tokens, so they follow light/dark; standard scrollbar-width/scrollbar-color plus a WebKit rounded-pill fallback. Rule: never mention the upstream design system's name anywhere in the app, code, copy or prompts.
 
-## Library content (43 items, 6 categories)
+## Library content (50 items, 6 categories)
 Defined in `src/pages/Library/libraryItems.tsx`. Each item has `name`, `category`, `variants`, `preview`, `code`, `prompt`, plus optional `lang`, `fill`, `portrait`, `tileZoom`, `defaultZoom`, `tall`.
 
 - **Components (11):** Alert, Avatar, Button, Card, Checkbox, Spinner, Switch, TextField, Segmented control, OTP input, Dropzone
-- **Blocks (4):** Sign in, Newsletter, Notification settings, Profile card
+- **Blocks (11):** Sign in, Newsletter, Notification settings, Profile card, plus 7 dashboard blocks built from the user's reference screenshots (original implementations, real exported components in `src/components/Blocks/`): New chat (ChatCard), Milestone form, QR connect (placeholder pattern, not a scannable code), Payout threshold (live range slider), Sidebar nav cards, Controls showcase, Contribution history (CSS bar chart). They share a soft-card look: pill fields, high-contrast primary buttons (primary flips to --foreground inside `.blk-card`)
 - **Templates (4):** Landing page, Dashboard, Split sign in, Settings page (720x440 canvases, scaled with CSS zoom)
 - **Backgrounds (6):** Dot grid, Grid lines, Aurora, Soft gradient, Emerald glow, Lilac fade (pure CSS, `fill: true`). Emerald glow and Lilac fade are soft mesh-gradient looks from the user's references, shown in a 4:5 portrait frame (`portrait: true`, 36px radius, 1px white border; the dialog keeps the same frame)
 - **UI Elements (7):** Badge, Kbd, Separator, Progress, Slide to confirm, Inline confirm, Image compare
@@ -70,8 +70,8 @@ Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `
 - **Shaders**: build with three.js plus the library from @npm_i_shaders (npm package name still to be confirmed) as Backgrounds: lazy-loaded, reduced-motion fallback, pause off-screen, CSS gradient fallback.
 
 ## Status
-- Latest commit: "Add Emerald glow and Lilac fade mesh-gradient backgrounds".
-- **Pushed:** everything is on `origin/main` (last push at commit 3eb494a, 24 commits at once). Live sites verified: https://devus.space serves the new bundle (contains Emerald glow) and https://storybook.devus.space still serves Storybook. Nothing unpushed.
+- Latest local commit: "Add 7 dashboard blocks (chat, milestone, QR, payout, nav cards, showcase, chart)".
+- **Unpushed:** 2 commits (Context.md push note, 7 dashboard blocks). Previously pushed: everything up to 3eb494a is on `origin/main` (last push at commit 3eb494a, 24 commits at once). Live sites verified: https://devus.space serves the new bundle (contains Emerald glow) and https://storybook.devus.space still serves Storybook. Nothing unpushed.
 - (history) 24 commits were ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone, radius and height, compact dialog header, tighter header and footer, wider phone with smaller radius, bottom sheet scrim, Image compare uses flat solid colors (Before #71717a gray, After the --accent brand blue), no gradients; purple remains in the story-ring gradient inside src/components/AppUI/AppUI.css). Live sites do not have them yet.
 - `storybook.devus.space` verified working after the routing fix (title "storybook - Storybook").
 - `devus.space` is connected and serving the homepage.

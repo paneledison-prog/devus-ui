@@ -10,3 +10,4 @@ export * from './components/Avatar/Avatar';
 export * from './components/LibraryCard/LibraryCard';
 export * from './components/CodeBlock/CodeBlock';
 export * from './components/Logo/Logo';
+export * from './components/Blocks/Blocks';

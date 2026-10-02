@@ -19,6 +19,7 @@ import { Dropzone } from '../../components/Dropzone/Dropzone';
 import { SlideToConfirm } from '../../components/SlideToConfirm/SlideToConfirm';
 import { InlineConfirm } from '../../components/InlineConfirm/InlineConfirm';
 import { ImageCompare } from '../../components/ImageCompare/ImageCompare';
+import { ChatCard, MilestoneCard, QrCard, PayoutCard, NavCards, ShowcaseCard, ContributionCard } from '../../components/Blocks/Blocks';
 import { PhoneFrame } from '../../components/AppUI/PhoneFrame';
 import { TabBar } from '../../components/AppUI/TabBar';
 import { AppBar } from '../../components/AppUI/AppBar';
@@ -275,6 +276,69 @@ const blockItems: BaseItem[] = [
     ),
     code: `<Card\n  title="Design team"\n  description="Shipping the next release."\n  footer={<><Button size="sm">Follow</Button><Button size="sm" variant="secondary">Message</Button></>}\n>\n  <AvatarGroup>\n    <Avatar fallback="AB" />\n    <Avatar fallback="CD" />\n    <Avatar fallback="EF" />\n  </AvatarGroup>\n</Card>`,
     prompt: blockPrompt('Profile card', 'Team or person summary with overlapping avatars and two actions.', 'Card, AvatarGroup, Button'),
+  },
+  {
+    name: 'New chat',
+    variants: 1,
+    tileZoom: 0.36,
+    defaultZoom: 0.75,
+    preview: <ChatCard />,
+    code: `<ChatCard name="Ada" onSend={(text) => send(text)} />`,
+    prompt: blockPrompt('New chat', 'Empty-state AI chat card: header with a refresh button, centered greeting with an icon, and a composer with attach and send buttons. Fixed 560px height, scrollable message area above the composer.', 'Button-style icon buttons, textarea, send button'),
+  },
+  {
+    name: 'Milestone form',
+    variants: 1,
+    tileZoom: 0.55,
+    defaultZoom: 1,
+    preview: <MilestoneCard />,
+    code: `<MilestoneCard\n  onSubmit={({ goal, amount, date }) => save(goal, amount, date)}\n  onCancel={() => close()}\n/>`,
+    prompt: blockPrompt('Milestone form', 'Card form to set a savings goal: goal name, target amount and date side by side, a dark Create Goal button and an outline Cancel button.', 'Button, pill inputs, real <label> elements'),
+  },
+  {
+    name: 'QR connect',
+    variants: 1,
+    tileZoom: 0.6,
+    defaultZoom: 1,
+    preview: <QrCard />,
+    code: `<QrCard\n  title="Scan to connect your mobile device"\n  hint="Open the mobile app and scan this code to link your device."\n/>`,
+    prompt: blockPrompt('QR connect', 'Centered card with a QR code in a white rounded frame, a title and a hint. Swap the placeholder pattern for a real QR (for example generated from a pairing URL).', 'inline SVG, text'),
+  },
+  {
+    name: 'Payout threshold',
+    variants: 1,
+    tileZoom: 0.4,
+    defaultZoom: 0.75,
+    preview: <PayoutCard />,
+    code: `<PayoutCard\n  min={50}\n  max={10000}\n  initial={2500}\n  onSave={(amount) => save(amount)}\n  onDismiss={() => close()}\n/>`,
+    prompt: blockPrompt('Payout threshold', 'Settings card with a dismiss button, a currency select, a large live amount with a slim range slider and MIN / MAX labels, a notes textarea and a Save button.', 'select, range input (value shown as text), textarea, Button'),
+  },
+  {
+    name: 'Sidebar nav cards',
+    variants: 2,
+    tileZoom: 0.5,
+    defaultZoom: 1,
+    preview: <NavCards />,
+    code: `<NavCards />`,
+    prompt: blockPrompt('Sidebar nav cards', 'Two grouped navigation cards (Overview and Account), each with a small label and icon links; the current page gets a soft filled pill.', 'icons, links with aria-current="page"'),
+  },
+  {
+    name: 'Controls showcase',
+    variants: 1,
+    tileZoom: 0.6,
+    defaultZoom: 1,
+    preview: <ShowcaseCard />,
+    code: `<ShowcaseCard />`,
+    prompt: blockPrompt('Controls showcase', 'One card that previews the whole control set: primary, secondary and outline buttons, a search field, a textarea, badges, radio, checkbox and switch, plus an outline button and a split button group.', 'Button, Checkbox, Switch, Badge-style pills, pill fields'),
+  },
+  {
+    name: 'Contribution history',
+    variants: 1,
+    tileZoom: 0.42,
+    defaultZoom: 0.75,
+    preview: <ContributionCard />,
+    code: `<ContributionCard\n  data={[\n    { m: 'Dec', v: 62 },\n    { m: 'Jan', v: 85 },\n    { m: 'Feb', v: 68 },\n    { m: 'Mar', v: 92 },\n    { m: 'Apr', v: 64 },\n  ]}\n/>`,
+    prompt: blockPrompt('Contribution history', 'Bar chart card with six months of data in graduated gray bars, two stat tiles (Upcoming and Savings plan) and a full-width View Full Report button.', 'pure CSS bars (role="img" with a text summary), Button'),
   },
 ];
 
