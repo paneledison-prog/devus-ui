@@ -70,8 +70,8 @@ Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `
 - **Shaders**: build with three.js plus the library from @npm_i_shaders (npm package name still to be confirmed) as Backgrounds: lazy-loaded, reduced-motion fallback, pause off-screen, CSS gradient fallback.
 
 ## Status
-- Latest local commit: "Open phone previews near life-size with a Fit zoom".
-- **Unpushed:** 13 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog). Live sites do not have them yet.
+- Latest local commit: "Make the App phone borderless (flat rounded screen, gray cards)".
+- **Unpushed:** 14 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone). Live sites do not have them yet.
 - `storybook.devus.space` verified working after the routing fix (title "storybook - Storybook").
 - `devus.space` must be connected to the same Vercel project (Settings > Domains) to show the homepage.
 
@@ -84,4 +84,4 @@ Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `
 - Next: edison round 2 from untouched sources; shader backgrounds on request; Pricing page when asked.
 
 ## Changelog
-- 2026-10-02: Scaffolded the library from Figma tokens; Library page; copy code/prompt and large preview; Shiki highlighting; renamed to Devus UI; Storybook branding; Vercel config; homepage app; host-based Storybook routing; logo; header search; Components/Blocks/Backgrounds/UI Elements sections; Templates; edison round 1 (6 new items); this Context.md; App tile sizing (phones fill ~86% of a 5:7 tile); phone frame set to iPhone proportions (71.6 x 147.6 mm); larger App tiles (3 columns, 2:3, phone ~276x569); gray container and drop shadow removed behind App phones (only a 1px hairline edge remains); App category (11 mobile items in phone viewports, floating tab bar, week strip, task list, balance card, tracking steps).
+- 2026-10-02: Scaffolded the library from Figma tokens; Library page; copy code/prompt and large preview; Shiki highlighting; renamed to Devus UI; Storybook branding; Vercel config; homepage app; host-based Storybook routing; logo; header search; Components/Blocks/Backgrounds/UI Elements sections; Templates; edison round 1 (6 new items); this Context.md; App tile sizing (phones fill ~86% of a 5:7 tile); phone frame set to iPhone proportions (71.6 x 147.6 mm); larger App tiles (3 columns, 2:3, phone ~276x569); phone is now borderless: flat rounded 48px screen, no bezel, outline or shadow; white screen (--surface) with soft gray cards via --app-card-bg; the phone dialog uses the page background so the white phone stands out; App category (11 mobile items in phone viewports, floating tab bar, week strip, task list, balance card, tracking steps).

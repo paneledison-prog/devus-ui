@@ -29,3 +29,4 @@
 /* Phone previews: taller dialog, no gray box behind the iPhone. */
 .ui-preview-dialog--tall { height: min(860px, calc(100vh - 32px)); }
 .ui-preview-dialog__stage--tall { background: transparent; }
+.ui-preview-dialog--tall { background: var(--background); }

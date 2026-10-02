@@ -122,3 +122,15 @@ button.app-row:active { background: var(--default); }
 .app-phone .app-stories { flex: none; }
 
 .app-phone .ui-check { font-size: var(--text-xs); }
+
+/* ---------- Borderless phone: a flat rounded screen, no bezel, outline or shadow ---------- */
+:root { --app-card-bg: var(--background); }
+[data-theme="dark"] { --app-card-bg: var(--default); }
+.app-phone { padding: 0; border-radius: 48px; background: var(--surface); box-shadow: none; overflow: hidden; }
+.app-phone__screen { border-radius: 0; background: var(--surface); }
+.app-phone .app-card, .app-phone .app-group, .app-phone .app-week, .app-phone .app-sheet { background: var(--app-card-bg); box-shadow: none; }
+.app-phone .app-bar--large .app-bar__action { background: var(--app-card-bg); box-shadow: none; }
+.app-phone .app-tabbar--floating { background: var(--app-card-bg); box-shadow: none; }
+.app-phone .app-tabbar--floating .app-tabbar__item[aria-current="page"] { background: var(--surface); box-shadow: none; }
+.app-phone .app-story__ring .ui-avatar { box-shadow: 0 0 0 3px var(--surface); }
+.app-phone .app-week__day[aria-pressed="true"] { background: var(--surface); }
