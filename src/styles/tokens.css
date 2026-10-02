@@ -55,6 +55,7 @@
   --field-background: #27272a;
   --field-foreground: #fcfcfc;
   --field-placeholder: #a1a1aa;
+  --field-border: #52525b;
   --shadow-field: none;
   --shadow-surface: none;
   --shadow-overlay: 0 0 1px #ffffff26;
