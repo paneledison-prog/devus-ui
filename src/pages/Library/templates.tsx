@@ -14,6 +14,7 @@ import { CrmDemo } from '../../components/Crm/Crm';
 import { BeaconDemo } from '../../components/Agents/Beacon';
 import { HarborDemo } from '../../components/Agents/Harbor';
 import { PairwiseDemo } from '../../components/Agents/Pairwise';
+import { BuildAgentDemo } from '../../components/BuildAgent/BuildAgent';
 import './templates.css';
 
 function LandingTemplate() {
@@ -205,5 +206,15 @@ export const templateItems: TemplateItem[] = [
 // Dark theme:
 <PairwiseDemo defaultTheme="dark" />`,
     prompt: templatePrompt('Agent builder demo', 'A platform for building and running autonomous agents from a simple prompt, with its own light and dark theme. Sign-in: split layout with an email form (validated) and line-art on the right. App: a prompt box with example chips that builds a plan; the plan runs step by step, pauses for approval before posting, then shows a chat post with a code diff. Finished runs can be Published (name, show in Discover toggle) or Shared (copyable link). Discover: search and category pills with Add buttons. Credits: a slider that estimates monthly credits and price with the matching tier highlighted, plus a credits menu with top-up and a theme switch. All data is fictional.', 'validated form with aria-invalid, role=dialog, aria-pressed pills, switch with aria-checked, reduced-motion respected'),
+  },
+  {
+    name: 'Build agent demo',
+    variants: 2,
+    tileZoom: 0.22,
+    defaultZoom: 0.75,
+    standalone: <BuildAgentDemo />,
+    preview: <div style={{ width: 1200, height: 740 }}><BuildAgentDemo /></div>,
+    code: `<BuildAgentDemo />\n\n// Jump straight into a running thread with the simulator:\n<BuildAgentDemo startAt="thread" />\n\n// Dark theme:\n<BuildAgentDemo defaultTheme="dark" />`,
+    prompt: templatePrompt('Build agent demo', 'A desktop-style coding-agent workspace for building and testing mobile apps, with its own light and dark theme. New-thread screen: a centered question, a composer with a removable plugin chip, a plus menu, approval-mode and model dropdowns, a dictation button and send, and project / where-to-work / branch pickers. Sending a prompt opens a thread: a Working-for-Ns divider, streamed agent messages and step lines, an optional permission request (Allow / Deny, depending on the approval mode), then an Environment card (changes, branch, Commit or push dialog, tasks, browser) and a live iPhone simulator browser pane. The simulator is interactive: favorite posts, open the overflow and share menus, rotate the device, reload. Annotation mode (cursor button) outlines every element in green; click one, type feedback, and the agent edits the code, the phone hot-reloads with a visible change (avatar alignment, text size or spacing), and an edit card offers Undo and a diff Review dialog. Follow-up commands such as open the share menu, rotate to landscape, switch to dark, or undo drive the simulator. A Stop button cancels a run. All content is fictional: made-up app, people and file names, no real logos.', 'role=dialog modals, role=listbox dropdowns, aria-pressed on toggles, role=toolbar for the device bar, role=status for toasts, reduced motion respected'),
   },
 ];
