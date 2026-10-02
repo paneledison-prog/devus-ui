@@ -20,9 +20,9 @@
 
 .app-tabbar-wrap { display: flex; align-items: center; justify-content: center; gap: var(--space-2); }
 .app-tabbar--floating { flex: 1; width: auto; min-width: 0; padding: var(--space-1); gap: var(--space-0-5); border-radius: var(--radius-full); background: var(--default); box-shadow: var(--shadow-field); }
-.app-tabbar--floating .app-tabbar__item { flex: none; flex-direction: row; justify-content: center; gap: var(--space-1-5); min-width: 44px; height: 44px; padding: 0 var(--space-3); border-radius: var(--radius-full); font-size: var(--text-sm); }
+.app-tabbar--floating .app-tabbar__item { flex: 1 1 0; flex-direction: row; justify-content: center; gap: var(--space-1-5); min-width: 44px; height: 44px; padding: 0 var(--space-3); border-radius: var(--radius-full); font-size: var(--text-sm); white-space: nowrap; transition: flex-grow .25s ease, background-color .2s, color .2s; }
 .app-tabbar--floating .app-tabbar__label { display: none; }
-.app-tabbar--floating .app-tabbar__item[aria-current="page"] { background: var(--surface); color: var(--foreground); box-shadow: var(--shadow-field); }
+.app-tabbar--floating .app-tabbar__item[aria-current="page"] { flex-grow: 2.1; background: var(--surface); color: var(--foreground); box-shadow: var(--shadow-field); }
 .app-tabbar--floating .app-tabbar__item[aria-current="page"] .app-tabbar__label { display: inline; }
 .app-phone .app-tabbar-wrap { margin-top: auto; padding-bottom: 22px; }
 
@@ -130,7 +130,7 @@ button.app-row:active { background: var(--default); }
 .app-phone__screen { border-radius: 0; background: var(--surface); }
 .app-phone .app-card, .app-phone .app-group, .app-phone .app-week, .app-phone .app-sheet { background: var(--app-card-bg); box-shadow: none; }
 .app-phone .app-bar--large .app-bar__action { background: var(--app-card-bg); box-shadow: none; }
-.app-phone .app-tabbar--floating { background: var(--app-card-bg); box-shadow: none; }
+.app-phone .app-tabbar--floating { background: var(--default); box-shadow: none; }
 .app-phone .app-tabbar--floating .app-tabbar__item[aria-current="page"] { background: var(--surface); box-shadow: none; }
 [data-theme="dark"] .app-phone .app-tabbar--floating .app-tabbar__item[aria-current="page"] { background: var(--default-hover); box-shadow: inset 0 1px 0 rgb(255 255 255 / .08); }
 .app-phone .app-story__ring .ui-avatar { box-shadow: 0 0 0 3px var(--surface); }
@@ -139,3 +139,5 @@ button.app-row:active { background: var(--default); }
 /* Bottom sheet inside a phone: white sheet over a dimmed screen (scrim), so the phone stays visually whole. */
 .app-phone .app-sheet { background: var(--surface); position: relative; z-index: 2; }
 .app-phone__body:has(.app-sheet)::before { content: ""; position: absolute; inset: 0; z-index: 1; background: rgb(0 0 0 / .32); pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) { .app-tabbar--floating .app-tabbar__item { transition: none; } }
