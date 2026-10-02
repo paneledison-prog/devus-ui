@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button } from '../components/Button/Button';
+import { Logo } from '../components/Logo/Logo';
 import { LibraryPage } from '../pages/Library/LibraryPage';
 import './App.css';
 
@@ -27,7 +28,7 @@ export function App() {
       <header className="site-header">
         <div className="site-header__inner">
           <a className="site-logo" href="/" aria-label="Devus UI home">
-            <span className="site-logo__mark" aria-hidden>D</span>
+            <Logo size={30} />
             Devus UI
           </a>
           <nav className="site-nav" aria-label="Main">
