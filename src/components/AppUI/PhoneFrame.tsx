@@ -11,7 +11,7 @@ function StatusIcons() {
   );
 }
 
-/** Phone viewport used to show mobile-style elements in context. Outer size 284x618 px (modern iPhone ratio ~2.18), borderless with a 36px radius. */
+/** Phone viewport used to show mobile-style elements in context. Outer size 320x660 px (classic iPhone ratio 2.06), borderless with a 30px radius. */
 export function PhoneFrame({ children }: { children: ReactNode }) {
   return (
     <div className="app-phone">

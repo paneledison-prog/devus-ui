@@ -37,11 +37,11 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
     if (!open && d.open) d.close();
   }, [open]);
 
-  // Phones: fit the 284x618 device to the stage (up to 1.2x) so it opens near life-size.
+  // Phones: fit the 320x660 device to the stage (up to 1.2x) so it opens near life-size.
   useEffect(() => {
     const el = stageRef.current;
     if (!tall || !open || tab !== 'preview' || !el) return;
-    const measure = () => setFitZoom(Math.min(1.2, Math.max(0.4, Math.min((el.clientHeight - 56) / 618, (el.clientWidth - 56) / 284))));
+    const measure = () => setFitZoom(Math.min(1.2, Math.max(0.4, Math.min((el.clientHeight - 56) / 660, (el.clientWidth - 56) / 320))));
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
