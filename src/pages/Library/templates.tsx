@@ -11,6 +11,9 @@ import { Logo } from '../../components/Logo/Logo';
 import { CaseStudyTemplate } from '../../components/CaseStudy/CaseStudy';
 import { WorkspaceDemo } from '../../components/Workspace/Workspace';
 import { CrmDemo } from '../../components/Crm/Crm';
+import { BeaconDemo } from '../../components/Agents/Beacon';
+import { HarborDemo } from '../../components/Agents/Harbor';
+import { PairwiseDemo } from '../../components/Agents/Pairwise';
 import './templates.css';
 
 function LandingTemplate() {
@@ -163,5 +166,44 @@ export const templateItems: TemplateItem[] = [
     preview: <div style={{ width: 1200, height: 740 }}><CrmDemo startAt="app" /></div>,
     code: `<CrmDemo startAt="signup" />\n\n// Jump straight to the companies table:\n<CrmDemo startAt="app" />\n\n// Dark theme:\n<CrmDemo startAt="app" defaultTheme="dark" />`,
     prompt: templatePrompt('CRM workspace demo', 'A working CRM app with its own light and dark theme, built around flexible records, connected context and faster go-to-market workflows. Journey: (1) sign-up with username, work email and password (validated) above a fading line-art city skyline; (2) company setup that analyzes the email domain with a step checklist and a company card; (3) the app: sidebar with a workspace switcher, a quick-actions command box, inboxes, a Coworker assistant, General (Agents, Schedule, Customers, Companies, Emails, Report, Apps), favorites, and a Getting Started checklist popover with progress. Companies table: view select, sort by revenue, filter, search, column settings, row selection, New Company dialog, colored category pills, linked domains, founders and a totals footer. Inbox: conversation list, activity timeline, chat bubbles, a status control (open, in progress, resolved) and a Coworker side panel that drafts an email with Dismiss and Send. Compose email dialog with recipient chips and an @ variable picker (core and company variables shown as colored tokens). Coworker page with a composer and a connect-your-tools bar. All data is fictional; no real company logos.', 'native form controls, role=dialog, aria-live, a textarea mirrored by a highlighted layer for variable tokens'),
+  },
+  {
+    name: 'Company intelligence demo',
+    variants: 2,
+    tileZoom: 0.22,
+    defaultZoom: 0.75,
+    standalone: <BeaconDemo />,
+    preview: <div style={{ width: 1200, height: 740 }}><BeaconDemo startAt="list" /></div>,
+    code: `<BeaconDemo />
+
+// Dark theme:
+<BeaconDemo defaultTheme="dark" />`,
+    prompt: templatePrompt('Company intelligence demo', 'A private-market research platform for tracking companies, people, funding and growth signals, with its own light and dark theme. Home: a top bar with brand, a search button that opens a command palette (Ctrl or Cmd K) with Companies, People and Investors tabs and arrow-key navigation, and a workspace menu with an appearance switch, a weekly email toggle, export and sign out. Below it an animated ASCII-art sky banner (static for reduced motion) and tabs Featured, New this week and Watchlist, a filter box and a companies table with sector, stage pill, sortable funding column, growth bars and a watch star. Company page: hero with logo tile and pills, funding rounds bar chart, growth signals with a score bar, people and investors. All data is fictional; no real company logos.', 'tab roles, listbox with aria-selected, role=dialog palette, aria-pressed on watch stars, reduced-motion respected'),
+  },
+  {
+    name: 'AI platform demo',
+    variants: 2,
+    tileZoom: 0.22,
+    defaultZoom: 0.75,
+    standalone: <HarborDemo />,
+    preview: <div style={{ width: 1200, height: 740 }}><HarborDemo  /></div>,
+    code: `<HarborDemo />
+
+// Dark theme:
+<HarborDemo defaultTheme="dark" />`,
+    prompt: templatePrompt('AI platform demo', 'A secure AI platform that brings chat, company knowledge, assistants, integrations and a developer console into one app, with its own light and dark theme. Chat: empty state with suggestion chips, a composer, a model picker whose options show a tooltip explaining each model, simulated replies with a typing indicator. Assistants cards, Knowledge sources with toggles, Integrations with connect and disconnect. Console: API keys table with per-key spend bars that turn red above 80 percent, revoke, and a three-step create-key wizard (name, access and monthly limit slider, one-time secret with copy). Sidebar Getting started popover with progress that updates as the user acts. All data is fictional.', 'role=listbox for the model picker, role=tooltip, role=dialog wizard, switches with aria-checked, aria-current on navigation'),
+  },
+  {
+    name: 'Agent builder demo',
+    variants: 2,
+    tileZoom: 0.22,
+    defaultZoom: 0.75,
+    standalone: <PairwiseDemo />,
+    preview: <div style={{ width: 1200, height: 740 }}><PairwiseDemo startAt="app" /></div>,
+    code: `<PairwiseDemo />
+
+// Dark theme:
+<PairwiseDemo defaultTheme="dark" />`,
+    prompt: templatePrompt('Agent builder demo', 'A platform for building and running autonomous agents from a simple prompt, with its own light and dark theme. Sign-in: split layout with an email form (validated) and line-art on the right. App: a prompt box with example chips that builds a plan; the plan runs step by step, pauses for approval before posting, then shows a chat post with a code diff. Finished runs can be Published (name, show in Discover toggle) or Shared (copyable link). Discover: search and category pills with Add buttons. Credits: a slider that estimates monthly credits and price with the matching tier highlighted, plus a credits menu with top-up and a theme switch. All data is fictional.', 'validated form with aria-invalid, role=dialog, aria-pressed pills, switch with aria-checked, reduced-motion respected'),
   },
 ];

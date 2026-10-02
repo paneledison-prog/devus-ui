@@ -1,0 +1,40 @@
+/* Harbor demo (extends Agents.css) */
+.hb-side { width: 210px; flex: none; display: flex; flex-direction: column; gap: 4px; padding: 14px 10px; background: var(--a-side); border-right: 1px solid var(--a-line); }
+.hb-brand { display: flex; align-items: center; gap: 8px; padding: 2px 6px 14px; font: 600 15px var(--font-sans); }
+.hb-mark { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: var(--a-accent); color: #fff; flex: none; }
+.hb-nav { display: flex; align-items: center; gap: 10px; width: 100%; height: 34px; padding: 0 10px; border: 0; border-radius: 9px; background: none; color: var(--a-muted); text-align: left; }
+.hb-nav:hover { background: var(--a-hover); color: var(--a-text); }
+.hb-nav[aria-current="page"] { background: var(--a-hover); color: var(--a-text); font-weight: 500; }
+.hb-gsbtn { display: flex; align-items: center; gap: 8px; width: 100%; height: 36px; padding: 0 10px; border: 0; border-radius: 10px; background: var(--a-soft); }
+.hb-gsbtn:hover { background: var(--a-hover); }
+.hb-gs { left: 0; bottom: 44px; width: 250px; }
+.hb-check { display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--a-line); }
+.hb-check.on { background: var(--a-accent); color: #fff; box-shadow: none; }
+.hb-theme { padding-top: 8px; }
+.hb-theme .ag-seg { width: 100%; } .hb-theme .ag-seg button { flex: 1; justify-content: center; padding: 0 6px; }
+.hb-chat { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0 0 18px; }
+.hb-thread { display: flex; flex-direction: column; }
+.hb-empty { margin: auto; padding: 24px; text-align: center; }
+.hb-empty h1 { font: 600 26px/34px var(--font-sans); letter-spacing: -.01em; }
+.hb-msgs { width: 640px; max-width: 100%; margin: 0 auto; padding: 24px 20px; display: flex; flex-direction: column; gap: 14px; }
+.hb-msg { max-width: 80%; padding: 10px 14px; border-radius: 14px; background: var(--a-soft); line-height: 20px; }
+.hb-msg.me { align-self: flex-end; background: var(--a-text); color: var(--a-bg); }
+.hb-typing { display: flex; gap: 4px; width: 56px; }
+.hb-typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--a-muted); animation: hb-b 1s infinite; }
+.hb-typing i:nth-child(2) { animation-delay: .15s; } .hb-typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes hb-b { 0%, 60%, 100% { opacity: .3; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
+.hb-composer { width: 680px; max-width: calc(100% - 32px); margin: 0 auto; padding: 12px; border-radius: 16px; background: var(--a-card); box-shadow: var(--a-shadow), 0 0 0 1px var(--a-line); display: flex; flex-direction: column; gap: 8px; }
+.hb-composer textarea { width: 100%; border: 0; outline: 0; resize: none; background: none; color: var(--a-text); font: inherit; line-height: 20px; }
+.hb-models { left: 0; bottom: 34px; width: 250px; }
+.hb-models .ag-item { position: relative; }
+.hb-tip { position: absolute; left: calc(100% + 8px); top: 50%; transform: translateY(-50%); width: 190px; padding: 8px 10px; border-radius: 10px; background: var(--a-text); color: var(--a-bg); font-size: 12px; line-height: 16px; pointer-events: none; }
+.hb-page { padding: 26px 30px; }
+.hb-page h1 { font: 600 22px/28px var(--font-sans); }
+.hb-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+.hb-acard { display: flex; flex-direction: column; gap: 8px; padding: 16px; }
+.hb-acard p { flex: 1; }
+.hb-line { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--a-line); }
+.hb-line:last-child { border-bottom: 0; }
+.hb-ico { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--a-soft); color: var(--a-muted); }
+.hb-secret { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; background: var(--a-field); word-break: break-all; }
+.ag input[type="range"] { width: 100%; accent-color: var(--a-accent); }

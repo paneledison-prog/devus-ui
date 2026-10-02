@@ -14,3 +14,6 @@ export * from './components/Blocks/Blocks';
 export * from './components/CaseStudy/CaseStudy';
 export * from './components/Workspace/Workspace';
 export * from './components/Crm/Crm';
+export * from './components/Agents/Beacon';
+export * from './components/Agents/Harbor';
+export * from './components/Agents/Pairwise';
