@@ -20,8 +20,10 @@
 .ui-library-card__preview .ui-avatar-group .ui-avatar { box-shadow: 0 0 0 2px var(--default); }
 .ui-library-card__preview--fill { padding: 0; }
 .ui-library-card__preview--fill .ui-library-card__content { width: 100%; height: 100%; }
-.ui-library-card__preview--tall { aspect-ratio: 4 / 5; padding: var(--space-3); }
+.ui-library-card__preview--tall { aspect-ratio: 2 / 3; padding: var(--space-1); }
 
 /* App phones stand on the page itself: no gray tile behind the iPhone. */
 .ui-library-card__preview--tall,
 .ui-library-card__preview--tall:hover { background: transparent; overflow: visible; }
+/* Phone tiles: keep the hover actions in the free space beside the phone, not on top of it. */
+.ui-library-card__preview--tall .ui-library-card__actions { flex-direction: column; align-items: flex-end; right: -16px; bottom: var(--space-3); }

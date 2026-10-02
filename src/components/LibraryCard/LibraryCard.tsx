@@ -37,13 +37,13 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
   };
   const { copied, copy } = useCopy();
 
-  // Phone tiles: scale the phone (284x585, iPhone 71.6 x 147.6 mm) to ~86% of the tile height, like a store listing.
+  // Phone tiles: scale the phone (284x585, iPhone 71.6 x 147.6 mm) to ~96% of the tile height, like a store listing.
   const tileRef = useRef<HTMLDivElement>(null);
   const [fitZoom, setFitZoom] = useState<number | undefined>(undefined);
   useEffect(() => {
     const el = tileRef.current;
     if (!tall || !el) return;
-    const measure = () => setFitZoom(Math.min((el.clientHeight * 0.86) / 585, (el.clientWidth * 0.72) / 284));
+    const measure = () => setFitZoom(Math.min((el.clientHeight * 0.96) / 585, (el.clientWidth * 0.8) / 284));
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
