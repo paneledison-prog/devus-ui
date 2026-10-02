@@ -165,9 +165,9 @@ const componentItems: BaseItem[] = [
   {
     name: 'Context meter',
     variants: 2,
-    tileZoom: 0.9,
+    tileZoom: 0.8,
     defaultZoom: 1.5,
-    preview: <div style={{ display: 'grid', gap: 12, width: 300 }}><ContextMeter used={132000} total={200000} /><ContextMeter used={188000} total={200000} model="model-deep" /></div>,
+    preview: <div style={{ display: 'grid', gap: 12, width: 340 }}><ContextMeter used={132000} total={200000} /><ContextMeter used={188000} total={200000} model="model-deep" /></div>,
     code: `<ContextMeter used={132000} total={200000} onModelChange={setModel} />\n\n// Turns amber above 70% and red above 90%\n<ContextMeter used={188000} total={200000} />`,
     prompt: masterPrompt('ContextMeter', 'A pill with a model select on the left and a thin usage bar with a "132K / 200K" label on the right. The bar is foreground-colored, amber above 70% and red above 90%.', 'used: number; total: number; models?: string[]; model?: string; onModelChange(model)', 'a native select with a hidden label, role="meter" with aria-valuenow and aria-valuetext'),
   },

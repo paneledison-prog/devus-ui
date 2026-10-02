@@ -1,4 +1,4 @@
-import { useId, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { Button } from '../Button/Button';
 import './AiKit.css';
 
@@ -75,13 +75,46 @@ export function ThinkingSteps({ steps, defaultOpen = true }: { steps: ThinkingSt
 export interface ContextMeterProps { used: number; total: number; models?: string[]; model?: string; onModelChange?: (m: string) => void }
 export function ContextMeter({ used, total, models = ['model-fast', 'model-deep', 'model-mini'], model, onModelChange }: ContextMeterProps) {
   const [m, setM] = useState(model ?? models[0]);
+  const [open, setOpen] = useState(false);
+  const [hot, setHot] = useState(0);
+  const root = useRef<HTMLDivElement>(null);
+  const btn = useRef<HTMLButtonElement>(null);
+  const listId = useId();
   const pct = Math.min(100, Math.round((used / total) * 100));
   const k = (n: number) => `${Math.round(n / 1000)}K`;
+  useEffect(() => {
+    if (!open) return;
+    const h = (e: MouseEvent) => { if (root.current && !root.current.contains(e.target as Node)) setOpen(false); };
+    document.addEventListener('mousedown', h);
+    return () => document.removeEventListener('mousedown', h);
+  }, [open]);
+  const pick = (x: string) => { setM(x); setOpen(false); onModelChange?.(x); btn.current?.focus(); };
+  const openList = () => { setHot(Math.max(0, models.indexOf(m))); setOpen(true); };
   return (
     <div className="ai-meter">
-      <label className="ai-meter__model"><span className="ai-visually-hidden">Model</span>
-        <select value={m} onChange={(e) => { setM(e.target.value); onModelChange?.(e.target.value); }}>{models.map((x) => <option key={x}>{x}</option>)}</select>
-      </label>
+      <div className="ai-meter__model" ref={root}>
+        <button ref={btn} type="button" className="ai-meter__trigger" aria-haspopup="listbox" aria-expanded={open} aria-controls={open ? listId : undefined} aria-label={`Model: ${m}`}
+          onClick={() => (open ? setOpen(false) : openList())}
+          onKeyDown={(e) => { if (!open && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) { e.preventDefault(); openList(); } }}>
+          {m}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+        </button>
+        {open ? (
+          <ul id={listId} className="ai-meter__list" role="listbox" aria-label="Model" tabIndex={-1} ref={(el) => el?.focus()}
+            aria-activedescendant={`${listId}-${hot}`}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowDown') { e.preventDefault(); setHot((i) => Math.min(models.length - 1, i + 1)); }
+              else if (e.key === 'ArrowUp') { e.preventDefault(); setHot((i) => Math.max(0, i - 1)); }
+              else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(models[hot]); }
+              else if (e.key === 'Escape' || e.key === 'Tab') { setOpen(false); btn.current?.focus(); }
+            }}>
+            {models.map((x, i) => (
+              <li key={x} id={`${listId}-${i}`} role="option" aria-selected={x === m} data-hot={i === hot} onMouseEnter={() => setHot(i)} onClick={() => pick(x)}>
+                <span>{x}</span>{x === m ? <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" /></svg> : null}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
       <div className="ai-meter__ctx" role="meter" aria-label="Context used" aria-valuemin={0} aria-valuemax={total} aria-valuenow={used} aria-valuetext={`${k(used)} of ${k(total)} tokens`}>
         <div className="ai-meter__bar" data-level={pct > 90 ? 'high' : pct > 70 ? 'mid' : 'low'}><i style={{ width: `${pct}%` }} /></div>
         <span className="ai-muted">{k(used)} / {k(total)}</span>

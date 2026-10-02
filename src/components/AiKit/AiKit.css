@@ -44,9 +44,18 @@ li[data-state="todo"] { opacity: .5; }
 .ai-think__time { font-variant-numeric: tabular-nums; }
 
 .ai-meter { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: 999px; background: var(--default); }
-.ai-meter__model select { height: 28px; padding: 0 var(--space-2); border: 0; border-radius: 999px; background: var(--surface); color: var(--foreground); font: inherit; font-weight: 500; cursor: pointer; }
-.ai-meter__ctx { display: flex; align-items: center; gap: var(--space-2); font-variant-numeric: tabular-nums; }
-.ai-meter__bar { width: 72px; height: 6px; border-radius: 999px; background: var(--separator); overflow: hidden; }
+.ai-meter__model { position: relative; }
+.ai-meter__trigger { display: inline-flex; white-space: nowrap; flex: none; align-items: center; gap: 6px; height: 28px; padding: 0 var(--space-2) 0 var(--space-3); border: 0; border-radius: 999px; background: var(--surface); color: var(--foreground); font: inherit; font-weight: 500; cursor: pointer; box-shadow: var(--shadow-surface); }
+.ai-meter__trigger:hover { background: color-mix(in srgb, var(--surface) 88%, var(--foreground)); }
+.ai-meter__trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ai-meter__trigger svg { color: var(--muted); }
+.ai-meter__trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.ai-meter__list { position: absolute; z-index: 30; top: calc(100% + 6px); left: 0; min-width: 100%; width: max-content; margin: 0; padding: 4px; list-style: none; border-radius: 14px; background: var(--surface); box-shadow: var(--shadow-surface), 0 0 0 1px var(--separator), 0 12px 32px rgb(0 0 0 / .22); outline: none; }
+.ai-meter__list li { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); height: 32px; padding: 0 var(--space-3); border-radius: 10px; color: var(--foreground); cursor: pointer; white-space: nowrap; }
+.ai-meter__list li[data-hot="true"] { background: var(--default); }
+.ai-meter__list li[aria-selected="true"] { font-weight: 500; }
+.ai-meter__ctx { display: flex; white-space: nowrap; align-items: center; gap: var(--space-2); font-variant-numeric: tabular-nums; }
+.ai-meter__bar { width: 56px; height: 6px; border-radius: 999px; background: var(--separator); overflow: hidden; }
 .ai-meter__bar i { display: block; height: 100%; border-radius: inherit; background: var(--foreground); transition: width .3s; }
 .ai-meter__bar[data-level="mid"] i { background: #f5a524; }
 .ai-meter__bar[data-level="high"] i { background: var(--danger); }
