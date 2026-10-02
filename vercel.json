@@ -3,11 +3,12 @@
   "installCommand": "npm install",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(.*)",
+      "src": "/(.*)",
       "has": [{ "type": "host", "value": "storybook.devus.space" }],
-      "destination": "/storybook/$1"
-    }
+      "dest": "/storybook/$1"
+    },
+    { "handle": "filesystem" }
   ]
 }
