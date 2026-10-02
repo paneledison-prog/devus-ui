@@ -41,3 +41,14 @@ export function backgroundPrompt(name: string, summary: string): string {
     'It must scale to any container size and keep text on top readable (WCAG AA).',
   ].join('\n');
 }
+
+export function templatePrompt(name: string, summary: string, uses: string): string {
+  return [
+    `Build a full-page "${name}" template for Devus UI by composing existing components (${uses}).`,
+    '',
+    `Layout: ${summary}`,
+    'Make it responsive (stack columns under 720px), use semantic landmarks (header, nav, main, aside) and keep all copy as placeholder text.',
+    '',
+    'Use the Devus UI design tokens as CSS variables (--background, --surface, --foreground, --muted, --separator, --accent, --radius-2xl, --space-*), Inter font, and support [data-theme="light"|"dark"].',
+  ].join('\n');
+}

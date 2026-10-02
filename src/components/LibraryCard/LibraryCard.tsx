@@ -19,12 +19,14 @@ export interface LibraryCardProps {
   fill?: boolean;
   /** Shrinks large previews inside the tile only. */
   tileZoom?: number;
+  /** Initial zoom of the large preview. */
+  defaultZoom?: number;
   /** Optional controlled state for the large preview. */
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
-export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, tileZoom, open: openProp, onOpenChange }: LibraryCardProps) {
+export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, tileZoom, defaultZoom, open: openProp, onOpenChange }: LibraryCardProps) {
   const [localOpen, setLocalOpen] = useState(false);
   const open = openProp ?? localOpen;
   const setOpen = (next: boolean) => {
@@ -48,7 +50,7 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
         <h3 className="ui-library-card__name">{name}</h3>
         <p className="ui-library-card__meta">{variants} {variants === 1 ? 'variant' : 'variants'}</p>
       </div>
-      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} />
+      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} defaultZoom={defaultZoom} />
     </article>
   );
 }

@@ -13,15 +13,16 @@ export interface PreviewDialogProps {
   prompt: string;
   lang?: 'tsx' | 'css';
   fill?: boolean;
+  defaultZoom?: number;
 }
 
 type Tab = 'preview' | 'code' | 'prompt';
 const ZOOMS = [1, 1.5, 2] as const;
 
-export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false }: PreviewDialogProps) {
+export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, defaultZoom = 1.5 }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const [tab, setTab] = useState<Tab>('preview');
-  const [zoom, setZoom] = useState<number>(1.5);
+  const [zoom, setZoom] = useState<number>(defaultZoom);
   const { copied, copy } = useCopy();
 
   useEffect(() => {

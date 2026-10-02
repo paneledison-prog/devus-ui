@@ -8,12 +8,13 @@ import { Card } from '../../components/Card/Card';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { Avatar, AvatarGroup } from '../../components/Avatar/Avatar';
 import { masterPrompt, blockPrompt, backgroundPrompt } from './prompt';
+import { templateItems } from './templates';
 import { Badge } from '../../components/Badge/Badge';
 import { Kbd } from '../../components/Kbd/Kbd';
 import { Separator } from '../../components/Separator/Separator';
 import { Progress } from '../../components/Progress/Progress';
 
-export type LibraryCategory = 'components' | 'blocks' | 'backgrounds' | 'ui-elements';
+export type LibraryCategory = 'components' | 'blocks' | 'templates' | 'backgrounds' | 'ui-elements';
 
 export interface LibraryItem {
   name: string;
@@ -28,6 +29,8 @@ export interface LibraryItem {
   fill?: boolean;
   /** Shrinks large previews inside the small tile only. */
   tileZoom?: number;
+  /** Initial zoom of the large preview (default 1.5). */
+  defaultZoom?: number;
 }
 
 type BaseItem = Omit<LibraryItem, 'category'>;
@@ -248,6 +251,7 @@ const withCategory = (category: LibraryCategory) => (item: BaseItem): LibraryIte
 export const libraryItems: LibraryItem[] = [
   ...componentItems.map(withCategory('components')),
   ...blockItems.map(withCategory('blocks')),
+  ...templateItems.map(withCategory('templates')),
   ...backgroundItems.map(withCategory('backgrounds')),
   ...uiElementItems.map(withCategory('ui-elements')),
 ];
@@ -255,6 +259,7 @@ export const libraryItems: LibraryItem[] = [
 export const libraryCategories: { id: LibraryCategory; label: string; subtitle: string }[] = [
   { id: 'components', label: 'Components', subtitle: 'Core building blocks. Click a tile for a large preview, or copy its code or master prompt.' },
   { id: 'blocks', label: 'Blocks', subtitle: 'Ready-made sections composed from the components above.' },
+  { id: 'templates', label: 'Templates', subtitle: 'Full-page layouts: landing, dashboard, sign in and settings.' },
   { id: 'backgrounds', label: 'Backgrounds', subtitle: 'Pure-CSS backgrounds that follow the light and dark themes.' },
   { id: 'ui-elements', label: 'UI Elements', subtitle: 'Small primitives: badges, keys, dividers and progress.' },
 ];
