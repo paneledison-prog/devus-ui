@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { LibraryCard } from '../../components/LibraryCard/LibraryCard';
-import { libraryItems } from './libraryItems';
+import { libraryItems, type LibraryCategory } from './libraryItems';
 import './LibraryPage.css';
 
 export interface LibraryPageProps {
   id?: string;
   title?: string;
   subtitle?: string;
-  /** Name of the component whose large preview is open (controlled). */
+  /** Show only this category. Omit to show every item. */
+  category?: LibraryCategory;
+  /** Name of the item whose large preview is open (controlled). */
   activeItem?: string | null;
   onActiveItemChange?: (name: string | null) => void;
 }
@@ -16,6 +18,7 @@ export function LibraryPage({
   id,
   title = 'Devus UI',
   subtitle = 'Browse every Devus UI component. Click a tile for a large preview, or copy its code or master prompt.',
+  category,
   activeItem,
   onActiveItemChange,
 }: LibraryPageProps) {
@@ -23,6 +26,7 @@ export function LibraryPage({
   const controlled = onActiveItemChange !== undefined;
   const active = controlled ? (activeItem ?? null) : local;
   const setActive = controlled ? onActiveItemChange : setLocal;
+  const items = category ? libraryItems.filter((i) => i.category === category) : libraryItems;
 
   return (
     <section id={id} className="ui-library">
@@ -31,7 +35,7 @@ export function LibraryPage({
         <p className="ui-library__subtitle">{subtitle}</p>
       </header>
       <div className="ui-library__grid">
-        {libraryItems.map((item) => (
+        {items.map((item) => (
           <LibraryCard
             key={item.name}
             {...item}

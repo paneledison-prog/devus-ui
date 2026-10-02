@@ -1,0 +1,5 @@
+.ui-separator { background: var(--separator); flex: none; }
+.ui-separator--horizontal { width: 100%; min-width: 160px; height: 1px; }
+.ui-separator--vertical { width: 1px; height: 24px; }
+.ui-separator--labeled { display: flex; align-items: center; gap: var(--space-3); width: 100%; min-width: 200px; background: none; color: var(--muted); font: 400 var(--text-xs)/var(--leading-sm) var(--font-sans); }
+.ui-separator--labeled::before, .ui-separator--labeled::after { content: ""; flex: 1; height: 1px; background: var(--separator); }

@@ -22,3 +22,6 @@
 @media (max-width: 640px) { .ui-preview-dialog__header { flex-wrap: wrap; } .ui-preview-dialog__tabs { order: 3; width: 100%; } }
 .ui-preview-dialog__stage .ui-avatar { background: var(--surface); box-shadow: var(--shadow-surface); }
 .ui-preview-dialog__stage .ui-avatar-group .ui-avatar { box-shadow: 0 0 0 2px var(--default); }
+.ui-preview-dialog__stage--fill { padding: 0; overflow: hidden; }
+.ui-preview-dialog__stage--fill .ui-preview-dialog__zoom { width: 100%; height: 100%; }
+.ui-preview-dialog__zooms[hidden] { display: none; }

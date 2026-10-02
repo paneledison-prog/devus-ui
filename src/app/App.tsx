@@ -3,7 +3,7 @@ import { Button } from '../components/Button/Button';
 import { Logo } from '../components/Logo/Logo';
 import { SearchDialog } from '../components/Search/SearchDialog';
 import { LibraryPage } from '../pages/Library/LibraryPage';
-import { libraryItems, type LibraryItem } from '../pages/Library/libraryItems';
+import { libraryItems, libraryCategories, type LibraryItem } from '../pages/Library/libraryItems';
 import './App.css';
 
 const STORYBOOK_URL = 'https://storybook.devus.space';
@@ -43,7 +43,7 @@ export function App() {
 
   const selectResult = (item: LibraryItem) => {
     setSearchOpen(false);
-    document.getElementById('library')?.scrollIntoView({ block: 'start' });
+    document.getElementById(item.category)?.scrollIntoView({ block: 'start' });
     setActiveItem(item.name);
   };
 
@@ -56,7 +56,7 @@ export function App() {
             Devus UI
           </a>
           <nav className="site-nav" aria-label="Main">
-            <a href="#library">Components</a>
+            {libraryCategories.map((c) => <a key={c.id} href={`#${c.id}`}>{c.label}</a>)}
             <a href={STORYBOOK_URL} target="_blank" rel="noreferrer">Storybook</a>
           </nav>
           <Button
@@ -97,15 +97,17 @@ export function App() {
             then copy it as code or as a master prompt.
           </p>
           <div className="hero__actions">
-            <a href="#library"><Button size="lg">Browse components</Button></a>
+            <a href="#components"><Button size="lg">Browse components</Button></a>
             <a href={STORYBOOK_URL} target="_blank" rel="noreferrer"><Button size="lg" variant="secondary">Open Storybook</Button></a>
           </div>
         </section>
 
-        <LibraryPage
-          id="library" title="Components" subtitle="Click a tile for a large preview, or copy its code or master prompt."
-          activeItem={activeItem} onActiveItemChange={setActiveItem}
-        />
+        {libraryCategories.map((c) => (
+          <LibraryPage
+            key={c.id} id={c.id} category={c.id} title={c.label} subtitle={c.subtitle}
+            activeItem={activeItem} onActiveItemChange={setActiveItem}
+          />
+        ))}
       </main>
 
       <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} items={libraryItems} onSelect={selectResult} />

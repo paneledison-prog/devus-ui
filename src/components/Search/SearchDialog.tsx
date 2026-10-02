@@ -29,7 +29,7 @@ function saveRecent(name: string): string[] {
 function Thumb({ item }: { item: LibraryItem }) {
   return (
     <span className="ui-search__thumb" aria-hidden="true">
-      <span className="ui-search__thumb-inner">{item.preview}</span>
+      <span className="ui-search__thumb-inner" style={item.fill ? { width: 200, height: 200 } : undefined}>{item.preview}</span>
     </span>
   );
 }

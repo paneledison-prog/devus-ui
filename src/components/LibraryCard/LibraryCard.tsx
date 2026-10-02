@@ -13,12 +13,18 @@ export interface LibraryCardProps {
   code: string;
   /** Master prompt copied by "Copy prompt". */
   prompt: string;
+  /** Language for the code tab. */
+  lang?: 'tsx' | 'css';
+  /** Preview fills the whole tile (backgrounds). */
+  fill?: boolean;
+  /** Shrinks large previews inside the tile only. */
+  tileZoom?: number;
   /** Optional controlled state for the large preview. */
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
-export function LibraryCard({ name, variants, preview, code, prompt, open: openProp, onOpenChange }: LibraryCardProps) {
+export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, tileZoom, open: openProp, onOpenChange }: LibraryCardProps) {
   const [localOpen, setLocalOpen] = useState(false);
   const open = openProp ?? localOpen;
   const setOpen = (next: boolean) => {
@@ -29,9 +35,9 @@ export function LibraryCard({ name, variants, preview, code, prompt, open: openP
 
   return (
     <article className="ui-library-card">
-      <div className="ui-library-card__preview">
+      <div className={`ui-library-card__preview${fill ? " ui-library-card__preview--fill" : ""}`}>
         <button type="button" className="ui-library-card__open" aria-label={`Open ${name} in large preview`} onClick={() => setOpen(true)} />
-        <div className="ui-library-card__content">{preview}</div>
+        <div className="ui-library-card__content" style={tileZoom ? { zoom: tileZoom } : undefined}>{preview}</div>
         <div className="ui-library-card__actions">
           <Button size="sm" variant="secondary" onClick={() => copy(prompt, 'prompt')}>{copied === 'prompt' ? 'Copied ✓' : 'Prompt'}</Button>
           <Button size="sm" variant="secondary" onClick={() => copy(code, 'code')}>{copied === 'code' ? 'Copied ✓' : 'Code'}</Button>
@@ -42,7 +48,7 @@ export function LibraryCard({ name, variants, preview, code, prompt, open: openP
         <h3 className="ui-library-card__name">{name}</h3>
         <p className="ui-library-card__meta">{variants} {variants === 1 ? 'variant' : 'variants'}</p>
       </div>
-      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} />
+      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} />
     </article>
   );
 }

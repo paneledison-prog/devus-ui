@@ -11,12 +11,14 @@ export interface PreviewDialogProps {
   preview: ReactNode;
   code: string;
   prompt: string;
+  lang?: 'tsx' | 'css';
+  fill?: boolean;
 }
 
 type Tab = 'preview' | 'code' | 'prompt';
 const ZOOMS = [1, 1.5, 2] as const;
 
-export function PreviewDialog({ open, onClose, name, preview, code, prompt }: PreviewDialogProps) {
+export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const [tab, setTab] = useState<Tab>('preview');
   const [zoom, setZoom] = useState<number>(1.5);
@@ -48,11 +50,11 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt }: Pr
 
       {tab === 'preview' ? (
         <>
-          <div className="ui-preview-dialog__stage">
-            <div className="ui-preview-dialog__zoom" style={{ zoom }}>{preview}</div>
+          <div className={`ui-preview-dialog__stage${fill ? " ui-preview-dialog__stage--fill" : ""}`}>
+            <div className="ui-preview-dialog__zoom" style={fill ? undefined : { zoom }}>{preview}</div>
           </div>
           <footer className="ui-preview-dialog__footer">
-            <div className="ui-preview-dialog__zooms" role="group" aria-label="Zoom">
+            <div className="ui-preview-dialog__zooms" role="group" aria-label="Zoom" hidden={fill}>
               {ZOOMS.map((z) => (
                 <Button key={z} size="sm" variant={zoom === z ? 'secondary' : 'ghost'} aria-pressed={zoom === z} onClick={() => setZoom(z)}>
                   {z * 100}%
@@ -69,7 +71,7 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt }: Pr
         <>
           <div className="ui-preview-dialog__text">
             {tab === 'code'
-              ? <CodeBlock code={code} />
+              ? <CodeBlock code={code} lang={lang} />
               : <pre tabIndex={0}><code>{prompt}</code></pre>}
           </div>
           <footer className="ui-preview-dialog__footer">

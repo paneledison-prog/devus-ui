@@ -18,3 +18,5 @@
 .ui-library-card__meta { margin: 0; font: 400 var(--text-sm)/var(--leading-sm) var(--font-sans); color: var(--muted); }
 .ui-library-card__preview .ui-avatar { background: var(--surface); box-shadow: var(--shadow-surface); }
 .ui-library-card__preview .ui-avatar-group .ui-avatar { box-shadow: 0 0 0 2px var(--default); }
+.ui-library-card__preview--fill { padding: 0; }
+.ui-library-card__preview--fill .ui-library-card__content { width: 100%; height: 100%; }

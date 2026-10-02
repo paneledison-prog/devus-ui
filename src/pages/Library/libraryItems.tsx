@@ -7,37 +7,32 @@ import { Alert } from '../../components/Alert/Alert';
 import { Card } from '../../components/Card/Card';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { Avatar, AvatarGroup } from '../../components/Avatar/Avatar';
+import { masterPrompt, blockPrompt, backgroundPrompt } from './prompt';
+import { Badge } from '../../components/Badge/Badge';
+import { Kbd } from '../../components/Kbd/Kbd';
+import { Separator } from '../../components/Separator/Separator';
+import { Progress } from '../../components/Progress/Progress';
+
+export type LibraryCategory = 'components' | 'blocks' | 'backgrounds' | 'ui-elements';
 
 export interface LibraryItem {
   name: string;
+  category: LibraryCategory;
   variants: number;
   preview: ReactNode;
   code: string;
+  /** Language used to highlight the code tab. */
+  lang?: 'tsx' | 'css';
   prompt: string;
+  /** Preview fills the whole tile / stage (used by backgrounds). */
+  fill?: boolean;
+  /** Shrinks large previews inside the small tile only. */
+  tileZoom?: number;
 }
 
-const TOKENS = [
-  'Use the Devus UI design tokens exposed as CSS variables (src/styles/tokens.css):',
-  'colors --accent, --default, --danger, --surface, --foreground, --muted, --separator;',
-  'radii --radius-3xl (pills/cards), --radius-field; spacing on a 4px scale (--space-*);',
-  'Inter font; focus ring --focus-ring. Support [data-theme="light"|"dark"].',
-].join(' ');
+type BaseItem = Omit<LibraryItem, 'category'>;
 
-function masterPrompt(name: string, summary: string, api: string, a11y: string): string {
-  return [
-    `Build a React + TypeScript <${name}> component for Devus UI.`,
-    '',
-    `Purpose: ${summary}`,
-    `API: ${api}`,
-    `Accessibility: ${a11y}`,
-    '',
-    TOKENS,
-    'Plain CSS (BEM-style .ui-* classes), forwardRef where it wraps a native element, no extra runtime dependencies.',
-    'Also write a Storybook story (CSF3, autodocs) covering every variant and state.',
-  ].join('\n');
-}
-
-export const libraryItems: LibraryItem[] = [
+const componentItems: BaseItem[] = [
   {
     name: 'Alert',
     variants: 4,
@@ -110,4 +105,156 @@ export const libraryItems: LibraryItem[] = [
       'All native input props plus label?, description?, errorMessage? (sets invalid state).',
       'Label linked via htmlFor, aria-invalid and aria-describedby point to the help/error text.'),
   },
+];
+
+const uiElementItems: BaseItem[] = [
+  {
+    name: 'Badge',
+    variants: 5,
+    preview: <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', justifyContent: 'center' }}><Badge tone="accent">New</Badge><Badge tone="success">Live</Badge><Badge tone="warning">Beta</Badge><Badge tone="danger">Error</Badge></div>,
+    code: `<Badge tone="accent">New</Badge>\n<Badge tone="success">Live</Badge>\n<Badge tone="warning">Beta</Badge>\n<Badge tone="danger">Error</Badge>`,
+    prompt: masterPrompt('Badge', 'Small pill label for status or counts.',
+      "tone: 'default' | 'accent' | 'success' | 'warning' | 'danger'; children: ReactNode.",
+      'Never rely on color alone: the text must convey the status.'),
+  },
+  {
+    name: 'Kbd',
+    variants: 2,
+    preview: <span style={{ display: 'inline-flex', gap: 4 }}><Kbd>Ctrl</Kbd><Kbd>K</Kbd></span>,
+    code: `<Kbd>Ctrl</Kbd>\n<Kbd>K</Kbd>`,
+    prompt: masterPrompt('Kbd', 'Keycap used to show a keyboard shortcut.',
+      'children: ReactNode. Renders a native <kbd>.', 'Use the native <kbd> element so assistive tech announces it as keyboard input.'),
+  },
+  {
+    name: 'Separator',
+    variants: 3,
+    preview: <div style={{ width: 200 }}><Separator label="or continue with" /></div>,
+    code: `<Separator />\n<Separator orientation="vertical" />\n<Separator label="or continue with" />`,
+    prompt: masterPrompt('Separator', 'Thin divider, horizontal, vertical or with a centered label.',
+      "orientation: 'horizontal' | 'vertical'; label?: string (horizontal only).",
+      "role='separator' with aria-orientation."),
+  },
+  {
+    name: 'Progress',
+    variants: 2,
+    preview: <Progress value={64} label="Uploading" />,
+    code: `<Progress value={64} label="Uploading" />`,
+    prompt: masterPrompt('Progress', 'Determinate progress bar with optional label and percentage.',
+      'value: number (0-100, clamped); label?: string.',
+      "role='progressbar' with aria-valuenow / aria-valuemin / aria-valuemax and an accessible name."),
+  },
+];
+
+const blockItems: BaseItem[] = [
+  {
+    name: 'Sign in',
+    variants: 1,
+    tileZoom: 0.62,
+    preview: (
+      <Card title="Welcome back" description="Sign in to continue.">
+        <TextField label="Email" type="email" placeholder="you@example.com" />
+        <TextField label="Password" type="password" placeholder="Password" />
+        <Button>Sign in</Button>
+      </Card>
+    ),
+    code: `<Card title="Welcome back" description="Sign in to continue.">\n  <TextField label="Email" type="email" placeholder="you@example.com" />\n  <TextField label="Password" type="password" placeholder="Password" />\n  <Button>Sign in</Button>\n</Card>`,
+    prompt: blockPrompt('Sign in', 'Email and password form inside a Card with a primary submit button.', 'Card, TextField, Button'),
+  },
+  {
+    name: 'Newsletter',
+    variants: 1,
+    tileZoom: 0.8,
+    preview: (
+      <Card title="Stay in the loop" description="Product updates, once a month.">
+        <TextField label="Email" type="email" placeholder="you@example.com" />
+        <Button>Subscribe</Button>
+      </Card>
+    ),
+    code: `<Card title="Stay in the loop" description="Product updates, once a month.">\n  <TextField label="Email" type="email" placeholder="you@example.com" />\n  <Button>Subscribe</Button>\n</Card>`,
+    prompt: blockPrompt('Newsletter', 'Single-field email signup with a subscribe button.', 'Card, TextField, Button'),
+  },
+  {
+    name: 'Notification settings',
+    variants: 1,
+    tileZoom: 0.8,
+    preview: (
+      <Card title="Notifications" description="Choose what you hear about.">
+        <Switch label="Product updates" defaultChecked />
+        <Switch label="Security alerts" defaultChecked />
+        <Switch label="Marketing emails" />
+      </Card>
+    ),
+    code: `<Card title="Notifications" description="Choose what you hear about.">\n  <Switch label="Product updates" defaultChecked />\n  <Switch label="Security alerts" defaultChecked />\n  <Switch label="Marketing emails" />\n</Card>`,
+    prompt: blockPrompt('Notification settings', 'List of independent on/off preferences.', 'Card, Switch'),
+  },
+  {
+    name: 'Profile card',
+    variants: 1,
+    tileZoom: 0.8,
+    preview: (
+      <Card title="Design team" description="Shipping the next release."
+        footer={<><Button size="sm">Follow</Button><Button size="sm" variant="secondary">Message</Button></>}>
+        <AvatarGroup><Avatar fallback="AB" /><Avatar fallback="CD" /><Avatar fallback="EF" /></AvatarGroup>
+      </Card>
+    ),
+    code: `<Card\n  title="Design team"\n  description="Shipping the next release."\n  footer={<><Button size="sm">Follow</Button><Button size="sm" variant="secondary">Message</Button></>}\n>\n  <AvatarGroup>\n    <Avatar fallback="AB" />\n    <Avatar fallback="CD" />\n    <Avatar fallback="EF" />\n  </AvatarGroup>\n</Card>`,
+    prompt: blockPrompt('Profile card', 'Team or person summary with overlapping avatars and two actions.', 'Card, AvatarGroup, Button'),
+  },
+];
+
+const fillStyle = { width: '100%', height: '100%' } as const;
+
+const backgroundItems: BaseItem[] = [
+  {
+    name: 'Dot grid',
+    variants: 1,
+    fill: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: 'var(--surface)', backgroundImage: 'radial-gradient(var(--muted) 1px, transparent 1px)', backgroundSize: '16px 16px' }} />,
+    code: `.bg-dots {\n  background-color: var(--surface);\n  background-image: radial-gradient(var(--muted) 1px, transparent 1px);\n  background-size: 16px 16px;\n}`,
+    prompt: backgroundPrompt('Dot grid', 'evenly spaced 1px dots on the surface color, subtle and technical.'),
+  },
+  {
+    name: 'Grid lines',
+    variants: 1,
+    fill: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: 'var(--surface)', backgroundImage: 'linear-gradient(var(--separator) 1px, transparent 1px), linear-gradient(90deg, var(--separator) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />,
+    code: `.bg-grid {\n  background-color: var(--surface);\n  background-image:\n    linear-gradient(var(--separator) 1px, transparent 1px),\n    linear-gradient(90deg, var(--separator) 1px, transparent 1px);\n  background-size: 32px 32px;\n}`,
+    prompt: backgroundPrompt('Grid lines', 'blueprint-style 32px grid drawn with the separator color.'),
+  },
+  {
+    name: 'Aurora',
+    variants: 1,
+    fill: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#050816', backgroundImage: 'radial-gradient(60% 50% at 20% 20%, rgb(4 133 247 / .55), transparent 70%), radial-gradient(50% 50% at 80% 30%, rgb(139 92 246 / .45), transparent 70%), radial-gradient(60% 60% at 50% 100%, rgb(20 184 166 / .4), transparent 70%)' }} />,
+    code: `.bg-aurora {\n  background-color: #050816;\n  background-image:\n    radial-gradient(60% 50% at 20% 20%, rgb(4 133 247 / .55), transparent 70%),\n    radial-gradient(50% 50% at 80% 30%, rgb(139 92 246 / .45), transparent 70%),\n    radial-gradient(60% 60% at 50% 100%, rgb(20 184 166 / .4), transparent 70%);\n}`,
+    prompt: backgroundPrompt('Aurora', 'dark navy base with soft blue, violet and teal glows; use light text on top.'),
+  },
+  {
+    name: 'Soft gradient',
+    variants: 1,
+    fill: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundImage: 'linear-gradient(135deg, var(--accent-soft), transparent 60%), linear-gradient(315deg, var(--danger-soft), transparent 60%)', backgroundColor: 'var(--surface)' }} />,
+    code: `.bg-soft {\n  background-color: var(--surface);\n  background-image:\n    linear-gradient(135deg, var(--accent-soft), transparent 60%),\n    linear-gradient(315deg, var(--danger-soft), transparent 60%);\n}`,
+    prompt: backgroundPrompt('Soft gradient', 'two-corner pastel wash from the accent and danger soft tokens over the surface.'),
+  },
+];
+
+const withCategory = (category: LibraryCategory) => (item: BaseItem): LibraryItem => ({ ...item, category });
+
+export const libraryItems: LibraryItem[] = [
+  ...componentItems.map(withCategory('components')),
+  ...blockItems.map(withCategory('blocks')),
+  ...backgroundItems.map(withCategory('backgrounds')),
+  ...uiElementItems.map(withCategory('ui-elements')),
+];
+
+export const libraryCategories: { id: LibraryCategory; label: string; subtitle: string }[] = [
+  { id: 'components', label: 'Components', subtitle: 'Core building blocks. Click a tile for a large preview, or copy its code or master prompt.' },
+  { id: 'blocks', label: 'Blocks', subtitle: 'Ready-made sections composed from the components above.' },
+  { id: 'backgrounds', label: 'Backgrounds', subtitle: 'Pure-CSS backgrounds that follow the light and dark themes.' },
+  { id: 'ui-elements', label: 'UI Elements', subtitle: 'Small primitives: badges, keys, dividers and progress.' },
 ];
