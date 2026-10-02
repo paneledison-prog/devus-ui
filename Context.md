@@ -99,9 +99,9 @@ iOS-style messaging demo in the Liquid Glass look, inspired by github.com/Applla
 - **Shaders**: build with three.js plus the library from @npm_i_shaders (npm package name still to be confirmed) as Backgrounds: lazy-loaded, reduced-motion fallback, pause off-screen, CSS gradient fallback.
 
 ## Status
-- Latest local commit: "Add Beacon, Harbor and Pairwise demo templates".
-- **Pushed:** everything is on `origin/main` (last push at commit 48c7e9a: 7 dashboard blocks, Case study template, AI workspace demo, Open in new tab). Live check after deploy: https://devus.space serves the new bundle, the `/?template=ai-workspace-demo` route returns 200, and https://storybook.devus.space still serves Storybook.
-- **Unpushed:** 3 commits (Context.md push note, CRM workspace demo + button color fix, Beacon/Harbor/Pairwise templates).
+- Latest work: Liquid glass chat template, Build agent demo template, edison rounds 2 and 3 (AI patterns, Motion patterns), dark-mode container fixes, landscape background frames.
+- **Pushed:** everything is on `origin/main`, including the Liquid glass chat, Build agent demo, edison rounds 2 and 3, background frame changes and the Context meter / Autonomy picker / outline Button fixes. Check `git log origin/main` for the exact head. Live check after deploy: https://devus.space serves the new bundle and `/?template=<slug>` pages open (earlier verified for ai-workspace-demo).
+- **Unpushed:** none after the latest push. Push only when the user says "push".
 - (history) 24 commits were ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone, radius and height, compact dialog header, tighter header and footer, wider phone with smaller radius, bottom sheet scrim, Image compare uses flat solid colors (Before #71717a gray, After the --accent brand blue), no gradients; purple remains in the story-ring gradient inside src/components/AppUI/AppUI.css). Live sites do not have them yet.
 - `storybook.devus.space` verified working after the routing fix (title "storybook - Storybook").
 - `devus.space` is connected and serving the homepage.
