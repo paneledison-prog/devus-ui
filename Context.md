@@ -1,0 +1,85 @@
+# Devus UI: Project Context
+
+> Living document. Updated after every change so a new session can pick up instantly.
+> Last updated: 2026-10-02
+
+## What this is
+Devus UI is a React + TypeScript component library with a public homepage and a Storybook workshop. Visitors browse components, open a large preview, and copy each item as **code** or as a **master prompt**.
+
+- Homepage: https://devus.space
+- Storybook: https://storybook.devus.space
+- Repo: https://github.com/paneledison-prog/devus-ui (branch `main`)
+- Owner GitHub account: `paneledison-prog` (the `gh` CLI must be logged in as this account; `xnsteam-ai` is also saved on the machine and has no write access)
+
+## Stack
+React 19, TypeScript, Vite, Storybook 10 (react-vite), Shiki (code highlighting), plain CSS with design tokens (no Tailwind). No backend: everything is frontend and static.
+
+## Commands
+| Command | What it does |
+|---|---|
+| `npm run dev` | Vite dev server for the homepage |
+| `npm run storybook` | Storybook dev server on :6006 |
+| `npm run build` | Builds the homepage into `dist/` and Storybook into `dist/storybook/` |
+| `npm run preview` | Serves `dist/` locally (port 4173) |
+| `npm run typecheck` | `tsc --noEmit` |
+
+## Deployment (Vercel)
+One Vercel project serves both sites. `vercel.json` sets build `npm run build`, output `dist`, and a `routes` rule that sends the host `storybook.devus.space` to `/storybook/$1` **before** the filesystem lookup (a `rewrites` rule did not work because `dist/index.html` won for `/`). Domains are registered at Vercel with Vercel nameservers, so no manual DNS records are needed; connect each domain under Project > Settings > Domains.
+
+## Project structure
+```
+index.html, vite.config.ts, vercel.json
+public/favicon.svg                  Devus UI logo mark
+.storybook/                         main.ts, preview.tsx, manager.ts (branding), preview-head.html
+src/
+  main.tsx, app/App.tsx, App.css    Homepage: header, hero, category sections, search, theme toggle
+  styles/tokens.css, index.css      Design tokens (light + dark) and base styles
+  hooks/useCopy.ts                  Clipboard helper with "Copied" feedback
+  components/                       One folder per component (tsx + css + stories)
+  pages/Library/                    LibraryPage, libraryItems (all items + categories), prompt helpers, templates
+```
+
+## Design tokens
+CSS variables in `src/styles/tokens.css`: colors (`--accent`, `--default`, `--danger`, `--surface`, `--foreground`, `--muted`, `--separator`, field and shadow tokens), radii, a 4px spacing scale, Inter type scale. Dark mode is `[data-theme="dark"]` on `<html>` (homepage toggle persists to localStorage key `devus-theme`; Storybook uses the themes addon). The dark values are approximations. Rule: never mention the upstream design system's name anywhere in the app, code, copy or prompts.
+
+## Library content (30 items, 5 categories)
+Defined in `src/pages/Library/libraryItems.tsx`. Each item has `name`, `category`, `variants`, `preview`, `code`, `prompt`, plus optional `lang`, `fill`, `tileZoom`, `defaultZoom`.
+
+- **Components (11):** Alert, Avatar, Button, Card, Checkbox, Spinner, Switch, TextField, Segmented control, OTP input, Dropzone
+- **Blocks (4):** Sign in, Newsletter, Notification settings, Profile card
+- **Templates (4):** Landing page, Dashboard, Split sign in, Settings page (720x440 canvases, scaled with CSS zoom)
+- **Backgrounds (4):** Dot grid, Grid lines, Aurora, Soft gradient (pure CSS, `fill: true`)
+- **UI Elements (7):** Badge, Kbd, Separator, Progress, Slide to confirm, Inline confirm, Image compare
+
+Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `PreviewDialog`, `SearchDialog`.
+
+## Homepage behavior
+- Sticky header: logo, one nav link per category (Components, Blocks, Templates, Backgrounds, UI Elements), Storybook link, Search button (Ctrl/Cmd+K), theme toggle (contrast icon).
+- Each tile: click opens the large preview dialog (Preview / Code / Master prompt tabs, zoom 100/150/200%); hover shows Prompt / Code copy buttons.
+- Search overlay: recent searches (localStorage `devus-recent-searches`), live filter on name and prompt text, arrow keys + Enter; choosing a result scrolls to its category and opens its large preview.
+
+## Working agreements
+- Commit locally after each change; **push only when the user says "push"**.
+- Do not add a Pricing page and do not touch it unless asked (none exists yet).
+- Git identity for this repo: `paneledison-prog` / `paneledison@gmail.com` (repo-local config).
+- Keep this file updated on every change.
+
+## Standing triggers
+- **"edison"**: browse the user's inspiration sources and build NEW original library items (never copy code, assets or branding). Sources: bencho.dev, on.design, inspomcp.dev, motionsites.ai, obsidianui.dev, ui.halaska.com, builtbydesigners.com, goatedui.dev, reelfolio.io, libraries.dev, uiarc.dev, spaceui.one, componentry.dev, skecher-ui.com, useplanes.com, skiper-ui.com. Already mined: bencho.dev, obsidianui.dev. Rotate through the rest.
+- **Shaders**: build with three.js plus the library from @npm_i_shaders (npm package name still to be confirmed) as Backgrounds: lazy-loaded, reduced-motion fallback, pause off-screen, CSS gradient fallback.
+
+## Status
+- Latest local commit: "Add Context.md living project document".
+- **Unpushed:** 5 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, this Context.md). Live sites do not have them yet.
+- `storybook.devus.space` verified working after the routing fix (title "storybook - Storybook").
+- `devus.space` must be connected to the same Vercel project (Settings > Domains) to show the homepage.
+
+## Known gaps and ideas
+- Nav links are hidden under 640px wide (no mobile menu yet).
+- Search ranking is a plain substring match (name and description weighted equally).
+- Only Dropzone's rendering was checked, not an actual file drop.
+- Blocks, Templates and Backgrounds exist on the homepage only (no Storybook stories).
+- Next: edison round 2 from untouched sources; shader backgrounds on request; Pricing page when asked.
+
+## Changelog
+- 2026-10-02: Scaffolded the library from Figma tokens; Library page; copy code/prompt and large preview; Shiki highlighting; renamed to Devus UI; Storybook branding; Vercel config; homepage app; host-based Storybook routing; logo; header search; Components/Blocks/Backgrounds/UI Elements sections; Templates; edison round 1 (6 new items); this Context.md.
