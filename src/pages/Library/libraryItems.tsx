@@ -21,6 +21,8 @@ import { InlineConfirm } from '../../components/InlineConfirm/InlineConfirm';
 import { ImageCompare } from '../../components/ImageCompare/ImageCompare';
 import { ChatCard, MilestoneCard, QrCard, PayoutCard, NavCards, ShowcaseCard, ContributionCard } from '../../components/Blocks/Blocks';
 import { ApprovalCard, ThinkingSteps, ContextMeter, AutonomyPicker, SourcedAnswer, Cite } from '../../components/AiKit/AiKit';
+import { Tooltip, MagneticDock, DynamicIsland, MemberStack } from '../../components/Motion/Motion';
+import { dockItems } from '../../components/Motion/dockItems';
 import { PhoneFrame } from '../../components/AppUI/PhoneFrame';
 import { TabBar } from '../../components/AppUI/TabBar';
 import { AppBar } from '../../components/AppUI/AppBar';
@@ -165,7 +167,7 @@ const componentItems: BaseItem[] = [
     variants: 2,
     tileZoom: 0.9,
     defaultZoom: 1.5,
-    preview: <div style={{ display: 'grid', gap: 12, width: 340 }}><ContextMeter used={132000} total={200000} /><ContextMeter used={188000} total={200000} model="model-deep" /></div>,
+    preview: <div style={{ display: 'grid', gap: 12, width: 300 }}><ContextMeter used={132000} total={200000} /><ContextMeter used={188000} total={200000} model="model-deep" /></div>,
     code: `<ContextMeter used={132000} total={200000} onModelChange={setModel} />\n\n// Turns amber above 70% and red above 90%\n<ContextMeter used={188000} total={200000} />`,
     prompt: masterPrompt('ContextMeter', 'A pill with a model select on the left and a thin usage bar with a "132K / 200K" label on the right. The bar is foreground-colored, amber above 70% and red above 90%.', 'used: number; total: number; models?: string[]; model?: string; onModelChange(model)', 'a native select with a hidden label, role="meter" with aria-valuenow and aria-valuetext'),
   },
@@ -177,6 +179,33 @@ const componentItems: BaseItem[] = [
     preview: <AutonomyPicker />,
     code: `<AutonomyPicker defaultValue="plan" onChange={(level) => agent.setAutonomy(level)} />`,
     prompt: masterPrompt('AutonomyPicker', 'A three-segment control (Ask first, Plan then act, Autonomous) for how much freedom an AI agent has. The selected segment lifts onto a surface pill and a one-line hint below explains the current level.', 'defaultValue?: "ask" | "plan" | "auto"; onChange(level)', 'role="radiogroup" with role="radio" segments, roving tabindex, Left/Right arrow keys, hint in an aria-live region'),
+  },
+  {
+    name: 'Rich tooltip',
+    variants: 2,
+    tileZoom: 1,
+    defaultZoom: 1.5,
+    preview: <div style={{ paddingTop: 56 }}><Tooltip title="Search" description="Find anything in your workspace" shortcut="Ctrl K"><Button variant="outline">Hover or focus me</Button></Tooltip></div>,
+    code: `<Tooltip title="Search" description="Find anything in your workspace" shortcut="Ctrl K">\n  <Button variant="outline">Search</Button>\n</Tooltip>\n\n// Open below the trigger:\n<Tooltip title="Settings" side="bottom">...</Tooltip>`,
+    prompt: masterPrompt('Tooltip', 'A tooltip with a bold title, an optional dimmer description and an optional keyboard shortcut chip, in a foreground-colored bubble with a small arrow. Opens after a short delay on hover or focus and closes on leave, blur or Escape.', 'title: string; description?: string; shortcut?: string; side?: "top" | "bottom"; delay?: number; children: ReactNode', 'role="tooltip", aria-describedby on the trigger only while open, works with keyboard focus'),
+  },
+  {
+    name: 'Magnetic dock',
+    variants: 1,
+    tileZoom: 0.8,
+    defaultZoom: 1.25,
+    preview: <div style={{ paddingTop: 28 }}><MagneticDock items={dockItems} /></div>,
+    code: `<MagneticDock\n  items={[\n    { id: 'home', label: 'Home', icon: <HomeIcon /> },\n    { id: 'mail', label: 'Mail', icon: <MailIcon /> },\n  ]}\n  onSelect={(id) => open(id)}\n/>`,
+    prompt: masterPrompt('MagneticDock', 'A floating rounded dock of icon buttons. Icons grow smoothly (up to about 1.7x) as the pointer gets close, falling off with a Gaussian curve, and a label appears above the largest one. The selected item shows a dot below it. Keyboard focus enlarges the focused icon. No scaling when reduced motion is requested.', 'items: { id; label; icon }[]; onSelect?(id)', 'role="toolbar", each item is a real button with aria-label and aria-pressed'),
+  },
+  {
+    name: 'Dynamic island',
+    variants: 3,
+    tileZoom: 0.9,
+    defaultZoom: 1.25,
+    preview: <DynamicIsland />,
+    code: `<DynamicIsland />\n\n// Start on an active call:\n<DynamicIsland defaultState="call" />`,
+    prompt: masterPrompt('DynamicIsland', 'A black pill that morphs between three states with a springy width/height transition: idle (a small dot), timer (progress ring, mm:ss and a Focus label) and call (avatar, name, live duration and a red end button that returns to idle). A segmented control below switches state for the demo.', 'defaultState?: "idle" | "timer" | "call"', 'role="status" with aria-live and a text label per state, end-call button has aria-label, transitions disabled for reduced motion'),
   },
 ];
 
@@ -242,6 +271,15 @@ const uiElementItems: BaseItem[] = [
     prompt: masterPrompt('ImageCompare', 'Before/after slider that reveals the second layer as you drag.',
       'before?, after?: ReactNode (default to gradients); label?: string.',
       'A native range input overlays the layers, so it is keyboard operable and has an accessible name.'),
+  },
+  {
+    name: 'Member stack',
+    variants: 1,
+    tileZoom: 1,
+    defaultZoom: 1.5,
+    preview: <div style={{ paddingTop: 44 }}><MemberStack members={[{ name: 'Mara Voss', role: 'Design', color: '#bcd4ff' }, { name: 'Jonas Keel', role: 'Engineering', color: '#ffd9b8' }, { name: 'Priya Raman', role: 'Product', color: '#c9f0d6' }, { name: 'Theo Marsh', role: 'Support', color: '#f6c9e0' }]} /></div>,
+    code: `<MemberStack\n  members={[\n    { name: 'Mara Voss', role: 'Design' },\n    { name: 'Jonas Keel', role: 'Engineering' },\n  ]}\n/>`,
+    prompt: masterPrompt('MemberStack', 'Overlapping round avatars that spread apart when the stack is hovered or focused. The hovered avatar lifts and shows a small tooltip with name and role.', 'members: { name: string; role?: string; color?: string }[]', 'a list of real buttons, aria-label "Name, role", tooltip is decorative (aria-hidden) because the label carries the text, visible focus ring'),
   },
 ];
 

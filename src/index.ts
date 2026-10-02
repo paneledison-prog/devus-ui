@@ -18,3 +18,4 @@ export * from './components/Agents/Beacon';
 export * from './components/Agents/Harbor';
 export * from './components/Agents/Pairwise';
 export * from './components/AiKit/AiKit';
+export * from './components/Motion/Motion';
