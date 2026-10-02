@@ -19,6 +19,8 @@
 .ui-button--tertiary:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 22%, transparent); }
 .ui-button--outline { background: transparent; color: var(--foreground); box-shadow: inset 0 0 0 1px var(--separator); }
 .ui-button--outline:hover:not(:disabled) { background: var(--default); }
+[data-theme="dark"] .ui-button--outline { box-shadow: inset 0 0 0 1px var(--field-border); }
+[data-theme="dark"] .ui-button--outline:hover:not(:disabled) { background: var(--default-hover); }
 .ui-button--ghost { background: transparent; color: var(--foreground); }
 .ui-button--ghost:hover:not(:disabled) { background: var(--default); }
 .ui-button--danger { background: var(--danger); color: var(--danger-foreground); }
