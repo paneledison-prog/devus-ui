@@ -19,8 +19,17 @@ import { Dropzone } from '../../components/Dropzone/Dropzone';
 import { SlideToConfirm } from '../../components/SlideToConfirm/SlideToConfirm';
 import { InlineConfirm } from '../../components/InlineConfirm/InlineConfirm';
 import { ImageCompare } from '../../components/ImageCompare/ImageCompare';
+import { PhoneFrame } from '../../components/AppUI/PhoneFrame';
+import { TabBar } from '../../components/AppUI/TabBar';
+import { AppBar } from '../../components/AppUI/AppBar';
+import { ListGroup, ListRow } from '../../components/AppUI/ListRow';
+import { BottomSheet } from '../../components/AppUI/BottomSheet';
+import { Fab } from '../../components/AppUI/Fab';
+import { StoryRow } from '../../components/AppUI/StoryRing';
+import { AppCard, WeekStrip, BalanceCard, TrackSteps } from '../../components/AppUI/Cards';
+import { BellIcon, GearIcon, HomeIcon, SearchIcon, SunIcon, UserIcon } from '../../components/AppUI/icons';
 
-export type LibraryCategory = 'components' | 'blocks' | 'templates' | 'backgrounds' | 'ui-elements';
+export type LibraryCategory = 'components' | 'blocks' | 'templates' | 'backgrounds' | 'ui-elements' | 'app';
 
 export interface LibraryItem {
   name: string;
@@ -37,6 +46,8 @@ export interface LibraryItem {
   tileZoom?: number;
   /** Initial zoom of the large preview (default 1.5). */
   defaultZoom?: number;
+  /** Portrait tile (used for phone viewports). */
+  tall?: boolean;
 }
 
 type BaseItem = Omit<LibraryItem, 'category'>;
@@ -306,6 +317,206 @@ const backgroundItems: BaseItem[] = [
   },
 ];
 
+const appTabs = [
+  { id: 'home', label: 'Home', icon: <HomeIcon /> },
+  { id: 'insights', label: 'Insights', icon: <SearchIcon /> },
+  { id: 'profile', label: 'Profile', icon: <UserIcon /> },
+];
+const appStories = [{ name: 'You', initials: 'ME' }, { name: 'Ada', initials: 'AL' }, { name: 'Linus', initials: 'LT', seen: true }];
+const appDays = [
+  { id: 'mon', day: 'Mon', date: 8 }, { id: 'tue', day: 'Tue', date: 9 }, { id: 'wed', day: 'Wed', date: 10 },
+  { id: 'thu', day: 'Thu', date: 11 }, { id: 'fri', day: 'Fri', date: 12 }, { id: 'sat', day: 'Sat', date: 13 },
+];
+const appFilter = [{ value: 'todo', label: 'To do' }, { value: 'done', label: 'Completed' }, { value: 'pending', label: 'Pending' }];
+const appSteps: { label: string; time: string; state: 'done' | 'active' | 'todo' }[] = [
+  { label: 'Received', time: '10:30am', state: 'done' },
+  { label: 'In transit', time: '12:30pm', state: 'active' },
+  { label: 'Delivered', time: 'Pending', state: 'todo' },
+];
+const sunIcon = <SunIcon />;
+const phoneProps = { tall: true, tileZoom: 0.55, defaultZoom: 0.75 } as const;
+
+const taskCard = (
+  <AppCard label="Tasks">
+    <SegmentedControl label="Filter" defaultValue="todo" options={appFilter} />
+    <h3 className="app-card__title">Morning</h3>
+    <Checkbox label="Wake up on time" />
+    <Checkbox label="Gym / workout" />
+    <h3 className="app-card__title">Workload</h3>
+    <Checkbox label="Polish UI components" />
+    <Checkbox label="Share updates with team" />
+  </AppCard>
+);
+
+const appItems: BaseItem[] = [
+  {
+    name: 'Home screen',
+    variants: 1,
+    ...phoneProps,
+    preview: (
+      <PhoneFrame>
+        <AppBar title="Hey, Ada" subtitle="Let's make progress today!" large action={sunIcon} />
+        <WeekStrip days={appDays} defaultValue="wed" />
+        {taskCard}
+        <TabBar floating items={appTabs} action={<Fab tone="dark" />} />
+      </PhoneFrame>
+    ),
+    code: `<PhoneFrame>\n  <AppBar title="Hey, Ada" subtitle="Let's make progress today!" large action={<SunIcon />} />\n  <WeekStrip days={days} defaultValue="wed" />\n  <AppCard>\n    <SegmentedControl label="Filter" defaultValue="todo" options={filters} />\n    <Checkbox label="Wake up on time" />\n    <Checkbox label="Gym / workout" />\n  </AppCard>\n  <TabBar floating items={tabs} action={<Fab tone="dark" />} />\n</PhoneFrame>`,
+    prompt: masterPrompt('Home screen', 'Mobile home in a phone viewport: greeting app bar, week strip, a task card with a filter, and a floating tab bar with a round action button.',
+      'Composes PhoneFrame, AppBar (large + subtitle), WeekStrip, AppCard, SegmentedControl, Checkbox, TabBar (floating) and Fab (dark).',
+      'Landmarks: header, nav, lists; touch targets of at least 44px; works in light and dark themes; respects the phone safe areas (status bar and home indicator).'),
+  },
+  {
+    name: 'Floating tab bar',
+    variants: 2,
+    ...phoneProps,
+    preview: <PhoneFrame><TabBar floating items={appTabs} action={<Fab tone="dark" />} /></PhoneFrame>,
+    code: `<TabBar\n  floating\n  items={[\n    { id: 'home', label: 'Home', icon: <HomeIcon /> },\n    { id: 'insights', label: 'Insights', icon: <SearchIcon /> },\n    { id: 'profile', label: 'Profile', icon: <UserIcon /> },\n  ]}\n  action={<Fab tone="dark" />}\n/>`,
+    prompt: masterPrompt('TabBar (floating)', 'Pill-shaped bottom navigation that floats above content. Only the active tab shows its label inside a raised pill; an optional round action button sits beside it.',
+      'items: { id, label, icon }[]; floating?: boolean; action?: ReactNode; value / defaultValue; onChange(id).',
+      "<nav> with aria-label; every tab keeps an aria-label even when its text is hidden; aria-current='page' on the active tab; 44px targets."),
+  },
+  {
+    name: 'App bar',
+    variants: 2,
+    ...phoneProps,
+    preview: (
+      <PhoneFrame>
+        <AppBar title="Details" onBack={() => {}} />
+        <AppBar title="Hey, Ada" subtitle="Let's make progress today!" large action={sunIcon} />
+      </PhoneFrame>
+    ),
+    code: `<AppBar title="Details" onBack={() => history.back()} />\n<AppBar title="Hey, Ada" subtitle="Let's make progress today!" large action={<SunIcon />} />`,
+    prompt: masterPrompt('AppBar', 'Top bar for mobile screens: either a centered title with a back button, or a large greeting with a muted italic subtitle and a raised icon action.',
+      'title: string; subtitle?: string; large?: boolean; onBack?(); action?: ReactNode.',
+      "Renders <header>; the back button has aria-label='Back' and a 44px target; the title is an <h2>."),
+  },
+  {
+    name: 'Week strip',
+    variants: 1,
+    ...phoneProps,
+    preview: <PhoneFrame><AppBar title="Schedule" large /><WeekStrip days={appDays} defaultValue="wed" /></PhoneFrame>,
+    code: `<WeekStrip\n  days={[\n    { id: 'mon', day: 'Mon', date: 8 },\n    { id: 'wed', day: 'Wed', date: 10 },\n  ]}\n  defaultValue="wed"\n  onChange={(id) => setDay(id)}\n/>`,
+    prompt: masterPrompt('WeekStrip', 'Horizontal day picker; the selected day sits in a soft raised pill.',
+      'days: { id, day, date }[]; defaultValue?; onChange(id).',
+      "role='group' with a label; each day is a toggle button with aria-pressed; 44px targets."),
+  },
+  {
+    name: 'Task list',
+    variants: 1,
+    ...phoneProps,
+    preview: <PhoneFrame><AppBar title="Today" large />{taskCard}</PhoneFrame>,
+    code: `<AppCard>\n  <SegmentedControl label="Filter" defaultValue="todo" options={filters} />\n  <h3 className="app-card__title">Morning</h3>\n  <Checkbox label="Wake up on time" />\n  <Checkbox label="Gym / workout" />\n</AppCard>`,
+    prompt: masterPrompt('Task list', 'Checklist card with a To do / Completed / Pending filter and titled sections of checkboxes.',
+      'Composes AppCard, SegmentedControl and Checkbox; section titles are <h3>.',
+      'Real checkboxes with visible labels; the filter is a radio group; whole rows are tappable.'),
+  },
+  {
+    name: 'Balance card',
+    variants: 1,
+    ...phoneProps,
+    preview: (
+      <PhoneFrame>
+        <AppBar title="Hello, Victor" subtitle="12 Palm Groove, Lagos" large action={<BellIcon />} />
+        <BalanceCard amount="$245.00" actions={<><button type="button">New shipping</button><button type="button">Track shipping</button></>} />
+      </PhoneFrame>
+    ),
+    code: `<BalanceCard\n  amount="$245.00"\n  primary="Top up"\n  actions={<><button>New shipping</button><button>Track shipping</button></>}\n/>`,
+    prompt: masterPrompt('BalanceCard', 'High-contrast dark card with a label, a large amount, a white primary pill and two secondary actions.',
+      'label?, amount: string, primary?: string, actions?: ReactNode.',
+      "Labelled <section>; white-on-black text meets WCAG AA; pills are real buttons with 32px+ height, actions 40px."),
+  },
+  {
+    name: 'Tracking steps',
+    variants: 1,
+    ...phoneProps,
+    preview: (
+      <PhoneFrame>
+        <AppBar title="Details" onBack={() => {}} />
+        <AppCard label="Shipment">
+          <h3 className="app-card__title">PAQ-327-P21</h3>
+          <TrackSteps steps={appSteps} />
+        </AppCard>
+        <Button size="lg">Track shipping</Button>
+      </PhoneFrame>
+    ),
+    code: `<TrackSteps\n  steps={[\n    { label: 'Received', time: '10:30am', state: 'done' },\n    { label: 'In transit', time: '12:30pm', state: 'active' },\n    { label: 'Delivered', time: 'Pending', state: 'todo' },\n  ]}\n/>`,
+    prompt: masterPrompt('TrackSteps', 'Horizontal progress line with a dot per step: done steps are filled and connected, the active step is filled, the rest are muted.',
+      "steps: { label, time, state: 'done' | 'active' | 'todo' }[].",
+      "Ordered list; aria-current='step' on the active step; progress is also conveyed by text and a check mark, not color alone."),
+  },
+  {
+    name: 'Grouped list',
+    variants: 3,
+    ...phoneProps,
+    preview: (
+      <PhoneFrame>
+        <AppBar title="Settings" onBack={() => {}} />
+        <ListGroup label="Account">
+          <ListRow icon={<UserIcon />} title="Profile" />
+          <ListRow icon={<BellIcon />} title="Notifications" value="On" />
+          <ListRow icon={<GearIcon />} title="Dark mode" trailing={<Switch aria-label="Dark mode" />} />
+        </ListGroup>
+      </PhoneFrame>
+    ),
+    code: `<ListGroup label="Account">\n  <ListRow icon={<UserIcon />} title="Profile" />\n  <ListRow icon={<BellIcon />} title="Notifications" value="On" />\n  <ListRow icon={<GearIcon />} title="Dark mode" trailing={<Switch aria-label="Dark mode" />} />\n</ListGroup>`,
+    prompt: masterPrompt('ListGroup / ListRow', 'Inset grouped list like a mobile settings screen: icon tile, title, optional value, then a chevron or a control.',
+      'ListRow: icon?, title, value?, trailing? (ReactNode, or false to hide the chevron), onClick?. ListGroup: label?, children.',
+      "Rows are buttons only when clickable; rows are at least 48px tall; ListGroup has role='group' with a label."),
+  },
+  {
+    name: 'Bottom sheet',
+    variants: 1,
+    ...phoneProps,
+    preview: (
+      <PhoneFrame>
+        <AppBar title="Projects" large />
+        <BottomSheet title="Share project" footer={<><Button>Copy link</Button><Button variant="ghost">Cancel</Button></>}>
+          <ListRow title="Message" />
+          <ListRow title="Email" />
+        </BottomSheet>
+      </PhoneFrame>
+    ),
+    code: `<BottomSheet\n  title="Share project"\n  footer={<><Button>Copy link</Button><Button variant="ghost">Cancel</Button></>}\n>\n  <ListRow title="Message" />\n  <ListRow title="Email" />\n</BottomSheet>`,
+    prompt: masterPrompt('BottomSheet', 'Panel that slides up from the bottom of a mobile screen: drag handle, title, content rows and stacked full-width actions.',
+      'title: string; children; footer?: ReactNode. Presentational: mount it inside your own overlay or <dialog>.',
+      "Labelled region; when used as a modal it must trap focus, close on Escape and restore focus. Footer buttons are 48px tall."),
+  },
+  {
+    name: 'Floating action button',
+    variants: 3,
+    ...phoneProps,
+    preview: (
+      <PhoneFrame>
+        <AppBar title="Inbox" large />
+        <div style={{ marginTop: 'auto', paddingBottom: 26, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 10 }}>
+          <Fab label="New chat" />
+          <Fab tone="dark" />
+        </div>
+      </PhoneFrame>
+    ),
+    code: `<Fab />\n<Fab tone="dark" />\n<Fab label="New chat" />`,
+    prompt: masterPrompt('Fab', 'Round primary action button that floats above content; accent or dark tone; extended pill when it has a label.',
+      "icon?: ReactNode (defaults to a plus); label?: string; tone?: 'accent' | 'dark'; all native button props.",
+      "Icon-only FAB has aria-label='Create' by default; 52px target; press feedback scales to 94%."),
+  },
+  {
+    name: 'Story rings',
+    variants: 2,
+    ...phoneProps,
+    preview: (
+      <PhoneFrame>
+        <AppBar title="Friends" large />
+        <StoryRow stories={appStories} />
+      </PhoneFrame>
+    ),
+    code: `<StoryRow\n  stories={[\n    { name: 'You', initials: 'ME' },\n    { name: 'Ada', initials: 'AL' },\n    { name: 'Linus', initials: 'LT', seen: true },\n  ]}\n/>`,
+    prompt: masterPrompt('StoryRow', 'Horizontally scrolling row of avatars with a gradient ring for unseen stories and a muted ring once seen.',
+      'stories: { name, initials, seen? }[].',
+      "A list of buttons; each has an accessible name that says whether the story is new; the ring is decorative."),
+  },
+];
+
 const withCategory = (category: LibraryCategory) => (item: BaseItem): LibraryItem => ({ ...item, category });
 
 export const libraryItems: LibraryItem[] = [
@@ -314,6 +525,7 @@ export const libraryItems: LibraryItem[] = [
   ...templateItems.map(withCategory('templates')),
   ...backgroundItems.map(withCategory('backgrounds')),
   ...uiElementItems.map(withCategory('ui-elements')),
+  ...appItems.map(withCategory('app')),
 ];
 
 export const libraryCategories: { id: LibraryCategory; label: string; subtitle: string }[] = [
@@ -322,4 +534,5 @@ export const libraryCategories: { id: LibraryCategory; label: string; subtitle: 
   { id: 'templates', label: 'Templates', subtitle: 'Full-page layouts: landing, dashboard, sign in and settings.' },
   { id: 'backgrounds', label: 'Backgrounds', subtitle: 'Pure-CSS backgrounds that follow the light and dark themes.' },
   { id: 'ui-elements', label: 'UI Elements', subtitle: 'Small primitives: badges, keys, dividers and progress.' },
+  { id: 'app', label: 'App', subtitle: 'Mobile app style elements: tab bar, app bar, grouped lists, bottom sheet and more.' },
 ];

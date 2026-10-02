@@ -17,7 +17,7 @@ export interface PreviewDialogProps {
 }
 
 type Tab = 'preview' | 'code' | 'prompt';
-const ZOOMS = [1, 1.5, 2] as const;
+const ZOOMS = [0.75, 1, 1.5, 2] as const;
 
 export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, defaultZoom = 1.5 }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);

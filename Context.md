@@ -42,19 +42,20 @@ src/
 ## Design tokens
 CSS variables in `src/styles/tokens.css`: colors (`--accent`, `--default`, `--danger`, `--surface`, `--foreground`, `--muted`, `--separator`, field and shadow tokens), radii, a 4px spacing scale, Inter type scale. Dark mode is `[data-theme="dark"]` on `<html>` (homepage toggle persists to localStorage key `devus-theme`; Storybook uses the themes addon). The dark values are approximations. Rule: never mention the upstream design system's name anywhere in the app, code, copy or prompts.
 
-## Library content (30 items, 5 categories)
-Defined in `src/pages/Library/libraryItems.tsx`. Each item has `name`, `category`, `variants`, `preview`, `code`, `prompt`, plus optional `lang`, `fill`, `tileZoom`, `defaultZoom`.
+## Library content (41 items, 6 categories)
+Defined in `src/pages/Library/libraryItems.tsx`. Each item has `name`, `category`, `variants`, `preview`, `code`, `prompt`, plus optional `lang`, `fill`, `tileZoom`, `defaultZoom`, `tall`.
 
 - **Components (11):** Alert, Avatar, Button, Card, Checkbox, Spinner, Switch, TextField, Segmented control, OTP input, Dropzone
 - **Blocks (4):** Sign in, Newsletter, Notification settings, Profile card
 - **Templates (4):** Landing page, Dashboard, Split sign in, Settings page (720x440 canvases, scaled with CSS zoom)
 - **Backgrounds (4):** Dot grid, Grid lines, Aurora, Soft gradient (pure CSS, `fill: true`)
 - **UI Elements (7):** Badge, Kbd, Separator, Progress, Slide to confirm, Inline confirm, Image compare
+- **App (11):** mobile-app style, every item shown inside a phone viewport (status bar, rounded bezel, home indicator; portrait tiles via `tall`): Home screen, Floating tab bar, App bar, Week strip, Task list, Balance card, Tracking steps, Grouped list, Bottom sheet, Floating action button, Story rings. Code lives in `src/components/AppUI/` (PhoneFrame, TabBar, AppBar, ListRow/ListGroup, BottomSheet, Fab, StoryRing, Cards: AppCard/WeekStrip/BalanceCard/TrackSteps, icons)
 
 Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `PreviewDialog`, `SearchDialog`.
 
 ## Homepage behavior
-- Sticky header: logo, one nav link per category (Components, Blocks, Templates, Backgrounds, UI Elements), Storybook link, Search button (Ctrl/Cmd+K), theme toggle (contrast icon).
+- Sticky header: logo, one nav link per category (Components, Blocks, Templates, Backgrounds, UI Elements, App), Storybook link, Search button (Ctrl/Cmd+K), theme toggle (contrast icon).
 - Each tile: click opens the large preview dialog (Preview / Code / Master prompt tabs, zoom 100/150/200%); hover shows Prompt / Code copy buttons.
 - Search overlay: recent searches (localStorage `devus-recent-searches`), live filter on name and prompt text, arrow keys + Enter; choosing a result scrolls to its category and opens its large preview.
 
@@ -69,8 +70,8 @@ Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `
 - **Shaders**: build with three.js plus the library from @npm_i_shaders (npm package name still to be confirmed) as Backgrounds: lazy-loaded, reduced-motion fallback, pause off-screen, CSS gradient fallback.
 
 ## Status
-- Latest local commit: "Add Context.md living project document".
-- **Unpushed:** 5 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, this Context.md). Live sites do not have them yet.
+- Latest local commit: "Add App category: phone-viewport mobile UI elements".
+- **Unpushed:** 6 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category). Live sites do not have them yet.
 - `storybook.devus.space` verified working after the routing fix (title "storybook - Storybook").
 - `devus.space` must be connected to the same Vercel project (Settings > Domains) to show the homepage.
 
@@ -79,7 +80,8 @@ Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `
 - Search ranking is a plain substring match (name and description weighted equally).
 - Only Dropzone's rendering was checked, not an actual file drop.
 - Blocks, Templates and Backgrounds exist on the homepage only (no Storybook stories).
+- App previews use phone frames at fixed 270x540; the AppUI Storybook stories (App/Mobile) still show the elements without the frame styling for floating bars.
 - Next: edison round 2 from untouched sources; shader backgrounds on request; Pricing page when asked.
 
 ## Changelog
-- 2026-10-02: Scaffolded the library from Figma tokens; Library page; copy code/prompt and large preview; Shiki highlighting; renamed to Devus UI; Storybook branding; Vercel config; homepage app; host-based Storybook routing; logo; header search; Components/Blocks/Backgrounds/UI Elements sections; Templates; edison round 1 (6 new items); this Context.md.
+- 2026-10-02: Scaffolded the library from Figma tokens; Library page; copy code/prompt and large preview; Shiki highlighting; renamed to Devus UI; Storybook branding; Vercel config; homepage app; host-based Storybook routing; logo; header search; Components/Blocks/Backgrounds/UI Elements sections; Templates; edison round 1 (6 new items); this Context.md; App category (11 mobile items in phone viewports, floating tab bar, week strip, task list, balance card, tracking steps).

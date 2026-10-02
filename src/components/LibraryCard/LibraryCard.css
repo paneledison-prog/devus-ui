@@ -20,3 +20,4 @@
 .ui-library-card__preview .ui-avatar-group .ui-avatar { box-shadow: 0 0 0 2px var(--default); }
 .ui-library-card__preview--fill { padding: 0; }
 .ui-library-card__preview--fill .ui-library-card__content { width: 100%; height: 100%; }
+.ui-library-card__preview--tall { aspect-ratio: 4 / 5; }

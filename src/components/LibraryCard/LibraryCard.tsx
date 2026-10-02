@@ -21,12 +21,14 @@ export interface LibraryCardProps {
   tileZoom?: number;
   /** Initial zoom of the large preview. */
   defaultZoom?: number;
+  /** Portrait tile for phone viewports. */
+  tall?: boolean;
   /** Optional controlled state for the large preview. */
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
-export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, tileZoom, defaultZoom, open: openProp, onOpenChange }: LibraryCardProps) {
+export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, tileZoom, defaultZoom, tall, open: openProp, onOpenChange }: LibraryCardProps) {
   const [localOpen, setLocalOpen] = useState(false);
   const open = openProp ?? localOpen;
   const setOpen = (next: boolean) => {
@@ -37,7 +39,7 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
 
   return (
     <article className="ui-library-card">
-      <div className={`ui-library-card__preview${fill ? " ui-library-card__preview--fill" : ""}`}>
+      <div className={`ui-library-card__preview${fill ? " ui-library-card__preview--fill" : ""}${tall ? " ui-library-card__preview--tall" : ""}`}>
         <button type="button" className="ui-library-card__open" aria-label={`Open ${name} in large preview`} onClick={() => setOpen(true)} />
         <div className="ui-library-card__content" style={tileZoom ? { zoom: tileZoom } : undefined}>{preview}</div>
         <div className="ui-library-card__actions">
