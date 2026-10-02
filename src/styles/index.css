@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import './tokens.css';
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  color: var(--foreground);
+  background: var(--background);
+}
+.sb-show-main { background: var(--background); }
+:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }

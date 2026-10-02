@@ -1,0 +1,7 @@
+.ui-code { overflow: auto; border-radius: var(--radius-2xl); background: var(--surface); box-shadow: var(--shadow-surface); }
+.ui-code pre { margin: 0; padding: var(--space-4); background: transparent !important; font: 400 13px/20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.ui-code code { font: inherit; }
+/* Dual-theme Shiki tokens: light by default, dark under [data-theme="dark"]. */
+.ui-code .shiki, .ui-code .shiki span { color: var(--shiki-light); }
+[data-theme="dark"] .ui-code .shiki, [data-theme="dark"] .ui-code .shiki span { color: var(--shiki-dark); }
+.ui-code:not(:has(.shiki)) pre { color: var(--foreground); }

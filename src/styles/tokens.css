@@ -1,0 +1,75 @@
+/* Design tokens extracted from "HeroUI Figma Kit V3" (Figma variables). */
+:root, [data-theme='light'] {
+  --background: #f5f5f5;
+  --foreground: #18181b;
+  --muted: #71717a;
+  --surface: #ffffff;
+  --overlay: #ffffff;
+  --separator: #e4e4e7;
+  --link: #18181b;
+
+  --accent: #0485f7;
+  --accent-foreground: #fcfcfc;
+  --accent-soft: color-mix(in srgb, #0485f7 15%, transparent);
+  --accent-soft-foreground: #1d63ae;
+
+  --default: #ebebec;
+  --default-hover: #e1e1e2;
+  --default-foreground: #18181b;
+
+  --danger: #ff383c;
+  --danger-foreground: #fcfcfc;
+  --danger-soft: #ff383c26;
+  --danger-soft-foreground: #a43532;
+
+  --warning: #f5a524;
+  --warning-soft: #f5a52426;
+
+  --field-background: #ffffff;
+  --field-foreground: #18181b;
+  --field-placeholder: #71717a;
+  --field-border: #dedee000;
+
+  --focus-ring: #0485f7;
+
+  --shadow-field: 0 0 1px #0000000f, 0 1px 2px #0000000f, 0 2px 4px #0000000a;
+  --shadow-surface: 0 0 1px #0000000f, 0 1px 2px #0000000f, 0 2px 4px #0000000a, inset 0 0 1px #0000004d;
+  --shadow-overlay: 0 14px 28px #00000014, 0 -6px 12px #00000008, 0 2px 8px #0000000f;
+  --shadow-switch: 0 0 5px #00000005, 0 2px 10px #0000000f, 0 0 1px #0000004d;
+}
+
+/* Dark values are an approximation: the Figma node inspected only exposes the light mode. */
+[data-theme='dark'] {
+  --background: #000000;
+  --foreground: #fcfcfc;
+  --muted: #a1a1aa;
+  --surface: #18181b;
+  --overlay: #18181b;
+  --separator: #27272a;
+  --link: #fcfcfc;
+  --accent-soft-foreground: #7cc0fb;
+  --default: #27272a;
+  --default-hover: #3f3f46;
+  --default-foreground: #fcfcfc;
+  --danger-soft-foreground: #ff7a7d;
+  --field-background: #27272a;
+  --field-foreground: #fcfcfc;
+  --field-placeholder: #a1a1aa;
+  --shadow-field: none;
+  --shadow-surface: none;
+  --shadow-overlay: 0 0 1px #ffffff26;
+}
+
+:root {
+  /* spacing (4px scale) */
+  --space-0-5: 2px; --space-1: 4px; --space-1-5: 6px; --space-2: 8px; --space-2-5: 10px;
+  --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px;
+  /* radius */
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-xl: 12px;
+  --radius-2xl: 16px; --radius-3xl: 24px; --radius-full: 9999px;
+  --radius-field: 12px;
+  /* type */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text-xs: 12px; --text-sm: 14px; --text-base: 16px; --text-lg: 18px;
+  --leading-sm: 20px; --leading-base: 24px; --leading-lg: 28px;
+}

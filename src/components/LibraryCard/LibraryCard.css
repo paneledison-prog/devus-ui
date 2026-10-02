@@ -1,0 +1,20 @@
+.ui-library-card { display: flex; flex-direction: column; gap: var(--space-4); color: inherit; }
+.ui-library-card__preview {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; aspect-ratio: 313 / 255;
+  padding: var(--space-6); overflow: hidden; border-radius: var(--radius-3xl); background: var(--default); transition: background-color .15s;
+}
+.ui-library-card__preview:hover { background: var(--default-hover); }
+/* Whole tile opens the large preview; real controls sit above it. */
+.ui-library-card__open { position: absolute; inset: 0; z-index: 0; border: 0; background: transparent; cursor: zoom-in; border-radius: inherit; }
+.ui-library-card__content { position: relative; z-index: 1; max-width: 100%; pointer-events: none; }
+.ui-library-card__actions {
+  position: absolute; z-index: 2; right: var(--space-3); bottom: var(--space-3); display: flex; gap: var(--space-1-5);
+  opacity: 0; transform: translateY(4px); transition: opacity .15s, transform .15s;
+}
+.ui-library-card__preview:hover .ui-library-card__actions,
+.ui-library-card__preview:focus-within .ui-library-card__actions { opacity: 1; transform: none; }
+@media (hover: none) { .ui-library-card__actions { opacity: 1; transform: none; } }
+.ui-library-card__name { margin: 0; font: 500 var(--text-base)/var(--leading-base) var(--font-sans); color: var(--foreground); }
+.ui-library-card__meta { margin: 0; font: 400 var(--text-sm)/var(--leading-sm) var(--font-sans); color: var(--muted); }
+.ui-library-card__preview .ui-avatar { background: var(--surface); box-shadow: var(--shadow-surface); }
+.ui-library-card__preview .ui-avatar-group .ui-avatar { box-shadow: 0 0 0 2px var(--default); }

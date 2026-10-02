@@ -1,0 +1,7 @@
+.ui-check { display: inline-flex; align-items: center; gap: var(--space-2); cursor: pointer; font: 400 var(--text-sm)/var(--leading-sm) var(--font-sans); }
+.ui-check input { appearance: none; margin: 0; width: 16px; height: 16px; border-radius: var(--radius-md); background: var(--field-background);
+  box-shadow: var(--shadow-field), inset 0 0 0 1px var(--separator); display: grid; place-content: center; cursor: inherit; }
+.ui-check input:checked, .ui-check input:indeterminate { background: var(--accent); box-shadow: none; }
+.ui-check input:checked::after { content: ""; width: 8px; height: 4px; border-left: 2px solid var(--accent-foreground); border-bottom: 2px solid var(--accent-foreground); transform: translateY(-1px) rotate(-45deg); }
+.ui-check input:indeterminate::after { content: ""; width: 8px; height: 2px; background: var(--accent-foreground); }
+.ui-check input:disabled { opacity: .5; cursor: not-allowed; }

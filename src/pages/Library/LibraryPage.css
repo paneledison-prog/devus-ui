@@ -1,0 +1,5 @@
+.ui-library { max-width: 1280px; margin: 0 auto; padding: 48px var(--space-6) 96px; }
+.ui-library__header { margin-bottom: 48px; }
+.ui-library__title { margin: 0 0 var(--space-2); font: 600 32px/40px var(--font-sans); }
+.ui-library__subtitle { margin: 0; font: 400 var(--text-base)/var(--leading-base) var(--font-sans); color: var(--muted); }
+.ui-library__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 48px var(--space-6); }

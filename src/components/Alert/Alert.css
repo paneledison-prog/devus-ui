@@ -1,0 +1,9 @@
+.ui-alert { display: flex; gap: var(--space-3); width: 384px; max-width: 100%; padding: var(--space-4); border-radius: var(--radius-2xl);
+  background: var(--surface); box-shadow: var(--shadow-surface); }
+.ui-alert__dot { flex: none; width: 8px; height: 8px; margin-top: 6px; border-radius: 50%; background: var(--tone); }
+.ui-alert__title { font: 500 var(--text-sm)/var(--leading-sm) var(--font-sans); }
+.ui-alert__desc { font: 400 var(--text-xs)/var(--leading-sm) var(--font-sans); color: var(--muted); }
+.ui-alert--default { --tone: var(--accent); }
+.ui-alert--success { --tone: #17c964; }
+.ui-alert--warning { --tone: var(--warning); }
+.ui-alert--danger { --tone: var(--danger); }

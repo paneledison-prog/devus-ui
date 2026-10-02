@@ -1,0 +1,6 @@
+.ui-spinner { --size: 24px; display: inline-block; width: var(--size); height: var(--size); border-radius: 50%; border: 2px solid var(--default);
+  border-top-color: var(--accent); animation: ui-spin .7s linear infinite; }
+.ui-spinner--sm { --size: 16px; }
+.ui-spinner--lg { --size: 32px; }
+@keyframes ui-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .ui-spinner { animation-duration: 2s; } }
