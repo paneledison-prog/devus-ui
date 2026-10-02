@@ -1,0 +1,14 @@
+.ui-dropzone-wrap { display: flex; flex-direction: column; gap: var(--space-3); width: 288px; max-width: 100%; }
+.ui-dropzone { position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--space-1); padding: var(--space-6) var(--space-4); cursor: pointer; text-align: center;
+  border-radius: var(--radius-2xl); background: var(--surface); box-shadow: var(--shadow-surface); outline: 2px dashed var(--separator); outline-offset: -8px;
+  font: 400 var(--text-xs)/var(--leading-sm) var(--font-sans); color: var(--muted); transition: outline-color .15s, background-color .15s; }
+.ui-dropzone strong { color: var(--foreground); font: 500 var(--text-sm)/var(--leading-sm) var(--font-sans); }
+.ui-dropzone[data-over="true"], .ui-dropzone:hover { outline-color: var(--accent); background: var(--accent-soft); }
+.ui-dropzone:focus-within { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.ui-dropzone__input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.ui-dropzone__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-1-5); }
+.ui-dropzone__list li { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius-xl); background: var(--surface); box-shadow: var(--shadow-field); font: 400 var(--text-sm)/var(--leading-sm) var(--font-sans); }
+.ui-dropzone__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ui-dropzone__size { color: var(--muted); font-size: var(--text-xs); }
+.ui-dropzone__list button { border: 0; background: none; color: var(--muted); cursor: pointer; border-radius: var(--radius-md); }
+.ui-dropzone__list button:hover { color: var(--danger); }

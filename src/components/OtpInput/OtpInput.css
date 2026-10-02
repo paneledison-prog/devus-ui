@@ -1,0 +1,4 @@
+.ui-otp { display: inline-flex; gap: var(--space-2); }
+.ui-otp__cell { width: 48px; height: 56px; text-align: center; border: 1px solid var(--field-border); border-radius: var(--radius-xl);
+  background: var(--field-background); color: var(--field-foreground); box-shadow: var(--shadow-field); font: 600 var(--text-lg)/var(--leading-lg) var(--font-sans); }
+.ui-otp__cell:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--focus-ring); }

@@ -13,6 +13,12 @@ import { Badge } from '../../components/Badge/Badge';
 import { Kbd } from '../../components/Kbd/Kbd';
 import { Separator } from '../../components/Separator/Separator';
 import { Progress } from '../../components/Progress/Progress';
+import { SegmentedControl } from '../../components/SegmentedControl/SegmentedControl';
+import { OtpInput } from '../../components/OtpInput/OtpInput';
+import { Dropzone } from '../../components/Dropzone/Dropzone';
+import { SlideToConfirm } from '../../components/SlideToConfirm/SlideToConfirm';
+import { InlineConfirm } from '../../components/InlineConfirm/InlineConfirm';
+import { ImageCompare } from '../../components/ImageCompare/ImageCompare';
 
 export type LibraryCategory = 'components' | 'blocks' | 'templates' | 'backgrounds' | 'ui-elements';
 
@@ -108,6 +114,33 @@ const componentItems: BaseItem[] = [
       'All native input props plus label?, description?, errorMessage? (sets invalid state).',
       'Label linked via htmlFor, aria-invalid and aria-describedby point to the help/error text.'),
   },
+  {
+    name: 'Segmented control',
+    variants: 1,
+    preview: <SegmentedControl label="Range" defaultValue="4h" options={[{ value: '1h', label: '1H' }, { value: '4h', label: '4H' }, { value: '1d', label: '1D' }]} />,
+    code: `<SegmentedControl\n  label="Range"\n  defaultValue="4h"\n  options={[\n    { value: '1h', label: '1H' },\n    { value: '4h', label: '4H' },\n    { value: '1d', label: '1D' },\n  ]}\n/>`,
+    prompt: masterPrompt('SegmentedControl', 'Pill-shaped switcher for choosing one of a few options (time ranges, views).',
+      'options: { value, label }[]; label: string (group name); value / defaultValue; onChange(value).',
+      "Native radio inputs inside role='radiogroup', so arrow keys move the selection and a visible focus ring shows on the active segment."),
+  },
+  {
+    name: 'OTP input',
+    variants: 2,
+    preview: <OtpInput length={4} />,
+    code: `<OtpInput length={4} onComplete={(code) => verify(code)} />`,
+    prompt: masterPrompt('OtpInput', 'One-time code entry with one numeric cell per digit.',
+      'length?: number (default 4); label?: string; onComplete(code: string).',
+      "Digits only, auto-advance on input, Backspace and arrow keys move between cells, paste fills all cells, autocomplete='one-time-code' on the first cell, each cell has an aria-label."),
+  },
+  {
+    name: 'Dropzone',
+    variants: 2,
+    preview: <Dropzone />,
+    code: `<Dropzone accept="image/*" hint="PNG or JPG, up to 5 MB" onFiles={(files) => upload(files)} />`,
+    prompt: masterPrompt('Dropzone', 'File upload area that accepts drag-and-drop or click-to-browse and lists the chosen files with a remove button.',
+      'accept?: string; hint?: string; onFiles(files: File[]).',
+      'Built on a real <input type="file"> inside a <label>, so it is keyboard and screen-reader operable; drag-over state is also shown visually.'),
+  },
 ];
 
 const uiElementItems: BaseItem[] = [
@@ -145,6 +178,33 @@ const uiElementItems: BaseItem[] = [
     prompt: masterPrompt('Progress', 'Determinate progress bar with optional label and percentage.',
       'value: number (0-100, clamped); label?: string.',
       "role='progressbar' with aria-valuenow / aria-valuemin / aria-valuemax and an accessible name."),
+  },
+  {
+    name: 'Slide to confirm',
+    variants: 1,
+    preview: <SlideToConfirm />,
+    code: `<SlideToConfirm label="Slide to pay" confirmedLabel="Paid" onConfirm={() => pay()} />`,
+    prompt: masterPrompt('SlideToConfirm', 'Deliberate-action control: drag the thumb to the end to confirm, otherwise it snaps back.',
+      'label?, confirmedLabel?, onConfirm().',
+      'Built on a native range input so keyboard arrows work; resets on blur or pointer release before the end; exposes aria-valuetext.'),
+  },
+  {
+    name: 'Inline confirm',
+    variants: 2,
+    preview: <InlineConfirm />,
+    code: `<InlineConfirm label="Delete" onConfirm={() => remove()} />`,
+    prompt: masterPrompt('InlineConfirm', 'Destructive button that turns into "Sure? / Cancel" in place instead of opening a dialog; reverts after 4 seconds.',
+      'label?: string; onConfirm().',
+      'Moves focus to the confirm button, wraps the pair in a labelled group, and Cancel is always reachable.'),
+  },
+  {
+    name: 'Image compare',
+    variants: 1,
+    preview: <ImageCompare />,
+    code: `<ImageCompare before={<img src="before.jpg" alt="" />} after={<img src="after.jpg" alt="" />} />`,
+    prompt: masterPrompt('ImageCompare', 'Before/after slider that reveals the second layer as you drag.',
+      'before?, after?: ReactNode (default to gradients); label?: string.',
+      'A native range input overlays the layers, so it is keyboard operable and has an accessible name.'),
   },
 ];
 
