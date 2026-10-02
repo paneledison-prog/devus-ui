@@ -3,7 +3,7 @@
 /* ---------- Phone viewport ---------- */
 /* iPhone proportions: 147.6 mm tall x 71.6 mm wide (ratio 2.0615). 284px wide = 3.97px per mm, so 585px tall. */
 .app-phone { display: flex; width: 284px; aspect-ratio: 71.6 / 147.6; padding: 7px; border-radius: 46px; background: var(--surface);
-  box-shadow: 0 0 0 1px var(--separator), 0 18px 40px rgb(0 0 0 / .12); }
+  box-shadow: 0 0 0 1px var(--separator); }
 .app-phone__screen { position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden; border-radius: 40px;
   background: var(--background); color: var(--foreground); font-family: var(--font-sans); text-align: left; }
 .app-phone__status { display: flex; align-items: center; justify-content: space-between; padding: 16px 26px 8px; font: 600 12px/14px var(--font-sans); }
