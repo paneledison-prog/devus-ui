@@ -5,10 +5,10 @@
 }
 .ui-preview-dialog[open] { display: flex; }
 .ui-preview-dialog::backdrop { background: rgb(0 0 0 / .45); backdrop-filter: blur(4px); }
-.ui-preview-dialog__header { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--separator); }
-.ui-preview-dialog__title { margin: 0; flex: 1; font: 600 var(--text-lg)/var(--leading-lg) var(--font-sans); }
-.ui-preview-dialog__tabs { display: flex; gap: var(--space-1); padding: var(--space-1); border-radius: var(--radius-3xl); background: var(--default); }
-.ui-preview-dialog__tab { border: 0; cursor: pointer; padding: 4px 14px; border-radius: var(--radius-3xl); background: transparent; color: var(--muted);
+.ui-preview-dialog__header { display: flex; align-items: center; gap: var(--space-3); min-height: 52px; padding: var(--space-2) var(--space-4) var(--space-2) var(--space-5); border-bottom: 1px solid var(--separator); }
+.ui-preview-dialog__title { margin: 0; flex: 1; font: 600 var(--text-base)/var(--leading-base) var(--font-sans); }
+.ui-preview-dialog__tabs { display: flex; gap: var(--space-0-5); padding: var(--space-0-5); border-radius: var(--radius-3xl); background: var(--default); }
+.ui-preview-dialog__tab { border: 0; cursor: pointer; padding: 3px 12px; border-radius: var(--radius-3xl); background: transparent; color: var(--muted);
   font: 500 var(--text-sm)/var(--leading-sm) var(--font-sans); }
 .ui-preview-dialog__tab[aria-selected="true"] { background: var(--surface); color: var(--foreground); box-shadow: var(--shadow-field); }
 .ui-preview-dialog__stage { flex: 1; min-height: 0; display: grid; place-items: center; overflow: auto; padding: var(--space-6); background: var(--default); margin: var(--space-4) var(--space-4) 0; border-radius: var(--radius-2xl); }

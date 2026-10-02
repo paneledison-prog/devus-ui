@@ -56,7 +56,7 @@ Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `
 
 ## Homepage behavior
 - Sticky header: logo, one nav link per category (Components, Blocks, Templates, Backgrounds, UI Elements, App), Storybook link, Search button (Ctrl/Cmd+K), theme toggle (contrast icon).
-- Each tile: click opens the large preview dialog (Preview / Code / Master prompt tabs, zoom 75/100/150/200%; phone items open taller (up to 860px) with a **Fit** zoom that auto-scales the iPhone to the stage, up to 1.2x, scaled to fit the stage at any window size, no gray box behind it); hover shows Prompt / Code copy buttons.
+- Each tile: click opens the large preview dialog (compact 52px header: 16px title, small tab pill; Preview / Code / Master prompt tabs, zoom 75/100/150/200%; phone items open taller (up to 860px) with a **Fit** zoom that auto-scales the iPhone to the stage, up to 1.2x, scaled to fit the stage at any window size, no gray box behind it); hover shows Prompt / Code copy buttons.
 - Search overlay: recent searches (localStorage `devus-recent-searches`), live filter on name and prompt text, arrow keys + Enter; choosing a result scrolls to its category and opens its large preview.
 
 ## Working agreements
@@ -70,8 +70,8 @@ Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `
 - **Shaders**: build with three.js plus the library from @npm_i_shaders (npm package name still to be confirmed) as Backgrounds: lazy-loaded, reduced-motion fallback, pause off-screen, CSS gradient fallback.
 
 ## Status
-- Latest local commit: "Phone: 36px radius and taller 284x618 frame".
-- **Unpushed:** 15 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone, radius and height). Live sites do not have them yet.
+- Latest local commit: "Compact the large-preview dialog header (69px to 52px)".
+- **Unpushed:** 16 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone, radius and height, compact dialog header). Live sites do not have them yet.
 - `storybook.devus.space` verified working after the routing fix (title "storybook - Storybook").
 - `devus.space` must be connected to the same Vercel project (Settings > Domains) to show the homepage.
 
