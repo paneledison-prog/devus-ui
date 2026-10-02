@@ -70,8 +70,8 @@ Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `
 - **Shaders**: build with three.js plus the library from @npm_i_shaders (npm package name still to be confirmed) as Backgrounds: lazy-loaded, reduced-motion fallback, pause off-screen, CSS gradient fallback.
 
 ## Status
-- Latest local commit: "Bottom sheet: white sheet over a scrim inside the phone".
-- **Unpushed:** 19 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone, radius and height, compact dialog header, tighter header and footer, wider phone with smaller radius, bottom sheet scrim). Live sites do not have them yet.
+- Latest local commit: "Image compare: replace the purple with teal and amber".
+- **Unpushed:** 20 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone, radius and height, compact dialog header, tighter header and footer, wider phone with smaller radius, bottom sheet scrim, Image compare gradient without purple: blue, teal, amber; purple remains in the story-ring gradient inside src/components/AppUI/AppUI.css). Live sites do not have them yet.
 - `storybook.devus.space` verified working after the routing fix (title "storybook - Storybook").
 - `devus.space` must be connected to the same Vercel project (Settings > Domains) to show the homepage.
 
