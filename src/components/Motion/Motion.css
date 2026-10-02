@@ -39,7 +39,7 @@
 .mo-island__end { width: 40px; height: 40px; border: 0; border-radius: 50%; background: #ff453a; color: #fff; cursor: pointer; flex: none; }
 .mo-island__end:focus-visible, .mo-island__ctl button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 @keyframes mo-rot { to { transform: rotate(360deg); } }
-.mo-island__ctl { display: inline-flex; padding: 3px; border-radius: 12px; background: var(--default); }
+.mo-island__ctl { display: inline-flex; padding: 3px; border-radius: 12px; background: var(--default-hover); }
 .mo-island__ctl button { height: 28px; padding: 0 var(--space-3); border: 0; border-radius: 9px; background: none; color: var(--muted); font: inherit; cursor: pointer; }
 .mo-island__ctl button[aria-pressed="true"] { background: var(--surface); color: var(--foreground); font-weight: 500; box-shadow: var(--shadow-surface); }
 
@@ -48,7 +48,7 @@
 .mo-stack li:first-child { margin-left: 0; }
 .mo-stack:hover li, .mo-stack:focus-within li { margin-left: 4px; }
 .mo-stack:hover li:first-child, .mo-stack:focus-within li:first-child { margin-left: 0; }
-.mo-stack__av { position: relative; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; color: var(--foreground); font: 600 12px var(--font-sans); cursor: pointer; box-shadow: 0 0 0 3px var(--background); transition: transform .2s; }
+.mo-stack__av { position: relative; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; color: var(--foreground); font: 600 12px var(--font-sans); cursor: pointer; box-shadow: 0 0 0 3px var(--stack-ring, var(--default)); transition: transform .2s; }
 .mo-stack__av:hover, .mo-stack__av:focus-visible { transform: translateY(-4px); z-index: 2; }
 .mo-stack__av:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .mo-stack__tip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; padding: 4px 10px; border-radius: 10px; background: var(--foreground); color: var(--background); font-weight: 400; font-size: 12px; line-height: 16px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .12s; }
