@@ -43,8 +43,8 @@ export interface LibraryItem {
   prompt: string;
   /** Preview fills the whole tile / stage (used by backgrounds). */
   fill?: boolean;
-  /** 4:5 portrait frame with 36px radius and a white border (glow backgrounds). */
-  portrait?: boolean;
+  /** 16:10 landscape frame with 24px radius and a white border (glow backgrounds). */
+  landscape?: boolean;
   /** Shrinks large previews inside the small tile only. */
   tileZoom?: number;
   /** Initial zoom of the large preview (default 1.5). */
@@ -84,7 +84,7 @@ const componentItems: BaseItem[] = [
     preview: <div style={{ display: 'flex', gap: 8 }}><Button>Primary</Button><Button variant="tertiary">Soft</Button></div>,
     code: `<Button variant="primary" size="md">Primary</Button>\n<Button variant="tertiary">Soft</Button>`,
     prompt: masterPrompt('Button', 'Clickable action with seven emphasis levels.',
-      "variant: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'danger' | 'dangerSoft'; size: 'sm' (32px) | 'md' (36px) | 'lg' (40px); iconOnly (square); startContent / endContent slots. Pill radius, states: default, hover, focus, pressed, disabled.",
+      "variant: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'danger' | 'dangerSoft'; size: 'sm' (32px) | 'md' (24px) | 'lg' (40px); iconOnly (square); startContent / endContent slots. Pill radius, states: default, hover, focus, pressed, disabled.",
       'Native <button>, type defaults to "button", icon-only buttons require aria-label, visible focus ring.'),
   },
   {
@@ -353,61 +353,61 @@ const backgroundItems: BaseItem[] = [
     name: 'Dot grid',
     variants: 1,
     fill: true,
-    portrait: true,
+    landscape: true,
     lang: 'css',
     preview: <div style={{ ...fillStyle, backgroundColor: 'var(--surface)', backgroundImage: 'radial-gradient(var(--muted) 1px, transparent 1px)', backgroundSize: '16px 16px' }} />,
-    code: `.bg-dots {\n  background-color: var(--surface);\n  background-image: radial-gradient(var(--muted) 1px, transparent 1px);\n  background-size: 16px 16px;\n  border: 1px solid #fff;\n  border-radius: 36px;\n}`,
-    prompt: backgroundPrompt('Dot grid', 'evenly spaced 1px dots on the surface color, subtle and technical. Frame: 4:5 portrait, 1px white border, 36px radius.'),
+    code: `.bg-dots {\n  background-color: var(--surface);\n  background-image: radial-gradient(var(--muted) 1px, transparent 1px);\n  background-size: 16px 16px;\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
+    prompt: backgroundPrompt('Dot grid', 'evenly spaced 1px dots on the surface color, subtle and technical. Frame: 16:10 landscape, 1px white border, 24px radius.'),
   },
   {
     name: 'Grid lines',
     variants: 1,
     fill: true,
-    portrait: true,
+    landscape: true,
     lang: 'css',
     preview: <div style={{ ...fillStyle, backgroundColor: 'var(--surface)', backgroundImage: 'linear-gradient(var(--separator) 1px, transparent 1px), linear-gradient(90deg, var(--separator) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />,
-    code: `.bg-grid {\n  background-color: var(--surface);\n  background-image:\n    linear-gradient(var(--separator) 1px, transparent 1px),\n    linear-gradient(90deg, var(--separator) 1px, transparent 1px);\n  background-size: 32px 32px;\n  border: 1px solid #fff;\n  border-radius: 36px;\n}`,
-    prompt: backgroundPrompt('Grid lines', 'blueprint-style 32px grid drawn with the separator color. Frame: 4:5 portrait, 1px white border, 36px radius.'),
+    code: `.bg-grid {\n  background-color: var(--surface);\n  background-image:\n    linear-gradient(var(--separator) 1px, transparent 1px),\n    linear-gradient(90deg, var(--separator) 1px, transparent 1px);\n  background-size: 32px 32px;\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
+    prompt: backgroundPrompt('Grid lines', 'blueprint-style 32px grid drawn with the separator color. Frame: 16:10 landscape, 1px white border, 24px radius.'),
   },
   {
     name: 'Aurora',
     variants: 1,
     fill: true,
-    portrait: true,
+    landscape: true,
     lang: 'css',
     preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundImage: 'radial-gradient(60% 34% at 78% 100%, #f2fbff 0%, #7fd0ff 36%, transparent 78%), radial-gradient(48% 30% at 24% 100%, #e6f7ff 0%, #4aa8ff 42%, transparent 78%), radial-gradient(15% 72% at 60% 0%, rgb(70 220 240 / .9), transparent 100%), radial-gradient(14% 62% at 10% 0%, rgb(70 220 240 / .75), transparent 100%), linear-gradient(to top, #2563d6 0%, transparent 58%)' }} />,
-    code: `.bg-aurora {\n  background-color: #000;\n  background-image:\n    radial-gradient(60% 34% at 78% 100%, #f2fbff 0%, #7fd0ff 36%, transparent 78%),\n    radial-gradient(48% 30% at 24% 100%, #e6f7ff 0%, #4aa8ff 42%, transparent 78%),\n    radial-gradient(15% 72% at 60% 0%, rgb(70 220 240 / .9), transparent 100%),\n    radial-gradient(14% 62% at 10% 0%, rgb(70 220 240 / .75), transparent 100%),\n    linear-gradient(to top, #2563d6 0%, transparent 58%);\n  border: 1px solid #fff;\n  border-radius: 36px;\n}`,
-    prompt: backgroundPrompt('Aurora', 'soft blurred mesh gradient on black: two cyan light beams falling from the top and a bright icy-blue glow rising from the bottom edge. Clean saturated colors, no gray or muddy tones, no hard edges. Frame: 4:5 portrait, 1px white border, 36px radius.'),
+    code: `.bg-aurora {\n  background-color: #000;\n  background-image:\n    radial-gradient(60% 34% at 78% 100%, #f2fbff 0%, #7fd0ff 36%, transparent 78%),\n    radial-gradient(48% 30% at 24% 100%, #e6f7ff 0%, #4aa8ff 42%, transparent 78%),\n    radial-gradient(15% 72% at 60% 0%, rgb(70 220 240 / .9), transparent 100%),\n    radial-gradient(14% 62% at 10% 0%, rgb(70 220 240 / .75), transparent 100%),\n    linear-gradient(to top, #2563d6 0%, transparent 58%);\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
+    prompt: backgroundPrompt('Aurora', 'soft blurred mesh gradient on black: two cyan light beams falling from the top and a bright icy-blue glow rising from the bottom edge. Clean saturated colors, no gray or muddy tones, no hard edges. Frame: 16:10 landscape, 1px white border, 24px radius.'),
   },
   {
     name: 'Soft gradient',
     variants: 1,
     fill: true,
-    portrait: true,
+    landscape: true,
     lang: 'css',
     preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundImage: 'radial-gradient(60% 34% at 22% 100%, #fff4e6 0%, #ffb27a 38%, transparent 78%), radial-gradient(48% 30% at 78% 100%, #ffe8ee 0%, #ff8aa5 42%, transparent 78%), radial-gradient(16% 70% at 70% 0%, rgb(255 140 170 / .85), transparent 100%), linear-gradient(to top, #e0603f 0%, transparent 55%)' }} />,
-    code: `.bg-soft {\n  background-color: #000;\n  background-image:\n    radial-gradient(60% 34% at 22% 100%, #fff4e6 0%, #ffb27a 38%, transparent 78%),\n    radial-gradient(48% 30% at 78% 100%, #ffe8ee 0%, #ff8aa5 42%, transparent 78%),\n    radial-gradient(16% 70% at 70% 0%, rgb(255 140 170 / .85), transparent 100%),\n    linear-gradient(to top, #e0603f 0%, transparent 55%);\n  border: 1px solid #fff;\n  border-radius: 36px;\n}`,
-    prompt: backgroundPrompt('Soft gradient', 'soft blurred mesh gradient on black: a rose light beam falling from the top and a warm peach-to-pink glow rising from the bottom edge. Clean saturated colors, no gray or muddy tones, no hard edges. Frame: 4:5 portrait, 1px white border, 36px radius.'),
+    code: `.bg-soft {\n  background-color: #000;\n  background-image:\n    radial-gradient(60% 34% at 22% 100%, #fff4e6 0%, #ffb27a 38%, transparent 78%),\n    radial-gradient(48% 30% at 78% 100%, #ffe8ee 0%, #ff8aa5 42%, transparent 78%),\n    radial-gradient(16% 70% at 70% 0%, rgb(255 140 170 / .85), transparent 100%),\n    linear-gradient(to top, #e0603f 0%, transparent 55%);\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
+    prompt: backgroundPrompt('Soft gradient', 'soft blurred mesh gradient on black: a rose light beam falling from the top and a warm peach-to-pink glow rising from the bottom edge. Clean saturated colors, no gray or muddy tones, no hard edges. Frame: 16:10 landscape, 1px white border, 24px radius.'),
   },
   {
     name: 'Emerald glow',
     variants: 1,
     fill: true,
-    portrait: true,
+    landscape: true,
     lang: 'css',
     preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundImage: 'radial-gradient(60% 34% at 80% 100%, #f0fff7 0%, #6ff0b0 38%, transparent 78%), radial-gradient(48% 30% at 28% 100%, #dcffee 0%, #46d796 42%, transparent 78%), radial-gradient(15% 72% at 62% 0%, rgb(70 215 155 / .9), transparent 100%), radial-gradient(14% 62% at 8% 0%, rgb(70 215 155 / .75), transparent 100%), linear-gradient(to top, #25a874 0%, transparent 58%)' }} />,
-    code: `.bg-emerald {\n  background-color: #000;\n  background-image:\n    radial-gradient(60% 34% at 80% 100%, #f0fff7 0%, #6ff0b0 38%, transparent 78%),\n    radial-gradient(48% 30% at 28% 100%, #dcffee 0%, #46d796 42%, transparent 78%),\n    radial-gradient(15% 72% at 62% 0%, rgb(70 215 155 / .9), transparent 100%),\n    radial-gradient(14% 62% at 8% 0%, rgb(70 215 155 / .75), transparent 100%),\n    linear-gradient(to top, #25a874 0%, transparent 58%);\n  border: 1px solid #fff;\n  border-radius: 36px;\n}`,
-    prompt: backgroundPrompt('Emerald glow', 'soft blurred mesh gradient on black: two emerald light beams falling from the top and a bright mint glow rising from the bottom edge. No hard edges; keep it smooth. Frame: 4:5 portrait, 1px white border, 36px radius.'),
+    code: `.bg-emerald {\n  background-color: #000;\n  background-image:\n    radial-gradient(60% 34% at 80% 100%, #f0fff7 0%, #6ff0b0 38%, transparent 78%),\n    radial-gradient(48% 30% at 28% 100%, #dcffee 0%, #46d796 42%, transparent 78%),\n    radial-gradient(15% 72% at 62% 0%, rgb(70 215 155 / .9), transparent 100%),\n    radial-gradient(14% 62% at 8% 0%, rgb(70 215 155 / .75), transparent 100%),\n    linear-gradient(to top, #25a874 0%, transparent 58%);\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
+    prompt: backgroundPrompt('Emerald glow', 'soft blurred mesh gradient on black: two emerald light beams falling from the top and a bright mint glow rising from the bottom edge. No hard edges; keep it smooth. Frame: 16:10 landscape, 1px white border, 24px radius.'),
   },
   {
     name: 'Lilac fade',
     variants: 1,
     fill: true,
-    portrait: true,
+    landscape: true,
     lang: 'css',
     preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundRepeat: 'no-repeat', backgroundImage: 'radial-gradient(42% 46% at 0% 0%, rgb(186 156 200 / .75), transparent 100%), radial-gradient(70% 26% at 62% 52%, rgb(238 208 255 / .95), transparent 100%), linear-gradient(to bottom, #fbf7ff 0%, #fbf7ff 38%, #c9a2ee 52%, #5a2d82 66%, #120519 80%, #000 100%)' }} />,
-    code: `.bg-lilac {\n  background-color: #000;\n  background-repeat: no-repeat;\n  background-image:\n    radial-gradient(42% 46% at 0% 0%, rgb(186 156 200 / .75), transparent 100%),\n    radial-gradient(70% 26% at 62% 52%, rgb(238 208 255 / .95), transparent 100%),\n    linear-gradient(to bottom, #fbf7ff 0%, #fbf7ff 38%, #c9a2ee 52%, #5a2d82 66%, #120519 80%, #000 100%);\n  border: 1px solid #fff;\n  border-radius: 36px;\n}`,
-    prompt: backgroundPrompt('Lilac fade', 'pale lavender-white light at the top that melts through a violet band into pure black at the bottom, with a soft glow on the right and a soft mauve glow in the top-left corner. No hard edges. Frame: 4:5 portrait, 1px white border, 36px radius.'),
+    code: `.bg-lilac {\n  background-color: #000;\n  background-repeat: no-repeat;\n  background-image:\n    radial-gradient(42% 46% at 0% 0%, rgb(186 156 200 / .75), transparent 100%),\n    radial-gradient(70% 26% at 62% 52%, rgb(238 208 255 / .95), transparent 100%),\n    linear-gradient(to bottom, #fbf7ff 0%, #fbf7ff 38%, #c9a2ee 52%, #5a2d82 66%, #120519 80%, #000 100%);\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
+    prompt: backgroundPrompt('Lilac fade', 'pale lavender-white light at the top that melts through a violet band into pure black at the bottom, with a soft glow on the right and a soft mauve glow in the top-left corner. No hard edges. Frame: 16:10 landscape, 1px white border, 24px radius.'),
   },
 ];
 

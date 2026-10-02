@@ -28,6 +28,6 @@
 /* Phone tiles: keep the hover actions in the free space beside the phone, not on top of it. */
 .ui-library-card__preview--tall .ui-library-card__actions { flex-direction: column; align-items: flex-end; right: -16px; bottom: var(--space-3); }
 
-/* Glow backgrounds: 4:5 portrait frame, 36px radius, 1px white border. */
-.ui-library-card__preview--portrait { aspect-ratio: 4 / 5; border: 1px solid #fff; border-radius: 36px; }
-.ui-library-card__preview--portrait .ui-library-card__content { border-radius: inherit; overflow: hidden; }
+/* Glow backgrounds: 16:10 landscape frame, 24px radius, 1px white border. */
+.ui-library-card__preview--landscape { aspect-ratio: 16 / 10; border: 1px solid #fff; border-radius: 24px; }
+.ui-library-card__preview--landscape .ui-library-card__content { border-radius: inherit; overflow: hidden; }

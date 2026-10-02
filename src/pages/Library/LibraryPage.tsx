@@ -35,7 +35,7 @@ export function LibraryPage({
         <h2 className="ui-library__title">{title}</h2>
         <p className="ui-library__subtitle">{subtitle}</p>
       </header>
-      <div className="ui-library__grid" style={category === "app" ? { ["--tile-min" as string]: "380px" } : undefined}>
+      <div className="ui-library__grid" style={category === "app" ? { ["--tile-min" as string]: "380px" } : category === "backgrounds" ? { ["--tile-min" as string]: "340px" } : undefined}>
         {items.map((item) => (
           <LibraryCard
             key={item.name}
