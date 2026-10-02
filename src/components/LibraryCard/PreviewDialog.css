@@ -30,3 +30,5 @@
 .ui-preview-dialog--tall { height: min(860px, calc(100vh - 32px)); }
 .ui-preview-dialog__stage--tall { background: transparent; }
 .ui-preview-dialog--tall { background: var(--background); }
+.ui-preview-dialog__stage--portrait { background: var(--background); padding: var(--space-3); }
+.ui-preview-dialog__stage--portrait .ui-preview-dialog__zoom { width: auto; height: 100%; aspect-ratio: 4 / 5; border: 1px solid #fff; border-radius: 36px; overflow: hidden; }

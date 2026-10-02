@@ -13,6 +13,7 @@ export interface PreviewDialogProps {
   prompt: string;
   lang?: 'tsx' | 'css';
   fill?: boolean;
+  portrait?: boolean;
   defaultZoom?: number;
   /** Phone viewport: opens near life-size and auto-fits the stage. */
   tall?: boolean;
@@ -21,7 +22,7 @@ export interface PreviewDialogProps {
 type Tab = 'preview' | 'code' | 'prompt';
 const ZOOMS = [0.75, 1, 1.5, 2] as const;
 
-export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, defaultZoom = 1.5, tall = false }: PreviewDialogProps) {
+export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, portrait = false, defaultZoom = 1.5, tall = false }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const [tab, setTab] = useState<Tab>('preview');
   const [zoom, setZoom] = useState<number | 'fit'>(tall ? 'fit' : defaultZoom);
@@ -67,7 +68,7 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
 
       {tab === 'preview' ? (
         <>
-          <div ref={stageRef} className={`ui-preview-dialog__stage${fill ? " ui-preview-dialog__stage--fill" : ""}${tall ? " ui-preview-dialog__stage--tall" : ""}`}>
+          <div ref={stageRef} className={`ui-preview-dialog__stage${fill ? " ui-preview-dialog__stage--fill" : ""}${tall ? " ui-preview-dialog__stage--tall" : ""}${portrait ? " ui-preview-dialog__stage--portrait" : ""}`}>
             <div className="ui-preview-dialog__zoom" style={fill ? undefined : { zoom: zoomValue }}>{preview}</div>
           </div>
           <footer className="ui-preview-dialog__footer">

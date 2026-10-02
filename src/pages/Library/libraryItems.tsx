@@ -42,6 +42,8 @@ export interface LibraryItem {
   prompt: string;
   /** Preview fills the whole tile / stage (used by backgrounds). */
   fill?: boolean;
+  /** 4:5 portrait frame with 36px radius and a white border (glow backgrounds). */
+  portrait?: boolean;
   /** Shrinks large previews inside the small tile only. */
   tileZoom?: number;
   /** Initial zoom of the large preview (default 1.5). */
@@ -314,6 +316,26 @@ const backgroundItems: BaseItem[] = [
     preview: <div style={{ ...fillStyle, backgroundImage: 'linear-gradient(135deg, var(--accent-soft), transparent 60%), linear-gradient(315deg, var(--danger-soft), transparent 60%)', backgroundColor: 'var(--surface)' }} />,
     code: `.bg-soft {\n  background-color: var(--surface);\n  background-image:\n    linear-gradient(135deg, var(--accent-soft), transparent 60%),\n    linear-gradient(315deg, var(--danger-soft), transparent 60%);\n}`,
     prompt: backgroundPrompt('Soft gradient', 'two-corner pastel wash from the accent and danger soft tokens over the surface.'),
+  },
+  {
+    name: 'Emerald glow',
+    variants: 1,
+    fill: true,
+    portrait: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundImage: 'radial-gradient(60% 34% at 80% 100%, #f0fff7 0%, #6ff0b0 38%, transparent 78%), radial-gradient(48% 30% at 28% 100%, #dcffee 0%, #46d796 42%, transparent 78%), radial-gradient(15% 72% at 62% 0%, rgb(70 215 155 / .9), transparent 100%), radial-gradient(14% 62% at 8% 0%, rgb(70 215 155 / .75), transparent 100%), linear-gradient(to top, #25a874 0%, transparent 58%)' }} />,
+    code: `.bg-emerald {\n  background-color: #000;\n  background-image:\n    radial-gradient(60% 34% at 80% 100%, #f0fff7 0%, #6ff0b0 38%, transparent 78%),\n    radial-gradient(48% 30% at 28% 100%, #dcffee 0%, #46d796 42%, transparent 78%),\n    radial-gradient(15% 72% at 62% 0%, rgb(70 215 155 / .9), transparent 100%),\n    radial-gradient(14% 62% at 8% 0%, rgb(70 215 155 / .75), transparent 100%),\n    linear-gradient(to top, #25a874 0%, transparent 58%);\n  border: 1px solid #fff;\n  border-radius: 36px;\n}`,
+    prompt: backgroundPrompt('Emerald glow', 'soft blurred mesh gradient on black: two emerald light beams falling from the top and a bright mint glow rising from the bottom edge. No hard edges; keep it smooth. Frame: 4:5 portrait, 1px white border, 36px radius.'),
+  },
+  {
+    name: 'Lilac fade',
+    variants: 1,
+    fill: true,
+    portrait: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundRepeat: 'no-repeat', backgroundImage: 'radial-gradient(42% 46% at 0% 0%, rgb(186 156 200 / .75), transparent 100%), radial-gradient(70% 26% at 62% 52%, rgb(238 208 255 / .95), transparent 100%), linear-gradient(to bottom, #fbf7ff 0%, #fbf7ff 38%, #c9a2ee 52%, #5a2d82 66%, #120519 80%, #000 100%)' }} />,
+    code: `.bg-lilac {\n  background-color: #000;\n  background-repeat: no-repeat;\n  background-image:\n    radial-gradient(42% 46% at 0% 0%, rgb(186 156 200 / .75), transparent 100%),\n    radial-gradient(70% 26% at 62% 52%, rgb(238 208 255 / .95), transparent 100%),\n    linear-gradient(to bottom, #fbf7ff 0%, #fbf7ff 38%, #c9a2ee 52%, #5a2d82 66%, #120519 80%, #000 100%);\n  border: 1px solid #fff;\n  border-radius: 36px;\n}`,
+    prompt: backgroundPrompt('Lilac fade', 'pale lavender-white light at the top that melts through a violet band into pure black at the bottom, with a soft glow on the right and a soft mauve glow in the top-left corner. No hard edges. Frame: 4:5 portrait, 1px white border, 36px radius.'),
   },
 ];
 

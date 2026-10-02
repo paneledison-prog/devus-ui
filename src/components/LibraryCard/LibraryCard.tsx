@@ -17,6 +17,8 @@ export interface LibraryCardProps {
   lang?: 'tsx' | 'css';
   /** Preview fills the whole tile (backgrounds). */
   fill?: boolean;
+  /** 4:5 portrait frame with 36px radius and a white border. */
+  portrait?: boolean;
   /** Shrinks large previews inside the tile only. */
   tileZoom?: number;
   /** Initial zoom of the large preview. */
@@ -28,7 +30,7 @@ export interface LibraryCardProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, tileZoom, defaultZoom, tall, open: openProp, onOpenChange }: LibraryCardProps) {
+export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, portrait, tileZoom, defaultZoom, tall, open: openProp, onOpenChange }: LibraryCardProps) {
   const [localOpen, setLocalOpen] = useState(false);
   const open = openProp ?? localOpen;
   const setOpen = (next: boolean) => {
@@ -52,7 +54,7 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
 
   return (
     <article className="ui-library-card">
-      <div ref={tileRef} className={`ui-library-card__preview${fill ? " ui-library-card__preview--fill" : ""}${tall ? " ui-library-card__preview--tall" : ""}`}>
+      <div ref={tileRef} className={`ui-library-card__preview${fill ? " ui-library-card__preview--fill" : ""}${tall ? " ui-library-card__preview--tall" : ""}${portrait ? " ui-library-card__preview--portrait" : ""}`}>
         <button type="button" className="ui-library-card__open" aria-label={`Open ${name} in large preview`} onClick={() => setOpen(true)} />
         <div className="ui-library-card__content" style={tall && fitZoom ? { zoom: fitZoom } : tileZoom ? { zoom: tileZoom } : undefined}>{preview}</div>
         <div className="ui-library-card__actions">
@@ -65,7 +67,7 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
         <h3 className="ui-library-card__name">{name}</h3>
         <p className="ui-library-card__meta">{variants} {variants === 1 ? 'variant' : 'variants'}</p>
       </div>
-      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} defaultZoom={defaultZoom} tall={tall} />
+      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} portrait={portrait} defaultZoom={defaultZoom} tall={tall} />
     </article>
   );
 }

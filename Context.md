@@ -42,13 +42,13 @@ src/
 ## Design tokens
 CSS variables in `src/styles/tokens.css`: colors (`--accent`, `--default`, `--danger`, `--surface`, `--foreground`, `--muted`, `--separator`, field and shadow tokens), radii, a 4px spacing scale, Inter type scale. Dark mode is `[data-theme="dark"]` on `<html>` (homepage toggle persists to localStorage key `devus-theme`; Storybook uses the themes addon). The dark values are approximations. Scrollbars are global in src/styles/index.css: thin, transparent track, thumb = foreground at 22% (38% on hover) via --scrollbar-thumb tokens, so they follow light/dark; standard scrollbar-width/scrollbar-color plus a WebKit rounded-pill fallback. Rule: never mention the upstream design system's name anywhere in the app, code, copy or prompts.
 
-## Library content (41 items, 6 categories)
-Defined in `src/pages/Library/libraryItems.tsx`. Each item has `name`, `category`, `variants`, `preview`, `code`, `prompt`, plus optional `lang`, `fill`, `tileZoom`, `defaultZoom`, `tall`.
+## Library content (43 items, 6 categories)
+Defined in `src/pages/Library/libraryItems.tsx`. Each item has `name`, `category`, `variants`, `preview`, `code`, `prompt`, plus optional `lang`, `fill`, `portrait`, `tileZoom`, `defaultZoom`, `tall`.
 
 - **Components (11):** Alert, Avatar, Button, Card, Checkbox, Spinner, Switch, TextField, Segmented control, OTP input, Dropzone
 - **Blocks (4):** Sign in, Newsletter, Notification settings, Profile card
 - **Templates (4):** Landing page, Dashboard, Split sign in, Settings page (720x440 canvases, scaled with CSS zoom)
-- **Backgrounds (4):** Dot grid, Grid lines, Aurora, Soft gradient (pure CSS, `fill: true`)
+- **Backgrounds (6):** Dot grid, Grid lines, Aurora, Soft gradient, Emerald glow, Lilac fade (pure CSS, `fill: true`). Emerald glow and Lilac fade are soft mesh-gradient looks from the user's references, shown in a 4:5 portrait frame (`portrait: true`, 36px radius, 1px white border; the dialog keeps the same frame)
 - **UI Elements (7):** Badge, Kbd, Separator, Progress, Slide to confirm, Inline confirm, Image compare
 - **App (11):** mobile-app style, every item shown inside a phone viewport (status bar, rounded bezel, home indicator; portrait 3:5 tiles via `tall`, App grid uses a 380px minimum tile width (3 columns, tiles ~395x658 at 1280px content, phone ~306x632 = 96% of the tile height, hover actions stacked beside the phone) through the `--tile-min` CSS variable; App tiles have no gray container or drop shadow behind the phone (transparent `--tall` tile; other categories keep their gray tiles); LibraryCard measures the tile with a ResizeObserver and scales the phone to ~96% of the tile height; the phone frame is 320x660 px, the classic iPhone ratio 2.06 (147.6 x 71.6 mm), via CSS aspect-ratio): Home screen, Floating tab bar, App bar, Week strip, Task list, Balance card, Tracking steps, Grouped list, Bottom sheet, Floating action button, Story rings. Code lives in `src/components/AppUI/` (PhoneFrame, TabBar, AppBar, ListRow/ListGroup, BottomSheet, Fab, StoryRing, Cards: AppCard/WeekStrip/BalanceCard/TrackSteps, icons)
 
@@ -70,8 +70,8 @@ Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `
 - **Shaders**: build with three.js plus the library from @npm_i_shaders (npm package name still to be confirmed) as Backgrounds: lazy-loaded, reduced-motion fallback, pause off-screen, CSS gradient fallback.
 
 ## Status
-- Latest local commit: "Global thin theme-aware scrollbars".
-- **Unpushed:** 23 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone, radius and height, compact dialog header, tighter header and footer, wider phone with smaller radius, bottom sheet scrim, Image compare uses flat solid colors (Before #71717a gray, After the --accent brand blue), no gradients; purple remains in the story-ring gradient inside src/components/AppUI/AppUI.css). Live sites do not have them yet.
+- Latest local commit: "Add Emerald glow and Lilac fade mesh-gradient backgrounds".
+- **Unpushed:** 24 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone, radius and height, compact dialog header, tighter header and footer, wider phone with smaller radius, bottom sheet scrim, Image compare uses flat solid colors (Before #71717a gray, After the --accent brand blue), no gradients; purple remains in the story-ring gradient inside src/components/AppUI/AppUI.css). Live sites do not have them yet.
 - `storybook.devus.space` verified working after the routing fix (title "storybook - Storybook").
 - `devus.space` must be connected to the same Vercel project (Settings > Domains) to show the homepage.
 
