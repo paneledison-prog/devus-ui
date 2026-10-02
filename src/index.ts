@@ -20,3 +20,4 @@ export * from './components/Agents/Pairwise';
 export * from './components/AiKit/AiKit';
 export * from './components/Motion/Motion';
 export * from './components/BuildAgent/BuildAgent';
+export * from './components/LiquidChat/LiquidChat';
