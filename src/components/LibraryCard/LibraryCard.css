@@ -21,3 +21,7 @@
 .ui-library-card__preview--fill { padding: 0; }
 .ui-library-card__preview--fill .ui-library-card__content { width: 100%; height: 100%; }
 .ui-library-card__preview--tall { aspect-ratio: 4 / 5; padding: var(--space-3); }
+
+/* App phones stand on the page itself: no gray tile behind the iPhone. */
+.ui-library-card__preview--tall,
+.ui-library-card__preview--tall:hover { background: transparent; overflow: visible; }
