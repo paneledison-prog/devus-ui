@@ -20,6 +20,7 @@ import { SlideToConfirm } from '../../components/SlideToConfirm/SlideToConfirm';
 import { InlineConfirm } from '../../components/InlineConfirm/InlineConfirm';
 import { ImageCompare } from '../../components/ImageCompare/ImageCompare';
 import { ChatCard, MilestoneCard, QrCard, PayoutCard, NavCards, ShowcaseCard, ContributionCard } from '../../components/Blocks/Blocks';
+import { ApprovalCard, ThinkingSteps, ContextMeter, AutonomyPicker, SourcedAnswer, Cite } from '../../components/AiKit/AiKit';
 import { PhoneFrame } from '../../components/AppUI/PhoneFrame';
 import { TabBar } from '../../components/AppUI/TabBar';
 import { AppBar } from '../../components/AppUI/AppBar';
@@ -158,6 +159,24 @@ const componentItems: BaseItem[] = [
     prompt: masterPrompt('Dropzone', 'File upload area that accepts drag-and-drop or click-to-browse and lists the chosen files with a remove button.',
       'accept?: string; hint?: string; onFiles(files: File[]).',
       'Built on a real <input type="file"> inside a <label>, so it is keyboard and screen-reader operable; drag-over state is also shown visually.'),
+  },
+  {
+    name: 'Context meter',
+    variants: 2,
+    tileZoom: 0.9,
+    defaultZoom: 1.5,
+    preview: <div style={{ display: 'grid', gap: 12, width: 340 }}><ContextMeter used={132000} total={200000} /><ContextMeter used={188000} total={200000} model="model-deep" /></div>,
+    code: `<ContextMeter used={132000} total={200000} onModelChange={setModel} />\n\n// Turns amber above 70% and red above 90%\n<ContextMeter used={188000} total={200000} />`,
+    prompt: masterPrompt('ContextMeter', 'A pill with a model select on the left and a thin usage bar with a "132K / 200K" label on the right. The bar is foreground-colored, amber above 70% and red above 90%.', 'used: number; total: number; models?: string[]; model?: string; onModelChange(model)', 'a native select with a hidden label, role="meter" with aria-valuenow and aria-valuetext'),
+  },
+  {
+    name: 'Autonomy picker',
+    variants: 1,
+    tileZoom: 0.9,
+    defaultZoom: 1.5,
+    preview: <AutonomyPicker />,
+    code: `<AutonomyPicker defaultValue="plan" onChange={(level) => agent.setAutonomy(level)} />`,
+    prompt: masterPrompt('AutonomyPicker', 'A three-segment control (Ask first, Plan then act, Autonomous) for how much freedom an AI agent has. The selected segment lifts onto a surface pill and a one-line hint below explains the current level.', 'defaultValue?: "ask" | "plan" | "auto"; onChange(level)', 'role="radiogroup" with role="radio" segments, roving tabindex, Left/Right arrow keys, hint in an aria-live region'),
   },
 ];
 
@@ -343,6 +362,42 @@ const blockItems: BaseItem[] = [
     preview: <ContributionCard />,
     code: `<ContributionCard\n  data={[\n    { m: 'Dec', v: 62 },\n    { m: 'Jan', v: 85 },\n    { m: 'Feb', v: 68 },\n    { m: 'Mar', v: 92 },\n    { m: 'Apr', v: 64 },\n  ]}\n/>`,
     prompt: blockPrompt('Contribution history', 'Bar chart card with six months of data in graduated gray bars, two stat tiles (Upcoming and Savings plan) and a full-width View Full Report button.', 'pure CSS bars (role="img" with a text summary), Button'),
+  },
+  {
+    name: 'Approval card',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1,
+    preview: <ApprovalCard title="How should I reply to the customer?" options={[
+      { id: 'a', label: 'Reply now with a workaround', hint: 'Unblocks them today, the fix ships later' },
+      { id: 'b', label: 'Wait for the fix to ship Thursday', hint: 'The patch is already in review' },
+      { id: 'c', label: 'Escalate to engineering', hint: 'Loops the on-call engineer into the thread' },
+    ]} />,
+    code: `<ApprovalCard\n  title="How should I reply to the customer?"\n  options={[\n    { id: 'a', label: 'Reply now with a workaround', hint: 'Unblocks them today' },\n    { id: 'b', label: 'Wait for the fix', hint: 'The patch is in review' },\n  ]}\n  onConfirm={(id) => agent.resume(id)}\n  onSkip={() => agent.skip()}\n/>`,
+    prompt: blockPrompt('Approval card', 'A card an AI agent shows when it pauses and needs a human decision: a Paused pill, a question, a radio list of options each with a one-line hint, and Confirm / Skip buttons. After choosing, the card locks, dims the other options and shows the result line.', 'Button, native radio inputs inside a fieldset with a legend'),
+  },
+  {
+    name: 'Thinking steps',
+    variants: 1,
+    tileZoom: 0.8,
+    defaultZoom: 1.25,
+    preview: <ThinkingSteps steps={[
+      { label: 'Reading the support thread', detail: 'Ticket #4821', seconds: 0.6, state: 'done' },
+      { label: 'Checking the changelog', detail: 'Last 2 releases', seconds: 0.9, state: 'done' },
+      { label: 'Pulling account status', state: 'running' },
+      { label: 'Drafting a reply', state: 'todo' },
+    ]} />,
+    code: `<ThinkingSteps\n  steps={[\n    { label: 'Reading the thread', detail: 'Ticket #4821', seconds: 0.6, state: 'done' },\n    { label: 'Pulling account status', state: 'running' },\n    { label: 'Drafting a reply', state: 'todo' },\n  ]}\n/>`,
+    prompt: blockPrompt('Thinking steps', 'Collapsible progress list for an AI answer. The header shows a spinner and Thinking... while a step is running, then a check and Worked for Ns. Open, it lists steps on a thin vertical rail: done steps are filled with a time, the running step spins, upcoming steps are dimmed.', 'a disclosure button with aria-expanded, an ordered list'),
+  },
+  {
+    name: 'Sourced answer',
+    variants: 1,
+    tileZoom: 0.8,
+    defaultZoom: 1.25,
+    preview: <SourcedAnswer sources={[{ id: '1', name: 'Support thread' }, { id: '2', name: 'Changelog' }]}>The outage began after Tuesday's release.<Cite n={1} /> A fix is already in review and ships Thursday.<Cite n={2} /></SourcedAnswer>,
+    code: `<SourcedAnswer sources={[{ id: '1', name: 'Support thread' }, { id: '2', name: 'Changelog' }]}>\n  The outage began after Tuesday's release.<Cite n={1} />\n  A fix is already in review and ships Thursday.<Cite n={2} />\n</SourcedAnswer>`,
+    prompt: blockPrompt('Sourced answer', 'An AI answer with small numbered citation badges inline and a Sources row of pill chips below, each chip showing its number. Chips toggle a selected ring so the app can highlight the matching source.', 'toggle buttons with aria-pressed, sup for markers'),
   },
 ];
 

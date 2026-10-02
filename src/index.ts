@@ -17,3 +17,4 @@ export * from './components/Crm/Crm';
 export * from './components/Agents/Beacon';
 export * from './components/Agents/Harbor';
 export * from './components/Agents/Pairwise';
+export * from './components/AiKit/AiKit';
