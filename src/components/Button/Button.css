@@ -25,3 +25,6 @@
 .ui-button--danger:hover:not(:disabled) { background: color-mix(in srgb, var(--danger) 90%, black); }
 .ui-button--dangerSoft { background: var(--danger-soft); color: var(--danger-soft-foreground); }
 .ui-button--dangerSoft:hover:not(:disabled) { background: color-mix(in srgb, var(--danger) 22%, transparent); }
+
+/* Links styled as buttons (for example "Open in new tab"). */
+a.ui-button { text-decoration: none; }

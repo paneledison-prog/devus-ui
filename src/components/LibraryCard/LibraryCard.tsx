@@ -25,12 +25,14 @@ export interface LibraryCardProps {
   defaultZoom?: number;
   /** Portrait tile for phone viewports. */
   tall?: boolean;
+  /** Standalone URL (templates). Adds an "Open in new tab" action. */
+  href?: string;
   /** Optional controlled state for the large preview. */
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
-export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, portrait, tileZoom, defaultZoom, tall, open: openProp, onOpenChange }: LibraryCardProps) {
+export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, portrait, tileZoom, defaultZoom, tall, href, open: openProp, onOpenChange }: LibraryCardProps) {
   const [localOpen, setLocalOpen] = useState(false);
   const open = openProp ?? localOpen;
   const setOpen = (next: boolean) => {
@@ -60,6 +62,7 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
         <div className="ui-library-card__actions">
           <Button size="sm" variant="secondary" onClick={() => copy(prompt, 'prompt')}>{copied === 'prompt' ? 'Copied ✓' : 'Prompt'}</Button>
           <Button size="sm" variant="secondary" onClick={() => copy(code, 'code')}>{copied === 'code' ? 'Copied ✓' : 'Code'}</Button>
+          {href && <a className="ui-button ui-button--secondary ui-button--sm ui-button--icon-only" href={href} target="_blank" rel="noopener noreferrer" aria-label={`Open ${name} in a new tab`} title="Open in new tab">↗</a>}
           <Button size="sm" iconOnly variant="secondary" aria-label={`Expand ${name}`} onClick={() => setOpen(true)}>⤢</Button>
         </div>
       </div>
@@ -67,7 +70,7 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
         <h3 className="ui-library-card__name">{name}</h3>
         <p className="ui-library-card__meta">{variants} {variants === 1 ? 'variant' : 'variants'}</p>
       </div>
-      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} portrait={portrait} defaultZoom={defaultZoom} tall={tall} />
+      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} portrait={portrait} defaultZoom={defaultZoom} tall={tall} href={href} />
     </article>
   );
 }

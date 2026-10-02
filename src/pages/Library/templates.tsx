@@ -95,6 +95,7 @@ type TemplateItem = Omit<LibraryItem, 'category'>;
 export const templateItems: TemplateItem[] = [
   {
     name: 'Landing page',
+    canvas: [720, 440],
     variants: 1,
     tileZoom: 0.4,
     defaultZoom: 1,
@@ -104,6 +105,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Dashboard',
+    canvas: [720, 440],
     variants: 1,
     tileZoom: 0.4,
     defaultZoom: 1,
@@ -113,6 +115,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Split sign in',
+    canvas: [720, 440],
     variants: 1,
     tileZoom: 0.4,
     defaultZoom: 1,
@@ -122,6 +125,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Settings page',
+    canvas: [720, 440],
     variants: 1,
     tileZoom: 0.4,
     defaultZoom: 1,
@@ -131,6 +135,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Case study',
+    standalone: <CaseStudyTemplate />,
     variants: 1,
     tileZoom: 0.21,
     defaultZoom: 0.7,
@@ -140,6 +145,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'AI workspace demo',
+    standalone: <WorkspaceDemo />,
     variants: 2,
     tileZoom: 0.22,
     defaultZoom: 0.75,

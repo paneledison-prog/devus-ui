@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { LibraryCard } from '../../components/LibraryCard/LibraryCard';
 import { libraryItems, type LibraryCategory } from './libraryItems';
+import { templateUrl } from './slug';
 import './LibraryPage.css';
 
 export interface LibraryPageProps {
@@ -39,6 +40,7 @@ export function LibraryPage({
           <LibraryCard
             key={item.name}
             {...item}
+            href={item.category === 'templates' ? templateUrl(item.name) : undefined}
             open={active === item.name}
             onOpenChange={(o) => setActive(o ? item.name : null)}
           />

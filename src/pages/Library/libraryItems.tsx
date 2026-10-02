@@ -51,6 +51,10 @@ export interface LibraryItem {
   defaultZoom?: number;
   /** Portrait tile (used for phone viewports). */
   tall?: boolean;
+  /** Templates: design size of a fixed canvas, scaled to fit when opened in a new tab. */
+  canvas?: [number, number];
+  /** Templates: responsive version rendered full-window in a new tab (instead of the scaled canvas). */
+  standalone?: ReactNode;
 }
 
 type BaseItem = Omit<LibraryItem, 'category'>;

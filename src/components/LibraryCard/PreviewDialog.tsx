@@ -17,12 +17,13 @@ export interface PreviewDialogProps {
   defaultZoom?: number;
   /** Phone viewport: opens near life-size and auto-fits the stage. */
   tall?: boolean;
+  href?: string;
 }
 
 type Tab = 'preview' | 'code' | 'prompt';
 const ZOOMS = [0.75, 1, 1.5, 2] as const;
 
-export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, portrait = false, defaultZoom = 1.5, tall = false }: PreviewDialogProps) {
+export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, portrait = false, defaultZoom = 1.5, tall = false, href }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const [tab, setTab] = useState<Tab>('preview');
   const [zoom, setZoom] = useState<number | 'fit'>(tall ? 'fit' : defaultZoom);
@@ -83,6 +84,7 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
               ))}
             </div>
             <div className="ui-preview-dialog__actions">
+              {href && <a className="ui-button ui-button--secondary ui-button--sm" href={href} target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>}
               <Button size="sm" variant="secondary" onClick={() => copy(prompt, 'prompt')}>{copied === 'prompt' ? 'Copied ✓' : 'Copy prompt'}</Button>
               <Button size="sm" onClick={() => copy(code, 'code')}>{copied === 'code' ? 'Copied ✓' : 'Copy code'}</Button>
             </div>
