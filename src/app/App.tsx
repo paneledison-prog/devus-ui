@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Button } from '../components/Button/Button';
 import { Logo } from '../components/Logo/Logo';
+import { SearchDialog } from '../components/Search/SearchDialog';
 import { LibraryPage } from '../pages/Library/LibraryPage';
+import { libraryItems, type LibraryItem } from '../pages/Library/libraryItems';
 import './App.css';
 
 const STORYBOOK_URL = 'https://storybook.devus.space';
@@ -15,13 +17,35 @@ function initialTheme(): Theme {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
+const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
+
 export function App() {
   const [theme, setTheme] = useState<Theme>(initialTheme);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState<string | null>(null);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     try { localStorage.setItem('devus-theme', theme); } catch { /* ignore */ }
   }, [theme]);
+
+  // Ctrl/Cmd + K opens search from anywhere.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setSearchOpen((o) => !o);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const selectResult = (item: LibraryItem) => {
+    setSearchOpen(false);
+    document.getElementById('library')?.scrollIntoView({ block: 'start' });
+    setActiveItem(item.name);
+  };
 
   return (
     <>
@@ -35,6 +59,18 @@ export function App() {
             <a href="#library">Components</a>
             <a href={STORYBOOK_URL} target="_blank" rel="noreferrer">Storybook</a>
           </nav>
+          <Button
+            variant="secondary" size="sm" className="site-search-btn" aria-label="Search components"
+            aria-keyshortcuts={isMac ? 'Meta+K' : 'Control+K'} onClick={() => setSearchOpen(true)}
+            startContent={
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" />
+              </svg>
+            }
+          >
+            <span className="site-search-btn__label">Search</span>
+            <kbd className="site-search-btn__kbd">{isMac ? '⌘K' : 'Ctrl K'}</kbd>
+          </Button>
           <Button
             variant="ghost" size="sm" iconOnly title="Toggle theme"
             aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
@@ -66,8 +102,13 @@ export function App() {
           </div>
         </section>
 
-        <LibraryPage id="library" title="Components" subtitle="Click a tile for a large preview, or copy its code or master prompt." />
+        <LibraryPage
+          id="library" title="Components" subtitle="Click a tile for a large preview, or copy its code or master prompt."
+          activeItem={activeItem} onActiveItemChange={setActiveItem}
+        />
       </main>
+
+      <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} items={libraryItems} onSelect={selectResult} />
 
       <footer className="site-footer">
         <span>© {new Date().getFullYear()} Devus UI</span>

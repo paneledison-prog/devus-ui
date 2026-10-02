@@ -13,10 +13,18 @@ export interface LibraryCardProps {
   code: string;
   /** Master prompt copied by "Copy prompt". */
   prompt: string;
+  /** Optional controlled state for the large preview. */
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export function LibraryCard({ name, variants, preview, code, prompt }: LibraryCardProps) {
-  const [open, setOpen] = useState(false);
+export function LibraryCard({ name, variants, preview, code, prompt, open: openProp, onOpenChange }: LibraryCardProps) {
+  const [localOpen, setLocalOpen] = useState(false);
+  const open = openProp ?? localOpen;
+  const setOpen = (next: boolean) => {
+    if (openProp === undefined) setLocalOpen(next);
+    onOpenChange?.(next);
+  };
   const { copied, copy } = useCopy();
 
   return (

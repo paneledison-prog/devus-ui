@@ -1,0 +1,36 @@
+.ui-search {
+  width: min(1100px, calc(100vw - 24px)); max-height: calc(100vh - 24px); margin: 12px auto 0; padding: 0; border: 0;
+  border-radius: var(--radius-3xl); background: var(--overlay); color: var(--foreground); box-shadow: var(--shadow-overlay);
+  overflow: hidden; flex-direction: column;
+}
+.ui-search[open] { display: flex; }
+.ui-search::backdrop { background: rgb(0 0 0 / .45); backdrop-filter: blur(4px); }
+
+.ui-search__bar {
+  display: flex; align-items: center; gap: var(--space-3); margin: var(--space-3); padding: 0 var(--space-4); height: 52px;
+  border-radius: var(--radius-full); background: var(--default); color: var(--muted);
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+.ui-search__input {
+  flex: 1; min-width: 0; height: 100%; border: 0; outline: none; background: transparent; color: var(--foreground);
+  font: 400 var(--text-base)/var(--leading-base) var(--font-sans);
+}
+.ui-search__input::placeholder { color: var(--muted); }
+.ui-search__input::-webkit-search-cancel-button { display: none; }
+.ui-search__esc { padding: 2px 8px; border-radius: var(--radius-md); background: var(--surface); color: var(--muted); font: 500 var(--text-xs)/var(--leading-sm) var(--font-sans); box-shadow: var(--shadow-field); }
+
+.ui-search__body { overflow: auto; padding: var(--space-3) var(--space-6) var(--space-6); }
+.ui-search__heading { margin: var(--space-5) 0 var(--space-3); font: 600 var(--text-lg)/var(--leading-lg) var(--font-sans); }
+.ui-search__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-3); }
+
+.ui-search__row {
+  display: flex; align-items: center; gap: var(--space-4); width: 100%; padding: 0; border: 0; cursor: pointer; text-align: left;
+  border-radius: var(--radius-2xl); background: var(--default); color: var(--foreground); overflow: hidden;
+  font: 400 var(--text-base)/var(--leading-base) var(--font-sans); transition: background-color .1s;
+}
+.ui-search__row[data-active="true"] { background: var(--default-hover); box-shadow: 0 0 0 2px var(--focus-ring); }
+.ui-search__thumb { flex: none; display: grid; place-items: center; width: 80px; height: 80px; overflow: hidden; background: var(--surface); }
+.ui-search__thumb-inner { zoom: .4; pointer-events: none; display: block; }
+.ui-search__name { flex: 1; font-weight: 500; }
+.ui-search__meta { padding-right: var(--space-4); color: var(--muted); font-size: var(--text-sm); }
+.ui-search__empty { margin: var(--space-6) 0; color: var(--muted); text-align: center; }
