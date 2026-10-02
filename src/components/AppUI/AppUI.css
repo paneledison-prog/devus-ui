@@ -132,6 +132,7 @@ button.app-row:active { background: var(--default); }
 .app-phone .app-bar--large .app-bar__action { background: var(--app-card-bg); box-shadow: none; }
 .app-phone .app-tabbar--floating { background: var(--app-card-bg); box-shadow: none; }
 .app-phone .app-tabbar--floating .app-tabbar__item[aria-current="page"] { background: var(--surface); box-shadow: none; }
+[data-theme="dark"] .app-phone .app-tabbar--floating .app-tabbar__item[aria-current="page"] { background: var(--default-hover); box-shadow: inset 0 1px 0 rgb(255 255 255 / .08); }
 .app-phone .app-story__ring .ui-avatar { box-shadow: 0 0 0 3px var(--surface); }
 .app-phone .app-week__day[aria-pressed="true"] { background: var(--surface); }
 
