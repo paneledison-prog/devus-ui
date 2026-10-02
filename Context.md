@@ -70,10 +70,11 @@ Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `
 - **Shaders**: build with three.js plus the library from @npm_i_shaders (npm package name still to be confirmed) as Backgrounds: lazy-loaded, reduced-motion fallback, pause off-screen, CSS gradient fallback.
 
 ## Status
-- Latest local commit: "Add Emerald glow and Lilac fade mesh-gradient backgrounds".
-- **Unpushed:** 24 commits ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone, radius and height, compact dialog header, tighter header and footer, wider phone with smaller radius, bottom sheet scrim, Image compare uses flat solid colors (Before #71717a gray, After the --accent brand blue), no gradients; purple remains in the story-ring gradient inside src/components/AppUI/AppUI.css). Live sites do not have them yet.
+- Latest commit: "Add Emerald glow and Lilac fade mesh-gradient backgrounds".
+- **Pushed:** everything is on `origin/main` (last push at commit 3eb494a, 24 commits at once). Live sites verified: https://devus.space serves the new bundle (contains Emerald glow) and https://storybook.devus.space still serves Storybook. Nothing unpushed.
+- (history) 24 commits were ahead of `origin/main` (header search, category sections, templates, edison round 1, Context.md, App category, App tile sizing, iPhone proportions, larger App tiles, transparent App tiles, no phone shadow, bigger phones, bigger phone dialog, borderless phone, radius and height, compact dialog header, tighter header and footer, wider phone with smaller radius, bottom sheet scrim, Image compare uses flat solid colors (Before #71717a gray, After the --accent brand blue), no gradients; purple remains in the story-ring gradient inside src/components/AppUI/AppUI.css). Live sites do not have them yet.
 - `storybook.devus.space` verified working after the routing fix (title "storybook - Storybook").
-- `devus.space` must be connected to the same Vercel project (Settings > Domains) to show the homepage.
+- `devus.space` is connected and serving the homepage.
 
 ## Known gaps and ideas
 - Segmented control track uses --default-hover (not --default) so it stays visible on the gray library tiles; inactive segments get a hover fill.
