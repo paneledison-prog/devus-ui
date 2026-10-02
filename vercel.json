@@ -1,6 +1,13 @@
 {
   "framework": null,
   "installCommand": "npm install",
-  "buildCommand": "npm run build-storybook",
-  "outputDirectory": "storybook-static"
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "storybook.devus.space" }],
+      "destination": "/storybook/$1"
+    }
+  ]
 }
