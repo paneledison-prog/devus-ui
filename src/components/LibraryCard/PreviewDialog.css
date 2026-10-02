@@ -25,3 +25,7 @@
 .ui-preview-dialog__stage--fill { padding: 0; overflow: hidden; }
 .ui-preview-dialog__stage--fill .ui-preview-dialog__zoom { width: 100%; height: 100%; }
 .ui-preview-dialog__zooms[hidden] { display: none; }
+
+/* Phone previews: taller dialog, no gray box behind the iPhone. */
+.ui-preview-dialog--tall { height: min(860px, calc(100vh - 32px)); }
+.ui-preview-dialog__stage--tall { background: transparent; }
