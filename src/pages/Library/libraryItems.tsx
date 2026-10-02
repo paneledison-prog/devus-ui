@@ -17,7 +17,7 @@ export interface LibraryItem {
 }
 
 const TOKENS = [
-  'Use the HeroUI Kit V3 design tokens exposed as CSS variables (src/styles/tokens.css):',
+  'Use the Devus UI design tokens exposed as CSS variables (src/styles/tokens.css):',
   'colors --accent, --default, --danger, --surface, --foreground, --muted, --separator;',
   'radii --radius-3xl (pills/cards), --radius-field; spacing on a 4px scale (--space-*);',
   'Inter font; focus ring --focus-ring. Support [data-theme="light"|"dark"].',
@@ -25,7 +25,7 @@ const TOKENS = [
 
 function masterPrompt(name: string, summary: string, api: string, a11y: string): string {
   return [
-    `Build a React + TypeScript <${name}> component for Devus UI (based on the HeroUI Kit V3 design system).`,
+    `Build a React + TypeScript <${name}> component for Devus UI.`,
     '',
     `Purpose: ${summary}`,
     `API: ${api}`,

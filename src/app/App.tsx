@@ -49,7 +49,7 @@ export function App() {
           <p className="hero__eyebrow">Open component library</p>
           <h1 className="hero__title">Build interfaces faster with Devus UI</h1>
           <p className="hero__lead">
-            Accessible React components on the HeroUI Kit V3 design tokens. Preview every component,
+            Accessible React components built on a consistent set of design tokens. Preview every component,
             then copy it as code or as a master prompt.
           </p>
           <div className="hero__actions">
