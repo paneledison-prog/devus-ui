@@ -8,6 +8,7 @@ import { Card } from '../../components/Card/Card';
 import { Progress } from '../../components/Progress/Progress';
 import { Avatar, AvatarGroup } from '../../components/Avatar/Avatar';
 import { Logo } from '../../components/Logo/Logo';
+import { CaseStudyTemplate } from '../../components/CaseStudy/CaseStudy';
 import './templates.css';
 
 function LandingTemplate() {
@@ -126,5 +127,14 @@ export const templateItems: TemplateItem[] = [
     preview: <SettingsTemplate />,
     code: `<div className="shell">\n  <aside className="side">\n    <a aria-current="page">Profile</a> <a>Notifications</a> <a>Security</a>\n  </aside>\n  <main>\n    <Button size="sm">Save changes</Button>\n    <TextField label="Display name" />\n    <TextField label="Email" type="email" />\n    <Switch label="Email me product updates" defaultChecked />\n  </main>\n</div>`,
     prompt: templatePrompt('Settings page', 'Sidebar navigation with a profile form and preference toggles, plus a primary save action.', 'TextField, Switch, Button'),
+  },
+  {
+    name: 'Case study',
+    variants: 1,
+    tileZoom: 0.21,
+    defaultZoom: 0.7,
+    preview: <div style={{ width: 1280, height: 800, overflow: 'hidden', borderRadius: 16 }}><CaseStudyTemplate /></div>,
+    code: `<CaseStudyTemplate\n  name="Orbit AI"\n  overview="A workspace for teams building with open models. We rebuilt the product around discovery, setup and secure deployment."\n  scope="Visual system, design direction, product redesign"\n/>`,
+    prompt: templatePrompt('Case study', 'Dark portfolio case-study page. A thin sticky header (logo, mono nav, two buttons). Below it, two columns: on the left a sticky details list (Name, Overview, Scope) in small monospace labels; on the right a vertical stack of light product screens: a sky-gradient banner with an asterisk mark, a Starter / Pro plan chooser, a welcome screen, the same screen dimmed under a connect-your-apps dialog, a new-chat screen and an artifacts grid. Each product screen is designed on a fixed 1140x662 canvas and scaled to the column width.', 'a ScaledShot wrapper (ResizeObserver + CSS transform), app shell with sidebar, plan cards, dialog, composer'),
   },
 ];
