@@ -41,6 +41,7 @@ import { FinanceDashboardExample } from '../../components/AppUI/examples/Finance
 import { InvoiceDetailExample } from '../../components/AppUI/examples/InvoiceDetail';
 import { PremiumPaywallExample } from '../../components/AppUI/examples/PremiumPaywall';
 import { NexusHomeExample } from '../../components/AppUI/examples/NexusHome';
+import { MusicWidget, NavigationWidget, CallWidget, HeartRateWidget, ProgressRingWidget, AlarmWidget } from '../../components/Widgets/Widgets';
 import { NexusTodayExample } from '../../components/AppUI/examples/NexusToday';
 import { NexusDailyExample } from '../../components/AppUI/examples/NexusDaily';
 import { NexusCoursesExample } from '../../components/AppUI/examples/NexusCourses';
@@ -399,6 +400,54 @@ const blockItems: BaseItem[] = [
     defaultZoom: 1.25,
     preview: <SourcedAnswer sources={[{ id: '1', name: 'Support thread', kind: 'Internal thread', excerpt: 'Errors started at 09:12 UTC, minutes after the 3.4 release went out.', updated: '2 hours ago' }, { id: '2', name: 'Changelog', kind: 'Release notes', excerpt: 'Sync fix merged and in review. Planned for Thursday.', updated: 'yesterday' }]}>The outage began after Tuesday's release.<Cite n={1} /> A fix is already in review and ships Thursday.<Cite n={2} /></SourcedAnswer>,
     code: `<SourcedAnswer\n  sources={[\n    { id: '1', name: 'Support thread', kind: 'Internal thread', excerpt: 'Errors started at 09:12 UTC...', updated: '2 hours ago' },\n    { id: '2', name: 'Changelog', kind: 'Release notes', excerpt: 'Sync fix merged and in review...', updated: 'yesterday' },\n  ]}\n>\n  The outage began after Tuesday's release.<Cite n={1} />\n  A fix is already in review and ships Thursday.<Cite n={2} />\n</SourcedAnswer>`,
+  },
+  {
+    name: 'Music player widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><MusicWidget title="What you need" artist="Don Toliver" /></div>,
+    code: `<MusicWidget title="What you need" artist="Don Toliver" />`,
+  },
+  {
+    name: 'Navigation widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><NavigationWidget distance="416 m" street="Kottayam" /></div>,
+    code: `<NavigationWidget distance="416 m" street="Kottayam" />`,
+  },
+  {
+    name: 'Call widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><CallWidget name="Jason Lambert" status="Incoming Call" /></div>,
+    code: `<CallWidget name="Jason Lambert" status="Incoming Call" />`,
+  },
+  {
+    name: 'Heart rate widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><HeartRateWidget bpm={92} /></div>,
+    code: `<HeartRateWidget bpm={92} />`,
+  },
+  {
+    name: 'Progress ring widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><ProgressRingWidget percent={60} date="JUL 26" caption="TRACK PROGRESS" /></div>,
+    code: `<ProgressRingWidget percent={60} date="JUL 26" caption="TRACK PROGRESS" />`,
+  },
+  {
+    name: 'Alarm widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><AlarmWidget time="7:30 AM" /></div>,
+    code: `<AlarmWidget time="7:30 AM" />`,
   },
 ];
 
