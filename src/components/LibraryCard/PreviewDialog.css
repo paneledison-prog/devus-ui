@@ -13,7 +13,7 @@
 .ui-preview-dialog__tab[aria-selected="true"] { background: var(--surface); color: var(--foreground); box-shadow: var(--shadow-field); }
 .ui-preview-dialog__stage { flex: 1; min-height: 0; display: grid; place-items: center; overflow: auto; padding: var(--space-6); background: var(--default); margin: var(--space-3) var(--space-3) 0; border-radius: var(--radius-2xl); }
 .ui-preview-dialog__zoom { transition: zoom .15s; }
-.ui-preview-dialog__text { flex: 1; min-height: 0; margin: var(--space-4) var(--space-4) 0; overflow: auto; }
+.ui-preview-dialog__text { flex: 1; min-height: 0; margin: var(--space-3) var(--space-3) 0; display: flex; }
 .ui-preview-dialog__text > pre { margin: 0; padding: var(--space-4); border-radius: var(--radius-2xl); background: var(--default);
   font: 400 13px/20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; }
 .ui-preview-dialog__text > .ui-code { min-height: 100%; background: var(--default); box-shadow: none; }
@@ -32,3 +32,28 @@
 .ui-preview-dialog--tall { background: var(--background); }
 .ui-preview-dialog__stage--landscape { background: var(--background); padding: var(--space-3); container-type: size; display: grid; place-items: center; }
 .ui-preview-dialog__stage--landscape .ui-preview-dialog__zoom { width: min(100cqw, 160cqh); height: auto; aspect-ratio: 16 / 10; border: 1px solid #fff; border-radius: 24px; overflow: hidden; }
+
+/* File-viewer layout for the Code and Master prompt tabs */
+.ui-files { flex: 1; min-width: 0; display: flex; border: 1px solid var(--separator); border-radius: var(--radius-xl); background: var(--surface); overflow: hidden; }
+.ui-files__side { width: 200px; flex-shrink: 0; border-right: 1px solid var(--separator); background: color-mix(in srgb, var(--default) 50%, transparent); overflow-y: auto; }
+.ui-files__head { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 var(--space-3); border-bottom: 1px solid var(--separator);
+  font: 500 11px/16px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.ui-files__count { letter-spacing: 0; opacity: .7; }
+.ui-files__list { padding: 6px 4px; }
+.ui-files__file { display: flex; align-items: center; gap: 6px; width: 100%; padding: 5px 8px; border: 0; border-radius: var(--radius-md); background: transparent; color: var(--foreground);
+  font: 400 13px/20px var(--font-sans); text-align: left; cursor: pointer; }
+.ui-files__file span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ui-files__file[aria-current="true"] { background: var(--accent-soft); color: var(--accent-soft-foreground); font-weight: 500; }
+.ui-files__main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ui-files__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); height: 36px; flex-shrink: 0; padding: 0 var(--space-3) 0 var(--space-4);
+  border-bottom: 1px solid var(--separator); background: color-mix(in srgb, var(--default) 40%, transparent); }
+.ui-files__name { display: flex; align-items: center; gap: 8px; min-width: 0; color: var(--muted); font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.ui-files__name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ui-files__btn { height: 24px; padding: 0 var(--space-2-5); border: 0; border-radius: var(--radius-md); background: var(--surface); color: var(--foreground); cursor: pointer;
+  font: 500 12px/16px var(--font-sans); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--foreground) 18%, transparent); }
+.ui-files__btn:hover { background: var(--default); }
+.ui-files__btn:focus-visible, .ui-files__file:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
+.ui-files__body { flex: 1; min-height: 0; overflow: auto; }
+.ui-files__body > pre { margin: 0; padding: var(--space-4); font: 400 13px/20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; }
+.ui-files__body > .ui-code { min-height: 100%; border-radius: 0; background: transparent; box-shadow: none; }
+@media (max-width: 640px) { .ui-files__side { display: none; } }

@@ -21,6 +21,12 @@ export interface PreviewDialogProps {
   href?: string;
 }
 
+const FileIcon = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.7.7l3.6 3.6A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8M16 13H8M16 17H8" />
+  </svg>
+);
+
 type Tab = 'preview' | 'code' | 'prompt';
 const ZOOMS = [0.75, 1, 1.5, 2] as const;
 
@@ -53,6 +59,8 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
   }, [tall, open, tab]);
 
   const text = tab === 'code' ? code : prompt;
+  const base = name.replace(/[^a-z0-9]+/gi, '');
+  const fileName = tab === 'code' ? `${base}.${lang === 'css' ? 'css' : 'tsx'}` : 'PROMPT.md';
 
   return (
     <dialog ref={(el) => { ref.current = el; setRoot((cur) => (cur === el || !el ? cur : el)); }} className={`ui-preview-dialog${tall ? " ui-preview-dialog--tall" : ""}`} aria-label={`${name} preview`} onClose={onClose}
@@ -95,9 +103,29 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
       ) : (
         <>
           <div className="ui-preview-dialog__text">
-            {tab === 'code'
-              ? <CodeBlock code={code} lang={lang} />
-              : <pre tabIndex={0}><code>{prompt}</code></pre>}
+            <div className="ui-files">
+              <aside className="ui-files__side" aria-label="Files">
+                <div className="ui-files__head"><span>Files</span><span className="ui-files__count">(1)</span></div>
+                <div className="ui-files__list">
+                  <button type="button" className="ui-files__file" aria-current="true">
+                    <FileIcon /><span>{fileName}</span>
+                  </button>
+                </div>
+              </aside>
+              <section className="ui-files__main" aria-label={fileName}>
+                <div className="ui-files__bar">
+                  <span className="ui-files__name"><FileIcon /><span>{fileName}</span></span>
+                  <button type="button" className="ui-files__btn" onClick={() => copy(text, tab)}>
+                    {copied === tab ? 'Copied ✓' : 'Copy'}
+                  </button>
+                </div>
+                <div className="ui-files__body">
+                  {tab === 'code'
+                    ? <CodeBlock code={code} lang={lang} />
+                    : <pre tabIndex={0}><code>{prompt}</code></pre>}
+                </div>
+              </section>
+            </div>
           </div>
           <footer className="ui-preview-dialog__footer">
             <span />
