@@ -59,7 +59,10 @@
 .fin-bill__amount { font: 700 14px/20px var(--font-sans); font-variant-numeric: tabular-nums; }
 
 /* Bottom navigation */
-.fin-tabs { display: flex; align-items: flex-start; justify-content: space-around; padding: var(--space-2) var(--space-3) 24px; border-top: 1px solid var(--separator); background: var(--surface); }
+.fin-tabs { position: relative; display: flex; align-items: flex-start; justify-content: space-around; padding: var(--space-2) var(--space-3) 24px; background: var(--surface); }
+/* iOS-style top edge: the scrolling content fades into the bar, and a hairline fades out toward both sides. */
+.fin-tabs::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 28px; background: linear-gradient(to top, var(--surface), transparent); pointer-events: none; }
+.fin-tabs::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--separator) 22%, var(--separator) 78%, transparent); pointer-events: none; }
 .fin-tabs__item { display: flex; flex-direction: column; align-items: center; gap: 2px; border: 0; background: none; color: var(--muted); cursor: pointer; font: 500 11px/14px var(--font-sans); }
 .fin-tabs__icon { display: grid; place-items: center; width: 40px; height: 28px; border-radius: var(--radius-full); transition: background-color .15s, color .15s; }
 .fin-tabs__item[aria-current="page"] { color: var(--foreground); }

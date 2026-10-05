@@ -24,6 +24,7 @@ Public API: `FinanceHeader`, `BalanceHero`, `QuickActions`, `NegotiatorCard`, `B
 - "Start negotiation" changes to a disabled "Request sent" state
 - Tab bar marks the pressed item with `aria-current="page"`
 - Content scrolls inside the phone; the tab bar stays pinned
+- Tab bar top edge is iOS-style: the scrolling content fades into the bar (28px gradient) and a 1px hairline fades out toward both sides, with no hard border
 
 ## Known gaps
 - Presentational: no real accounts, navigation or persistence
