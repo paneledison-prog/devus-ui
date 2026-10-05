@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Button } from '../Button/Button';
 import { useCopy } from '../../hooks/useCopy';
 import { SourceTree } from './SourceTree';
+import { TouchCursor } from './TouchCursor';
 import type { SourceEntry } from '../../pages/Library/sourceFiles';
 import { OverlayRoot } from '../Aria/overlayRoot';
 import './PreviewDialog.css';
@@ -95,6 +96,7 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
         <>
           <div ref={stageRef} className={`ui-preview-dialog__stage${fill ? " ui-preview-dialog__stage--fill" : ""}${tall ? " ui-preview-dialog__stage--tall" : ""}${landscape ? " ui-preview-dialog__stage--landscape" : ""}`}>
             <div className="ui-preview-dialog__zoom" style={fill ? undefined : { zoom: zoomValue }}><OverlayRoot.Provider value={root}>{preview}</OverlayRoot.Provider></div>
+            {tall && <TouchCursor stage={stageRef} />}
           </div>
           <footer className="ui-preview-dialog__footer">
             <div className="ui-preview-dialog__zooms" role="group" aria-label="Zoom" hidden={fill}>
