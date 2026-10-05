@@ -42,50 +42,6 @@ def add(slug, **kw):
     T[slug] = kw
 
 
-add('landing-page', name='Landing page', brand='Acme (placeholder)', kind='canvas', root='.tpl', prefix='tpl-',
-    files=['src/pages/Library/templates.tsx  (function LandingTemplate)', 'src/pages/Library/templates.css  (Landing section)',
-           'src/components/Button/Button.tsx', 'src/components/Badge/Badge.tsx', 'src/components/Logo/Logo.tsx'],
-    entry='src/pages/Library/templates.tsx', props='none (static layout)',
-    summary='Marketing page on a fixed 720x440 canvas: top nav, centered hero with badge, headline, supporting text and two calls to action over a soft accent glow.',
-    features=['Nav: logo, brand, three text links, small primary button', 'Hero: accent badge, 40px headline, muted paragraph, large primary and secondary buttons',
-              'Soft radial accent glow behind the hero'],
-    gaps=['Static: links and buttons are not wired', 'No responsive layout (fixed canvas scaled with CSS zoom by the library)'],
-    design=['Canvas 720x440, radius `--radius-2xl`, background `--background`', 'Headline 40px/44px, weight 600, letter-spacing -0.02em, max width 480px',
-            'Hero glow: `radial-gradient(60% 70% at 50% 0%, var(--accent-soft), transparent 70%)`'],
-    edit=['Change copy and structure in `LandingTemplate` (templates.tsx)', 'Change layout in the Landing block of templates.css', 'Reuse Button, Badge, Logo; do not restyle them here'])
-
-add('dashboard', name='Dashboard', brand='Acme (placeholder)', kind='canvas', root='.tpl', prefix='tpl-',
-    files=['src/pages/Library/templates.tsx  (function DashboardTemplate)', 'src/pages/Library/templates.css  (Dashboard + shell section)',
-           'src/components/Logo/Logo.tsx', 'src/components/Badge/Badge.tsx', 'src/components/Progress/Progress.tsx', 'src/components/Avatar/Avatar.tsx'],
-    entry='src/pages/Library/templates.tsx', props='none (static layout)',
-    summary='App shell on a fixed 720x440 canvas: sidebar, header with team avatars, three stat cards and progress panels.',
-    features=['Sidebar 168px with brand and four links, current page marked with aria-current', 'Header with title and an AvatarGroup', 'Three stat cards (revenue, active users, errors) with delta badges',
-              'Panel with two Progress bars'],
-    gaps=['Numbers are placeholders', 'No charts', 'Static: navigation is not wired'],
-    design=['Sidebar 168px, hairline right border; main padding `--space-6`', 'Stat cards: `--surface`, `--shadow-surface`, `--radius-2xl`, value 24px/32px weight 600',
-            'Delta badges use tones success, accent and danger'],
-    edit=['Add or change stat cards in the `tpl-stats` grid', 'Keep three columns at 720px', 'Use existing Badge tones; no new colors'])
-
-add('split-sign-in', name='Split sign in', brand='Acme (placeholder)', kind='canvas', root='.tpl', prefix='tpl-',
-    files=['src/pages/Library/templates.tsx  (function SignInTemplate)', 'src/pages/Library/templates.css  (Split section)',
-           'src/components/Card/Card.tsx', 'src/components/TextField/TextField.tsx', 'src/components/Button/Button.tsx', 'src/components/Logo/Logo.tsx'],
-    entry='src/pages/Library/templates.tsx', props='none (static layout)',
-    summary='Two-column authentication page on a fixed 720x440 canvas: an aurora art panel on the left and the sign-in form on the right.',
-    features=['Art panel with logo, "Welcome back" and a supporting line over the aurora background', 'Form card with email and password TextFields and a Continue button'],
-    gaps=['No validation or submit handler', 'No social sign-in or forgot-password link'],
-    design=['Left panel uses the aurora background look; text is white', 'Right panel centers a Card on `--background`', 'Inputs use `--field-*` tokens via TextField'],
-    edit=['Add fields inside the Card, keep labels on every field', 'Wire `onSubmit` through props if the template becomes functional', 'Do not change the aurora colors'])
-
-add('settings-page', name='Settings page', brand='Acme (placeholder)', kind='canvas', root='.tpl', prefix='tpl-',
-    files=['src/pages/Library/templates.tsx  (function SettingsTemplate)', 'src/pages/Library/templates.css  (shell + panel section)',
-           'src/components/TextField/TextField.tsx', 'src/components/Switch/Switch.tsx', 'src/components/Button/Button.tsx', 'src/components/Logo/Logo.tsx'],
-    entry='src/pages/Library/templates.tsx', props='none (static layout)',
-    summary='Settings screen on a fixed 720x440 canvas: sidebar navigation, a profile form and preference toggles, with a primary save action.',
-    features=['Sidebar: Profile, Notifications, Security, Billing', 'Profile panel: display name and email fields', 'Preferences panel: two Switch toggles', 'Small primary Save changes button in the header'],
-    gaps=['Save is not wired', 'Only the Profile page exists'],
-    design=['Same shell as the Dashboard template', 'Panels are `--surface` cards with `--shadow-surface`', 'Toggles use the library Switch (40x20 track)'],
-    edit=['Add settings as panels in `tpl-main`', 'Keep the Save button in the header', 'Group related toggles in one panel'])
-
 add('case-study', name='Case study', brand='Orbit AI (fictional)', kind='app', root='.cs-page', prefix='cs-',
     files=['src/components/CaseStudy/CaseStudy.tsx', 'src/components/CaseStudy/CaseStudy.css', 'src/styles/tokens.css'],
     entry='src/components/CaseStudy/CaseStudy.tsx', props='`CaseStudyTemplate` accepts optional string props name, overview and scope (defaults provided)',

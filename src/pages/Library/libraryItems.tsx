@@ -468,33 +468,6 @@ const fillStyle = { width: '100%', height: '100%' } as const;
 
 const backgroundItems: BaseItem[] = [
   {
-    name: 'Dot grid',
-    variants: 1,
-    fill: true,
-    landscape: true,
-    lang: 'css',
-    preview: <div style={{ ...fillStyle, backgroundColor: 'var(--surface)', backgroundImage: 'radial-gradient(var(--muted) 1px, transparent 1px)', backgroundSize: '16px 16px' }} />,
-    code: `.bg-dots {\n  background-color: var(--surface);\n  background-image: radial-gradient(var(--muted) 1px, transparent 1px);\n  background-size: 16px 16px;\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
-  },
-  {
-    name: 'Grid lines',
-    variants: 1,
-    fill: true,
-    landscape: true,
-    lang: 'css',
-    preview: <div style={{ ...fillStyle, backgroundColor: 'var(--surface)', backgroundImage: 'linear-gradient(var(--separator) 1px, transparent 1px), linear-gradient(90deg, var(--separator) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />,
-    code: `.bg-grid {\n  background-color: var(--surface);\n  background-image:\n    linear-gradient(var(--separator) 1px, transparent 1px),\n    linear-gradient(90deg, var(--separator) 1px, transparent 1px);\n  background-size: 32px 32px;\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
-  },
-  {
-    name: 'Aurora',
-    variants: 1,
-    fill: true,
-    landscape: true,
-    lang: 'css',
-    preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundImage: 'radial-gradient(60% 34% at 78% 100%, #f2fbff 0%, #7fd0ff 36%, transparent 78%), radial-gradient(48% 30% at 24% 100%, #e6f7ff 0%, #4aa8ff 42%, transparent 78%), radial-gradient(15% 72% at 60% 0%, rgb(70 220 240 / .9), transparent 100%), radial-gradient(14% 62% at 10% 0%, rgb(70 220 240 / .75), transparent 100%), linear-gradient(to top, #2563d6 0%, transparent 58%)' }} />,
-    code: `.bg-aurora {\n  background-color: #000;\n  background-image:\n    radial-gradient(60% 34% at 78% 100%, #f2fbff 0%, #7fd0ff 36%, transparent 78%),\n    radial-gradient(48% 30% at 24% 100%, #e6f7ff 0%, #4aa8ff 42%, transparent 78%),\n    radial-gradient(15% 72% at 60% 0%, rgb(70 220 240 / .9), transparent 100%),\n    radial-gradient(14% 62% at 10% 0%, rgb(70 220 240 / .75), transparent 100%),\n    linear-gradient(to top, #2563d6 0%, transparent 58%);\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
-  },
-  {
     name: 'Soft gradient',
     variants: 1,
     fill: true,
