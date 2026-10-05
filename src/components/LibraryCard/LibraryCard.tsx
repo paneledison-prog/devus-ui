@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button } from '../Button/Button';
 import { useCopy } from '../../hooks/useCopy';
 import { PreviewDialog } from './PreviewDialog';
+import type { SourceEntry } from '../../pages/Library/sourceFiles';
 import './LibraryCard.css';
 
 export interface LibraryCardProps {
@@ -27,12 +28,14 @@ export interface LibraryCardProps {
   tall?: boolean;
   /** Standalone URL (templates). Adds an "Open in new tab" action. */
   href?: string;
+  /** Templates: real project files for the Code tab file tree. */
+  sourceEntries?: SourceEntry[];
   /** Optional controlled state for the large preview. */
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
-export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, landscape, tileZoom, defaultZoom, tall, href, open: openProp, onOpenChange }: LibraryCardProps) {
+export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, landscape, tileZoom, defaultZoom, tall, href, sourceEntries, open: openProp, onOpenChange }: LibraryCardProps) {
   const [localOpen, setLocalOpen] = useState(false);
   const open = openProp ?? localOpen;
   const setOpen = (next: boolean) => {
@@ -70,7 +73,7 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
         <h3 className="ui-library-card__name">{name}</h3>
         <p className="ui-library-card__meta">{variants} {variants === 1 ? 'variant' : 'variants'}</p>
       </div>
-      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} landscape={landscape} defaultZoom={defaultZoom} tall={tall} href={href} />
+      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} landscape={landscape} defaultZoom={defaultZoom} tall={tall} href={href} sourceEntries={sourceEntries} />
     </article>
   );
 }

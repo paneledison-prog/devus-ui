@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button } from '../Button/Button';
 import { CodeBlock } from '../CodeBlock/CodeBlock';
 import { useCopy } from '../../hooks/useCopy';
+import { SourceTree } from './SourceTree';
+import type { SourceEntry } from '../../pages/Library/sourceFiles';
 import { OverlayRoot } from '../Aria/overlayRoot';
 import './PreviewDialog.css';
 
@@ -19,6 +21,8 @@ export interface PreviewDialogProps {
   /** Phone viewport: opens near life-size and auto-fits the stage. */
   tall?: boolean;
   href?: string;
+  /** Templates: show the real project files as a file tree in the Code tab. */
+  sourceEntries?: SourceEntry[];
 }
 
 const FileIcon = () => (
@@ -30,7 +34,7 @@ const FileIcon = () => (
 type Tab = 'preview' | 'code' | 'prompt';
 const ZOOMS = [0.75, 1, 1.5, 2] as const;
 
-export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, href }: PreviewDialogProps) {
+export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, href, sourceEntries }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const [root, setRoot] = useState<Element>();
   const [tab, setTab] = useState<Tab>('preview');
@@ -103,6 +107,7 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
       ) : (
         <>
           <div className="ui-preview-dialog__text">
+            {tab === 'code' && sourceEntries ? <SourceTree entries={sourceEntries} /> : (
             <div className="ui-files">
               <aside className="ui-files__side" aria-label="Files">
                 <div className="ui-files__head"><span>Files</span><span className="ui-files__count">(1)</span></div>
@@ -126,12 +131,13 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
                 </div>
               </section>
             </div>
+            )}
           </div>
           <footer className="ui-preview-dialog__footer">
             <span />
-            <Button size="sm" onClick={() => copy(text, tab)}>
+            {tab === 'code' && sourceEntries ? null : <Button size="sm" onClick={() => copy(text, tab)}>
               {copied === tab ? 'Copied ✓' : tab === 'code' ? 'Copy code' : 'Copy prompt'}
-            </Button>
+            </Button>}
           </footer>
         </>
       )}

@@ -101,6 +101,7 @@ type TemplateItem = Omit<LibraryItem, 'category'>;
 export const templateItems: TemplateItem[] = [
   {
     name: 'Landing page',
+    sourceEntries: [{ path: 'src/pages/Library/templates.tsx', follow: false }, { path: 'src/pages/Library/templates.css' }, { path: 'src/components/Button/Button.tsx' }, { path: 'src/components/Badge/Badge.tsx' }, { path: 'src/components/Logo/Logo.tsx' }],
     canvas: [720, 440],
     variants: 1,
     tileZoom: 0.4,
@@ -111,6 +112,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Dashboard',
+    sourceEntries: [{ path: 'src/pages/Library/templates.tsx', follow: false }, { path: 'src/pages/Library/templates.css' }, { path: 'src/components/Logo/Logo.tsx' }, { path: 'src/components/Badge/Badge.tsx' }, { path: 'src/components/Progress/Progress.tsx' }, { path: 'src/components/Avatar/Avatar.tsx' }],
     canvas: [720, 440],
     variants: 1,
     tileZoom: 0.4,
@@ -121,6 +123,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Split sign in',
+    sourceEntries: [{ path: 'src/pages/Library/templates.tsx', follow: false }, { path: 'src/pages/Library/templates.css' }, { path: 'src/components/Card/Card.tsx' }, { path: 'src/components/TextField/TextField.tsx' }, { path: 'src/components/Button/Button.tsx' }, { path: 'src/components/Logo/Logo.tsx' }],
     canvas: [720, 440],
     variants: 1,
     tileZoom: 0.4,
@@ -131,6 +134,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Settings page',
+    sourceEntries: [{ path: 'src/pages/Library/templates.tsx', follow: false }, { path: 'src/pages/Library/templates.css' }, { path: 'src/components/TextField/TextField.tsx' }, { path: 'src/components/Switch/Switch.tsx' }, { path: 'src/components/Button/Button.tsx' }],
     canvas: [720, 440],
     variants: 1,
     tileZoom: 0.4,
@@ -141,6 +145,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Case study',
+    sourceEntries: [{ path: 'src/components/CaseStudy/CaseStudy.tsx' }, { path: 'src/styles/tokens.css' }],
     standalone: <CaseStudyTemplate />,
     variants: 1,
     tileZoom: 0.21,
@@ -151,6 +156,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'AI workspace demo',
+    sourceEntries: [{ path: 'src/components/Workspace/Workspace.tsx' }, { path: 'src/styles/tokens.css' }],
     standalone: <WorkspaceDemo />,
     variants: 2,
     tileZoom: 0.22,
@@ -161,6 +167,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'CRM workspace demo',
+    sourceEntries: [{ path: 'src/components/Crm/Crm.tsx' }, { path: 'src/styles/tokens.css' }],
     variants: 2,
     tileZoom: 0.22,
     defaultZoom: 0.75,
@@ -171,6 +178,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Company intelligence demo',
+    sourceEntries: [{ path: 'src/components/Agents/Beacon.tsx' }, { path: 'src/styles/tokens.css' }],
     variants: 2,
     tileZoom: 0.22,
     defaultZoom: 0.75,
@@ -184,6 +192,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'AI platform demo',
+    sourceEntries: [{ path: 'src/components/Agents/Harbor.tsx' }, { path: 'src/styles/tokens.css' }],
     variants: 2,
     tileZoom: 0.22,
     defaultZoom: 0.75,
@@ -197,6 +206,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Agent builder demo',
+    sourceEntries: [{ path: 'src/components/Agents/Pairwise.tsx' }, { path: 'src/styles/tokens.css' }],
     variants: 2,
     tileZoom: 0.22,
     defaultZoom: 0.75,
@@ -210,6 +220,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Build agent demo',
+    sourceEntries: [{ path: 'src/components/BuildAgent/BuildAgent.tsx' }, { path: 'src/styles/tokens.css' }],
     variants: 2,
     tileZoom: 0.22,
     defaultZoom: 0.75,
@@ -220,6 +231,7 @@ export const templateItems: TemplateItem[] = [
   },
   {
     name: 'Liquid glass chat',
+    sourceEntries: [{ path: 'src/components/LiquidChat/LiquidChat.tsx' }, { path: 'src/styles/tokens.css' }],
     variants: 2,
     tileZoom: 0.3,
     defaultZoom: 0.75,

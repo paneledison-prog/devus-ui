@@ -8,6 +8,7 @@ import { Card } from '../../components/Card/Card';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { SpinnerDemo } from '../../components/Spinner/SpinnerDemo';
 import { Avatar, AvatarGroup } from '../../components/Avatar/Avatar';
+import type { SourceEntry } from './sourceFiles';
 import { masterPrompt, blockPrompt, backgroundPrompt } from './prompt';
 import { templateItems } from './templates';
 import { Badge } from '../../components/Badge/Badge';
@@ -60,6 +61,8 @@ export interface LibraryItem {
   canvas?: [number, number];
   /** Templates: responsive version rendered full-window in a new tab (instead of the scaled canvas). */
   standalone?: ReactNode;
+  /** Templates: real project files shown in the Code tab as a file tree (import graph is followed). */
+  sourceEntries?: SourceEntry[];
 }
 
 type BaseItem = Omit<LibraryItem, 'category'>;
