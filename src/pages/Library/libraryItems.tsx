@@ -6,6 +6,7 @@ import { Switch } from '../../components/Switch/Switch';
 import { Alert } from '../../components/Alert/Alert';
 import { Card } from '../../components/Card/Card';
 import { Spinner } from '../../components/Spinner/Spinner';
+import { SpinnerDemo } from '../../components/Spinner/SpinnerDemo';
 import { Avatar, AvatarGroup } from '../../components/Avatar/Avatar';
 import { masterPrompt, blockPrompt, backgroundPrompt } from './prompt';
 import { templateItems } from './templates';
@@ -112,8 +113,13 @@ const componentItems: BaseItem[] = [
   {
     name: 'Spinner',
     variants: 3,
-    preview: <Spinner size="lg" />,
-    code: `<Spinner size="lg" label="Loading" />`,
+    preview: <SpinnerDemo />,
+    code: `<Spinner size="lg" label="Loading" />
+
+// Inside a button while saving
+<Button aria-busy={saving} startContent={saving ? <Spinner size="sm" label="Saving" /> : undefined}>
+  {saving ? 'Saving…' : 'Save changes'}
+</Button>`,
     prompt: masterPrompt('Spinner', 'Indeterminate loading indicator.',
       "size: 'sm' (16px) | 'md' (24px) | 'lg' (32px); label?: string.",
       "role='status' with aria-label; slows the animation under prefers-reduced-motion."),
