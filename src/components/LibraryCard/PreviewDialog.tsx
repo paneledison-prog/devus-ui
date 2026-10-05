@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Button } from '../Button/Button';
-import { CodeBlock } from '../CodeBlock/CodeBlock';
 import { useCopy } from '../../hooks/useCopy';
 import { SourceTree } from './SourceTree';
 import type { SourceEntry } from '../../pages/Library/sourceFiles';
@@ -25,18 +24,14 @@ export interface PreviewDialogProps {
   sourceEntries?: SourceEntry[];
   /** Slug of the helper folder shown in the file tree. */
   helper?: string;
+  /** Repository path of the prompt Markdown file. */
+  promptPath?: string;
 }
-
-const FileIcon = () => (
-  <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.7.7l3.6 3.6A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8M16 13H8M16 17H8" />
-  </svg>
-);
 
 type Tab = 'preview' | 'code' | 'prompt';
 const ZOOMS = [0.75, 1, 1.5, 2] as const;
 
-export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, href, sourceEntries, helper }: PreviewDialogProps) {
+export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, href, sourceEntries, helper, promptPath }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const [root, setRoot] = useState<Element>();
   const [tab, setTab] = useState<Tab>('preview');
@@ -78,7 +73,8 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
 
   const text = tab === 'code' ? code : prompt;
   const base = name.replace(/[^a-z0-9]+/gi, '');
-  const fileName = tab === 'code' ? `${base}.${lang === 'css' ? 'css' : 'tsx'}` : 'PROMPT.md';
+  const singleCode = useMemo(() => [{ path: `${base}.${lang === 'css' ? 'css' : 'tsx'}`, content: code }], [base, lang, code]);
+  const singlePrompt = useMemo(() => [{ path: promptPath ?? 'PROMPT.md', content: prompt }], [promptPath, prompt]);
 
   return (
     <dialog ref={(el) => { ref.current = el; setRoot((cur) => (cur === el || !el ? cur : el)); }} className={`ui-preview-dialog${tall ? " ui-preview-dialog--tall" : ""}`} aria-label={`${name} preview`} onClose={onClose}
@@ -121,31 +117,9 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
       ) : (
         <>
           <div className="ui-preview-dialog__text">
-            {tab === 'code' && sourceEntries ? <SourceTree entries={sourceEntries} helper={helper} /> : (
-            <div className="ui-files">
-              <aside className="ui-files__side" aria-label="Files">
-                <div className="ui-files__head"><span>Files</span><span className="ui-files__count">(1)</span></div>
-                <div className="ui-files__list">
-                  <button type="button" className="ui-files__file" aria-current="true">
-                    <FileIcon /><span>{fileName}</span>
-                  </button>
-                </div>
-              </aside>
-              <section className="ui-files__main" aria-label={fileName}>
-                <div className="ui-files__bar">
-                  <span className="ui-files__name"><FileIcon /><span>{fileName}</span></span>
-                  <button type="button" className="ui-files__btn" onClick={() => copy(text, tab)}>
-                    {copied === tab ? 'Copied ✓' : 'Copy'}
-                  </button>
-                </div>
-                <div className="ui-files__body">
-                  {tab === 'code'
-                    ? <CodeBlock code={code} lang={lang} />
-                    : <pre tabIndex={0}><code>{prompt}</code></pre>}
-                </div>
-              </section>
-            </div>
-            )}
+            {tab === 'code' && sourceEntries
+              ? <SourceTree entries={sourceEntries} helper={helper} />
+              : <SourceTree files={tab === 'code' ? singleCode : singlePrompt} />}
           </div>
           <footer className="ui-preview-dialog__footer">
             <span />

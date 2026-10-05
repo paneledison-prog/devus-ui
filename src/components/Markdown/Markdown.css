@@ -1,0 +1,83 @@
+/* GitHub-flavored Markdown look, built on Devus UI tokens (light and dark). */
+.gh-md { --gh-border: var(--separator); --gh-code-bg: color-mix(in srgb, var(--foreground) 7%, transparent);
+  box-sizing: border-box; padding: var(--space-6) var(--space-8, 32px); color: var(--foreground); font: 400 16px/1.5 var(--font-sans); word-wrap: break-word; }
+.gh-md > :first-child { margin-top: 0 !important; }
+.gh-md > :last-child { margin-bottom: 0 !important; }
+.gh-md * { box-sizing: border-box; }
+
+.gh-md h1, .gh-md h2, .gh-md h3, .gh-md h4, .gh-md h5, .gh-md h6 { position: relative; margin: 24px 0 16px; font-weight: 600; line-height: 1.25; }
+.gh-md h1 { padding-bottom: .3em; font-size: 2em; border-bottom: 1px solid var(--gh-border); }
+.gh-md h2 { padding-bottom: .3em; font-size: 1.5em; border-bottom: 1px solid var(--gh-border); }
+.gh-md h3 { font-size: 1.25em; }
+.gh-md h4 { font-size: 1em; }
+.gh-md h5 { font-size: .875em; }
+.gh-md h6 { font-size: .85em; color: var(--muted); }
+.gh-md__anchor { position: absolute; left: -28px; top: 50%; translate: 0 -50%; width: 24px; display: inline-flex; justify-content: center; color: var(--muted); opacity: 0; text-decoration: none; }
+.gh-md h1:hover .gh-md__anchor, .gh-md h2:hover .gh-md__anchor, .gh-md h3:hover .gh-md__anchor, .gh-md h4:hover .gh-md__anchor,
+.gh-md h5:hover .gh-md__anchor, .gh-md h6:hover .gh-md__anchor, .gh-md__anchor:focus-visible { opacity: 1; }
+
+.gh-md p, .gh-md blockquote, .gh-md ul, .gh-md ol, .gh-md dl, .gh-md table, .gh-md details, .gh-md .gh-md__fence, .gh-md .gh-md__plain, .gh-md .gh-md__table { margin: 0 0 16px; }
+.gh-md a { color: var(--link-md, var(--accent)); text-decoration: none; }
+.gh-md a:hover { text-decoration: underline; }
+.gh-md strong { font-weight: 600; }
+.gh-md hr { height: 4px; margin: 24px 0; padding: 0; border: 0; border-radius: 2px; background: var(--gh-border); }
+.gh-md img { max-width: 100%; height: auto; border-radius: 6px; background: var(--surface); }
+.gh-md mark { background: color-mix(in srgb, var(--warning) 35%, transparent); color: inherit; padding: 0 2px; border-radius: 3px; }
+.gh-md sub, .gh-md sup { font-size: .75em; }
+.gh-md abbr[title] { text-decoration: underline dotted; cursor: help; }
+.gh-md del { color: var(--muted); }
+
+.gh-md ul, .gh-md ol { padding-left: 2em; }
+.gh-md li + li { margin-top: .25em; }
+.gh-md li > p { margin-top: 16px; }
+.gh-md ul ul, .gh-md ul ol, .gh-md ol ol, .gh-md ol ul { margin: 0; }
+.gh-md .task-list-item { list-style-type: none; }
+.gh-md .task-list-item input { margin: 0 .2em .25em -1.4em; vertical-align: middle; accent-color: var(--accent); }
+.gh-md .task-list-item + .task-list-item { margin-top: 4px; }
+
+.gh-md blockquote { padding: 0 1em; color: var(--muted); border-left: .25em solid var(--gh-border); }
+.gh-md blockquote > :first-child { margin-top: 0; }
+.gh-md blockquote > :last-child { margin-bottom: 0; }
+
+.gh-md code, .gh-md kbd { font: 400 85% ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.gh-md :not(pre) > code { padding: .2em .4em; border-radius: 6px; background: var(--gh-code-bg); white-space: break-spaces; }
+.gh-md kbd { display: inline-block; padding: 3px 5px; border: 1px solid var(--gh-border); border-bottom-width: 2px; border-radius: 6px; background: var(--surface); color: var(--foreground); line-height: 10px; vertical-align: middle; }
+.gh-md__fence { border-radius: 6px; overflow: hidden; background: color-mix(in srgb, var(--foreground) 5%, var(--surface)); }
+.gh-md__fence .ui-code { border-radius: 0; background: transparent; box-shadow: none; }
+.gh-md__fence .ui-code pre { padding: 16px; font-size: 85%; line-height: 1.45; }
+.gh-md__plain { padding: 16px; overflow: auto; border-radius: 6px; background: color-mix(in srgb, var(--foreground) 5%, var(--surface)); font-size: 85%; line-height: 1.45; }
+.gh-md__plain code { padding: 0; background: transparent; font-size: 100%; white-space: pre; }
+
+.gh-md__table { overflow: auto; max-width: 100%; }
+.gh-md table { display: table; width: max-content; max-width: 100%; margin: 0; border-spacing: 0; border-collapse: collapse; }
+.gh-md th, .gh-md td { padding: 6px 13px; border: 1px solid var(--gh-border); }
+.gh-md th { font-weight: 600; }
+.gh-md tr { background: var(--surface); border-top: 1px solid var(--gh-border); }
+.gh-md tr:nth-child(2n) { background: color-mix(in srgb, var(--foreground) 4%, var(--surface)); }
+
+.gh-md details { padding: 0; }
+.gh-md summary { cursor: pointer; font-weight: 600; }
+.gh-md details[open] > summary { margin-bottom: 8px; }
+
+.gh-md section.footnotes { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--gh-border); font-size: 12px; color: var(--muted); }
+.gh-md section.footnotes h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); border: 0; }
+.gh-md [data-footnote-ref] { font-size: .75em; }
+
+/* Alerts: > [!NOTE] and friends */
+.gh-md .markdown-alert { padding: 4px 16px; margin: 0 0 16px; color: inherit; border-left: .25em solid var(--alert, var(--gh-border)); }
+.gh-md .markdown-alert > :first-child { margin-top: 0; }
+.gh-md .markdown-alert > :last-child { margin-bottom: 0; }
+.gh-md .markdown-alert .markdown-alert-title { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; font-weight: 500; line-height: 1; color: var(--alert, inherit); }
+.gh-md .markdown-alert .markdown-alert-title svg { fill: currentColor; }
+.gh-md .markdown-alert-note { --alert: #0969da; }
+.gh-md .markdown-alert-tip { --alert: #1a7f37; }
+.gh-md .markdown-alert-important { --alert: #8250df; }
+.gh-md .markdown-alert-warning { --alert: #9a6700; }
+.gh-md .markdown-alert-caution { --alert: #d1242f; }
+[data-theme="dark"] .gh-md .markdown-alert-note { --alert: #4493f8; }
+[data-theme="dark"] .gh-md .markdown-alert-tip { --alert: #3fb950; }
+[data-theme="dark"] .gh-md .markdown-alert-important { --alert: #ab7df8; }
+[data-theme="dark"] .gh-md .markdown-alert-warning { --alert: #d29922; }
+[data-theme="dark"] .gh-md .markdown-alert-caution { --alert: #f85149; }
+
+@media (max-width: 640px) { .gh-md { padding: var(--space-4); } .gh-md__anchor { display: none; } }

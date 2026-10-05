@@ -32,12 +32,14 @@ export interface LibraryCardProps {
   sourceEntries?: SourceEntry[];
   /** Templates: slug of the helper folder shown in the file tree. */
   helper?: string;
+  /** Repository path of the master prompt file (prompts/<category>/<slug>.md). */
+  promptPath?: string;
   /** Optional controlled state for the large preview. */
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
-export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, landscape, tileZoom, defaultZoom, tall, href, sourceEntries, helper, open: openProp, onOpenChange }: LibraryCardProps) {
+export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, landscape, tileZoom, defaultZoom, tall, href, sourceEntries, helper, promptPath, open: openProp, onOpenChange }: LibraryCardProps) {
   const [localOpen, setLocalOpen] = useState(false);
   const open = openProp ?? localOpen;
   const setOpen = (next: boolean) => {
@@ -75,7 +77,7 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
         <h3 className="ui-library-card__name">{name}</h3>
         <p className="ui-library-card__meta">{variants} {variants === 1 ? 'variant' : 'variants'}</p>
       </div>
-      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} landscape={landscape} defaultZoom={defaultZoom} tall={tall} href={href} sourceEntries={sourceEntries} helper={helper} />
+      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} landscape={landscape} defaultZoom={defaultZoom} tall={tall} href={href} sourceEntries={sourceEntries} helper={helper} promptPath={promptPath} />
     </article>
   );
 }

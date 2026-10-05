@@ -65,3 +65,11 @@
 .ui-files__side { width: 240px; }
 
 .ui-files__md { white-space: pre-wrap; word-break: break-word; }
+
+/* View / Source toggle for Markdown files */
+.ui-files__seg { display: inline-flex; padding: 2px; border-radius: var(--radius-md); background: var(--default); }
+.ui-files__seg button { height: 20px; padding: 0 var(--space-2-5); border: 0; border-radius: 5px; background: transparent; color: var(--muted); cursor: pointer; font: 500 12px/16px var(--font-sans); }
+.ui-files__seg button[aria-pressed="true"] { background: var(--surface); color: var(--foreground); box-shadow: var(--shadow-field); }
+.ui-files__seg button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
+.ui-files__meta { margin-left: auto; }
+.ui-files__bar .ui-files__meta + .ui-files__seg, .ui-files__bar .ui-files__meta + .ui-files__btn { margin-left: 0; }

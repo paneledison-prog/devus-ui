@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CodeBlock } from '../CodeBlock/CodeBlock';
+import { Markdown } from '../Markdown/Markdown';
 import { useCopy } from '../../hooks/useCopy';
 import { loadSourceFiles, type SourceEntry, type SourceFile } from '../../pages/Library/sourceFiles';
 
@@ -62,19 +63,31 @@ function Branch({ node, depth, selected, onSelect, closed, toggle }: {
   );
 }
 
-/** File tree + viewer for a template's real source files. */
-export function SourceTree({ entries, helper }: { entries: SourceEntry[]; helper?: string }) {
-  const [files, setFiles] = useState<SourceFile[] | null>(null);
+export interface SourceTreeProps {
+  /** Real project files to load (their local imports are followed). */
+  entries?: SourceEntry[];
+  /** Slug of the helper folder to add to the tree. */
+  helper?: string;
+  /** Files that are already in memory (used for single-file views such as the prompt). */
+  files?: SourceFile[];
+}
+
+/** File tree + viewer. Markdown files render GitHub-style with a View / Source toggle. */
+export function SourceTree({ entries, helper, files: fixed }: SourceTreeProps) {
+  const [files, setFiles] = useState<SourceFile[] | null>(fixed ?? null);
   const [failed, setFailed] = useState(false);
-  const [selected, setSelected] = useState(entries[0].path);
+  const [selected, setSelected] = useState(fixed?.[0]?.path ?? entries?.[0]?.path ?? '');
   const [closed, setClosed] = useState<Set<string>>(new Set());
+  const [mdMode, setMdMode] = useState<'view' | 'source'>('view');
   const { copied, copy } = useCopy();
 
   useEffect(() => {
+    if (fixed) { setFiles(fixed); return; }
+    if (!entries) return;
     let cancelled = false;
     loadSourceFiles(entries, helper).then((f) => { if (!cancelled) setFiles(f); }).catch(() => { if (!cancelled) setFailed(true); });
     return () => { cancelled = true; };
-  }, [entries, helper]);
+  }, [entries, helper, fixed]);
 
   const tree = useMemo(() => (files ? buildTree(files) : null), [files]);
   const current = files?.find((f) => f.path === selected) ?? files?.[0];
@@ -85,7 +98,7 @@ export function SourceTree({ entries, helper }: { entries: SourceEntry[]; helper
 
   const isMd = current.path.endsWith('.md');
   const lang = current.path.endsWith('.css') ? 'css' : 'tsx';
-  const lines = current.content.split('\n').length;
+  const lines = current.content.replace(/\n$/, '').split('\n').length;
 
   return (
     <div className="ui-files">
@@ -99,12 +112,24 @@ export function SourceTree({ entries, helper }: { entries: SourceEntry[]; helper
         <div className="ui-files__bar">
           <span className="ui-files__name"><FileIcon /><span>{current.path}</span></span>
           <span className="ui-files__meta">{lines} lines</span>
+          {isMd && (
+            <div className="ui-files__seg" role="group" aria-label="Markdown display">
+              <button type="button" aria-pressed={mdMode === 'view'} onClick={() => setMdMode('view')}>View</button>
+              <button type="button" aria-pressed={mdMode === 'source'} onClick={() => setMdMode('source')}>Source</button>
+            </div>
+          )}
           <button type="button" className="ui-files__btn" onClick={() => copy(current.content, current.path)}>{copied === current.path ? 'Copied ✓' : 'Copy'}</button>
         </div>
         <div className="ui-files__body">
-          {isMd || current.content.length > MAX_HIGHLIGHT
-            ? <pre tabIndex={0} className={isMd ? 'ui-files__md' : undefined}><code>{current.content}</code></pre>
-            : <CodeBlock key={current.path} code={current.content} lang={lang} />}
+          {isMd && mdMode === 'view'
+            ? <Markdown source={current.content} />
+            : isMd
+              ? (current.content.length > MAX_HIGHLIGHT
+                  ? <pre tabIndex={0} className="ui-files__md"><code>{current.content}</code></pre>
+                  : <CodeBlock key={current.path + 'src'} code={current.content.replace(/\n$/, '')} lang="markdown" lineNumbers />)
+              : current.content.length > MAX_HIGHLIGHT
+                ? <pre tabIndex={0}><code>{current.content}</code></pre>
+                : <CodeBlock key={current.path} code={current.content} lang={lang} />}
         </div>
       </section>
     </div>

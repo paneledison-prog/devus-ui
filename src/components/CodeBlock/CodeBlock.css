@@ -5,3 +5,8 @@
 .ui-code .shiki, .ui-code .shiki span { color: var(--shiki-light); }
 [data-theme="dark"] .ui-code .shiki, [data-theme="dark"] .ui-code .shiki span { color: var(--shiki-dark); }
 .ui-code:not(:has(.shiki)) pre { color: var(--foreground); }
+
+/* Line number gutter (Markdown source view) */
+.ui-code--ln code { display: block; counter-reset: ln; }
+.ui-code--ln .line { counter-increment: ln; }
+.ui-code--ln .line::before { content: counter(ln); display: inline-block; width: 3ch; margin-right: 1.5ch; text-align: right; color: var(--muted); opacity: .7; user-select: none; }

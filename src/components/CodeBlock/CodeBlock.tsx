@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
-import { highlight } from './highlighter';
+import { highlight, type HighlightLang } from './highlighter';
 import './CodeBlock.css';
 
 export interface CodeBlockProps {
   code: string;
-  lang?: 'tsx' | 'css' | 'bash';
+  lang?: HighlightLang;
+  /** Show a line number gutter. */
+  lineNumbers?: boolean;
 }
 
 /** Syntax-highlighted code (Shiki). Shows plain text until the highlighter is ready. */
-export function CodeBlock({ code, lang = 'tsx' }: CodeBlockProps) {
+export function CodeBlock({ code, lang = 'tsx', lineNumbers = false }: CodeBlockProps) {
   const [html, setHtml] = useState<string | null>(null);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export function CodeBlock({ code, lang = 'tsx' }: CodeBlockProps) {
 
   if (html) {
     // Shiki escapes the source; output is generated from our own static snippets.
-    return <div className="ui-code" tabIndex={0} dangerouslySetInnerHTML={{ __html: html }} />;
+    return <div className={`ui-code${lineNumbers ? ' ui-code--ln' : ''}`} tabIndex={0} dangerouslySetInnerHTML={{ __html: html }} />;
   }
-  return <div className="ui-code" tabIndex={0}><pre><code>{code}</code></pre></div>;
+  return <div className={`ui-code${lineNumbers ? ' ui-code--ln' : ''}`} tabIndex={0}><pre><code>{code}</code></pre></div>;
 }
