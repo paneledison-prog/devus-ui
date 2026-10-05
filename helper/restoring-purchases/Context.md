@@ -20,11 +20,11 @@ Public API: `PayCanvas`, `PayStatusBar`, `PayHomeBar`, `PlanCard`, `ClayFlower` 
 
 ## What it does
 - Only what the reference image shows: status bar, back chevron, four tilted plan cards (right-edge card -8 degrees, "$5.99/month" card 7.6 degrees, Monthly -15 degrees, Annual 1.5 degrees in front), flower ring, title, subtitle, spinner ring, home indicator
-- The spinner ring is drawn static, as in the image (no rotation)
+- The spinner ring turns continuously (1s per turn, 2.8s under reduced motion), the only motion; added on request, the image shows it static
 - Cards and artwork are `aria-hidden`; the spinner has `role="status"` and a label
 
 ## Known gaps
-- Static replica: no handlers and no animation (as in the image)
+- No handlers; the spinner is the only animation
 - The clay flower is a hand-built approximation of the 3D render
 - The partly hidden card at the right edge shows only "9/m" in the image; its full text ("$4.99/month") is not known and was chosen to fit
 

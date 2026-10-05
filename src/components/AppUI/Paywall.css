@@ -50,4 +50,6 @@
 .pw-card--price .pw-card__price { top: 29px; }
 .pw__title--restoring { top: 711px; z-index: 3; font-size: 28px; line-height: 34px; }
 .pw__sub--restoring { top: 759px; }
-.pw-spinner { position: absolute; left: 202px; top: 839px; }
+.pw-spinner { position: absolute; left: 202px; top: 839px; transform-origin: 50% 50%; animation: pw-spin 1s linear infinite; }
+@keyframes pw-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .pw-spinner { animation-duration: 2.8s; } }
