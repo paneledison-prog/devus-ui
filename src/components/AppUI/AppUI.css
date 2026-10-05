@@ -37,6 +37,7 @@ span.app-bar__btn { cursor: default; }
 .app-bar__large { margin: 0; font: 600 22px/28px var(--font-sans); letter-spacing: -0.02em; }
 .app-bar__sub { margin: 0; color: var(--muted); font: italic 400 var(--text-base)/var(--leading-base) Georgia, 'Times New Roman', serif; }
 .app-bar--large .app-bar__action { min-width: 0; padding: 8px; border-radius: var(--radius-xl); background: var(--surface); box-shadow: var(--shadow-field); }
+.app-bar--large .app-bar__action:empty { display: none; }
 .app-phone .app-bar { width: 100%; }
 
 /* ---------- Cards ---------- */
@@ -115,9 +116,9 @@ button.app-row:active { background: var(--default); }
 /* ---------- Stories ---------- */
 .app-stories { list-style: none; display: flex; gap: var(--space-3); margin: 0; padding: var(--space-2) var(--space-1); overflow-x: auto; max-width: 100%; }
 .app-story { display: flex; flex-direction: column; align-items: center; gap: var(--space-1); border: 0; background: none; cursor: pointer; color: var(--foreground); }
-.app-story__ring { display: grid; place-items: center; padding: 3px; border-radius: 50%; background: conic-gradient(#4db2ff, #8b5cf6, #ff6b9a, #f5a524, #4db2ff); }
-.app-story__ring .ui-avatar { box-shadow: 0 0 0 3px var(--background); }
-.app-story[data-seen="true"] .app-story__ring { background: var(--separator); }
+.app-story__ring { display: grid; place-items: center; padding: 4px; border-radius: 50%; background: conic-gradient(#4db2ff, #8b5cf6, #ff6b9a, #f5a524, #4db2ff); }
+.app-story__ring .ui-avatar { box-shadow: 0 0 0 2px var(--background); }
+.app-story[data-seen="true"] .app-story__ring { background: color-mix(in srgb, var(--foreground) 22%, transparent); }
 .app-story__name { font: 500 11px/14px var(--font-sans); color: var(--muted); }
 .app-phone .app-stories { flex: none; }
 
@@ -133,7 +134,7 @@ button.app-row:active { background: var(--default); }
 .app-phone .app-tabbar--floating { background: var(--default); box-shadow: none; }
 .app-phone .app-tabbar--floating .app-tabbar__item[aria-current="page"] { background: var(--surface); box-shadow: none; }
 [data-theme="dark"] .app-phone .app-tabbar--floating .app-tabbar__item[aria-current="page"] { background: var(--default-hover); box-shadow: inset 0 1px 0 rgb(255 255 255 / .08); }
-.app-phone .app-story__ring .ui-avatar { box-shadow: 0 0 0 3px var(--surface); }
+.app-phone .app-story__ring .ui-avatar { box-shadow: 0 0 0 2px var(--surface); }
 .app-phone .app-week__day[aria-pressed="true"] { background: var(--surface); }
 
 /* Bottom sheet inside a phone: white sheet over a dimmed screen (scrim), so the phone stays visually whole. */
