@@ -26,15 +26,17 @@ import { ApprovalCard, ThinkingSteps, ContextMeter, AutonomyPicker, SourcedAnswe
 import { Tooltip, MagneticDock, DynamicIsland, MemberStack } from '../../components/Motion/Motion';
 import { dockItems } from '../../components/Motion/dockItems';
 import { ariaItems } from '../../components/Aria/ariaItems';
-import { PhoneFrame } from '../../components/AppUI/PhoneFrame';
-import { TabBar } from '../../components/AppUI/TabBar';
-import { AppBar } from '../../components/AppUI/AppBar';
-import { ListGroup, ListRow } from '../../components/AppUI/ListRow';
-import { BottomSheet } from '../../components/AppUI/BottomSheet';
-import { Fab } from '../../components/AppUI/Fab';
-import { StoryRow } from '../../components/AppUI/StoryRing';
-import { AppCard, WeekStrip, BalanceCard, TrackSteps } from '../../components/AppUI/Cards';
-import { BellIcon, GearIcon, HomeIcon, SearchIcon, SunIcon, UserIcon } from '../../components/AppUI/icons';
+import { HomeScreenExample } from '../../components/AppUI/examples/HomeScreen';
+import { FloatingTabBarExample } from '../../components/AppUI/examples/FloatingTabBar';
+import { AppBarExample } from '../../components/AppUI/examples/AppBarExample';
+import { WeekStripExample } from '../../components/AppUI/examples/WeekStripExample';
+import { TaskListExample } from '../../components/AppUI/examples/TaskList';
+import { BalanceCardExample } from '../../components/AppUI/examples/BalanceCardExample';
+import { TrackingStepsExample } from '../../components/AppUI/examples/TrackingSteps';
+import { GroupedListExample } from '../../components/AppUI/examples/GroupedList';
+import { BottomSheetExample } from '../../components/AppUI/examples/BottomSheetExample';
+import { FloatingActionButtonExample } from '../../components/AppUI/examples/FloatingActionButton';
+import { StoryRingsExample } from '../../components/AppUI/examples/StoryRings';
 
 export type LibraryCategory = 'components' | 'blocks' | 'templates' | 'backgrounds' | 'ui-elements' | 'app';
 
@@ -525,50 +527,16 @@ const backgroundItems: BaseItem[] = [
   },
 ];
 
-const appTabs = [
-  { id: 'home', label: 'Home', icon: <HomeIcon /> },
-  { id: 'insights', label: 'Insights', icon: <SearchIcon /> },
-  { id: 'profile', label: 'Profile', icon: <UserIcon /> },
-];
-const appStories = [{ name: 'You', initials: 'ME' }, { name: 'Ada', initials: 'AL' }, { name: 'Linus', initials: 'LT', seen: true }];
-const appDays = [
-  { id: 'mon', day: 'Mon', date: 8 }, { id: 'tue', day: 'Tue', date: 9 }, { id: 'wed', day: 'Wed', date: 10 },
-  { id: 'thu', day: 'Thu', date: 11 }, { id: 'fri', day: 'Fri', date: 12 }, { id: 'sat', day: 'Sat', date: 13 },
-];
-const appFilter = [{ value: 'todo', label: 'To do' }, { value: 'done', label: 'Completed' }, { value: 'pending', label: 'Pending' }];
-const appSteps: { label: string; time: string; state: 'done' | 'active' | 'todo' }[] = [
-  { label: 'Received', time: '10:30am', state: 'done' },
-  { label: 'In transit', time: '12:30pm', state: 'active' },
-  { label: 'Delivered', time: 'Pending', state: 'todo' },
-];
-const sunIcon = <SunIcon />;
 const phoneProps = { tall: true, tileZoom: 0.55, defaultZoom: 0.75 } as const;
-
-const taskCard = (
-  <AppCard label="Tasks">
-    <SegmentedControl label="Filter" defaultValue="todo" options={appFilter} />
-    <h3 className="app-card__title">Morning</h3>
-    <Checkbox label="Wake up on time" />
-    <Checkbox label="Gym / workout" />
-    <h3 className="app-card__title">Workload</h3>
-    <Checkbox label="Polish UI components" />
-    <Checkbox label="Share updates with team" />
-  </AppCard>
-);
 
 const appItems: BaseItem[] = [
   {
     name: 'Home screen',
     variants: 1,
     ...phoneProps,
-    preview: (
-      <PhoneFrame>
-        <AppBar title="Hey, Ada" subtitle="Let's make progress today!" large action={sunIcon} />
-        <WeekStrip days={appDays} defaultValue="wed" />
-        {taskCard}
-        <TabBar floating items={appTabs} action={<Fab tone="dark" />} />
-      </PhoneFrame>
-    ),
+    preview: <HomeScreenExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/HomeScreen.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'home-screen',
     code: `<PhoneFrame>\n  <AppBar title="Hey, Ada" subtitle="Let's make progress today!" large action={<SunIcon />} />\n  <WeekStrip days={days} defaultValue="wed" />\n  <AppCard>\n    <SegmentedControl label="Filter" defaultValue="todo" options={filters} />\n    <Checkbox label="Wake up on time" />\n    <Checkbox label="Gym / workout" />\n  </AppCard>\n  <TabBar floating items={tabs} action={<Fab tone="dark" />} />\n</PhoneFrame>`,
     prompt: masterPrompt('Home screen', 'Mobile home in a phone viewport: greeting app bar, week strip, a task card with a filter, and a floating tab bar with a round action button.',
       'Composes PhoneFrame, AppBar (large + subtitle), WeekStrip, AppCard, SegmentedControl, Checkbox, TabBar (floating) and Fab (dark).',
@@ -578,7 +546,9 @@ const appItems: BaseItem[] = [
     name: 'Floating tab bar',
     variants: 2,
     ...phoneProps,
-    preview: <PhoneFrame><TabBar floating items={appTabs} action={<Fab tone="dark" />} /></PhoneFrame>,
+    preview: <FloatingTabBarExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/FloatingTabBar.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'floating-tab-bar',
     code: `<TabBar\n  floating\n  items={[\n    { id: 'home', label: 'Home', icon: <HomeIcon /> },\n    { id: 'insights', label: 'Insights', icon: <SearchIcon /> },\n    { id: 'profile', label: 'Profile', icon: <UserIcon /> },\n  ]}\n  action={<Fab tone="dark" />}\n/>`,
     prompt: masterPrompt('TabBar (floating)', 'Pill-shaped bottom navigation that floats above content. Only the active tab shows its label inside a raised pill; an optional round action button sits beside it.',
       'items: { id, label, icon }[]; floating?: boolean; action?: ReactNode; value / defaultValue; onChange(id).',
@@ -588,12 +558,9 @@ const appItems: BaseItem[] = [
     name: 'App bar',
     variants: 2,
     ...phoneProps,
-    preview: (
-      <PhoneFrame>
-        <AppBar title="Details" onBack={() => {}} />
-        <AppBar title="Hey, Ada" subtitle="Let's make progress today!" large action={sunIcon} />
-      </PhoneFrame>
-    ),
+    preview: <AppBarExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/AppBarExample.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'app-bar',
     code: `<AppBar title="Details" onBack={() => history.back()} />\n<AppBar title="Hey, Ada" subtitle="Let's make progress today!" large action={<SunIcon />} />`,
     prompt: masterPrompt('AppBar', 'Top bar for mobile screens: either a centered title with a back button, or a large greeting with a muted italic subtitle and a raised icon action.',
       'title: string; subtitle?: string; large?: boolean; onBack?(); action?: ReactNode.',
@@ -603,7 +570,9 @@ const appItems: BaseItem[] = [
     name: 'Week strip',
     variants: 1,
     ...phoneProps,
-    preview: <PhoneFrame><AppBar title="Schedule" large /><WeekStrip days={appDays} defaultValue="wed" /></PhoneFrame>,
+    preview: <WeekStripExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/WeekStripExample.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'week-strip',
     code: `<WeekStrip\n  days={[\n    { id: 'mon', day: 'Mon', date: 8 },\n    { id: 'wed', day: 'Wed', date: 10 },\n  ]}\n  defaultValue="wed"\n  onChange={(id) => setDay(id)}\n/>`,
     prompt: masterPrompt('WeekStrip', 'Horizontal day picker; the selected day sits in a soft raised pill.',
       'days: { id, day, date }[]; defaultValue?; onChange(id).',
@@ -613,7 +582,9 @@ const appItems: BaseItem[] = [
     name: 'Task list',
     variants: 1,
     ...phoneProps,
-    preview: <PhoneFrame><AppBar title="Today" large />{taskCard}</PhoneFrame>,
+    preview: <TaskListExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/TaskList.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'task-list',
     code: `<AppCard>\n  <SegmentedControl label="Filter" defaultValue="todo" options={filters} />\n  <h3 className="app-card__title">Morning</h3>\n  <Checkbox label="Wake up on time" />\n  <Checkbox label="Gym / workout" />\n</AppCard>`,
     prompt: masterPrompt('Task list', 'Checklist card with a To do / Completed / Pending filter and titled sections of checkboxes.',
       'Composes AppCard, SegmentedControl and Checkbox; section titles are <h3>.',
@@ -623,12 +594,9 @@ const appItems: BaseItem[] = [
     name: 'Balance card',
     variants: 1,
     ...phoneProps,
-    preview: (
-      <PhoneFrame>
-        <AppBar title="Hello, Victor" subtitle="12 Palm Groove, Lagos" large action={<BellIcon />} />
-        <BalanceCard amount="$245.00" actions={<><button type="button">New shipping</button><button type="button">Track shipping</button></>} />
-      </PhoneFrame>
-    ),
+    preview: <BalanceCardExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/BalanceCardExample.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'balance-card',
     code: `<BalanceCard\n  amount="$245.00"\n  primary="Top up"\n  actions={<><button>New shipping</button><button>Track shipping</button></>}\n/>`,
     prompt: masterPrompt('BalanceCard', 'High-contrast dark card with a label, a large amount, a white primary pill and two secondary actions.',
       'label?, amount: string, primary?: string, actions?: ReactNode.',
@@ -638,16 +606,9 @@ const appItems: BaseItem[] = [
     name: 'Tracking steps',
     variants: 1,
     ...phoneProps,
-    preview: (
-      <PhoneFrame>
-        <AppBar title="Details" onBack={() => {}} />
-        <AppCard label="Shipment">
-          <h3 className="app-card__title">PAQ-327-P21</h3>
-          <TrackSteps steps={appSteps} />
-        </AppCard>
-        <Button size="lg">Track shipping</Button>
-      </PhoneFrame>
-    ),
+    preview: <TrackingStepsExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/TrackingSteps.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'tracking-steps',
     code: `<TrackSteps\n  steps={[\n    { label: 'Received', time: '10:30am', state: 'done' },\n    { label: 'In transit', time: '12:30pm', state: 'active' },\n    { label: 'Delivered', time: 'Pending', state: 'todo' },\n  ]}\n/>`,
     prompt: masterPrompt('TrackSteps', 'Horizontal progress line with a dot per step: done steps are filled and connected, the active step is filled, the rest are muted.',
       "steps: { label, time, state: 'done' | 'active' | 'todo' }[].",
@@ -657,16 +618,9 @@ const appItems: BaseItem[] = [
     name: 'Grouped list',
     variants: 3,
     ...phoneProps,
-    preview: (
-      <PhoneFrame>
-        <AppBar title="Settings" onBack={() => {}} />
-        <ListGroup label="Account">
-          <ListRow icon={<UserIcon />} title="Profile" />
-          <ListRow icon={<BellIcon />} title="Notifications" value="On" />
-          <ListRow icon={<GearIcon />} title="Dark mode" trailing={<Switch aria-label="Dark mode" />} />
-        </ListGroup>
-      </PhoneFrame>
-    ),
+    preview: <GroupedListExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/GroupedList.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'grouped-list',
     code: `<ListGroup label="Account">\n  <ListRow icon={<UserIcon />} title="Profile" />\n  <ListRow icon={<BellIcon />} title="Notifications" value="On" />\n  <ListRow icon={<GearIcon />} title="Dark mode" trailing={<Switch aria-label="Dark mode" />} />\n</ListGroup>`,
     prompt: masterPrompt('ListGroup / ListRow', 'Inset grouped list like a mobile settings screen: icon tile, title, optional value, then a chevron or a control.',
       'ListRow: icon?, title, value?, trailing? (ReactNode, or false to hide the chevron), onClick?. ListGroup: label?, children.',
@@ -676,15 +630,9 @@ const appItems: BaseItem[] = [
     name: 'Bottom sheet',
     variants: 1,
     ...phoneProps,
-    preview: (
-      <PhoneFrame>
-        <AppBar title="Projects" large />
-        <BottomSheet title="Share project" footer={<><Button>Copy link</Button><Button variant="ghost">Cancel</Button></>}>
-          <ListRow title="Message" />
-          <ListRow title="Email" />
-        </BottomSheet>
-      </PhoneFrame>
-    ),
+    preview: <BottomSheetExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/BottomSheetExample.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'bottom-sheet',
     code: `<BottomSheet\n  title="Share project"\n  footer={<><Button>Copy link</Button><Button variant="ghost">Cancel</Button></>}\n>\n  <ListRow title="Message" />\n  <ListRow title="Email" />\n</BottomSheet>`,
     prompt: masterPrompt('BottomSheet', 'Panel that slides up from the bottom of a mobile screen: drag handle, title, content rows and stacked full-width actions.',
       'title: string; children; footer?: ReactNode. Presentational: mount it inside your own overlay or <dialog>.',
@@ -694,15 +642,9 @@ const appItems: BaseItem[] = [
     name: 'Floating action button',
     variants: 3,
     ...phoneProps,
-    preview: (
-      <PhoneFrame>
-        <AppBar title="Inbox" large />
-        <div style={{ marginTop: 'auto', paddingBottom: 26, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 10 }}>
-          <Fab label="New chat" />
-          <Fab tone="dark" />
-        </div>
-      </PhoneFrame>
-    ),
+    preview: <FloatingActionButtonExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/FloatingActionButton.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'floating-action-button',
     code: `<Fab />\n<Fab tone="dark" />\n<Fab label="New chat" />`,
     prompt: masterPrompt('Fab', 'Round primary action button that floats above content; accent or dark tone; extended pill when it has a label.',
       "icon?: ReactNode (defaults to a plus); label?: string; tone?: 'accent' | 'dark'; all native button props.",
@@ -712,12 +654,9 @@ const appItems: BaseItem[] = [
     name: 'Story rings',
     variants: 2,
     ...phoneProps,
-    preview: (
-      <PhoneFrame>
-        <AppBar title="Friends" large />
-        <StoryRow stories={appStories} />
-      </PhoneFrame>
-    ),
+    preview: <StoryRingsExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/StoryRings.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'story-rings',
     code: `<StoryRow\n  stories={[\n    { name: 'You', initials: 'ME' },\n    { name: 'Ada', initials: 'AL' },\n    { name: 'Linus', initials: 'LT', seen: true },\n  ]}\n/>`,
     prompt: masterPrompt('StoryRow', 'Horizontally scrolling row of avatars with a gradient ring for unseen stories and a muted ring once seen.',
       'stories: { name, initials, seen? }[].',
@@ -727,6 +666,25 @@ const appItems: BaseItem[] = [
 
 const withCategory = (category: LibraryCategory) => (item: BaseItem): LibraryItem => ({ ...item, category });
 
+/** The App prompts point at the real files, so an agent can read the reference implementation. */
+const appReferences: Record<string, string> = {
+  'Home screen': '`src/components/AppUI/examples/HomeScreen.tsx` (the example, with its data), `src/components/AppUI/AppBar.tsx`, `src/components/AppUI/Cards.tsx`, `src/components/AppUI/TabBar.tsx`, `src/components/AppUI/Fab.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+  'Floating tab bar': '`src/components/AppUI/examples/FloatingTabBar.tsx` (the example, with its data), `src/components/AppUI/TabBar.tsx`, `src/components/AppUI/Fab.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+  'App bar': '`src/components/AppUI/examples/AppBarExample.tsx` (the example, with its data), `src/components/AppUI/AppBar.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+  'Week strip': '`src/components/AppUI/examples/WeekStripExample.tsx` (the example, with its data), `src/components/AppUI/Cards.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+  'Task list': '`src/components/AppUI/examples/TaskList.tsx` (the example, with its data), `src/components/AppUI/Cards.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+  'Balance card': '`src/components/AppUI/examples/BalanceCardExample.tsx` (the example, with its data), `src/components/AppUI/Cards.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+  'Tracking steps': '`src/components/AppUI/examples/TrackingSteps.tsx` (the example, with its data), `src/components/AppUI/Cards.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+  'Grouped list': '`src/components/AppUI/examples/GroupedList.tsx` (the example, with its data), `src/components/AppUI/ListRow.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+  'Bottom sheet': '`src/components/AppUI/examples/BottomSheetExample.tsx` (the example, with its data), `src/components/AppUI/BottomSheet.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+  'Floating action button': '`src/components/AppUI/examples/FloatingActionButton.tsx` (the example, with its data), `src/components/AppUI/Fab.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+  'Story rings': '`src/components/AppUI/examples/StoryRings.tsx` (the example, with its data), `src/components/AppUI/StoryRing.tsx`, `src/components/AppUI/PhoneFrame.tsx`, `src/components/AppUI/AppUI.css`',
+};
+const withReference = (item: BaseItem): BaseItem => ({
+  ...item,
+  prompt: `${item.prompt}\n\nReference implementation (real files in this repo): ${appReferences[item.name] ?? ''}. Match their structure, class names (app- prefix) and tokens.`,
+});
+
 export const libraryItems: LibraryItem[] = [
   ...componentItems.map(withCategory('components')),
   ...ariaItems.map(withCategory('components')),
@@ -734,7 +692,7 @@ export const libraryItems: LibraryItem[] = [
   ...templateItems.map(withCategory('templates')),
   ...backgroundItems.map(withCategory('backgrounds')),
   ...uiElementItems.map(withCategory('ui-elements')),
-  ...appItems.map(withCategory('app')),
+  ...appItems.map(withReference).map(withCategory('app')),
 ];
 
 export const libraryCategories: { id: LibraryCategory; label: string; subtitle: string }[] = [

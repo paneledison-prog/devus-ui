@@ -167,6 +167,86 @@ add('liquid-glass-chat', name='Liquid glass chat', brand='fictional names and me
     edit=['Keep glass values in the `.lq` variables', 'Faces and the coastal scene are own SVG; never add photos', 'Respect reduced motion for the enter animation'])
 
 
+# ---- App category (mobile elements shown in a phone frame) ----
+add('home-screen', name='Home screen', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/HomeScreen.tsx  (the example shown in the preview)', 'src/components/AppUI/AppBar.tsx', 'src/components/AppUI/Cards.tsx', 'src/components/AppUI/TabBar.tsx', 'src/components/AppUI/Fab.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/HomeScreen.tsx', props='none (the example is self-contained)',
+    summary='Mobile home: greeting app bar, week strip, a task card with a filter and a floating tab bar with a round action button.',
+    features=['Large app bar with greeting, italic subtitle and a sun icon action', 'WeekStrip with Wednesday selected', 'Task card: segmented filter and two titled checkbox sections', 'Floating TabBar with a dark Fab'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`'],
+    edit=['Compose changes in `examples/HomeScreen.tsx`', 'Change a part in its own file (AppBar, Cards, TabBar, Fab), not in the example', 'Keep the phone safe areas clear (status bar, home indicator)'])
+add('floating-tab-bar', name='Floating tab bar', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/FloatingTabBar.tsx  (the example shown in the preview)', 'src/components/AppUI/TabBar.tsx', 'src/components/AppUI/Fab.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/FloatingTabBar.tsx', props='`TabBar({ items, label?, value?, defaultValue?, onChange?, floating?, action? })`',
+    summary='Pill-shaped bottom navigation that floats above content; only the active tab shows its label inside a raised pill; an optional round action sits beside it.',
+    features=['Items fill the bar width; the active item is wider and animated', 'Bar uses a light-gray fill in light mode; the active pill is lifted above the bar in dark mode', 'Optional action button (Fab)'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`', 'Every tab keeps an aria-label even when its text is hidden; `aria-current="page"` on the active tab'],
+    edit=['Edit behavior in `TabBar.tsx`, look in the TabBar section of AppUI.css', 'Keep the dark-mode pill lighter than the bar', 'Keep items filling the bar so there is no empty stretch beside the action'])
+add('app-bar', name='App bar', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/AppBarExample.tsx  (the example shown in the preview)', 'src/components/AppUI/AppBar.tsx', 'src/components/AppUI/icons.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/AppBarExample.tsx', props='`AppBar({ title, subtitle?, large?, onBack?, action? })`',
+    summary='Top bar for mobile screens: a centered title with a back button, or a large greeting with a muted italic subtitle and a raised icon action.',
+    features=['Compact variant with back button', 'Large variant with subtitle and action', 'An empty action slot is hidden (no empty circle)'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`'],
+    edit=['Edit `AppBar.tsx` for behavior and the `.app-bar*` rules in AppUI.css for look', 'Keep the title an `<h2>` and the back button labelled "Back"'])
+add('week-strip', name='Week strip', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/WeekStripExample.tsx  (the example shown in the preview)', 'src/components/AppUI/Cards.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/WeekStripExample.tsx', props='`WeekStrip({ days, defaultValue?, onChange? })` (`WeekDay = { id, day, date }`)',
+    summary='Horizontal day picker; the selected day sits in a soft raised pill.',
+    features=['Six days with a weekday and date each', 'Controlled by `defaultValue` and `onChange(id)`'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`', 'Each day is a toggle button with `aria-pressed`'],
+    edit=['Edit `WeekStrip` in `Cards.tsx`', 'Keep the group labelled and each day a 44px target'])
+add('task-list', name='Task list', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/TaskList.tsx  (the example shown in the preview)', 'src/components/AppUI/Cards.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/TaskList.tsx', props='`AppCard({ label?, children })`',
+    summary='Checklist card with a To do / Completed / Pending filter and titled sections of real checkboxes.',
+    features=['Segmented filter (radio group)', 'Two titled sections with checkboxes'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`'],
+    edit=['Edit `TaskCard` in `examples/data.tsx` for content', 'Edit `AppCard` in `Cards.tsx` for the card'])
+add('balance-card', name='Balance card', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/BalanceCardExample.tsx  (the example shown in the preview)', 'src/components/AppUI/Cards.tsx', 'src/components/AppUI/icons.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/BalanceCardExample.tsx', props='`BalanceCard({ label?, amount, primary?, actions? })`',
+    summary='High-contrast dark card with a label, a large amount, a white primary pill and two secondary actions.',
+    features=['White-on-black text that meets WCAG AA', 'Primary pill plus secondary actions as real buttons'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`'],
+    edit=['Edit `BalanceCard` in `Cards.tsx`', 'Pass actions as buttons through the `actions` prop'])
+add('tracking-steps', name='Tracking steps', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/TrackingSteps.tsx  (the example shown in the preview)', 'src/components/AppUI/Cards.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/TrackingSteps.tsx', props='`TrackSteps({ steps })` (`TrackStep = { label, time, state }`)',
+    summary='Horizontal progress line with a dot per step: done steps are filled and connected, the active step is filled, the rest are muted.',
+    features=['Ordered list with `aria-current="step"` on the active step', 'State is also shown with text and a check mark, not color alone'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`'],
+    edit=['Edit `TrackSteps` in `Cards.tsx`', 'Never convey state by color alone'])
+add('grouped-list', name='Grouped list', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/GroupedList.tsx  (the example shown in the preview)', 'src/components/AppUI/ListRow.tsx', 'src/components/AppUI/icons.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/GroupedList.tsx', props='`ListRow({ icon?, title, value?, trailing?, onClick? })`, `ListGroup({ label?, children })`',
+    summary='Inset grouped list like a mobile settings screen: icon tile, title, optional value, then a chevron or a control.',
+    features=['Rows with icon, title, value and a Switch', 'Rows are buttons only when clickable', 'Rows are at least 48px tall'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`'],
+    edit=['Edit `ListRow.tsx`', 'Pass `trailing={false}` to hide the chevron'])
+add('bottom-sheet', name='Bottom sheet', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/BottomSheetExample.tsx  (the example shown in the preview)', 'src/components/AppUI/BottomSheet.tsx', 'src/components/AppUI/ListRow.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/BottomSheetExample.tsx', props='`BottomSheet({ title, children, footer? })`',
+    summary='Panel that slides up from the bottom of a mobile screen: drag handle, title, content rows and stacked full-width actions.',
+    features=['White sheet over a dimmed (32% black) scrim so the borderless phone stays visually whole', 'Footer buttons are 48px tall'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`', 'When used as a modal it must trap focus, close on Escape and restore focus'],
+    edit=['Edit `BottomSheet.tsx`', 'Mount it inside your own overlay or `<dialog>`; it is presentational'])
+add('floating-action-button', name='Floating action button', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/FloatingActionButton.tsx  (the example shown in the preview)', 'src/components/AppUI/Fab.tsx', 'src/components/AppUI/icons.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/FloatingActionButton.tsx', props='`Fab({ icon?, label?, tone?: "accent" | "dark", ...button props })`',
+    summary='Round primary action button that floats above content; accent or dark tone; an extended pill when it has a label.',
+    features=['Default plus icon with `aria-label="Create"`', '52px target; press feedback scales to 94%'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`'],
+    edit=['Edit `Fab.tsx`', 'Keep an accessible name when it is icon-only'])
+add('story-rings', name='Story rings', brand='none (generic sample content)', kind='phone', root='.app-phone', prefix='app-',
+    files=['src/components/AppUI/examples/StoryRings.tsx  (the example shown in the preview)', 'src/components/AppUI/StoryRing.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/StoryRings.tsx', props='`StoryRow({ stories })` (`Story = { name, initials, seen? }`)',
+    summary='Horizontally scrolling row of avatars with a gradient ring for unseen stories and a muted ring once seen.',
+    features=['Gradient ring is 4px with a 2px gap around the avatar', 'Seen stories use a muted gray ring', 'Each button names whether the story is new'],
+    gaps=['Presentational only: no navigation or persistence'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 44px; pills and buttons use `--radius-full` or `--radius-3xl`'],
+    edit=['Edit `StoryRing.tsx` and the `.app-story*` rules', 'The ring is decorative; keep the accessible name on the button'])
+
+
 def bullets(items):
     return '\n'.join(f'- {i}' for i in items)
 
@@ -182,7 +262,11 @@ def gen(t):
     if os.path.isdir(d):
         shutil.rmtree(d)
     n, slug = t['name'], t['slug']
-    canvas = t['kind'] == 'canvas'
+    phone = t['kind'] == 'phone'
+    canvas = t['kind'] in ('canvas', 'phone')
+    where = 'Find it in the App section of the homepage and open its large preview (the Code tab shows the real files).' if phone else f"Open it full window at `/?template={slug}`."
+    run_where = 'the App section of `http://localhost:5173` (open the tile large preview)' if phone else f'`http://localhost:5173/?template={slug}`'
+    lib_file = 'src/pages/Library/libraryItems.tsx' if phone else 'src/pages/Library/templates.tsx'
 
     write(os.path.join(d, 'Context.md'), f"""
 # {n}: Context
@@ -193,7 +277,7 @@ def gen(t):
 ## What this is
 {t['summary']}
 
-Brand: {t['brand']}. Open it full window at `/?template={slug}`.
+Brand: {t['brand']}. {where}
 
 ## Real files
 {bullets(f"`{f}`" for f in t['files'])}
@@ -207,7 +291,7 @@ Public API: {t['props']}.
 {bullets(t['gaps'])}
 
 ## How it is wired into the library
-- The library entry is `{n}` in `src/pages/Library/templates.tsx` (`sourceEntries` points at the entry file above).
+- The library entry is `{n}` in `{lib_file}` (`sourceEntries` points at the entry file above).
 - The Code tab of the preview reads these real files; this `helper/` folder ships next to them.
 - Changing a file listed above changes what the Code tab shows.
 """)
@@ -218,7 +302,7 @@ Public API: {t['props']}.
 Product and copy guidelines. These are requirements, not suggestions.
 
 ## Product
-- Keep the template a finished, believable screen. {'It is a static layout: do not add fake behavior.' if canvas else 'It is a working demo: every control that looks clickable must do something visible.'}
+- Keep the template a finished, believable screen. {'It is a presentational mobile component shown inside the phone frame: no behavior beyond its documented props.' if phone else 'It is a static layout: do not add fake behavior.' if canvas else 'It is a working demo: every control that looks clickable must do something visible.'}
 - Scope: {t['summary']}
 - Do not add pages, sections or features that the request did not ask for.
 - Never add a Pricing page unless the user asks.
@@ -229,12 +313,12 @@ Product and copy guidelines. These are requirements, not suggestions.
 - Sentence case for buttons and headings. No exclamation marks.
 
 ## Behavior
-{'- Static layout: keep it free of timers and state.' if canvas else '- State survives closing the preview dialog (the dialog keeps content mounted); do not reset state on blur.'}
+{'- Presentational: keep state local and minimal; callbacks come in as props.' if phone else '- Static layout: keep it free of timers and state.' if canvas else '- State survives closing the preview dialog (the dialog keeps content mounted); do not reset state on blur.'}
 {'- ' if False else ''}- Anything simulated (replies, runs, uploads) must be cancelable and must clear its timers on unmount.
 - Respect `prefers-reduced-motion`: animations stop or become instant.
 
 ## Layout
-{'- The canvas is fixed at 720x440 and scaled by the library with CSS zoom. Do not use viewport units inside it.' if canvas else '- The root fills its container (width and height 100%). It must work at the 1200x740 library preview size and full window in a new tab.'}
+{'- The component is designed for the 320x660 phone frame (`PhoneFrame`). Do not use viewport units; it must also render in the library tile at reduced size.' if phone else '- The canvas is fixed at 720x440 and scaled by the library with CSS zoom. Do not use viewport units inside it.' if canvas else '- The root fills its container (width and height 100%). It must work at the 1200x740 library preview size and full window in a new tab.'}
 - Text must not clip or overlap at the design size. Check long names and long numbers.
 
 ## Out of scope
@@ -297,7 +381,7 @@ You are changing the **{n}** template of Devus UI. This folder is the source of 
 ## Definition of done
 - [ ] `npm run typecheck` passes
 - [ ] `npm run build` passes
-- [ ] The template was opened in a browser at `/?template={slug}` and used, in light and dark
+- [ ] The component was opened in a browser ({run_where}) and used, in light and dark
 - [ ] No console errors that the change introduced
 - [ ] `../Context.md` is updated (files, features, gaps, date)
 - [ ] The change is committed locally with a clear message
@@ -365,7 +449,7 @@ Ask one specific question instead of guessing. Do not widen scope.
 
 1. Make one coherent change at a time.
 2. Run `npm run typecheck`, then `npm run build`.
-3. Open the template in the browser (`npm run dev`, then `/?template=<slug>`), use it, and check light and dark and the console.
+3. Open it in the browser (`npm run dev`; templates at `/?template=<slug>`, App items from the App section of the homepage), use it, and check light and dark and the console.
 4. Update `../Context.md` (files, features, gaps, "Last updated").
 5. Commit locally in the same commit as the change. Git identity for this repo: `paneledison-prog` / `paneledison@gmail.com`.
 6. **Push only when the user says "push".** Never force-push. Never skip hooks.
@@ -406,7 +490,7 @@ description: Use after any change to the {n} template, before saying it is done.
 # Verify the {n} template
 
 1. `npm run typecheck` must print no errors.
-2. `npm run dev`, then open `http://localhost:5173/?template={slug}`.
+2. `npm run dev`, then open {run_where}.
 3. Use the template: click every control you touched, type in every field you touched, press Escape and Tab where relevant.
 4. Switch to dark ({'site theme toggle' if canvas else 'its own theme switch or the site toggle'}) and check contrast and missing colors.
 5. Read the browser console: there must be no new errors or warnings.
@@ -424,7 +508,7 @@ def main():
     write(os.path.join(ROOT, 'README.md'), """
 # helper/
 
-One folder per library template. Each is a real, committed set of instructions that an agent must follow when changing that template. They are shown as the `helper/` folder in the Code tab file tree of every template in the library.
+One folder per library template and per App item. Each is a real, committed set of instructions that an agent must follow when changing that template. They are shown as the `helper/` folder in the Code tab file tree of every template in the library.
 
 Generated by `python scripts/generate-helper.py`; edit the facts in that script, then re-run it.
 

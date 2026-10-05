@@ -20,7 +20,7 @@ You are changing the **Agent builder demo** template of Devus UI. This folder is
 ## Definition of done
 - [ ] `npm run typecheck` passes
 - [ ] `npm run build` passes
-- [ ] The template was opened in a browser at `/?template=agent-builder-demo` and used, in light and dark
+- [ ] The component was opened in a browser (`http://localhost:5173/?template=agent-builder-demo`) and used, in light and dark
 - [ ] No console errors that the change introduced
 - [ ] `../Context.md` is updated (files, features, gaps, date)
 - [ ] The change is committed locally with a clear message
