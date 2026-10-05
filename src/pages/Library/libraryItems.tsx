@@ -41,6 +41,8 @@ import { FinanceDashboardExample } from '../../components/AppUI/examples/Finance
 import { InvoiceDetailExample } from '../../components/AppUI/examples/InvoiceDetail';
 import { PremiumPaywallExample } from '../../components/AppUI/examples/PremiumPaywall';
 import { NexusHomeExample } from '../../components/AppUI/examples/NexusHome';
+import { NexusTodayExample } from '../../components/AppUI/examples/NexusToday';
+import { NexusDailyExample } from '../../components/AppUI/examples/NexusDaily';
 import { NexusCoursesExample } from '../../components/AppUI/examples/NexusCourses';
 import { RestoringPurchasesExample } from '../../components/AppUI/examples/RestoringPurchases';
 
@@ -639,6 +641,40 @@ const appItems: BaseItem[] = [
   <CourseCard x={20} tone="peach" topic="Photography" title="Nature And Wildlife"><FeltCamera /></CourseCard>
   <CourseCard x={236} tone="mint" topic="Financial" title="Debt Management"><FeltBlob /></CourseCard>
   <NexusTabs active="courses" />
+</NexusCanvas>`,
+  },
+  {
+    name: 'Nexus today',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <NexusTodayExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/NexusToday.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'nexus-today',
+    code: `<NexusCanvas dim>
+  <TrophyHero />
+  <NexusHeader />
+  <WeekStrip days={days} selected={3} top={581} flat />
+  <h2 className="nx-h2">100 day challenge</h2>
+  <ChallengeCard top={767} tone="lavender" chip="110,732 People" art={<FeltX />} />
+  <NexusTabs active="today" />
+</NexusCanvas>`,
+  },
+  {
+    name: 'Nexus daily activity',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <NexusDailyExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/NexusDaily.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'nexus-daily-activity',
+    code: `<NexusCanvas dim>
+  <h2 className="nx-h2">Daily activity</h2>
+  <WeekStrip days={days} selected={3} top={132} flat dividers />
+  <h2 className="nx-h2">100 Day Challenge</h2>
+  <ChallengeCard top={319} tone="lavender" chip="110,732 People" art={<FeltX />} title="Applying 'Into Equations' in problem solving" arrow />
+  <h2 className="nx-h2">Science & Engineering</h2>
+  <ChallengeCard top={804} tone="green" chip="8,240 People" art={<FeltV />} />
 </NexusCanvas>`,
   },
 ];

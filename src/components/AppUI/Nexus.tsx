@@ -6,8 +6,8 @@ import './Nexus.css';
  * All coordinates are in canvas pixels taken from the reference image.
  */
 
-export function NexusCanvas({ children }: { children: ReactNode }) {
-  return <div className="nx">{children}</div>;
+export function NexusCanvas({ children, dim = false }: { children: ReactNode; dim?: boolean }) {
+  return <div className={`nx${dim ? ' nx--dim' : ''}`}>{children}</div>;
 }
 
 /** Dark status bar (time left, signal, wifi and battery right). */
@@ -50,7 +50,7 @@ const PersonGlyph = ({ f }: { f: string }) => <Glyph><circle cx="14" cy="9" r="5
 const MoreGlyph = ({ f }: { f: string }) => <Glyph><rect x="3" y="4" width="22" height="20" rx="6" fill={f} /><circle cx="9.500" cy="14" r="1.500" fill="#fff" /><circle cx="14" cy="14" r="1.500" fill="#fff" /><circle cx="18.500" cy="14" r="1.500" fill="#fff" /></Glyph>;
 
 /** Bottom tab bar: five tabs, the active one has a blue-violet gradient icon and label. */
-export function NexusTabs({ active }: { active: 'home' | 'courses' }) {
+export function NexusTabs({ active }: { active: 'home' | 'courses' | 'today' }) {
   const id = useId().replace(/:/g, '');
   const tabs = [
     { id: 'home', label: 'Home', Icon: HomeGlyph },
@@ -112,14 +112,17 @@ export function StatCard({ x, label, icon, value, ring }: { x: number; label: st
 export const PlaySquare = () => <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect width="22" height="22" rx="6" fill="currentColor" /><path d="M8.500 6.500v9l7.500-4.500-7.500-4.500Z" fill="#fff" /></svg>;
 export const BookSquare = () => <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M2 4.500C2 3.100 3.100 2 4.500 2H11v18H4.500A2.500 2.500 0 0 1 2 17.500v-13Z" fill="currentColor" /><path d="M11 2h6.500C18.900 2 20 3.100 20 4.500v13a2.500 2.500 0 0 1-2.500 2.500H11V2Z" fill="currentColor" /><path d="M11 2v18" stroke="#fff" strokeWidth="1.800" /></svg>;
 
-export function WeekStrip({ days, selected }: { days: { day: string; date: number }[]; selected: number }) {
+const HOME_CENTERS = [47, 118, 189, 263, 337, 408];
+
+export function WeekStrip({ days, selected, top = 290, centers = HOME_CENTERS, flat = false, dividers = false }: { days: { day: string; date: number }[]; selected: number; top?: number; centers?: number[]; flat?: boolean; dividers?: boolean }) {
   return (
-    <div className="nx-week" role="group" aria-label="This week">
+    <div className={`nx-week${flat ? ' nx-week--flat' : ''}`} style={{ top }} role="group" aria-label="This week">
       {days.map((d, i) => (
-        <div key={d.day} className={`nx-week__day${i === selected ? ' is-on' : ''}`} style={{ left: 47 + i * 72 - 30 }} aria-current={i === selected ? 'date' : undefined}>
+        <div key={d.day} className={`nx-week__day${i === selected ? ' is-on' : ''}`} style={{ left: centers[i] - 30 }} aria-current={i === selected ? 'date' : undefined}>
           <span className="nx-week__name">{d.day}</span>
           <span className="nx-week__date">{d.date}</span>
-          <span className="nx-week__mark"><Lotus size={28} gradient={i === selected} /></span>
+          <span className="nx-week__mark"><Lotus size={flat ? 26 : 28} gradient={i === selected} /></span>
+          {dividers && i === selected && <><span className="nx-week__rule nx-week__rule--l" /><span className="nx-week__rule nx-week__rule--r" /></>}
         </div>
       ))}
     </div>
@@ -288,5 +291,104 @@ export function CourseCard({ x, tone, topic, title, children }: { x: number; ton
       <p className="nx-course__topic">{topic}</p>
       <h3 className="nx-course__title">{title}</h3>
     </article>
+  );
+}
+
+/* ---------- today / daily activity ---------- */
+/** Orange felt trophy character with two handles, a stem and a base. */
+export function FeltTrophy() {
+  const id = useId().replace(/:/g, '');
+  return (
+    <svg className="nx-art nx-art--trophy" width="454" height="340" viewBox="0 120 454 340" aria-hidden="true" focusable="false">
+      <FeltDefs id={id} />
+      <defs>
+        <linearGradient id={`${id}-o`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#F3AE4A" /><stop offset="1" stopColor="#E58F2C" /></linearGradient>
+        <linearGradient id={`${id}-s`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#F4B766" /><stop offset="1" stopColor="#F6CB92" /></linearGradient>
+      </defs>
+      <g filter={`url(#${id}-fuzz)`}>
+        <path d="M150 172C118 166 100 196 108 232C116 268 150 290 176 296L180 280C158 270 134 250 130 224C128 204 136 196 150 198Z" fill="#E99A36" />
+        <path d="M318 188C350 184 372 208 364 244C358 276 330 296 300 300L296 284C318 276 340 262 342 238C344 220 336 214 322 214Z" fill="#E99A36" />
+        <rect x="203" y="298" width="54" height="58" rx="14" fill={`url(#${id}-s)`} />
+        <path d="M156 408Q150 360 190 350L270 350Q312 358 300 408Q298 424 270 424L186 424Q160 424 156 408Z" fill={`url(#${id}-s)`} />
+        <ellipse cx="228" cy="352" rx="42" ry="9" fill="#F7D2A0" />
+        <path d="M142 165Q232 148 326 165L322 232Q318 292 262 312L204 312Q146 292 142 232Z" fill={`url(#${id}-o)`} />
+        <g filter={`url(#${id}-soft)`}><ellipse cx="190" cy="200" rx="30" ry="40" fill="#F8C777" opacity=".5" /><ellipse cx="270" cy="296" rx="40" ry="14" fill="#C9701A" opacity=".5" /></g>
+        <ellipse cx="234" cy="166" rx="88" ry="12" fill="#D98825" />
+        <ellipse cx="234" cy="167" rx="78" ry="8" fill="#E8A247" />
+      </g>
+      <Eyes eyes={[{ x: 187, y: 217, r: 18, dx: -3, dy: -4 }, { x: 228, y: 222, r: 17, dx: -2, dy: -4 }]} />
+      <circle cx="180" cy="292" r="3.200" fill="#fff" /><circle cx="186" cy="283" r="2.200" fill="#fff" />
+      <g stroke="#D9953F" strokeWidth="2.200" strokeLinecap="round" opacity=".85"><path d="M378 291l25 12M352 326l19 29M321 337l1 11" /></g>
+    </svg>
+  );
+}
+
+/** Purple felt X character; drawn in the card's own coordinates (428x400). */
+export function FeltX() {
+  const id = useId().replace(/:/g, '');
+  return (
+    <svg className="nx-art nx-art--x" width="428" height="400" viewBox="0 0 428 400" aria-hidden="true" focusable="false">
+      <FeltDefs id={id} />
+      <defs>
+        <linearGradient id={`${id}-p`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#B27DF0" /><stop offset="1" stopColor="#8349D6" /></linearGradient>
+      </defs>
+      <g filter={`url(#${id}-fuzz)`}>
+        <rect x="179" y="42" width="76" height="236" rx="38" transform="rotate(-36 217 160)" fill={`url(#${id}-p)`} />
+        <rect x="179" y="45" width="76" height="230" rx="38" transform="rotate(42 217 160)" fill={`url(#${id}-p)`} />
+        <g filter={`url(#${id}-soft)`}><ellipse cx="196" cy="116" rx="26" ry="14" fill="#C9A4F6" opacity=".6" /><ellipse cx="262" cy="236" rx="20" ry="16" fill="#6A32BE" opacity=".5" /></g>
+      </g>
+      <Eyes eyes={[{ x: 188, y: 149, r: 13, dx: 1, dy: 1 }, { x: 219, y: 155, r: 12, dx: 1, dy: 1 }]} />
+    </svg>
+  );
+}
+
+/** Green felt V-shaped character; drawn in the card's own coordinates (428x400). */
+export function FeltV() {
+  const id = useId().replace(/:/g, '');
+  return (
+    <svg className="nx-art nx-art--x" width="428" height="400" viewBox="0 0 428 400" aria-hidden="true" focusable="false">
+      <FeltDefs id={id} />
+      <defs>
+        <linearGradient id={`${id}-g`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#8FE04F" /><stop offset="1" stopColor="#5CC62A" /></linearGradient>
+      </defs>
+      <g filter={`url(#${id}-fuzz)`}>
+        <path d="M117 96Q114 66 148 62Q182 60 198 82L220 112Q230 122 244 112L286 72Q310 54 332 68Q350 84 338 110L262 194Q232 220 198 198L136 138Q118 120 117 96Z" fill={`url(#${id}-g)`} />
+        <g filter={`url(#${id}-soft)`}><ellipse cx="160" cy="84" rx="26" ry="12" fill="#C2F595" opacity=".6" /><ellipse cx="290" cy="180" rx="30" ry="14" fill="#3E9A16" opacity=".45" /></g>
+      </g>
+      <Eyes eyes={[{ x: 205, y: 129, r: 11, dy: 1 }, { x: 238, y: 139, r: 11, dy: 1 }]} />
+    </svg>
+  );
+}
+
+const Party = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 18 6 6l8 8-12 4Z" fill="#F2A33A" /><path d="M6 6 14 14" stroke="#D9772A" strokeWidth="1.500" /><circle cx="14" cy="4" r="1.300" fill="#E0568A" /><circle cx="17" cy="9" r="1.200" fill="#5B8DEF" /><circle cx="10" cy="2.500" r="1" fill="#6CC36A" /></svg>
+);
+
+export function TrophyHero() {
+  return (
+    <section className="nx-trophy" aria-label="Challenge">
+      <div className="nx-peach" aria-hidden="true" />
+      <FeltTrophy />
+      <span className="nx-trophy__pill"><Party />Challenge!</span>
+      <h2 className="nx-trophy__title">Focusing on two key<br />challenges</h2>
+    </section>
+  );
+}
+
+/** Challenge card: a pill, a felt character and a white panel (title plus a round action button). */
+export function ChallengeCard({ top, tone, chip, art, title, arrow = false }: { top: number; tone: 'lavender' | 'green'; chip: string; art: ReactNode; title?: ReactNode; arrow?: boolean }) {
+  return (
+    <section className={`nx-sug nx-sug--${tone}`} style={{ top }} aria-label={chip}>
+      <span className="nx-sug__chip nx-sug__chip--pill">{chip}</span>
+      {art}
+      {title && (
+        <div className="nx-sug__panel">
+          <h3 className="nx-sug__title nx-sug__title--sm">{title}</h3>
+          <button type="button" className="nx-sug__play" aria-label="Open">
+            {arrow && <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.800" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 11h14M12 5l6 6-6 6" /></svg>}
+          </button>
+        </div>
+      )}
+    </section>
   );
 }
