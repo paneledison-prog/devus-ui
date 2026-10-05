@@ -169,7 +169,3 @@
 @media (prefers-reduced-motion: reduce) {
   .ra-popover, .ra-overlay, .ra-modal, .ra-disclosure__panel, .ra-disclosure__btn svg { animation: none !important; transition: none !important; }
 }
-
-/* Static "opened" look used as the library preview */
-.ra-demo { display: grid; justify-items: center; gap: var(--space-4); }
-.ra-modal--static { position: static; animation: none; }

@@ -264,22 +264,3 @@ export function AriaModal({ trigger, title, description, confirmLabel = 'Confirm
     </DialogTrigger>
   );
 }
-
-/** Shows the dialog as it looks when open, plus a real trigger that opens the live modal. */
-export function AriaModalDemo({ title, description, confirmLabel, danger = false }: { title: string; description: string; confirmLabel: string; danger?: boolean }) {
-  return (
-    <div className="ra-demo">
-      <div className="ra-modal ra-modal--static" role="group" aria-label={`${title} (open state)`}>
-        <div className="ra-dialog">
-          <h3 className="ra-dialog__title">{title}</h3>
-          <p className="ra-dialog__text">{description}</p>
-          <div className="ra-dialog__actions">
-            <span className="ra-open ra-open--ghost" aria-hidden="true">Cancel</span>
-            <span className={`ra-open${danger ? ' ra-open--danger' : ''}`} aria-hidden="true">{confirmLabel}</span>
-          </div>
-        </div>
-      </div>
-      <AriaModal trigger="Open the live modal" title={title} description={description} confirmLabel={confirmLabel} danger={danger} />
-    </div>
-  );
-}
