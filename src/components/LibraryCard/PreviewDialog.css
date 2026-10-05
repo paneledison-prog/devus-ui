@@ -63,3 +63,5 @@
 .ui-files__folder[aria-expanded="true"] { color: var(--foreground); }
 .ui-files__meta { margin-left: auto; color: var(--muted); font: 400 12px/16px var(--font-sans); }
 .ui-files__side { width: 240px; }
+
+.ui-files__md { white-space: pre-wrap; word-break: break-word; }

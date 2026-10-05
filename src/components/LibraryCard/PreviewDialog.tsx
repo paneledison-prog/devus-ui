@@ -23,6 +23,8 @@ export interface PreviewDialogProps {
   href?: string;
   /** Templates: show the real project files as a file tree in the Code tab. */
   sourceEntries?: SourceEntry[];
+  /** Slug of the helper folder shown in the file tree. */
+  helper?: string;
 }
 
 const FileIcon = () => (
@@ -34,7 +36,7 @@ const FileIcon = () => (
 type Tab = 'preview' | 'code' | 'prompt';
 const ZOOMS = [0.75, 1, 1.5, 2] as const;
 
-export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, href, sourceEntries }: PreviewDialogProps) {
+export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, href, sourceEntries, helper }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const [root, setRoot] = useState<Element>();
   const [tab, setTab] = useState<Tab>('preview');
@@ -107,7 +109,7 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
       ) : (
         <>
           <div className="ui-preview-dialog__text">
-            {tab === 'code' && sourceEntries ? <SourceTree entries={sourceEntries} /> : (
+            {tab === 'code' && sourceEntries ? <SourceTree entries={sourceEntries} helper={helper} /> : (
             <div className="ui-files">
               <aside className="ui-files__side" aria-label="Files">
                 <div className="ui-files__head"><span>Files</span><span className="ui-files__count">(1)</span></div>

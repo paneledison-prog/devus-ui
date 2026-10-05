@@ -63,7 +63,7 @@ function Branch({ node, depth, selected, onSelect, closed, toggle }: {
 }
 
 /** File tree + viewer for a template's real source files. */
-export function SourceTree({ entries }: { entries: SourceEntry[] }) {
+export function SourceTree({ entries, helper }: { entries: SourceEntry[]; helper?: string }) {
   const [files, setFiles] = useState<SourceFile[] | null>(null);
   const [failed, setFailed] = useState(false);
   const [selected, setSelected] = useState(entries[0].path);
@@ -72,9 +72,9 @@ export function SourceTree({ entries }: { entries: SourceEntry[] }) {
 
   useEffect(() => {
     let cancelled = false;
-    loadSourceFiles(entries).then((f) => { if (!cancelled) setFiles(f); }).catch(() => { if (!cancelled) setFailed(true); });
+    loadSourceFiles(entries, helper).then((f) => { if (!cancelled) setFiles(f); }).catch(() => { if (!cancelled) setFailed(true); });
     return () => { cancelled = true; };
-  }, [entries]);
+  }, [entries, helper]);
 
   const tree = useMemo(() => (files ? buildTree(files) : null), [files]);
   const current = files?.find((f) => f.path === selected) ?? files?.[0];
@@ -83,6 +83,7 @@ export function SourceTree({ entries }: { entries: SourceEntry[] }) {
   if (failed) return <div className="ui-files ui-files--msg">Could not load the source files.</div>;
   if (!files || !tree || !current) return <div className="ui-files ui-files--msg">Loading files…</div>;
 
+  const isMd = current.path.endsWith('.md');
   const lang = current.path.endsWith('.css') ? 'css' : 'tsx';
   const lines = current.content.split('\n').length;
 
@@ -101,8 +102,8 @@ export function SourceTree({ entries }: { entries: SourceEntry[] }) {
           <button type="button" className="ui-files__btn" onClick={() => copy(current.content, current.path)}>{copied === current.path ? 'Copied ✓' : 'Copy'}</button>
         </div>
         <div className="ui-files__body">
-          {current.content.length > MAX_HIGHLIGHT
-            ? <pre tabIndex={0}><code>{current.content}</code></pre>
+          {isMd || current.content.length > MAX_HIGHLIGHT
+            ? <pre tabIndex={0} className={isMd ? 'ui-files__md' : undefined}><code>{current.content}</code></pre>
             : <CodeBlock key={current.path} code={current.content} lang={lang} />}
         </div>
       </section>

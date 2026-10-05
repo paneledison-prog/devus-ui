@@ -14,6 +14,8 @@ export interface SourceFile { path: string; content: string }
 
 const loaders = import.meta.glob('/src/**/*.{ts,tsx,css}', { query: '?raw', import: 'default' }) as Record<string, () => Promise<string>>;
 
+const helperLoaders = import.meta.glob('/helper/**/*.md', { query: '?raw', import: 'default' }) as Record<string, () => Promise<string>>;
+
 const EXTS = ['', '.tsx', '.ts', '.css', '/index.tsx', '/index.ts'];
 const IMPORT_RE = /(?:import|export)\s+(?:[^'";]*?\sfrom\s+)?['"](\.{1,2}\/[^'"]+)['"]/g;
 
@@ -38,7 +40,14 @@ const read = (key: string) => {
   return p;
 };
 
-export async function loadSourceFiles(entries: SourceEntry[]): Promise<SourceFile[]> {
+/** Real Markdown files of a template's `helper/<slug>/` folder, shown as `helper/...` in the tree. */
+async function loadHelperFiles(slug: string): Promise<SourceFile[]> {
+  const prefix = `/helper/${slug}/`;
+  const keys = Object.keys(helperLoaders).filter((k) => k.startsWith(prefix));
+  return Promise.all(keys.map(async (k) => ({ path: `helper/${k.slice(prefix.length)}`, content: await helperLoaders[k]() })));
+}
+
+export async function loadSourceFiles(entries: SourceEntry[], helper?: string): Promise<SourceFile[]> {
   const seen = new Map<string, string>();
   const queue = entries.map((e) => ({ key: `/${e.path}`, follow: e.follow !== false }));
   while (queue.length) {
@@ -52,5 +61,6 @@ export async function loadSourceFiles(entries: SourceEntry[]): Promise<SourceFil
       if (dep && !seen.has(dep)) queue.push({ key: dep, follow: true });
     }
   }
-  return [...seen].map(([key, content]) => ({ path: key.slice(1), content }));
+  const project = [...seen].map(([key, content]) => ({ path: key.slice(1), content }));
+  return helper ? [...(await loadHelperFiles(helper)), ...project] : project;
 }

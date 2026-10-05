@@ -63,6 +63,8 @@ export interface LibraryItem {
   standalone?: ReactNode;
   /** Templates: real project files shown in the Code tab as a file tree (import graph is followed). */
   sourceEntries?: SourceEntry[];
+  /** Templates: slug of the real `helper/<slug>/` folder (rules, agent, skills, guidelines, design, Context) shown in the file tree. */
+  helper?: string;
 }
 
 type BaseItem = Omit<LibraryItem, 'category'>;
