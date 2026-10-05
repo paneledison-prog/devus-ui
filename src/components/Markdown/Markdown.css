@@ -1,6 +1,6 @@
 /* GitHub-flavored Markdown look, built on Devus UI tokens (light and dark). */
 .gh-md { --gh-border: var(--separator); --gh-code-bg: color-mix(in srgb, var(--foreground) 7%, transparent);
-  box-sizing: border-box; padding: var(--space-6) var(--space-8, 32px); color: var(--foreground); font: 400 16px/1.5 var(--font-sans); word-wrap: break-word; }
+  box-sizing: border-box; width: 100%; max-width: 980px; margin: 0 auto; padding: var(--space-6) var(--space-8, 32px); color: var(--foreground); font: 400 16px/1.5 var(--font-sans); word-wrap: break-word; }
 .gh-md > :first-child { margin-top: 0 !important; }
 .gh-md > :last-child { margin-bottom: 0 !important; }
 .gh-md * { box-sizing: border-box; }
