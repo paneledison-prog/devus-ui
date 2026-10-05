@@ -15,7 +15,7 @@ export function SlideToConfirm({ label = 'Slide to confirm', confirmedLabel = 'C
   const reset = () => { if (!done) setValue(0); };
 
   return (
-    <div className="ui-slide" data-done={done} style={{ ['--p' as string]: `${value}%` }}>
+    <div className="ui-slide" data-done={done} style={{ ['--n' as string]: value }}>
       <span className="ui-slide__label" aria-hidden="true">{done ? `${confirmedLabel} ✓` : label}</span>
       <input
         type="range" min={0} max={100} step={1} value={done ? 100 : value} disabled={done} aria-label={label}
