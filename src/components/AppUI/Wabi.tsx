@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import './Wabi.css';
 import swirl from './assets/wabi/swirl.jpg';
 import irid from './assets/wabi/irid.jpg';
@@ -47,9 +47,9 @@ export function WabiLogo() {
 }
 
 /** One glass sphere with a photo inside, a rim and soft highlights. */
-function Sphere({ src, x, y, r, pos = '50% 50%', zoom = 1.15 }: { src: string; x: number; y: number; r: number; pos?: string; zoom?: number }) {
+function Sphere({ src, x, y, r, pos = '50% 50%', zoom = 1.15, wave = false }: { src: string; x: number; y: number; r: number; pos?: string; zoom?: number; wave?: boolean }) {
   return (
-    <span className="wb-sphere" style={{ left: x - r, top: y - r, width: r * 2, height: r * 2 }}>
+    <span className={`wb-sphere${wave ? ' is-wave' : ''}`} style={{ left: x - r, top: y - r, width: r * 2, height: r * 2, animationDelay: wave ? `${Math.round((x + y) / 6)}ms` : undefined }}>
       <img src={src} alt="" style={{ objectPosition: pos, transform: `scale(${zoom})`, transformOrigin: pos }} />
       <i className="wb-sphere__rim" />
       <i className="wb-sphere__hl" />
@@ -58,24 +58,26 @@ function Sphere({ src, x, y, r, pos = '50% 50%', zoom = 1.15 }: { src: string; x
 }
 
 export function Spheres() {
+  const [wave, setWave] = useState(false);
+  const poke = () => { setWave(false); window.requestAnimationFrame(() => setWave(true)); window.setTimeout(() => setWave(false), 1400); };
   return (
-    <div className="wb-spheres" aria-hidden="true">
-      <Sphere src={jump} x={685} y={288} r={64} zoom={1.5} pos="50% 38%" />
-      <Sphere src={swirl} x={105} y={360} r={92} />
-      <Sphere src={irid} x={62} y={452} r={94} />
-      <Sphere src={mush} x={265} y={402} r={72} />
-      <Sphere src={rainbow} x={403} y={372} r={68} />
-      <Sphere src={ball} x={630} y={365} r={62} zoom={2.4} />
-      <Sphere src={sun} x={722} y={416} r={50} />
-      <Sphere src={hills} x={190} y={476} r={76} />
-      <Sphere src={teal} x={355} y={436} r={60} zoom={2.4} pos="45% 55%" />
-      <Sphere src={hikers} x={503} y={410} r={82} zoom={1.7} pos="45% 62%" />
-      <Sphere src={dalmatian} x={43} y={556} r={62} zoom={1.3} pos="50% 40%" />
-      <Sphere src={smoke} x={142} y={578} r={50} />
-      <Sphere src={flower} x={278} y={555} r={102} zoom={1.3} pos="50% 30%" />
-      <Sphere src={laugh} x={646} y={532} r={112} zoom={1.6} pos="35% 30%" />
-      <Sphere src={headphones} x={460} y={552} r={118} zoom={1.7} pos="62% 38%" />
-      <span className="wb-plus"><span className="wb-plus__shine" /><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#222" strokeWidth="2.600" strokeLinecap="round"><path d="M17 4v26M4 17h26" /></svg></span>
+    <div className="wb-spheres">
+      <Sphere wave={wave} src={jump} x={685} y={288} r={64} zoom={1.5} pos="50% 38%" />
+      <Sphere wave={wave} src={swirl} x={105} y={360} r={92} />
+      <Sphere wave={wave} src={irid} x={62} y={452} r={94} />
+      <Sphere wave={wave} src={mush} x={265} y={402} r={72} />
+      <Sphere wave={wave} src={rainbow} x={403} y={372} r={68} />
+      <Sphere wave={wave} src={ball} x={630} y={365} r={62} zoom={2.4} />
+      <Sphere wave={wave} src={sun} x={722} y={416} r={50} />
+      <Sphere wave={wave} src={hills} x={190} y={476} r={76} />
+      <Sphere wave={wave} src={teal} x={355} y={436} r={60} zoom={2.4} pos="45% 55%" />
+      <Sphere wave={wave} src={hikers} x={503} y={410} r={82} zoom={1.7} pos="45% 62%" />
+      <Sphere wave={wave} src={dalmatian} x={43} y={556} r={62} zoom={1.3} pos="50% 40%" />
+      <Sphere wave={wave} src={smoke} x={142} y={578} r={50} />
+      <Sphere wave={wave} src={flower} x={278} y={555} r={102} zoom={1.3} pos="50% 30%" />
+      <Sphere wave={wave} src={laugh} x={646} y={532} r={112} zoom={1.6} pos="35% 30%" />
+      <Sphere wave={wave} src={headphones} x={460} y={552} r={118} zoom={1.7} pos="62% 38%" />
+      <button type="button" className={`wb-plus${wave ? ' is-on' : ''}`} aria-label="Add" onClick={poke}><span className="wb-plus__shine" /><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#222" strokeWidth="2.600" strokeLinecap="round"><path d="M17 4v26M4 17h26" /></svg></button>
     </div>
   );
 }
@@ -88,11 +90,13 @@ const Apple = () => (
 );
 
 export function Pitch() {
+  const [busy, setBusy] = useState<'google' | 'apple' | null>(null);
+  const go = (k: 'google' | 'apple') => { if (busy) return; setBusy(k); window.setTimeout(() => setBusy(null), 1600); };
   return (
     <section className="wb-pitch" aria-label="Welcome">
       <h1 className="wb-pitch__title">Meet Wabi.<br />The first personal<br />software platform.</h1>
-      <button type="button" className="wb-btn wb-btn--google"><Google /><span>Continue with Google</span></button>
-      <button type="button" className="wb-btn wb-btn--apple"><Apple /><span>Continue with Apple</span></button>
+      <button type="button" className="wb-btn wb-btn--google" aria-busy={busy === 'google'} disabled={!!busy} onClick={() => go('google')}>{busy === 'google' ? <i className="wb-spin" aria-hidden="true" /> : <Google />}<span>Continue with Google</span></button>
+      <button type="button" className="wb-btn wb-btn--apple" aria-busy={busy === 'apple'} disabled={!!busy} onClick={() => go('apple')}>{busy === 'apple' ? <i className="wb-spin wb-spin--light" aria-hidden="true" /> : <Apple />}<span>Continue with Apple</span></button>
     </section>
   );
 }

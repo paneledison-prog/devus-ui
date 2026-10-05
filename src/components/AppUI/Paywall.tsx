@@ -117,15 +117,15 @@ function Radio({ on }: { on: boolean }) {
     : <span className="pw-radio" aria-hidden="true" />;
 }
 
-/** One plan row of the paywall sheet. */
-export function PlanRow({ plan, top }: { plan: Plan; top: number }) {
+/** One plan row of the paywall sheet. A radio button: tap to select the plan. */
+export function PlanRow({ plan, top, onSelect }: { plan: Plan; top: number; onSelect?: () => void }) {
   return (
-    <div className="pw-plan" style={{ top }} aria-label={`${plan.name}, ${plan.perYear}${plan.was ? ` instead of ${plan.was}` : ''}, ${plan.price}${plan.selected ? ', selected' : ''}`}>
+    <button type="button" role="radio" aria-checked={!!plan.selected} className="pw-plan" style={{ top }} onClick={onSelect} aria-label={`${plan.name}, ${plan.perYear}${plan.was ? ` instead of ${plan.was}` : ''}, ${plan.price}`}>
       <Radio on={!!plan.selected} />
       <span className="pw-plan__name">{plan.name}</span>
       <span className="pw-plan__sub">{plan.perYear}{plan.was && <s className="pw-plan__was">{plan.was}</s>}</span>
       <span className="pw-plan__price">{plan.price}</span>
-    </div>
+    </button>
   );
 }
 

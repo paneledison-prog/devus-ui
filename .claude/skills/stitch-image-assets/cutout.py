@@ -1,6 +1,6 @@
 """Cut a subject out of a flat-gray Stitch image and give it a white sticker outline.
 
-Usage: python cutout.py in.jpg out.png [--size 360] [--outline 7] [--tol 12]
+Usage: python cutout.py in.jpg out.png [--size 360] [--outline 7]  (0 = no white outline) [--tol 12]
 
 Stitch cannot return transparent images, so ask it for the subject on "a pure flat solid light-gray (#d0d0d0)
 background with no shadow", then remove that background here: flood fill from the image border over pixels close
@@ -47,7 +47,8 @@ ys, xs = np.where(subject)
 pad = a.outline + 4
 box = (max(xs.min() - pad, 0), max(ys.min() - pad, 0), min(xs.max() + pad, w), min(ys.max() + pad, h))
 rgba = rgba.crop(box); alpha_c = alpha.crop(box)
-grown = Image.fromarray((ndi.binary_dilation(np.asarray(alpha_c) > 100, iterations=a.outline) * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1))
+core = np.asarray(alpha_c) > 100
+grown = Image.fromarray(((ndi.binary_dilation(core, iterations=a.outline) if a.outline > 0 else core) * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1 if a.outline > 0 else 0.6))
 out = Image.new('RGBA', rgba.size, (255, 255, 255, 0))
 white = Image.new('RGBA', rgba.size, (255, 255, 255, 255)); white.putalpha(grown)
 out = Image.alpha_composite(out, white)

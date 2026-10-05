@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import './Fomo.css';
 import cowboy from './assets/fomo/cowboy.jpg';
 import frog from './assets/fomo/frog.jpg';
@@ -92,12 +92,14 @@ const Apple = () => (
 );
 
 export function Welcome() {
+  const [busy, setBusy] = useState<'apple' | 'phone' | null>(null);
+  const go = (k: 'apple' | 'phone') => { if (busy) return; setBusy(k); window.setTimeout(() => setBusy(null), 1600); };
   return (
     <section className="fm-welcome" aria-label="Welcome">
       <h1 className="fm-welcome__title">Welcome to Fomo</h1>
       <p className="fm-welcome__sub">Trade the hottest memecoins</p>
-      <button type="button" className="fm-btn fm-btn--apple"><Apple /><span>Continue with Apple</span></button>
-      <button type="button" className="fm-btn fm-btn--phone"><span>Continue with Phone</span></button>
+      <button type="button" className="fm-btn fm-btn--apple" aria-busy={busy === 'apple'} disabled={!!busy} onClick={() => go('apple')}>{busy === 'apple' ? <i className="fm-spin" aria-hidden="true" /> : <Apple />}<span>Continue with Apple</span></button>
+      <button type="button" className="fm-btn fm-btn--phone" aria-busy={busy === 'phone'} disabled={!!busy} onClick={() => go('phone')}>{busy === 'phone' && <i className="fm-spin fm-spin--light" aria-hidden="true" />}<span>Continue with Phone</span></button>
     </section>
   );
 }

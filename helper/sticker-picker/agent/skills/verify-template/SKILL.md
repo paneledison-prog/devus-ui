@@ -8,7 +8,7 @@ description: Use after any change to the Sticker picker component of Devus UI, a
 Read this whole file before running anything. Follow the steps in order. A step you did not run did not happen.
 
 ## What the bench is
-The real design is recorded in `../../../design.md` under "Bench reference": 7 light probes and 7 dark probes. Each probe is one element of the rendered design with its position and size (relative to `#bench-root`), the box of its own text, font size and weight, text color, background color and corner radius.
+The real design is recorded in `../../../design.md` under "Bench reference": 8 light probes and 8 dark probes. Each probe is one element of the rendered design with its position and size (relative to `#bench-root`), the box of its own text, font size and weight, text color, background color and corner radius.
 
 The bench measures the design you are running in exactly the same way and compares it probe by probe. Positions and sizes may differ by 1 px; everything else must be identical. A probe that is missing, moved, resized or recolored is a FAIL.
 

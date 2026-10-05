@@ -34,7 +34,7 @@ Public API: `PayCanvas`, `PayStatusBar`, `PayHomeBar`, `ClayCloud`, `ClayRing`, 
 - Changing a file listed above changes what the Code tab shows.
 
 ## Design bench
-- The real design is recorded as 18 light probes and 18 dark probes in `design.md` ("Bench reference"), measured 2026-10-05 from the running design.
+- The real design is recorded as 20 light probes and 20 dark probes in `design.md` ("Bench reference"), measured 2026-10-05 from the running design.
 - Bench URL: `/?template=premium-paywall&bench=1&theme=light` (and `theme=dark`), viewport 1440x900, zoom 100%.
 - Run it with the `verify-template` skill. A change is not done until both themes print `PASS`.
 - Re-measure (only when the user asked for a design change): see step 9 of that skill, and update `scripts/bench-reference.json`.

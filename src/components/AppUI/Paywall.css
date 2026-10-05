@@ -53,3 +53,17 @@
 .pw-spinner { position: absolute; left: 202px; top: 839px; transform-origin: 50% 50%; animation: pw-spin 1s linear infinite; }
 @keyframes pw-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .pw-spinner { animation-duration: 2.8s; } }
+
+/* ---------- interaction ---------- */
+.pw button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.pw-plan { padding: 0; border: 0; background: none; text-align: left; font: inherit; color: inherit; transition: transform .12s ease; }
+.pw-plan:active { transform: scale(.985); }
+.pw-radio { transition: background .18s ease, border-color .18s ease; }
+.pw__close, .pw__back, .pw__restore, .pw__cta, .pw__terms { transition: transform .12s ease, opacity .12s ease; }
+.pw__close:active, .pw__back:active, .pw__restore:active, .pw__cta:active, .pw__terms:active { transform: scale(.95); opacity: .85; }
+.pw__cta { display: grid; place-items: center; }
+.pw__cta:disabled { cursor: progress; }
+.pw-cta-spin { width: 26px; height: 26px; border-radius: 50%; border: 3.5px solid rgb(255 255 255 / .35); border-top-color: #fff; animation: pw-spin .8s linear infinite; }
+.pw-screen { animation: pw-in .28s ease both; }
+@keyframes pw-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .pw-screen { animation: none; } }

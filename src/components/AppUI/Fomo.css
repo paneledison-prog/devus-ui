@@ -28,3 +28,16 @@
 .fm-btn--phone { top: 887px; background: rgb(255 255 255 / .09); color: #fff; }
 .fm-btn:focus-visible { outline: 4px solid #8bd6ae; outline-offset: 3px; }
 .fm-home { position: absolute; z-index: 30; left: 153px; top: 1000px; width: 167px; height: 6px; border-radius: 3px; background: #fff; }
+
+/* ---------- interaction ---------- */
+.fm-logo, .fm-rays, .fm-glow { pointer-events: none; }
+.fm-av { cursor: pointer; transition: transform .28s cubic-bezier(.3, 1.6, .5, 1); }
+.fm-av:hover { transform: scale(1.08); }
+.fm-av:active { transform: scale(.93); }
+.fm-btn { cursor: pointer; transition: transform .12s ease, opacity .2s ease; }
+.fm-btn:active:not(:disabled) { transform: scale(.97); }
+.fm-btn:disabled { cursor: progress; }
+.fm-spin { width: 24px; height: 24px; border-radius: 50%; border: 3.5px solid rgb(0 0 0 / .15); border-top-color: #000; animation: fm-spin .8s linear infinite; }
+.fm-spin--light { border-color: rgb(255 255 255 / .2); border-top-color: #fff; }
+@keyframes fm-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .fm-av { transition: none; } .fm-spin { animation-duration: 2.4s; } }

@@ -14,7 +14,8 @@
 .sk-home { position: absolute; z-index: 40; left: 115px; top: 764px; width: 128px; height: 5px; border-radius: 3px; background: #000; }
 
 /* blurred photo behind the picker */
-.sk-blur { position: absolute; left: 0; top: 0; width: 357px; height: 380px; overflow: hidden; background: #a5a3b0; }
+.sk-blur { position: absolute; left: 0; top: 0; width: 357px; height: 380px; overflow: hidden; padding: 0; border: 0; background: #a5a3b0; cursor: default; }
+.sk-blur:not(:disabled) { cursor: pointer; }
 .sk-blur img { position: absolute; left: -40px; top: -10px; width: 440px; height: 440px; object-fit: cover; filter: blur(22px) saturate(.8); }
 .sk-blur::after { content: ''; position: absolute; inset: 0; background: rgb(160 158 176 / .7); }
 
@@ -52,3 +53,26 @@
 .sk-frame i:nth-child(3) { left: -3px; bottom: -3px; } .sk-frame i:nth-child(4) { right: -3px; bottom: -3px; }
 .sk-bar { position: absolute; left: 3px; top: 638px; width: 352px; height: 110px; border-radius: 28px; background: #fff; box-shadow: 0 10px 28px rgb(0 0 0 / .1); }
 .sk-bar .sk-grab { top: -6px; left: 161px; width: 30px; height: 4px; }
+
+/* ---------- interaction ---------- */
+.sk button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.sk-sheet { transition: transform .38s cubic-bezier(.3, .9, .3, 1); }
+.sk-sheet.is-closed { transform: translateY(105%); }
+.sk-tab { transition: background .2s ease, box-shadow .2s ease, transform .12s ease; }
+.sk-tab:active { transform: scale(.94); }
+.sk-grid { position: absolute; inset: 0; animation: sk-in .25s ease both; }
+@keyframes sk-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.sk-sticker--tap { cursor: pointer; transition: transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+.sk-sticker--tap:hover { transform: scale(1.06); }
+.sk-sticker--tap:active { transform: scale(.94); }
+.sk-sticker--tap.is-tapped { animation: sk-pop .5s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes sk-pop { 0% { transform: scale(1); } 40% { transform: scale(1.14) rotate(-5deg); } 100% { transform: scale(1); } }
+.sk-sticker--drag { z-index: 3; cursor: grab; touch-action: none; user-select: none; }
+.sk-sticker--drag:active { cursor: grabbing; }
+.sk-play { transition: opacity .2s ease, transform .15s ease; }
+.sk-play:active { transform: scale(.92); }
+.sk-play.is-playing { opacity: 0; }
+.sk-circle:hover .sk-play.is-playing { opacity: .9; }
+.sk-trash { transition: transform .12s ease; }
+.sk-trash:active { transform: scale(.88); }
+@media (prefers-reduced-motion: reduce) { .sk-sheet, .sk-grid, .sk-sticker--tap { transition: none; animation: none; } }

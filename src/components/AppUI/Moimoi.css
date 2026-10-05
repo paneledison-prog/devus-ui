@@ -23,3 +23,16 @@
 .mm-btn--google span { margin-left: -2px; }
 .mm-btn:focus-visible { outline: 4px solid #4c8df6; outline-offset: 3px; }
 .mm-home { position: absolute; z-index: 30; left: 180px; top: 1190px; width: 198px; height: 6px; border-radius: 3px; background: #000; }
+
+/* ---------- interaction ---------- */
+.mm-cast { pointer-events: none; }
+.mm-ch { pointer-events: auto; cursor: pointer; transform-box: fill-box; transform-origin: 50% 60%; }
+.mm-ch.is-pop { animation: mm-pop .55s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes mm-pop { 0% { transform: scale(1); } 30% { transform: scale(1.12) rotate(-4deg); } 60% { transform: scale(.95) rotate(3deg); } 100% { transform: scale(1); } }
+.mm-btn { cursor: pointer; transition: transform .12s ease, box-shadow .2s ease; }
+.mm-btn:active:not(:disabled) { transform: scale(.97); }
+.mm-btn:disabled { cursor: progress; }
+.mm-spin { width: 26px; height: 26px; border-radius: 50%; border: 3.5px solid rgb(0 0 0 / .15); border-top-color: #111; animation: mm-spin .8s linear infinite; }
+.mm-spin--light { border-color: rgb(255 255 255 / .25); border-top-color: #fff; }
+@keyframes mm-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .mm-ch.is-pop { animation: none; } .mm-spin { animation-duration: 2.4s; } }

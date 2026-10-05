@@ -1,0 +1,51 @@
+/* Orb profile. A 825x1790 canvas scaled to the 320px phone (320 / 825). */
+.ob { position: relative; width: 825px; height: 1790px; zoom: 0.387879; overflow: hidden; background: #6e7a8e; color: #fff; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
+.ob * { box-sizing: border-box; }
+.ob p, .ob h1 { margin: 0; }
+.ob button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ob-hero { position: absolute; left: 0; top: 0; width: 825px; height: 1465px; object-fit: cover; object-position: 50% 12%; }
+.ob-frost { position: absolute; left: 0; top: 900px; width: 825px; height: 890px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, transparent, #000 38%); mask-image: linear-gradient(180deg, transparent, #000 38%); }
+.ob-frost img { position: absolute; left: -60px; top: -120px; width: 945px; height: 1600px; object-fit: cover; filter: blur(34px) saturate(.7) brightness(.8); }
+.ob-shade { position: absolute; left: 0; top: 880px; width: 825px; height: 910px; background: linear-gradient(180deg, rgb(110 112 118 / 0) 0%, rgb(104 106 112 / .55) 30%, rgb(86 88 94 / .85) 100%); }
+
+.ob-status { position: absolute; z-index: 20; left: 0; top: 0; width: 825px; height: 110px; color: #fff; pointer-events: none; }
+.ob-status__time { position: absolute; left: 110px; top: 36px; font: 600 33px/42px var(--font-sans); opacity: .85; }
+.ob-status__island { position: absolute; left: 282px; top: 12px; width: 262px; height: 76px; border-radius: 38px; background: #000; }
+.ob-status__island i { position: absolute; right: 26px; top: 26px; width: 24px; height: 24px; border-radius: 50%; background: radial-gradient(circle, #151a30 0 35%, #05070c 70%); }
+.ob-status__signal { position: absolute; left: 594px; top: 38px; opacity: .8; }
+.ob-status__wifi { position: absolute; left: 652px; top: 36px; opacity: .8; }
+.ob-status__battery { position: absolute; left: 704px; top: 40px; opacity: .85; }
+
+.ob-round { position: absolute; z-index: 10; top: 118px; display: grid; place-items: center; width: 88px; height: 88px; padding: 0; border: 0; border-radius: 50%; background: rgb(96 96 98 / .78); box-shadow: 0 6px 18px rgb(0 0 0 / .18); transition: transform .12s ease, background .2s ease; }
+.ob-round--close { left: 34px; } .ob-round--more { left: 621px; }
+.ob-round:active { transform: scale(.92); background: rgb(70 70 72 / .85); }
+.ob-url { position: absolute; left: 0; right: 0; top: 140px; text-align: center; font: 500 36px/44px var(--font-sans); color: rgb(255 255 255 / .5); letter-spacing: -.01em; }
+
+.ob-badges { position: absolute; left: 0; top: 0; width: 825px; height: 620px; pointer-events: none; }
+.ob-badges svg { position: absolute; left: 0; top: 0; }
+.ob-badge { pointer-events: auto; cursor: pointer; transform-box: fill-box; transform-origin: 50% 50%; }
+.ob-badge.is-pop { animation: ob-pop .5s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes ob-pop { 0% { transform: scale(1); } 40% { transform: scale(1.12) rotate(-5deg); } 100% { transform: scale(1); } }
+.ob-badge__label { position: absolute; transform: translateX(-50%); font: 500 26px/32px var(--font-sans); letter-spacing: -.01em; white-space: nowrap; text-shadow: 0 1px 6px rgb(0 0 0 / .35); }
+
+.ob-avatar { position: absolute; left: 262px; top: 802px; width: 300px; height: 300px; overflow: hidden; border-radius: 50%; border: 3px solid rgb(10 20 40 / .55); box-shadow: 0 14px 36px rgb(0 0 0 / .3); }
+.ob-avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ob-name { position: absolute; left: 0; right: 0; top: 1126px; text-align: center; font: 600 48px/62px var(--font-sans); letter-spacing: -.015em; }
+.ob-stats { position: absolute; left: 0; right: 0; top: 1196px; display: flex; justify-content: center; gap: 28px; font: 400 28px/36px var(--font-sans); letter-spacing: -.01em; }
+.ob-bio { position: absolute; left: 0; right: 0; top: 1249px; text-align: center; font: 400 27px/36px var(--font-sans); color: rgb(255 255 255 / .55); letter-spacing: -.01em; }
+.ob-chip { position: absolute; top: 1339px; display: flex; align-items: center; justify-content: center; gap: 12px; height: 52px; padding: 0; border: 0; border-radius: 26px; background: rgb(80 82 88 / .42); color: rgb(255 255 255 / .85); font: 500 26px/32px var(--font-sans); transition: transform .12s ease, background .2s ease; }
+.ob-chip:active { transform: scale(.96); background: rgb(80 82 88 / .65); }
+.ob-people, .ob-clubs { position: absolute; top: 1424px; height: 92px; }
+.ob-people { left: 140px; width: 257px; }
+.ob-clubs { left: 437px; width: 253px; }
+.ob-people img { position: absolute; top: 0; width: 90px; height: 90px; object-fit: cover; border-radius: 50%; border: 3px solid rgb(230 232 240 / .75); }
+.ob-clubs img { position: absolute; top: 0; width: 90px; height: 90px; object-fit: cover; border-radius: 16px; border: 3px solid rgb(230 232 240 / .75); }
+.ob-people b, .ob-clubs b { position: absolute; top: 0; display: grid; place-items: center; width: 92px; height: 92px; background: #fff; color: #111; font: 600 30px/1 var(--font-sans); }
+.ob-people b { border-radius: 50%; } .ob-clubs b { width: 100px; border-radius: 16px; }
+.ob-cap { position: absolute; top: 1544px; transform: translateX(-50%); font: 400 28px/36px var(--font-sans); color: rgb(255 255 255 / .55); white-space: nowrap; }
+.ob-friends { position: absolute; left: 34px; top: 1607px; width: 758px; height: 95px; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 0; border: 0; border-radius: 48px; background: rgb(98 100 106 / .55); color: #fff; font: 600 38px/46px var(--font-sans); letter-spacing: -.01em; transition: transform .12s ease, background .25s ease; }
+.ob-friends:active { transform: scale(.98); }
+.ob-friends.is-add { background: rgb(255 255 255 / .9); color: #111; }
+.ob button:focus-visible { outline: 5px solid #fff; outline-offset: 4px; }
+.ob-home { position: absolute; z-index: 30; left: 274px; top: 1753px; width: 281px; height: 12px; border-radius: 6px; background: #fff; }
+@media (prefers-reduced-motion: reduce) { .ob-badge.is-pop { animation: none; } }

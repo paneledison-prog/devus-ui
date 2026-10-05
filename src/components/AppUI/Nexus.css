@@ -91,3 +91,13 @@
 .nx-sug__title--sm { top: 18px; font: 500 22px/30px var(--font-sans); letter-spacing: -.01em; }
 .nx-art--x { left: 0; top: 0; filter: drop-shadow(0 12px 14px rgb(110 70 200 / .2)); }
 .nx-week--flat .nx-week__day.is-on { border-color: transparent; background: none; box-shadow: none; }
+
+/* ---------- interaction ---------- */
+.nx button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.nx-week__day { padding: 0; font: inherit; color: inherit; background: none; transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.nx-week__day:active { transform: scale(.95); }
+.nx-tabs__item, .nx-hero__btn, .nx-sug__play, .nx-header__search, .nx-header__inbox { transition: transform .12s ease, opacity .12s ease; }
+.nx-tabs__item:active, .nx-hero__btn:active, .nx-sug__play:active, .nx-header__search:active, .nx-header__inbox:active { transform: scale(.94); opacity: .8; }
+.nx-screen { animation: nx-in .26s ease both; }
+@keyframes nx-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .nx-screen { animation: none; } .nx-week__day, .nx-tabs__item, .nx-hero__btn, .nx-sug__play { transition: none; } }

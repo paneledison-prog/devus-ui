@@ -48,6 +48,12 @@ The photo: <subject, pose, expression, clothing, setting, light>, <realistic sma
 - Retries that were needed: `f_gold` (maroon background; adding "vivid saturated bright red (#c9261f) with soft bokeh" fixed it), `s_beer` (golden beer; "iridescent glass, pastel blue and lavender liquid" fixed it), `w_sun` (service error, then succeeded as a DESIGN screenshot).
 - Failure causes seen: `"The service is currently unavailable."`, an empty response (JSON decode error), a CRLF in a names list (strip it), and prompts whose subject is tiny on a pale background.
 
+## Parallelism and failures (second run, 32 prompts)
+
+- Eight parallel calls plus extra ones made the service overload: 7 of 32 came back as an empty response (JSON decode error), `HTTP 502 Bad Gateway`, or "service unavailable". **Run at most 3 to 4 in parallel**, and re-run only the failures (same prompt, next attempt number) after the batch ends. Throughput was about one image per 1 to 1.5 minutes.
+- Tall pictures: "tall vertical (9:16)" returns 286x512, so a full-bleed phone background is low resolution. Ask for a close-up so the subject fills the frame and you do not need to zoom, and use CSS blur for backgrounds.
+- 3D objects meant to sit on cards (an ape, a cart, sneakers, achievement shapes) were generated on flat gray and cut out with `cutout.py --outline 0` (no white sticker edge).
+
 ## Known strengths and limits
 
 - Photos of people, animals and scenes: very close to a reference described in a sentence (a groundhog in a cowboy hat, a laughing man with bleached hair, a woman in blue headphones all matched on the first try).

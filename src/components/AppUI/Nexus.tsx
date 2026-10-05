@@ -1,4 +1,4 @@
-import { useId, type ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import './Nexus.css';
 
 /*
@@ -50,7 +50,9 @@ const PersonGlyph = ({ f }: { f: string }) => <Glyph><circle cx="14" cy="9" r="5
 const MoreGlyph = ({ f }: { f: string }) => <Glyph><rect x="3" y="4" width="22" height="20" rx="6" fill={f} /><circle cx="9.500" cy="14" r="1.500" fill="#fff" /><circle cx="14" cy="14" r="1.500" fill="#fff" /><circle cx="18.500" cy="14" r="1.500" fill="#fff" /></Glyph>;
 
 /** Bottom tab bar: five tabs, the active one has a blue-violet gradient icon and label. */
-export function NexusTabs({ active }: { active: 'home' | 'courses' | 'today' }) {
+export type NexusTab = 'home' | 'courses' | 'today';
+
+export function NexusTabs({ active, onSelect }: { active: NexusTab; onSelect?: (id: NexusTab) => void }) {
   const id = useId().replace(/:/g, '');
   const tabs = [
     { id: 'home', label: 'Home', Icon: HomeGlyph },
@@ -63,7 +65,7 @@ export function NexusTabs({ active }: { active: 'home' | 'courses' | 'today' }) 
     <nav className="nx-tabs" aria-label="Primary">
       <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: 'absolute' }}><defs><linearGradient id={`${id}-g`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#4C8DF6" /><stop offset="1" stopColor="#9566F2" /></linearGradient></defs></svg>
       {tabs.map((t, i) => (
-        <button key={t.id} type="button" className="nx-tabs__item" aria-current={t.id === active ? 'page' : undefined} style={{ left: [50, 138, 227, 315, 404][i] - 44 }}>
+        <button key={t.id} type="button" className="nx-tabs__item" aria-current={t.id === active ? 'page' : undefined} onClick={() => (t.id === 'home' || t.id === 'courses' || t.id === 'today') && onSelect?.(t.id)} style={{ left: [50, 138, 227, 315, 404][i] - 44 }}>
           <span className="nx-tabs__icon"><t.Icon f={t.id === active ? `url(#${id}-g)` : '#8e8e93'} /></span>
           <span className="nx-tabs__label">{t.label}</span>
         </button>
@@ -114,16 +116,16 @@ export const BookSquare = () => <svg width="22" height="22" viewBox="0 0 22 22" 
 
 const HOME_CENTERS = [47, 118, 189, 263, 337, 408];
 
-export function WeekStrip({ days, selected, top = 290, centers = HOME_CENTERS, flat = false, dividers = false }: { days: { day: string; date: number }[]; selected: number; top?: number; centers?: number[]; flat?: boolean; dividers?: boolean }) {
+export function WeekStrip({ days, selected, onSelect, top = 290, centers = HOME_CENTERS, flat = false, dividers = false }: { days: { day: string; date: number }[]; selected: number; onSelect?: (i: number) => void; top?: number; centers?: number[]; flat?: boolean; dividers?: boolean }) {
   return (
     <div className={`nx-week${flat ? ' nx-week--flat' : ''}`} style={{ top }} role="group" aria-label="This week">
       {days.map((d, i) => (
-        <div key={d.day} className={`nx-week__day${i === selected ? ' is-on' : ''}`} style={{ left: centers[i] - 30 }} aria-current={i === selected ? 'date' : undefined}>
+        <button type="button" key={d.day} className={`nx-week__day${i === selected ? ' is-on' : ''}`} style={{ left: centers[i] - 30 }} aria-current={i === selected ? 'date' : undefined} aria-label={`${d.day} ${d.date}`} onClick={() => onSelect?.(i)}>
           <span className="nx-week__name">{d.day}</span>
           <span className="nx-week__date">{d.date}</span>
           <span className="nx-week__mark"><Lotus size={flat ? 26 : 28} gradient={i === selected} /></span>
           {dividers && i === selected && <><span className="nx-week__rule nx-week__rule--l" /><span className="nx-week__rule nx-week__rule--r" /></>}
-        </div>
+        </button>
       ))}
     </div>
   );
@@ -272,13 +274,14 @@ export function HeroCard() {
 }
 
 export function SuggestedCard() {
+  const [playing, setPlaying] = useState(false);
   return (
     <section className="nx-sug" aria-label="Suggested lesson">
       <span className="nx-sug__chip">Lesson 34</span>
       <FeltBucket />
       <div className="nx-sug__panel">
         <h3 className="nx-sug__title">Mastering The Art<br />Of Handcrafted</h3>
-        <button type="button" className="nx-sug__play" aria-label="Play lesson"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M6 3.500v15l13-7.500L6 3.500Z" fill="currentColor" strokeLinejoin="round" stroke="currentColor" strokeWidth="2" /></svg></button>
+        <button type="button" className="nx-sug__play" aria-label={playing ? 'Pause lesson' : 'Play lesson'} aria-pressed={playing} onClick={() => setPlaying((p) => !p)}>{playing ? <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="4.500" y="3.500" width="4.500" height="15" rx="1.500" fill="currentColor" /><rect x="13" y="3.500" width="4.500" height="15" rx="1.500" fill="currentColor" /></svg> : <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M6 3.500v15l13-7.500L6 3.500Z" fill="currentColor" strokeLinejoin="round" stroke="currentColor" strokeWidth="2" /></svg>}</button>
       </div>
     </section>
   );

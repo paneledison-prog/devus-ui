@@ -1,0 +1,37 @@
+/* Housewarming invitation. A 517x1126 canvas scaled to the 320px phone (320 / 517). */
+.pt { position: relative; width: 517px; height: 1126px; zoom: 0.618956; overflow: hidden; background: #0d4a4c; color: #fff; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
+.pt * { box-sizing: border-box; }
+.pt p, .pt h1 { margin: 0; }
+.pt button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.pt-bg { position: absolute; left: 0; top: 0; width: 517px; height: 1126px; object-fit: cover; object-position: 50% 20%; }
+.pt-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(8 60 62 / .15) 0%, rgb(8 50 52 / .1) 40%, rgb(8 44 46 / .72) 62%, rgb(7 38 40 / .92) 100%); }
+
+.pt-status { position: absolute; z-index: 20; left: 0; top: 0; width: 517px; height: 70px; color: #fff; pointer-events: none; }
+.pt-status__time { position: absolute; left: 74px; top: 22px; font: 600 22px/30px var(--font-sans); }
+.pt-status__island { position: absolute; left: 176px; top: 14px; width: 160px; height: 47px; border-radius: 24px; background: #000; }
+.pt-status__signal { position: absolute; left: 366px; top: 26px; }
+.pt-status__wifi { position: absolute; left: 400px; top: 25px; }
+.pt-status__battery { position: absolute; left: 433px; top: 26px; }
+
+.pt-round { position: absolute; z-index: 10; top: 86px; display: grid; place-items: center; width: 56px; height: 56px; padding: 0; border: 0; border-radius: 50%; background: rgb(255 255 255 / .22); backdrop-filter: blur(6px); transition: transform .12s ease, background .2s ease; }
+.pt-round--close { left: 25px; } .pt-round--more { left: 435px; }
+.pt-round:active { transform: scale(.92); background: rgb(255 255 255 / .35); }
+.pt-title { position: absolute; left: 0; right: 0; top: 480px; text-align: center; font: 600 47px/44px var(--font-sans); letter-spacing: -.03em; }
+.pt-when { position: absolute; left: 0; right: 0; top: 604px; text-align: center; font: 400 20px/26px var(--font-sans); color: rgb(255 255 255 / .6); letter-spacing: -.01em; }
+
+.pt-rsvp { position: absolute; left: 30px; top: 699px; width: 461px; height: 68px; border-radius: 34px; background: rgb(60 76 78 / .55); backdrop-filter: blur(8px); }
+.pt-rsvp__pill { position: absolute; top: 0; height: 68px; border-radius: 34px; background: #fff; box-shadow: 0 4px 14px rgb(0 0 0 / .18); transition: left .3s cubic-bezier(.3, .9, .3, 1), width .3s cubic-bezier(.3, .9, .3, 1); }
+.pt-rsvp__rule { position: absolute; top: 14px; width: 1px; height: 40px; background: rgb(255 255 255 / .25); transition: opacity .2s ease; }
+.pt-rsvp__opt { position: absolute; top: 0; height: 68px; display: grid; place-items: center; align-content: center; gap: 2px; padding: 0; border: 0; background: none; color: #fff; font: 500 18px/22px var(--font-sans); letter-spacing: -.02em; transition: color .2s ease; }
+.pt-rsvp__icon { display: grid; transition: color .2s ease; }
+.pt-rsvp__opt:not(.is-on) .pt-rsvp__icon svg { transform: scale(.8); }
+.pt-card { position: absolute; left: 25px; top: 793px; width: 468px; height: 244px; border-radius: 32px; border: 1px solid rgb(255 255 255 / .1); background: rgb(70 84 84 / .5); backdrop-filter: blur(10px); text-align: center; }
+.pt-card__avatar { position: absolute; left: 208px; top: 20px; width: 52px; height: 52px; object-fit: cover; border-radius: 50%; border: 2px solid #f0b060; }
+.pt-card__host { position: absolute; left: 0; right: 0; top: 68px; font: 500 18px/24px var(--font-sans); color: #aeb4ee; letter-spacing: -.02em; }
+.pt-card__lead { position: absolute; left: 0; right: 0; top: 92px; font: 400 18px/18px var(--font-sans); letter-spacing: -.02em; }
+.pt-card__more { position: absolute; left: 0; right: 0; top: 160px; font: 400 17px/21px var(--font-sans); color: rgb(255 255 255 / .82); letter-spacing: -.02em; }
+.pt-scroll { position: absolute; left: 131px; top: 1060px; width: 256px; height: 30px; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0 8px 0 0; border: 0; border-radius: 15px; background: rgb(255 255 255 / .16); color: #fff; font: 400 17px/22px var(--font-sans); letter-spacing: -.02em; transition: transform .12s ease; }
+.pt-scroll:active { transform: scale(.96); }
+.pt button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.pt-home { position: absolute; z-index: 30; left: 172px; top: 1109px; width: 172px; height: 6px; border-radius: 3px; background: #fff; }
+@media (prefers-reduced-motion: reduce) { .pt-rsvp__pill { transition: none; } }

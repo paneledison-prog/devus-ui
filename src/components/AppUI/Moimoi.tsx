@@ -1,4 +1,4 @@
-import { useId, type ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import './Moimoi.css';
 
 /*
@@ -53,6 +53,8 @@ const Stroke = ({ d, w = 9 }: { d: string; w?: number | string }) => <path d={d}
 /** The six round characters, the loose lines and the "Hello~" bubble. Circles are cropped by the screen edges. */
 export function Cast() {
   const id = useId().replace(/:/g, '');
+  const [pop, setPop] = useState<string | null>(null);
+  const ch = (name: string) => ({ className: `mm-ch${pop === name ? ' is-pop' : ''}`, onClick: () => setPop(name), onAnimationEnd: () => setPop(null) });
   return (
     <svg className="mm-cast" width="558" height="800" viewBox="0 0 558 800" aria-hidden="true" focusable="false">
       <defs>
@@ -67,23 +69,28 @@ export function Cast() {
       </defs>
 
       {/* green */}
+      <g {...ch('green')}>
       <circle cx="44" cy="382" r="88" fill={`url(#${id}-g)`} filter={`url(#${id}-sh)`} />
       <circle cx="67" cy="350" r="18" fill="#fff" />
       <Stroke d="M57 351q10-9 20 0" w="5" />
       <Stroke d="M52 397Q70 413 88 397" w="8" />
       <g filter={`url(#${id}-hair)`}><Stroke d="M30 276C55 280 90 298 118 308" w="9" /></g>
       <Stroke d="M0 445C70 448 140 438 155 392C160 372 135 368 122 388" w="3" />
+      </g>
 
       {/* pink */}
+      <g {...ch('pink')}>
       <circle cx="242" cy="298" r="49" fill={`url(#${id}-p)`} filter={`url(#${id}-sh)`} />
       <rect x="228.500" y="278" width="5.500" height="14" rx="2.700" fill="#050505" />
       <rect x="259.500" y="279" width="5.500" height="14" rx="2.700" fill="#050505" />
       <Stroke d="M241 309q6 6 12 0" w="3" />
+      </g>
 
       {/* swoosh between pink and coral */}
       <Stroke d="M175 386C210 358 230 328 250 338C265 350 240 363 232 350C240 318 330 288 422 306" w="3" />
 
       {/* coral */}
+      <g {...ch('coral')}>
       <circle cx="463" cy="379" r="93" fill={`url(#${id}-r)`} filter={`url(#${id}-sh)`} />
       <Eye x={415} y={333} rx={17} ry={19} px={418} py={332} pr={8} />
       <Eye x={451} y={338} rx={18} ry={20} px={455} py={337} pr={9} />
@@ -92,16 +99,20 @@ export function Cast() {
       <ellipse cx="441" cy="379" rx="9" ry="4" fill="#ff7f8a" />
       <g filter={`url(#${id}-hair)`}><Stroke d="M425 283C455 308 510 308 555 336" w="10" /></g>
       <circle cx="508" cy="285" r="11" fill="none" stroke="#050505" strokeWidth="5" />
+      </g>
 
       {/* blue */}
+      <g {...ch('blue')}>
       <circle cx="75" cy="626" r="133" fill={`url(#${id}-b)`} filter={`url(#${id}-sh)`} />
       <Eye x={115} y={563} rx={31} ry={33} px={115} py={566} pr={17} />
       <Eye x={162} y={562} rx={33} ry={35} px={163} py={563} pr={19} />
       <Stroke d="M78 634Q105 654 132 634" w="9" />
       <g filter={`url(#${id}-hair)`}><Stroke d="M0 548C50 528 100 503 135 498" w="15" /></g>
       <Stroke d="M62 538Q90 520 120 530" w="6" />
+      </g>
 
       {/* yellow */}
+      <g {...ch('yellow')}>
       <circle cx="450" cy="638" r="120" fill={`url(#${id}-y)`} filter={`url(#${id}-sh)`} />
       <Eye x={397} y={583} rx={28} ry={30} px={395} py={586} pr={17} />
       <ellipse cx="457" cy="588" rx="27" ry="29" fill="#fff" />
@@ -110,8 +121,10 @@ export function Cast() {
       <Stroke d="M425 656Q455 678 485 656" w="9" />
       <g filter={`url(#${id}-hair)`}><Stroke d="M435 488C430 548 480 583 555 586" w="12" /><Stroke d="M520 673Q548 671 558 663" w="10" /></g>
       <Stroke d="M392 538Q420 520 445 540" w="6" />
+      </g>
 
       {/* orange */}
+      <g {...ch('orange')}>
       <circle cx="253" cy="698" r="41" fill={`url(#${id}-o)`} filter={`url(#${id}-sh)`} />
       <circle cx="250" cy="676" r="14" fill="#fff8f0" stroke="#050505" strokeWidth="3" />
       <circle cx="278" cy="672" r="14" fill="#fff8f0" stroke="#050505" strokeWidth="3" />
@@ -119,6 +132,7 @@ export function Cast() {
       <circle cx="250" cy="678" r="3.500" fill="#050505" /><circle cx="278" cy="674" r="3.500" fill="#050505" />
       <circle cx="262" cy="696" r="5" fill="#8a3a14" stroke="#050505" strokeWidth="2.500" />
       <Stroke d="M220 746l18 3M222 752l14 3M288 733l12 7" w="2.500" />
+      </g>
 
       {/* sprout and spark marks */}
       <circle cx="220" cy="450" r="9" fill="#ff7a8a" />
@@ -126,9 +140,11 @@ export function Cast() {
       <Stroke d="M255 443L261 463M230 463L244 480" w="4.500" />
 
       {/* Hello~ bubble */}
-      <g transform="translate(310 514) rotate(-14)">
-        <path d="M-40-42H40Q80-42 80-2Q80 38 40 38H66L78 62 28 38H-40Q-80 38-80-2Q-80-42-40-42Z" fill="#050505" />
-        <text x="0" y="14" textAnchor="middle" fill="#fff" fontFamily="var(--font-sans)" fontWeight="800" fontSize="35" letterSpacing="-.5">Hello~</text>
+      <g {...ch('hello')}>
+        <g transform="translate(310 514) rotate(-14)">
+          <path d="M-40-42H40Q80-42 80-2Q80 38 40 38H66L78 62 28 38H-40Q-80 38-80-2Q-80-42-40-42Z" fill="#050505" />
+          <text x="0" y="14" textAnchor="middle" fill="#fff" fontFamily="var(--font-sans)" fontWeight="800" fontSize="35" letterSpacing="-.5">Hello~</text>
+        </g>
       </g>
     </svg>
   );
@@ -142,11 +158,13 @@ const Apple = () => (
 );
 
 export function SignInPanel() {
+  const [busy, setBusy] = useState<'google' | 'apple' | null>(null);
+  const go = (k: 'google' | 'apple') => { if (busy) return; setBusy(k); window.setTimeout(() => setBusy(null), 1600); };
   return (
     <section className="mm-panel" aria-label="Sign in">
       <p className="mm-panel__lead">Sign in to get started</p>
-      <button type="button" className="mm-btn mm-btn--google"><Google /><span>Sign in with Google</span></button>
-      <button type="button" className="mm-btn mm-btn--apple"><Apple /><span>Sign in with Apple</span></button>
+      <button type="button" className="mm-btn mm-btn--google" aria-busy={busy === 'google'} disabled={!!busy} onClick={() => go('google')}>{busy === 'google' ? <i className="mm-spin" aria-hidden="true" /> : <Google />}<span>Sign in with Google</span></button>
+      <button type="button" className="mm-btn mm-btn--apple" aria-busy={busy === 'apple'} disabled={!!busy} onClick={() => go('apple')}>{busy === 'apple' ? <i className="mm-spin mm-spin--light" aria-hidden="true" /> : <Apple />}<span>Sign in with Apple</span></button>
     </section>
   );
 }

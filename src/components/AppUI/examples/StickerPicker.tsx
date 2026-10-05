@@ -1,14 +1,16 @@
+import { useState } from 'react';
 import { PhoneFrame } from '../PhoneFrame';
 import { BlurredPhoto, StickerCanvas, StickerHomeBar, StickerSheet, StickerStatusBar } from '../Stickers';
 
-/** "Sticker picker": the camera photo blurred behind a white sheet with three sticker packs, four stickers, a "stickers" title and a close button. */
+/** "Sticker picker": switch packs, tap stickers, close the sheet (it slides away) and tap the photo to bring it back. */
 export function StickerPickerExample() {
+  const [open, setOpen] = useState(true);
   return (
     <PhoneFrame bare height={692}>
       <StickerCanvas>
-        <BlurredPhoto />
+        <BlurredPhoto sheetOpen={open} onOpen={() => setOpen(true)} />
         <StickerStatusBar />
-        <StickerSheet />
+        <StickerSheet open={open} onClose={() => setOpen(false)} />
         <StickerHomeBar />
       </StickerCanvas>
     </PhoneFrame>

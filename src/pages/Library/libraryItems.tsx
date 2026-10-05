@@ -46,6 +46,14 @@ import { FomoWelcomeExample } from '../../components/AppUI/examples/FomoWelcome'
 import { WabiWelcomeExample } from '../../components/AppUI/examples/WabiWelcome';
 import { StickerPickerExample } from '../../components/AppUI/examples/StickerPicker';
 import { CircleEditorExample } from '../../components/AppUI/examples/CircleEditor';
+import { OrbProfile } from '../../components/AppUI/examples/OrbProfile';
+import { HousewarmingInviteExample } from '../../components/AppUI/examples/HousewarmingInvite';
+import { NftSearchResultsExample } from '../../components/AppUI/examples/NftSearchResults';
+import { CallFlowExample } from '../../components/AppUI/examples/CallFlow';
+import { MusicProfileCompactExample } from '../../components/AppUI/examples/MusicProfileCompact';
+import { MusicProfileTilesExample } from '../../components/AppUI/examples/MusicProfileTiles';
+import { MusicControlCenterExample } from '../../components/AppUI/examples/MusicControlCenter';
+import { MusicProfileBannersExample } from '../../components/AppUI/examples/MusicProfileBanners';
 import { MoimoiSignInExample } from '../../components/AppUI/examples/MoimoiSignIn';
 import { NexusTodayExample } from '../../components/AppUI/examples/NexusToday';
 import { NexusDailyExample } from '../../components/AppUI/examples/NexusDaily';
@@ -780,6 +788,86 @@ const appItems: BaseItem[] = [
     sourceEntries: [{ path: 'src/components/AppUI/examples/CircleEditor.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
     helper: 'circle-editor',
     code: `<StickersCanvas>\n  ...\n</StickersCanvas>`,
+  },
+  {
+    name: 'Orb profile',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 694,
+    preview: <OrbProfile />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/OrbProfile.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'orb-profile',
+    code: `<OrbProfile />`,
+  },
+  {
+    name: 'Housewarming invite',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 697,
+    preview: <HousewarmingInviteExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/HousewarmingInvite.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'housewarming-invite',
+    code: `<PartyInvite />`,
+  },
+  {
+    name: 'NFT search results',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 697,
+    preview: <NftSearchResultsExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/NftSearchResults.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'nft-search-results',
+    code: `<NftResults />`,
+  },
+  {
+    name: 'Call flow',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <CallFlowExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/CallFlow.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'call-flow',
+    code: `// Call flow: In call -> Keypad / Call Ended -> In call\n<CallScreen />`,
+  },
+  {
+    name: 'Music profile compact',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <MusicProfileCompactExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/MusicProfileCompact.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'music-profile-compact',
+    code: `<MusicProfileCompact />`,
+  },
+  {
+    name: 'Music profile tiles',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <MusicProfileTilesExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/MusicProfileTiles.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'music-profile-tiles',
+    code: `<MusicProfileTiles />`,
+  },
+  {
+    name: 'Music control center',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <MusicControlCenterExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/MusicControlCenter.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'music-control-center',
+    code: `<MusicProfileCenter />`,
+  },
+  {
+    name: 'Music profile banners',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <MusicProfileBannersExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/MusicProfileBanners.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'music-profile-banners',
+    code: `<MusicProfileBanners />`,
   },
 ];
 
