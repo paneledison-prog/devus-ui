@@ -142,3 +142,7 @@ button.app-row:active { background: var(--default); }
 .app-phone__body:has(.app-sheet)::before { content: ""; position: absolute; inset: 0; z-index: 1; background: rgb(0 0 0 / .32); pointer-events: none; }
 
 @media (prefers-reduced-motion: reduce) { .app-tabbar--floating .app-tabbar__item { transition: none; } }
+
+/* Hero phone: accent gradient behind the status bar and the top of the screen. */
+.app-phone--hero .app-phone__screen { background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 82%, #000) 0, var(--accent) 150px, color-mix(in srgb, var(--accent) 38%, var(--app-card-bg)) 270px, var(--app-card-bg) 380px); }
+.app-phone--hero .app-phone__status { color: #fff; }

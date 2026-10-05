@@ -252,6 +252,23 @@ add('story-rings', name='Story rings', brand='none (generic sample content)', ki
     edit=['Edit `StoryRing.tsx` and the `.app-story*` rules', 'The ring is decorative; keep the accessible name on the button'])
 
 
+# ---- App items rebuilt from the user's Stitch screens (own code, own CSS; layout and content only) ----
+add('finance-dashboard', name='Finance dashboard', brand='none (fictional sample data)', kind='phone', root='.app-phone', prefix='fin-',
+    files=['src/components/AppUI/examples/FinanceDashboard.tsx  (the example shown in the preview)', 'src/components/AppUI/Finance.tsx', 'src/components/AppUI/Finance.css', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/FinanceDashboard.tsx', props='`FinanceHeader`, `BalanceHero`, `QuickActions`, `NegotiatorCard`, `BillList`, `FinanceTabs`, `FinanceScroll` (all in Finance.tsx); `PhoneFrame({ hero? })`',
+    summary='Banking home screen: a blue gradient hero with greeting, total balance and quick actions, a savings suggestion card, a filterable bill list and a bottom tab bar.',
+    features=["Eye button hides and shows the balance and today's amount", 'Bills filter: All bills / Needs action (only bills marked `urgent`)', '"Start negotiation" changes to a disabled "Request sent" state', 'Tab bar marks the pressed item with `aria-current="page"`', 'Content scrolls inside the phone; the tab bar stays pinned'],
+    gaps=['Presentational: no real accounts, navigation or persistence', 'Built from the layout of a Stitch design; brand names and the photo avatar were replaced with fictional content and initials'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 40px; pills and buttons use `--radius-full` or 16 to 22px radii', 'Hero: accent gradient behind the status bar (white status text), fading into `--app-card-bg` by about 380px', 'Balance 30px bold with tabular figures; quick actions are white pills plus a dark square scan button', 'Cards are white (`--surface`) with a soft shadow on the gradient'],
+    edit=['Compose in `examples/FinanceDashboard.tsx`', 'Change pieces in `Finance.tsx` and their look in `Finance.css` (`fin-` classes)', 'Pass `hero` to `PhoneFrame` for the gradient', 'Keep every sample name, amount and merchant fictional'])
+add('invoice-detail', name='Invoice detail', brand='none (fictional sample data)', kind='phone', root='.app-phone', prefix='inv-',
+    files=['src/components/AppUI/examples/InvoiceDetail.tsx  (the example shown in the preview)', 'src/components/AppUI/Finance.tsx', 'src/components/AppUI/Finance.css', 'src/components/AppUI/AppBar.tsx', 'src/components/AppUI/PhoneFrame.tsx', 'src/components/AppUI/AppUI.css', 'src/styles/tokens.css'], entry='src/components/AppUI/examples/InvoiceDetail.tsx', props='`InvoiceSummary`, `InvoiceParty`, `InvoiceItems`, `InvoiceActions` (in Finance.tsx); `AppBar`',
+    summary='Mobile invoice screen: top bar, invoice number with a paid badge, total and two dates, a billed-to card, an item table with subtotal, tax and total, and Download and Share actions.',
+    features=['Subtotal, tax and total are computed from the line items, and the header total matches the table total', 'Download PDF briefly shows "Saved"; Share briefly shows "Link copied" (about 1.6s, timer cleared on unmount)', 'Table has column headers with `scope="col"`; dates and totals are description lists', 'Content scrolls inside the phone; the actions stay pinned above the home indicator'],
+    gaps=['Presentational: no real invoice data, PDF or share sheet', 'Built from the layout of a Stitch design; the second date label (a duplicate "Issued date" in the original) became "Due date", and the header total (it disagreed with the table) now equals the table total'],
+    design=['Phone frame is 320x660 with a flat rounded screen, no bezel; the screen is `--surface` with soft gray cards via `--app-card-bg`', 'Touch targets are at least 40px; pills and buttons use `--radius-full` or 16 to 22px radii', 'Cards use `--app-card-bg` (gray on the white screen); the total is 30px bold with tabular figures', 'Dashed divider below the summary; the primary action uses `--accent`', 'Avatar is initials on a soft pink tile'],
+    edit=['Compose in `examples/InvoiceDetail.tsx`', 'Change pieces in `Finance.tsx` and their look in `Finance.css` (`inv-` classes)', 'Money is formatted in `InvoiceItems`; keep totals derived, never typed twice'])
+
+
 def bullets(items):
     return '\n'.join(f'- {i}' for i in items)
 

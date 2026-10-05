@@ -37,6 +37,8 @@ import { GroupedListExample } from '../../components/AppUI/examples/GroupedList'
 import { BottomSheetExample } from '../../components/AppUI/examples/BottomSheetExample';
 import { FloatingActionButtonExample } from '../../components/AppUI/examples/FloatingActionButton';
 import { StoryRingsExample } from '../../components/AppUI/examples/StoryRings';
+import { FinanceDashboardExample } from '../../components/AppUI/examples/FinanceDashboard';
+import { InvoiceDetailExample } from '../../components/AppUI/examples/InvoiceDetail';
 
 export type LibraryCategory = 'components' | 'blocks' | 'templates' | 'backgrounds' | 'ui-elements' | 'app';
 
@@ -552,6 +554,41 @@ const appItems: BaseItem[] = [
     sourceEntries: [{ path: 'src/components/AppUI/examples/StoryRings.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
     helper: 'story-rings',
     code: `<StoryRow\n  stories={[\n    { name: 'You', initials: 'ME' },\n    { name: 'Ada', initials: 'AL' },\n    { name: 'Linus', initials: 'LT', seen: true },\n  ]}\n/>`,
+  },
+  {
+    name: 'Finance dashboard',
+    variants: 2,
+    ...phoneProps,
+    preview: <FinanceDashboardExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/FinanceDashboard.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'finance-dashboard',
+    code: `<PhoneFrame hero>
+  <FinanceScroll>
+    <FinanceHeader name="Ethan Carter" initials="EC" />
+    <BalanceHero amount="$124,892.65" change="+8.42%" changeAmount="+$9,684.20" />
+    <QuickActions />
+    <NegotiatorCard>We found a way to cut your fiber internet bill by <strong>$12/month</strong>.</NegotiatorCard>
+    <BillList bills={bills} />
+  </FinanceScroll>
+  <FinanceTabs items={tabs} />
+</PhoneFrame>`,
+  },
+  {
+    name: 'Invoice detail',
+    variants: 1,
+    ...phoneProps,
+    preview: <InvoiceDetailExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/InvoiceDetail.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'invoice-detail',
+    code: `<PhoneFrame>
+  <AppBar title="Invoice detail" onBack={() => {}} action={<DotsIcon />} />
+  <FinanceScroll>
+    <InvoiceSummary number="INV-110450" status="Paid" amount="$4,950.00" dates={dates} />
+    <InvoiceParty name="Acme Studio" email="acmestudio@example.com" initials="AS" />
+    <InvoiceItems lines={lines} taxRate={0.1} />
+  </FinanceScroll>
+  <InvoiceActions />
+</PhoneFrame>`,
   },
 ];
 

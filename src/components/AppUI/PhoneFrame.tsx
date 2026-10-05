@@ -12,9 +12,9 @@ function StatusIcons() {
 }
 
 /** Phone viewport used to show mobile-style elements in context. Outer size 320x660 px (classic iPhone ratio 2.06), borderless with a 30px radius. */
-export function PhoneFrame({ children }: { children: ReactNode }) {
+export function PhoneFrame({ children, hero = false }: { children: ReactNode; /** Blue gradient behind the status bar and the top of the screen (white status text). */ hero?: boolean }) {
   return (
-    <div className="app-phone">
+    <div className={`app-phone${hero ? ' app-phone--hero' : ''}`}>
       <div className="app-phone__screen">
         <div className="app-phone__status" aria-hidden="true"><span>9:41</span><StatusIcons /></div>
         <div className="app-phone__body">{children}</div>
