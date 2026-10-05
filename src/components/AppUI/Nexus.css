@@ -1,0 +1,69 @@
+/* Nexus learning-app screens. A 454x982 canvas scaled to the 320px phone (320 / 454). */
+.nx { position: relative; width: 454px; height: 982px; zoom: 0.704846; overflow: hidden; background: #fff; color: #2a2a2e; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
+.nx * { box-sizing: border-box; }
+.nx p, .nx h1, .nx h2, .nx h3 { margin: 0; }
+.nx button { font-family: inherit; }
+
+/* status bar and home indicator */
+.nx-status { position: absolute; z-index: 20; left: 0; top: 0; width: 454px; height: 64px; color: #111; pointer-events: none; }
+.nx-status__time { position: absolute; left: 43px; top: 24px; font: 600 20px/24px var(--font-sans); letter-spacing: .01em; }
+.nx-status__signal { position: absolute; left: 332px; top: 29px; }
+.nx-status__wifi { position: absolute; left: 363px; top: 29px; }
+.nx-status__battery { position: absolute; left: 392px; top: 29px; }
+.nx-home { position: absolute; z-index: 30; left: 150px; top: 969px; width: 155px; height: 5px; border-radius: 3px; background: #111; }
+
+/* header */
+.nx-header { position: absolute; left: 0; top: 0; width: 454px; height: 130px; }
+.nx-logo { position: absolute; left: 19px; top: 75px; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #4f86f5, #9566ef); color: #fff; }
+.nx-header__name { position: absolute; left: 75px; top: 76px; font: 500 30px/40px var(--font-sans); letter-spacing: -.01em; color: #2a2a2e; }
+.nx-header__search, .nx-header__inbox { position: absolute; display: grid; place-items: center; padding: 0; border: 0; background: none; color: #9a9aa0; }
+.nx-header__search { left: 351px; top: 78px; width: 36px; height: 36px; }
+.nx-header__inbox { left: 401px; top: 78px; width: 36px; height: 36px; color: #8e8e93; }
+
+/* stat cards */
+.nx-stat { position: absolute; top: 145px; width: 198px; height: 111px; border-radius: 28px; border: 1px solid #eceef2; background: #fff; box-shadow: 0 6px 18px rgb(30 40 80 / .05); }
+.nx-stat__icon { position: absolute; left: 19px; top: 21px; color: #9a9a9f; }
+.nx-stat__label { position: absolute; left: 49px; top: 20px; font: 400 18px/24px var(--font-sans); color: #8e8e93; letter-spacing: -.01em; }
+.nx-stat__value { position: absolute; left: 18px; top: 60px; display: flex; align-items: baseline; gap: 4px; font: 600 33px/38px var(--font-sans); color: #2a2a2e; letter-spacing: -.01em; }
+.nx-stat__value small { font: 400 20px/24px var(--font-sans); letter-spacing: 0; color: #2a2a2e; }
+.nx-ring { position: absolute; left: 151px; top: 62px; }
+
+/* week strip */
+.nx-week { position: absolute; left: 0; top: 290px; width: 454px; height: 100px; }
+.nx-week__day { position: absolute; top: 0; width: 60px; height: 100px; border-radius: 20px; border: 1px solid transparent; text-align: center; }
+.nx-week__day.is-on { border-color: #e8e9ed; background: #fff; box-shadow: 0 3px 10px rgb(30 40 80 / .04); }
+.nx-week__name { position: absolute; left: 0; right: 0; top: 7px; font: 400 17px/22px var(--font-sans); color: #8e8e93; }
+.nx-week__date { position: absolute; left: 0; right: 0; top: 28px; font: 600 24px/28px var(--font-sans); color: #2a2a2e; }
+.nx-week__mark { position: absolute; left: 0; right: 0; top: 61px; display: grid; place-items: center; color: #eceef1; }
+.nx-week__day.is-on .nx-week__name { color: #2a2a2e; }
+
+/* hero card */
+.nx-hero { position: absolute; left: 12px; top: 424px; width: 430px; height: 421px; overflow: hidden; border-radius: 40px; border: 1px solid #e6eefb; background: radial-gradient(60% 45% at 50% 30%, #fff 0 20%, rgb(255 255 255 / 0) 100%), radial-gradient(45% 40% at 8% 18%, #a9d8fb 0 30%, transparent 100%), radial-gradient(45% 40% at 96% 38%, #b5d4fa 0 30%, transparent 100%), linear-gradient(180deg, #cde9fc 0%, #e9f3fd 52%, #f5f9ff 100%); }
+.nx-art { position: absolute; display: block; pointer-events: none; }
+.nx-art--cap { left: -13px; top: 15px; filter: drop-shadow(0 12px 14px rgb(30 130 210 / .2)); }
+.nx-hero__title { position: absolute; left: 0; right: 0; top: 256px; text-align: center; font: 500 31px/37px var(--font-sans); letter-spacing: -.015em; color: #2a2a2e; }
+.nx-hero__btn { position: absolute; left: 21px; top: 347px; width: 386px; height: 52px; border: 0; border-radius: 26px; background: #fff; color: #2f2f33; font: 500 21px/26px var(--font-sans); letter-spacing: -.01em; }
+
+/* tab bar */
+.nx-tabs { position: absolute; z-index: 10; left: 0; top: 869px; width: 454px; height: 113px; border-top: 1px solid #eceef1; background: #fff; }
+.nx-tabs__item { position: absolute; top: 0; width: 88px; height: 82px; padding: 0; border: 0; background: none; color: #8e8e93; }
+.nx-tabs__icon { position: absolute; left: 31px; top: 17px; display: grid; place-items: center; width: 26px; height: 26px; }
+.nx-tabs__label { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font: 400 17px/22px var(--font-sans); letter-spacing: -.01em; }
+.nx-tabs__item[aria-current='page'] .nx-tabs__label { background: linear-gradient(90deg, #4c8df6, #9566f2); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* courses */
+.nx-h2 { position: absolute; left: 19px; font: 500 29px/36px var(--font-sans); letter-spacing: -.015em; color: #2a2a2e; }
+.nx-sug { position: absolute; left: 12px; top: 142px; width: 430px; height: 400px; overflow: hidden; border-radius: 40px; border: 1px solid #e9e4f8; background: radial-gradient(40% 35% at 50% 38%, #fdeeff 0 25%, transparent 100%), radial-gradient(45% 40% at 6% 35%, #cdbcf7 0 30%, transparent 100%), radial-gradient(45% 40% at 98% 48%, #cdbcf7 0 30%, transparent 100%), linear-gradient(180deg, #ece6fc 0%, #f4effd 55%, #fbf9ff 100%); }
+.nx-sug__chip { position: absolute; left: 18px; top: 17px; display: grid; place-items: center; width: 105px; height: 35px; border-radius: 18px; background: #fff; color: #8e8e93; font: 400 16px/20px var(--font-sans); }
+.nx-art--bucket { left: -13px; top: 17px; filter: drop-shadow(0 12px 14px rgb(110 70 200 / .22)); }
+.nx-sug__panel { position: absolute; left: 13px; top: 286px; width: 402px; height: 100px; border-radius: 28px; background: #fff; box-shadow: 0 6px 16px rgb(80 60 160 / .06); }
+.nx-sug__title { position: absolute; left: 25px; top: 21px; font: 500 23px/31px var(--font-sans); letter-spacing: -.01em; color: #2a2a2e; }
+.nx-sug__play { position: absolute; left: 326px; top: 25px; display: grid; place-items: center; width: 50px; height: 50px; padding: 0; border: 0; border-radius: 50%; background: #f3f3f5; color: #8e8e93; }
+.nx-course { position: absolute; top: 628px; width: 198px; height: 320px; border-radius: 28px; border: 1px solid #eceef2; background: #fff; }
+.nx-course__img { position: absolute; left: 3px; top: 4px; width: 190px; height: 178px; overflow: hidden; border-radius: 24px; }
+.nx-course__img--peach { background: radial-gradient(70% 60% at 50% 55%, #fff 0 25%, transparent 100%), linear-gradient(160deg, #f9dcc0 0%, #fdf1e6 45%, #fbe6d2 100%); }
+.nx-course__img--mint { background: radial-gradient(70% 60% at 50% 55%, #f8fff2 0 25%, transparent 100%), linear-gradient(160deg, #b9ee94 0%, #e8f9dc 45%, #cdf3b2 100%); }
+.nx-art--camera, .nx-art--blob { left: 0; top: 0; width: 188px; height: 177px; filter: drop-shadow(0 6px 8px rgb(0 0 0 / .14)); }
+.nx-course__topic { position: absolute; left: 14px; top: 195px; font: 400 16px/22px var(--font-sans); color: #8e8e93; }
+.nx-course__title { position: absolute; left: 14px; top: 221px; font: 600 19px/24px var(--font-sans); letter-spacing: -.01em; color: #2a2a2e; white-space: nowrap; }
+.nx button:focus-visible { outline: 3px solid #4c8df6; outline-offset: 2px; }

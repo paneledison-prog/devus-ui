@@ -40,6 +40,8 @@ import { StoryRingsExample } from '../../components/AppUI/examples/StoryRings';
 import { FinanceDashboardExample } from '../../components/AppUI/examples/FinanceDashboard';
 import { InvoiceDetailExample } from '../../components/AppUI/examples/InvoiceDetail';
 import { PremiumPaywallExample } from '../../components/AppUI/examples/PremiumPaywall';
+import { NexusHomeExample } from '../../components/AppUI/examples/NexusHome';
+import { NexusCoursesExample } from '../../components/AppUI/examples/NexusCourses';
 import { RestoringPurchasesExample } from '../../components/AppUI/examples/RestoringPurchases';
 
 export type LibraryCategory = 'components' | 'blocks' | 'templates' | 'backgrounds' | 'ui-elements' | 'app';
@@ -604,6 +606,40 @@ const appItems: BaseItem[] = [
     sourceEntries: [{ path: 'src/components/AppUI/examples/RestoringPurchases.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
     helper: 'restoring-purchases',
     code: `<PayCanvas tone="restoring">\n  <button className="pw__back" aria-label="Back">...</button>\n  <PlanCard x={314} y={282} rotate={-8} text="$4.99/month" />\n  <PlanCard x={79} y={186} rotate={7.6} text="$5.99/month" />\n  <PlanCard plan={monthly} x={321} y={305} rotate={-15} />\n  <PlanCard plan={annual} x={225} y={261} rotate={1.5} />\n  <ClayFlower />\n  <h1 className="pw__title pw__title--restoring">Restoring Purchases</h1>\n  <p className="pw__sub pw__sub--restoring">Just a sec - restoring<br />what's yours</p>\n  <svg className="pw-spinner" ... />\n</PayCanvas>`,
+  },
+  {
+    name: 'Nexus home',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <NexusHomeExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/NexusHome.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'nexus-home',
+    code: `<NexusCanvas>
+  <NexusHeader />
+  <StatCard x={20} label="Enrollment" ... />
+  <StatCard x={236} label="Lesson Done" ... />
+  <WeekStrip days={days} selected={3} />
+  <HeroCard />
+  <NexusTabs active="home" />
+</NexusCanvas>`,
+  },
+  {
+    name: 'Nexus courses',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <NexusCoursesExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/NexusCourses.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'nexus-courses',
+    code: `<NexusCanvas>
+  <h2 className="nx-h2">Suggested for you</h2>
+  <SuggestedCard />
+  <h2 className="nx-h2">Learn by doing</h2>
+  <CourseCard x={20} tone="peach" topic="Photography" title="Nature And Wildlife"><FeltCamera /></CourseCard>
+  <CourseCard x={236} tone="mint" topic="Financial" title="Debt Management"><FeltBlob /></CourseCard>
+  <NexusTabs active="courses" />
+</NexusCanvas>`,
   },
 ];
 
