@@ -1,6 +1,6 @@
-.ui-slide { --h: 48px; position: relative; width: 256px; max-width: 100%; height: var(--h); border-radius: var(--radius-full); background: var(--default); overflow: hidden;
+.ui-slide { --h: 48px; position: relative; width: 256px; max-width: 100%; height: var(--h); border-radius: var(--radius-full); background-color: var(--surface); box-shadow: var(--shadow-field), inset 0 0 0 1px color-mix(in srgb, var(--foreground) 10%, transparent); overflow: hidden;
   background-image: linear-gradient(90deg, var(--accent-soft) var(--p), transparent var(--p)); }
-.ui-slide[data-done="true"] { background: var(--accent); }
+.ui-slide[data-done="true"] { background-color: var(--accent); background-image: none; }
 .ui-slide__label { position: absolute; inset: 0; display: grid; place-items: center; padding-left: var(--h); pointer-events: none; color: var(--muted);
   font: 500 var(--text-sm)/var(--leading-sm) var(--font-sans); }
 .ui-slide[data-done="true"] .ui-slide__label { color: var(--accent-foreground); padding: 0; }

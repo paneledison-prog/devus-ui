@@ -146,7 +146,7 @@
 .ra-toggle[data-disabled] { opacity: .5; cursor: not-allowed; }
 
 /* Modal */
-.ra-open { height: 36px; padding: 0 var(--space-4); border: 0; border-radius: var(--radius-3xl); background: var(--accent); color: var(--accent-foreground); font: 500 var(--text-sm)/var(--leading-sm) var(--font-sans); cursor: pointer; outline: none; }
+.ra-open { white-space: nowrap; flex-shrink: 0; height: 36px; padding: 0 var(--space-4); border: 0; border-radius: var(--radius-3xl); background: var(--accent); color: var(--accent-foreground); font: 500 var(--text-sm)/var(--leading-sm) var(--font-sans); cursor: pointer; outline: none; }
 .ra-open[data-hovered] { background: color-mix(in srgb, var(--accent) 90%, black); }
 .ra-open[data-pressed] { transform: scale(.97); }
 .ra-open[data-focus-visible] { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
@@ -169,3 +169,7 @@
 @media (prefers-reduced-motion: reduce) {
   .ra-popover, .ra-overlay, .ra-modal, .ra-disclosure__panel, .ra-disclosure__btn svg { animation: none !important; transition: none !important; }
 }
+
+/* Static "opened" look used as the library preview */
+.ra-demo { display: grid; justify-items: center; gap: var(--space-4); }
+.ra-modal--static { position: static; animation: none; }

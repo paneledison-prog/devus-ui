@@ -181,9 +181,9 @@ const componentItems: BaseItem[] = [
   {
     name: 'Autonomy picker',
     variants: 1,
-    tileZoom: 0.9,
+    tileZoom: 0.8,
     defaultZoom: 1.5,
-    preview: <AutonomyPicker />,
+    preview: <div style={{ width: 340 }}><AutonomyPicker /></div>,
     code: `<AutonomyPicker defaultValue="plan" onChange={(level) => agent.setAutonomy(level)} />`,
     prompt: masterPrompt('AutonomyPicker', 'A three-segment control (Ask first, Plan then act, Autonomous) for how much freedom an AI agent has. The selected segment lifts onto a surface pill and a one-line hint below explains the current level.', 'defaultValue?: "ask" | "plan" | "auto"; onChange(level)', 'role="radiogroup" with role="radio" segments, roving tabindex, Left/Right arrow keys, hint in an aria-live region'),
   },
@@ -237,7 +237,16 @@ const uiElementItems: BaseItem[] = [
   {
     name: 'Separator',
     variants: 3,
-    preview: <div style={{ width: 200 }}><Separator label="or continue with" /></div>,
+    preview: (
+      <div style={{ width: 260, padding: '20px 20px 16px', borderRadius: 20, background: 'var(--surface)', boxShadow: 'var(--shadow-surface)', display: 'grid', gap: 14, font: '400 14px/20px var(--font-sans)' }}>
+        <div style={{ fontWeight: 600 }}>Welcome back</div>
+        <Separator />
+        <Separator label="or continue with" />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, color: 'var(--muted)', fontSize: 13 }}>
+          <span>Terms</span><Separator orientation="vertical" /><span>Privacy</span><Separator orientation="vertical" /><span>Help</span>
+        </div>
+      </div>
+    ),
     code: `<Separator />\n<Separator orientation="vertical" />\n<Separator label="or continue with" />`,
     prompt: masterPrompt('Separator', 'Thin divider, horizontal, vertical or with a centered label.',
       "orientation: 'horizontal' | 'vertical'; label?: string (horizontal only).",

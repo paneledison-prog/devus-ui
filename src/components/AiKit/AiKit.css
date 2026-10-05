@@ -62,7 +62,7 @@ li[data-state="todo"] { opacity: .5; }
 
 .ai-auto { display: flex; flex-direction: column; gap: var(--space-2); }
 .ai-auto__label { font-weight: 500; }
-.ai-auto__track { display: grid; grid-template-columns: repeat(3, 1fr); padding: 3px; border-radius: 14px; background: var(--default-hover); }
+.ai-auto__track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 3px; border-radius: 14px; background: var(--default-hover); }
 .ai-auto__seg { height: 32px; padding: 0 var(--space-2); border: 0; border-radius: 11px; background: none; color: var(--muted); font: inherit; cursor: pointer; white-space: nowrap; }
 .ai-auto__seg:hover:not([aria-checked="true"]) { color: var(--foreground); background: color-mix(in srgb, var(--surface) 55%, transparent); }
 .ai-auto__seg[aria-checked="true"] { background: var(--surface); color: var(--foreground); font-weight: 500; box-shadow: var(--shadow-field); }

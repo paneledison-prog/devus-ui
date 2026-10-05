@@ -2,7 +2,7 @@ import { masterPrompt } from '../../pages/Library/prompt';
 import type { LibraryItem } from '../../pages/Library/libraryItems';
 import {
   AriaAccordion, AriaBreadcrumbs, AriaCalendar, AriaComboBox, AriaDateField, AriaMenu, AriaMeter, AriaModal,
-  AriaNumberField, AriaRadioGroup, AriaSearchField, AriaSelect, AriaSlider, AriaTabs, AriaTagGroup, AriaToggleGroup,
+  AriaModalDemo, AriaNumberField, AriaRadioGroup, AriaSearchField, AriaSelect, AriaSlider, AriaTabs, AriaTagGroup, AriaToggleGroup,
 } from './Aria';
 
 type Item = Omit<LibraryItem, 'category'>;
@@ -140,8 +140,9 @@ export const ariaItems: Item[] = [
   {
     name: 'Modal dialog',
     variants: 2,
+    tileZoom: 0.7,
     defaultZoom: 1.25,
-    preview: <div style={{ display: 'flex', gap: 8 }}><AriaModal trigger="Invite teammate" title="Invite a teammate" description="They will get an email with a link to join your workspace." confirmLabel="Send invite" /><AriaModal trigger="Delete project" title="Delete this project?" description="This permanently removes the project and its files. This cannot be undone." confirmLabel="Delete" danger /></div>,
+    preview: <AriaModalDemo title="Delete this project?" description="This permanently removes the project and its files. This cannot be undone." confirmLabel="Delete" danger />,
     code: `import { DialogTrigger, Button, ModalOverlay, Modal, Dialog, Heading } from 'react-aria-components';\n\n<DialogTrigger>\n  <Button>Delete project</Button>\n  <ModalOverlay isDismissable>\n    <Modal>\n      <Dialog>\n        {({ close }) => (\n          <>\n            <Heading slot="title">Delete this project?</Heading>\n            <p>This cannot be undone.</p>\n            <Button onPress={close}>Cancel</Button>\n            <Button onPress={close}>Delete</Button>\n          </>\n        )}\n      </Dialog>\n    </Modal>\n  </ModalOverlay>\n</DialogTrigger>`,
     prompt: masterPrompt('Modal', RAC + 'a centered confirmation dialog over a dimmed overlay. Title, muted description and right-aligned Cancel and Confirm buttons (the confirm can be danger red). Fades and scales in; clicking outside or pressing Escape dismisses it.', 'trigger: string; title; description; confirmLabel?; danger?', 'DialogTrigger, ModalOverlay, Modal, Dialog, Heading from react-aria-components: focus is trapped and restored, the page behind is inert, the heading names the dialog, autoFocus on the primary action.'),
   },
