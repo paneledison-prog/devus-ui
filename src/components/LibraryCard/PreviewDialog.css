@@ -1,5 +1,5 @@
 .ui-preview-dialog {
-  width: min(960px, calc(100vw - 32px)); height: min(680px, calc(100vh - 32px)); padding: 0; border: 0;
+  width: min(1920px, calc(100vw - 32px)); height: min(1360px, calc(100vh - 32px)); padding: 0; border: 0;
   border-radius: var(--radius-3xl); background: var(--overlay); color: var(--foreground); box-shadow: var(--shadow-overlay);
   flex-direction: column; overflow: hidden;
 }
@@ -27,7 +27,7 @@
 .ui-preview-dialog__zooms[hidden] { display: none; }
 
 /* Phone previews: taller dialog, no gray box behind the iPhone. */
-.ui-preview-dialog--tall { height: min(860px, calc(100vh - 32px)); }
+.ui-preview-dialog--tall { height: min(1720px, calc(100vh - 32px)); }
 .ui-preview-dialog__stage--tall { background: transparent; }
 .ui-preview-dialog--tall { background: var(--background); }
 .ui-preview-dialog__stage--landscape { background: var(--background); padding: var(--space-3); container-type: size; display: grid; place-items: center; }

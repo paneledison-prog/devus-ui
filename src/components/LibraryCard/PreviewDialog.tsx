@@ -43,7 +43,9 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
   const [zoom, setZoom] = useState<number | 'fit'>(tall ? 'fit' : defaultZoom);
   const stageRef = useRef<HTMLDivElement>(null);
   const [fitZoom, setFitZoom] = useState(1);
-  const zoomValue = zoom === 'fit' ? fitZoom : zoom;
+  // The dialog is up to 2x its original size; zoom steps are relative to the original stage so "100%" looks the same, just larger.
+  const [scale, setScale] = useState(1);
+  const zoomValue = zoom === 'fit' ? fitZoom : zoom * scale;
   const { copied, copy } = useCopy();
 
   useEffect(() => {
@@ -53,11 +55,21 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
     if (!open && d.open) d.close();
   }, [open]);
 
-  // Phones: fit the 320x660 device to the stage (up to 1.2x) so it opens near life-size.
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!open || tab !== 'preview' || !el) return;
+    const measure = () => setScale(Math.min(2, Math.max(1, Math.min(el.clientWidth / 936, el.clientHeight / 520))));
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [open, tab]);
+
+  // Phones: fit the 320x660 device to the stage (up to 2x) so it opens near life-size.
   useEffect(() => {
     const el = stageRef.current;
     if (!tall || !open || tab !== 'preview' || !el) return;
-    const measure = () => setFitZoom(Math.min(1.2, Math.max(0.4, Math.min((el.clientHeight - 56) / 660, (el.clientWidth - 56) / 320))));
+    const measure = () => setFitZoom(Math.min(2, Math.max(0.4, Math.min((el.clientHeight - 56) / 660, (el.clientWidth - 56) / 320))));
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
