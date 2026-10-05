@@ -17,7 +17,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 1. Add a page: sidebar item + page component + Quick Actions entry
 2. Keep `--c-*` variables for every color
 3. Clear every timer on unmount
-4. Run the `verify-template` skill.
+4. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 5. Update `../../../Context.md` and commit locally.
 
 ## Do not

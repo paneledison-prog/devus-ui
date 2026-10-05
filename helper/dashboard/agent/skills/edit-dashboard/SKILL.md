@@ -20,7 +20,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 1. Add or change stat cards in the `tpl-stats` grid
 2. Keep three columns at 720px
 3. Use existing Badge tones; no new colors
-4. Run the `verify-template` skill.
+4. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 5. Update `../../../Context.md` and commit locally.
 
 ## Do not

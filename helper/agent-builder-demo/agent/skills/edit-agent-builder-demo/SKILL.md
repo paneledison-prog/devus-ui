@@ -19,7 +19,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 1. Add a stage by extending the Stage type and the run script
 2. Keep every timer cancelable
 3. Never auto-approve
-4. Run the `verify-template` skill.
+4. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 5. Update `../../../Context.md` and commit locally.
 
 ## Do not

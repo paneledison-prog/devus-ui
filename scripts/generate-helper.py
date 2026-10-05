@@ -15,6 +15,7 @@ changing that template:
 
 The files are committed. Re-run this script after the facts below change:  python scripts/generate-helper.py
 """
+import json
 import os
 import shutil
 
@@ -28,6 +29,10 @@ TOKEN_LIST = """- Colors: `--background`, `--foreground`, `--muted`, `--surface`
 - Shadows: `--shadow-field`, `--shadow-surface`, `--shadow-overlay`, `--shadow-switch`
 - Space (4px scale): `--space-0-5` ... `--space-6`; radii `--radius-sm` ... `--radius-3xl`, `--radius-full`, `--radius-field`
 - Type: Inter via `--font-sans`; sizes `--text-xs`, `--text-sm`, `--text-base`, `--text-lg`; leading `--leading-sm`, `--leading-base`, `--leading-lg`"""
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+BENCH = json.load(open(os.path.join(HERE, 'bench-reference.json'), encoding='utf8'))
+BENCH_SNIPPET = open(os.path.join(HERE, 'bench-snippet.js'), encoding='utf8').read().strip()
 
 T = {}
 
@@ -294,6 +299,12 @@ Public API: {t['props']}.
 - The library entry is `{n}` in `{lib_file}` (`sourceEntries` points at the entry file above).
 - The Code tab of the preview reads these real files; this `helper/` folder ships next to them.
 - Changing a file listed above changes what the Code tab shows.
+
+## Design bench
+- The real design is recorded as {len(BENCH[slug]['light'])} light probes and {len(BENCH[slug]['dark'])} dark probes in `design.md` ("Bench reference"), measured {BENCH['_meta']['measured']} from the running design.
+- Bench URL: `/?template={slug}&bench=1&theme=light` (and `theme=dark`), viewport 1440x900, zoom 100%.
+- Run it with the `verify-template` skill. A change is not done until both themes print `PASS`.
+- Re-measure (only when the user asked for a design change): see step 9 of that skill, and update `scripts/bench-reference.json`.
 """)
 
     write(os.path.join(d, 'guidelines.md'), f"""
@@ -355,36 +366,62 @@ Library tokens (`src/styles/tokens.css`):
 ## Motion
 - 150-250ms ease-out for state changes. No bounce except where the specification says so.
 - Everything animated must stop under `prefers-reduced-motion: reduce`.
+
+## Bench reference
+This is the real design, measured from the running app. It is the only accepted definition of "the design is right". Do not edit it to make a failure pass.
+
+- Measured: {BENCH['_meta']['measured']}, at `/?template={slug}&bench=1&theme=light` and `theme=dark`, viewport 1440x900, zoom 100%.
+- Light: {len(BENCH[slug]['light'])} probes. Dark: {len(BENCH[slug]['dark'])} probes. A probe is kept only if it measured identically in two samples taken 1.5 s apart.
+- Light row: `[key, x, y, width, height, font-size, font-weight, color, background, border-radius, text-x, text-y, text-width, text-height]`. Positions are in px relative to the top-left of `#bench-root`; the text box is the box of the element's own text (0s when it has none).
+- Dark row: `[key, color, background]`.
+- Tolerance: every position and size (element and text) +-1 px. Everything else must be identical, character for character.
+- `key` is `tag[role]|text-or-label#n` (the n-th element with that prefix, in DOM order).
+
+```json
+{json.dumps({'light': BENCH[slug]['light'], 'dark': BENCH[slug]['dark']}, separators=(',', ':'), ensure_ascii=False)}
+```
 """)
 
     ag = os.path.join(d, 'agent')
     write(os.path.join(ag, 'Agent.md'), f"""
 # Agent contract: {n}
 
-You are changing the **{n}** template of Devus UI. This folder is the source of truth. Follow it.
+You are changing the **{n}** {'component' if phone else 'template'} of Devus UI. This folder is the source of truth. Follow it exactly.
 
-## Read in this order (before touching code)
-1. `../Context.md` what exists and what is unfinished
+## Read protocol (strict)
+1. Read every file in the order below, in full, top to bottom. Not skimmed. Not summarized from memory.
+2. Before your first edit, post a **read receipt**: for each file its path and its line count (count them), plus one hard rule copied verbatim from this file. No receipt means you are not briefed; do not edit.
+3. MUST, NEVER and "required" mean exactly that. "Prefer" and "should" are defaults; deviate only with a stated reason.
+4. If two files disagree, this order wins: `Agent.md`, `rules/`, `design.md`, `guidelines.md`, `Context.md`. Report the conflict; do not pick silently.
+5. If something is not written here, it is not allowed by default. Ask.
+
+## Read in this order
+1. `../Context.md` what exists, what is unfinished, and the bench coverage
 2. `../guidelines.md` product and copy requirements
-3. `../design.md` the visual specification
+3. `../design.md` the visual specification and the **bench reference** (the real design, measured)
 4. `rules/` every file, in numeric order
-5. `skills/` the playbook that matches your task
+5. `skills/` `verify-template` (the bench) always; `edit-{slug}` for your task
 
 ## Hard rules (a change that breaks one is rejected)
-1. Edit only the files listed under "Real files" in `../Context.md`, plus new files inside the same folder.
+1. Edit only the files listed under "Real files" in `../Context.md`, plus new files inside the same folder. The only other files you may touch are `../Context.md` (rule 6) and the bench reference (rule 8).
 2. Colors, spacing, radii and type come from tokens. See `rules/01-tokens.md`.
 3. Everything is original. See `rules/03-originality.md`. Never mention the upstream design system's name anywhere.
 4. Keyboard and screen-reader support is required. See `rules/02-accessibility.md`.
 5. Follow `rules/04-code-structure.md` for naming, props and cleanup.
 6. Follow `rules/05-workflow.md`: commit locally, push only when the user says "push", update `../Context.md` in the same commit.
+7. The design is correct only if the bench says so. Run the bench in `skills/verify-template/SKILL.md` against the real design in `../design.md` and report its output as printed. See "Reporting" in `rules/05-workflow.md`.
+8. Do not edit the bench reference to turn a FAIL into a PASS. It changes only when the user asked for that exact design change (step 9 of the skill).
 
 ## Definition of done
+- [ ] Read receipt posted before the first edit
 - [ ] `npm run typecheck` passes
 - [ ] `npm run build` passes
-- [ ] The component was opened in a browser ({run_where}) and used, in light and dark
-- [ ] No console errors that the change introduced
+- [ ] Bench, light: `PASS n/n probes` (output quoted)
+- [ ] Bench, dark: `PASS n/n probes` (output quoted)
+- [ ] The {'component' if phone else 'template'} was used by hand ({run_where}), light and dark, and the console has no new errors
 - [ ] `../Context.md` is updated (files, features, gaps, date)
 - [ ] The change is committed locally with a clear message
+- [ ] The final report lists everything that was **not** checked
 
 ## When unsure
 Ask one specific question instead of guessing. Do not widen scope.
@@ -445,15 +482,26 @@ Ask one specific question instead of guessing. Do not widen scope.
 """)
 
     write(os.path.join(ag, 'rules', '05-workflow.md'), """
-# Rule 05: Workflow
+# Rule 05: Workflow and reporting
 
+## Workflow
 1. Make one coherent change at a time.
 2. Run `npm run typecheck`, then `npm run build`.
-3. Open it in the browser (`npm run dev`; templates at `/?template=<slug>`, App items from the App section of the homepage), use it, and check light and dark and the console.
-4. Update `../Context.md` (files, features, gaps, "Last updated").
-5. Commit locally in the same commit as the change. Git identity for this repo: `paneledison-prog` / `paneledison@gmail.com`.
-6. **Push only when the user says "push".** Never force-push. Never skip hooks.
-7. If something fails, report it with the real output. Do not claim success without evidence.
+3. Run the bench (`../skills/verify-template/SKILL.md`). It is required, not optional.
+4. Use it by hand in the browser (`npm run dev`), light and dark, and read the console.
+5. Update `../../Context.md` (files, features, gaps, "Last updated").
+6. Commit locally in the same commit as the change. Git identity for this repo: `paneledison-prog` / `paneledison@gmail.com`.
+7. **Push only when the user says "push".** Never force-push. Never skip hooks.
+
+## Reporting (no cap, no hype)
+- Say what happened, with the evidence. Paste the bench `summary` line and any `failures` exactly as printed.
+- If anything failed, the first line of your report says FAIL and names it.
+- Never write "perfect", "pixel-perfect", "flawless", "exactly matches", "all good" or similar. A passing bench says `PASS n/n probes`; quote that, nothing stronger.
+- Never round, estimate or paraphrase numbers. Copy them.
+- A command or step you did not run is "not run". Do not imply it passed.
+- List what the checks cannot see. The bench measures box, type, color and radius of the probes; it does not measure animation, hover or focus states, behavior, or copy outside the probes.
+- Do not edit the bench reference, the tolerances or the snippet to get a pass.
+- If the bench itself errors, it has not been run. Report that; do not substitute your own judgement.
 """)
 
     write(os.path.join(ag, 'skills', f'edit-{slug}', 'SKILL.md'), f"""
@@ -472,7 +520,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 
 ## Steps
 {chr(10).join(f"{i}. {s}" for i, s in enumerate(t['edit'], 1))}
-{len(t['edit']) + 1}. Run the `verify-template` skill.
+{len(t['edit']) + 1}. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 {len(t['edit']) + 2}. Update `../../../Context.md` and commit locally.
 
 ## Do not
@@ -484,20 +532,60 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
     write(os.path.join(ag, 'skills', 'verify-template', 'SKILL.md'), f"""
 ---
 name: verify-template
-description: Use after any change to the {n} template, before saying it is done.
+description: Use after any change to the {n} {'component' if phone else 'template'} of Devus UI, and before saying it is done. Runs the design bench against the real design and reports pass or fail with the printed numbers.
 ---
 
-# Verify the {n} template
+# Verify {n}: the design bench
 
+Read this whole file before running anything. Follow the steps in order. A step you did not run did not happen.
+
+## What the bench is
+The real design is recorded in `../../../design.md` under "Bench reference": {len(BENCH[slug]['light'])} light probes and {len(BENCH[slug]['dark'])} dark probes. Each probe is one element of the rendered design with its position and size (relative to `#bench-root`), the box of its own text, font size and weight, text color, background color and corner radius.
+
+The bench measures the design you are running in exactly the same way and compares it probe by probe. Positions and sizes may differ by 1 px; everything else must be identical. A probe that is missing, moved, resized or recolored is a FAIL.
+
+## What it cannot see
+Animation, hover and focus states, behavior, and any copy or element that is not a probe. Those are checked by hand in step 10. Passing the bench does not mean the whole {'component' if phone else 'template'} is right; it means the probed design matches.
+
+## Two modes
+- **Change** (the usual case): you edited the {'component' if phone else 'template'}. The bench is a regression test. It must PASS unless the user asked for a design change (then see step 9).
+- **Rebuild**: you rebuilt it from the master prompt. The bench is the fidelity test against the real design. It must PASS. Extra elements are allowed and are counted in the output.
+
+## Steps
 1. `npm run typecheck` must print no errors.
-2. `npm run dev`, then open {run_where}.
-3. Use the template: click every control you touched, type in every field you touched, press Escape and Tab where relevant.
-4. Switch to dark ({'site theme toggle' if canvas else 'its own theme switch or the site toggle'}) and check contrast and missing colors.
-5. Read the browser console: there must be no new errors or warnings.
-6. Open the library tile and the large preview: the template must still fit and not clip.
-7. Open the Code tab: the file tree must show the files listed in `../../../Context.md`.
-8. `npm run build` must succeed.
-9. Report what you actually saw. If a check was skipped, say so.
+2. `npm run dev`.
+3. Set the browser viewport to exactly **1440x900**, zoom 100%. Open `http://localhost:5173/?template={slug}&bench=1&theme=light`.
+4. In that page, define `bench` by running the snippet below (browser console, devtools MCP, Playwright: anything that evaluates JavaScript in the page).
+5. Copy the JSON object from the code block under "Bench reference" in `../../../design.md` and assign it: `const REF = ...`.
+6. Run `await bench({{ ref: REF }})`.
+7. Open the same URL with `theme=dark` (reload; the viewport stays 1440x900), define `bench` and `REF` again, run `await bench({{ ref: REF }})` again.
+8. Read both results. Both `summary` values must be `PASS n/n probes`. Anything else is FAIL. A `viewport` failure means the bench was invalid: fix the viewport and rerun. If a result is FAIL: fix the code (never the reference), then restart from step 3.
+9. **Only if the user asked for a design change:** after the bench shows the intended probes failing and nothing else, re-measure with `await bench({{ measure: true }})` in light and in dark, replace both arrays in `../../../design.md` and in `scripts/bench-reference.json` (dark rows are `[key, color, background]`), rerun steps 3 to 8, and list every probe that changed, with old and new values, in the commit message and in your report.
+10. Use the {'component' if phone else 'template'} by hand ({run_where}): every control you touched, keyboard (Tab, Enter, Escape), light and dark, and read the browser console: no new errors or warnings.
+11. Open the library tile and the large preview: it must still fit and not clip. Open the Code tab: the file tree must show the files listed in `../../../Context.md`.
+12. `npm run build` must succeed.
+
+## Report
+Use this shape. Paste the printed lines; do not rewrite them.
+
+```
+Bench light: <summary line as printed>   extra elements not in reference: <number as printed>
+Bench dark:  <summary line as printed>
+failures: <none, or the failures array as printed>
+typecheck: <pass | fail | not run>   build: <pass | fail | not run>   by hand: <what you did | not run>
+Not checked: <everything the bench and your checks cannot see>
+```
+
+If anything is FAIL or "not run", the first line of the report says so. No other wording replaces these lines. See "Reporting" in `../../rules/05-workflow.md`.
+
+## The snippet
+Source of truth: `scripts/bench-snippet.js` in the repository. It is identical to this:
+
+```js
+{BENCH_SNIPPET}
+```
+
+Output of a compare run: `{{ theme, summary, pass, total, extraElementsNotInReference, failures, failureCount }}`. `failures` lists up to 80 entries such as `button|Get started#1 width: expected 96, got 104`.
 """)
 
 
@@ -511,6 +599,8 @@ def main():
 One folder per library template and per App item. Each is a real, committed set of instructions that an agent must follow when changing that template. They are shown as the `helper/` folder in the Code tab file tree of every template in the library.
 
 Generated by `python scripts/generate-helper.py`; edit the facts in that script, then re-run it.
+
+Every `design.md` carries a **bench reference**: the real design, measured from the running app (`scripts/bench-reference.json`). The `verify-template` skill runs the bench (`scripts/bench-snippet.js`) against it, and an agent must quote the printed result. To re-measure after an approved design change, see step 9 of that skill; then re-run the generator.
 
 Layout of each `helper/<template>/`:
 

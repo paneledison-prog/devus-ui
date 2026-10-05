@@ -33,3 +33,9 @@ Public API: none (the example is self-contained).
 - The library entry is `Home screen` in `src/pages/Library/libraryItems.tsx` (`sourceEntries` points at the entry file above).
 - The Code tab of the preview reads these real files; this `helper/` folder ships next to them.
 - Changing a file listed above changes what the Code tab shows.
+
+## Design bench
+- The real design is recorded as 46 light probes and 46 dark probes in `design.md` ("Bench reference"), measured 2026-10-05 from the running design.
+- Bench URL: `/?template=home-screen&bench=1&theme=light` (and `theme=dark`), viewport 1440x900, zoom 100%.
+- Run it with the `verify-template` skill. A change is not done until both themes print `PASS`.
+- Re-measure (only when the user asked for a design change): see step 9 of that skill, and update `scripts/bench-reference.json`.

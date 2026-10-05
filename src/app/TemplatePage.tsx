@@ -15,12 +15,20 @@ function initialTheme(): Theme {
 
 /** Renders one template on its own, full-window, so it can be explored in a separate browser tab. */
 export function TemplatePage({ slug }: { slug: string }) {
-  const item = libraryItems.find((i) => i.category === 'templates' && slugify(i.name) === slug);
-  const [theme, setTheme] = useState<Theme>(initialTheme);
+  const params = new URLSearchParams(window.location.search);
+  const bench = params.get('bench') === '1';
+  const item = libraryItems.find((i) => (i.category === 'templates' || (bench && i.category === 'app')) && slugify(i.name) === slug);
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (!bench) return initialTheme();
+    const t: Theme = params.get('theme') === 'dark' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t; // set before the children mount: demos read it for their initial theme
+    return t;
+  });
   const [size, setSize] = useState({ w: window.innerWidth, h: window.innerHeight });
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+    if (bench) return; // the bench never touches the saved site theme
     try { localStorage.setItem('devus-theme', theme); } catch { /* ignore */ }
   }, [theme]);
 
@@ -30,6 +38,15 @@ export function TemplatePage({ slug }: { slug: string }) {
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, [item]);
+
+  if (bench && item) {
+    // Bench view: the design at its natural size in the top-left corner, no chrome. See helper/<slug>/agent/skills/verify-template.
+    return (
+      <div id="bench-root" style={{ position: 'absolute', top: 0, left: 0, width: item.category === 'templates' ? (item.canvas?.[0] ?? undefined) : undefined, height: item.category === 'templates' ? (item.canvas?.[1] ?? undefined) : undefined, display: 'inline-block' }}>
+        {item.preview}
+      </div>
+    );
+  }
 
   const BAR = 44;
   let body;

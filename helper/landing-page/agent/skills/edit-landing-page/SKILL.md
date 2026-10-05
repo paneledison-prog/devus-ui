@@ -19,7 +19,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 1. Change copy and structure in `LandingTemplate` (templates.tsx)
 2. Change layout in the Landing block of templates.css
 3. Reuse Button, Badge, Logo; do not restyle them here
-4. Run the `verify-template` skill.
+4. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 5. Update `../../../Context.md` and commit locally.
 
 ## Do not

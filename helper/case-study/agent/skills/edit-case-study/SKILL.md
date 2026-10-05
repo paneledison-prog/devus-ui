@@ -17,7 +17,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 1. Edit copy through the name, overview and scope props
 2. Add a screen by adding a 1140x662 block to the screen stack
 3. Keep the sticky behavior of the left panel
-4. Run the `verify-template` skill.
+4. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 5. Update `../../../Context.md` and commit locally.
 
 ## Do not

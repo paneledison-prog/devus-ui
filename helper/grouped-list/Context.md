@@ -30,3 +30,9 @@ Public API: `ListRow({ icon?, title, value?, trailing?, onClick? })`, `ListGroup
 - The library entry is `Grouped list` in `src/pages/Library/libraryItems.tsx` (`sourceEntries` points at the entry file above).
 - The Code tab of the preview reads these real files; this `helper/` folder ships next to them.
 - Changing a file listed above changes what the Code tab shows.
+
+## Design bench
+- The real design is recorded as 15 light probes and 15 dark probes in `design.md` ("Bench reference"), measured 2026-10-05 from the running design.
+- Bench URL: `/?template=grouped-list&bench=1&theme=light` (and `theme=dark`), viewport 1440x900, zoom 100%.
+- Run it with the `verify-template` skill. A change is not done until both themes print `PASS`.
+- Re-measure (only when the user asked for a design change): see step 9 of that skill, and update `scripts/bench-reference.json`.

@@ -19,7 +19,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 1. Put reusable pieces in shared.tsx, page styles in Beacon.css
 2. Keep the palette keyboard-operable
 3. Fictional company names only
-4. Run the `verify-template` skill.
+4. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 5. Update `../../../Context.md` and commit locally.
 
 ## Do not

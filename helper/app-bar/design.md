@@ -33,3 +33,17 @@ Library tokens (`src/styles/tokens.css`):
 ## Motion
 - 150-250ms ease-out for state changes. No bounce except where the specification says so.
 - Everything animated must stop under `prefers-reduced-motion: reduce`.
+
+## Bench reference
+This is the real design, measured from the running app. It is the only accepted definition of "the design is right". Do not edit it to make a failure pass.
+
+- Measured: 2026-10-05, at `/?template=app-bar&bench=1&theme=light` and `theme=dark`, viewport 1440x900, zoom 100%.
+- Light: 9 probes. Dark: 9 probes. A probe is kept only if it measured identically in two samples taken 1.5 s apart.
+- Light row: `[key, x, y, width, height, font-size, font-weight, color, background, border-radius, text-x, text-y, text-width, text-height]`. Positions are in px relative to the top-left of `#bench-root`; the text box is the box of the element's own text (0s when it has none).
+- Dark row: `[key, color, background]`.
+- Tolerance: every position and size (element and text) +-1 px. Everything else must be identical, character for character.
+- `key` is `tag[role]|text-or-label#n` (the n-th element with that prefix, in DOM order).
+
+```json
+{"light":[["header|.app-bar#1",12,38,296,56,14,"400","rgb(24, 24, 27)","rgba(0, 0, 0, 0)","16px",0,0,0,0],["button|Back#1",20,42,44,44,13.3333,"400","rgb(24, 24, 27)","rgba(0, 0, 0, 0)","50%",0,0,0,0],["h2|Details#1",133.5,52,53,24,16,"600","rgb(24, 24, 27)","rgba(0, 0, 0, 0)","0px",133.5,54,53,20],["header|.app-bar#2",12,106,296,60,14,"400","rgb(24, 24, 27)","rgba(0, 0, 0, 0)","16px",0,0,0,0],["h2|Hey, Ada#1",16,114,194,28,22,"600","rgb(24, 24, 27)","rgba(0, 0, 0, 0)","0px",16,115,91.5,26],["p|Let's make progress today!#1",16,142,194,24,16,"400","rgb(113, 113, 122)","rgba(0, 0, 0, 0)","0px",16,144,194,19],["div|.app-phone#1",0,0,320,660,14,"400","rgb(24, 24, 27)","rgb(255, 255, 255)","30px",0,0,0,0],["div|.app-phone__screen#1",0,0,320,660,14,"400","rgb(24, 24, 27)","rgb(255, 255, 255)","0px",0,0,0,0],["span|.app-bar__action#1",266,114,38,38,14,"500","rgb(24, 24, 27)","rgb(245, 245, 245)","12px",0,0,0,0]],"dark":[["header|.app-bar#1","rgb(252, 252, 252)","rgba(0, 0, 0, 0)"],["button|Back#1","rgb(252, 252, 252)","rgba(0, 0, 0, 0)"],["h2|Details#1","rgb(252, 252, 252)","rgba(0, 0, 0, 0)"],["header|.app-bar#2","rgb(252, 252, 252)","rgba(0, 0, 0, 0)"],["h2|Hey, Ada#1","rgb(252, 252, 252)","rgba(0, 0, 0, 0)"],["p|Let's make progress today!#1","rgb(161, 161, 170)","rgba(0, 0, 0, 0)"],["div|.app-phone#1","rgb(252, 252, 252)","rgb(24, 24, 27)"],["div|.app-phone__screen#1","rgb(252, 252, 252)","rgb(24, 24, 27)"],["span|.app-bar__action#1","rgb(252, 252, 252)","rgb(39, 39, 42)"]]}
+```

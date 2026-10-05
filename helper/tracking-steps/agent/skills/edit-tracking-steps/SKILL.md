@@ -18,7 +18,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 ## Steps
 1. Edit `TrackSteps` in `Cards.tsx`
 2. Never convey state by color alone
-3. Run the `verify-template` skill.
+3. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 4. Update `../../../Context.md` and commit locally.
 
 ## Do not

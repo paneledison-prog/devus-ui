@@ -19,7 +19,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 ## Steps
 1. Edit `AppBar.tsx` for behavior and the `.app-bar*` rules in AppUI.css for look
 2. Keep the title an `<h2>` and the back button labelled "Back"
-3. Run the `verify-template` skill.
+3. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 4. Update `../../../Context.md` and commit locally.
 
 ## Do not

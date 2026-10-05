@@ -20,7 +20,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 1. Add fields inside the Card, keep labels on every field
 2. Wire `onSubmit` through props if the template becomes functional
 3. Do not change the aurora colors
-4. Run the `verify-template` skill.
+4. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 5. Update `../../../Context.md` and commit locally.
 
 ## Do not

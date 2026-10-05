@@ -20,7 +20,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 1. Edit behavior in `TabBar.tsx`, look in the TabBar section of AppUI.css
 2. Keep the dark-mode pill lighter than the bar
 3. Keep items filling the bar so there is no empty stretch beside the action
-4. Run the `verify-template` skill.
+4. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 5. Update `../../../Context.md` and commit locally.
 
 ## Do not

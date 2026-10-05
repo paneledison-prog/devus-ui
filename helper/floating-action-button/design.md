@@ -33,3 +33,17 @@ Library tokens (`src/styles/tokens.css`):
 ## Motion
 - 150-250ms ease-out for state changes. No bounce except where the specification says so.
 - Everything animated must stop under `prefers-reduced-motion: reduce`.
+
+## Bench reference
+This is the real design, measured from the running app. It is the only accepted definition of "the design is right". Do not edit it to make a failure pass.
+
+- Measured: 2026-10-05, at `/?template=floating-action-button&bench=1&theme=light` and `theme=dark`, viewport 1440x900, zoom 100%.
+- Light: 7 probes. Dark: 7 probes. A probe is kept only if it measured identically in two samples taken 1.5 s apart.
+- Light row: `[key, x, y, width, height, font-size, font-weight, color, background, border-radius, text-x, text-y, text-width, text-height]`. Positions are in px relative to the top-left of `#bench-root`; the text box is the box of the element's own text (0s when it has none).
+- Dark row: `[key, color, background]`.
+- Tolerance: every position and size (element and text) +-1 px. Everything else must be identical, character for character.
+- `key` is `tag[role]|text-or-label#n` (the n-th element with that prefix, in DOM order).
+
+```json
+{"light":[["header|.app-bar#1",12,38,296,36,14,"400","rgb(24, 24, 27)","rgba(0, 0, 0, 0)","16px",0,0,0,0],["h2|Inbox#1",16,46,56.5,28,22,"600","rgb(24, 24, 27)","rgba(0, 0, 0, 0)","0px",16,47,56.5,26],["button|.app-fab#1",116.5,582,129.5,52,14,"600","rgb(252, 252, 252)","rgb(4, 133, 247)","9999px",0,0,0,0],["button|Create#1",256,582,52,52,14,"600","rgb(245, 245, 245)","rgb(24, 24, 27)","9999px",0,0,0,0],["span|New chat#1",162.5,598,63.5,20,14,"600","rgb(252, 252, 252)","rgba(0, 0, 0, 0)","0px",162.5,599,63.5,17],["div|.app-phone#1",0,0,320,660,14,"400","rgb(24, 24, 27)","rgb(255, 255, 255)","30px",0,0,0,0],["div|.app-phone__screen#1",0,0,320,660,14,"400","rgb(24, 24, 27)","rgb(255, 255, 255)","0px",0,0,0,0]],"dark":[["header|.app-bar#1","rgb(252, 252, 252)","rgba(0, 0, 0, 0)"],["h2|Inbox#1","rgb(252, 252, 252)","rgba(0, 0, 0, 0)"],["button|.app-fab#1","rgb(252, 252, 252)","rgb(4, 133, 247)"],["button|Create#1","rgb(0, 0, 0)","rgb(252, 252, 252)"],["span|New chat#1","rgb(252, 252, 252)","rgba(0, 0, 0, 0)"],["div|.app-phone#1","rgb(252, 252, 252)","rgb(24, 24, 27)"],["div|.app-phone__screen#1","rgb(252, 252, 252)","rgb(24, 24, 27)"]]}
+```

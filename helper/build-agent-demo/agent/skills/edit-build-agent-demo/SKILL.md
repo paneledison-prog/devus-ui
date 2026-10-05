@@ -19,7 +19,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 1. Extend the run script, never add unbounded timers
 2. Every script step must be cancelable
 3. Keep the simulator generic (no brand marks)
-4. Run the `verify-template` skill.
+4. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 5. Update `../../../Context.md` and commit locally.
 
 ## Do not

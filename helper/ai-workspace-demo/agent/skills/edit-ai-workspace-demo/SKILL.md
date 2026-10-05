@@ -19,7 +19,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 1. Add a page: new nav entry + a page component + search index entry
 2. Keep theme colors in the `--ws-*` variables
 3. Simulated work must be cancelable and cleared on unmount
-4. Run the `verify-template` skill.
+4. Run the `verify-template` skill (the design bench). It must print PASS for light and dark.
 5. Update `../../../Context.md` and commit locally.
 
 ## Do not
