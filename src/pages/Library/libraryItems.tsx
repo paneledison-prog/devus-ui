@@ -39,6 +39,8 @@ import { FloatingActionButtonExample } from '../../components/AppUI/examples/Flo
 import { StoryRingsExample } from '../../components/AppUI/examples/StoryRings';
 import { FinanceDashboardExample } from '../../components/AppUI/examples/FinanceDashboard';
 import { InvoiceDetailExample } from '../../components/AppUI/examples/InvoiceDetail';
+import { PremiumPaywallExample } from '../../components/AppUI/examples/PremiumPaywall';
+import { RestoringPurchasesExample } from '../../components/AppUI/examples/RestoringPurchases';
 
 export type LibraryCategory = 'components' | 'blocks' | 'templates' | 'backgrounds' | 'ui-elements' | 'app';
 
@@ -64,6 +66,8 @@ export interface LibraryItem {
   defaultZoom?: number;
   /** Portrait tile (used for phone viewports). */
   tall?: boolean;
+  /** Outer height of the phone in px when it is not the default 660 (used to fit the phone in tiles and previews). */
+  phoneHeight?: number;
   /** Templates: design size of a fixed canvas, scaled to fit when opened in a new tab. */
   canvas?: [number, number];
   /** Templates: responsive version rendered full-window in a new tab (instead of the scaled canvas). */
@@ -580,6 +584,26 @@ const appItems: BaseItem[] = [
   </FinanceScroll>
   <InvoiceActions />
 </PhoneFrame>`,
+  },
+  {
+    name: 'Premium paywall',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 696,
+    preview: <PremiumPaywallExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/PremiumPaywall.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'premium-paywall',
+    code: `<PayCanvas tone="paywall">\n  <div className="pw__hero">\n    <ClayCloud />\n    <button className="pw__close" aria-label="Close">...</button>\n    <h1 className="pw__title">Level Up<br />with Premium</h1>\n    <p className="pw__sub">Because basic just<br />isn't enough.</p>\n    <ClayRing />\n  </div>\n  <div className="pw__strip" />\n  <button className="pw__restore">Restore Purchases</button>\n  <section className="pw__sheet">\n    <PlanRow plan={annual} top={26} />\n    <PlanRow plan={monthly} top={93} />\n    <button className="pw__cta">Start Free Trial</button>\n    <button className="pw__terms">Terms of Service</button>\n  </section>\n</PayCanvas>`,
+  },
+  {
+    name: 'Restoring purchases',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 696,
+    preview: <RestoringPurchasesExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/RestoringPurchases.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'restoring-purchases',
+    code: `<PayCanvas tone="restoring">\n  <button className="pw__back" aria-label="Back">...</button>\n  <PlanCard x={314} y={282} rotate={-8} text="$4.99/month" />\n  <PlanCard x={79} y={186} rotate={7.6} text="$5.99/month" />\n  <PlanCard plan={monthly} x={321} y={305} rotate={-15} />\n  <PlanCard plan={annual} x={225} y={261} rotate={1.5} />\n  <ClayFlower />\n  <h1 className="pw__title pw__title--restoring">Restoring Purchases</h1>\n  <p className="pw__sub pw__sub--restoring">Just a sec - restoring<br />what's yours</p>\n  <svg className="pw-spinner" ... />\n</PayCanvas>`,
   },
 ];
 

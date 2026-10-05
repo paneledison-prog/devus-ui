@@ -12,7 +12,22 @@ function StatusIcons() {
 }
 
 /** Phone viewport used to show mobile-style elements in context. Outer size 320x660 px (classic iPhone ratio 2.06), borderless with a 30px radius. */
-export function PhoneFrame({ children, hero = false }: { children: ReactNode; /** Blue gradient behind the status bar and the top of the screen (white status text). */ hero?: boolean }) {
+export function PhoneFrame({ children, hero = false, bare = false, height }: {
+  children: ReactNode;
+  /** Blue gradient behind the status bar and the top of the screen (white status text). */
+  hero?: boolean;
+  /** Frame only: no status bar, home indicator or body padding. The children draw the whole screen. */
+  bare?: boolean;
+  /** Outer height in px (default 660). Only used with `bare`. */
+  height?: number;
+}) {
+  if (bare) {
+    return (
+      <div className="app-phone app-phone--bare" style={height ? { ['--phone-h' as string]: `${height}px` } : undefined}>
+        <div className="app-phone__screen">{children}</div>
+      </div>
+    );
+  }
   return (
     <div className={`app-phone${hero ? ' app-phone--hero' : ''}`}>
       <div className="app-phone__screen">

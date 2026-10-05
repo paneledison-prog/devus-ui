@@ -1,0 +1,53 @@
+/* Premium paywall and restoring screens. A 446x970 canvas scaled to the 320px phone (320 / 446). */
+.pw { --pw-sky: #62c5ff; position: relative; width: 446px; height: 970px; zoom: 0.717489; overflow: hidden; background: var(--pw-sky); color: #111; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
+.pw * { box-sizing: border-box; }
+.pw--paywall { background: #191919; }
+.pw p, .pw h1, .pw h2 { margin: 0; }
+
+/* status bar and home indicator */
+.pw-status { position: absolute; z-index: 20; left: 0; top: 0; width: 446px; height: 64px; color: #fff; pointer-events: none; }
+.pw-status__time { position: absolute; left: 59px; top: 20px; font: 600 19px/24px var(--font-sans); letter-spacing: .01em; }
+.pw-status__signal { position: absolute; left: 322px; top: 25px; }
+.pw-status__wifi { position: absolute; left: 350px; top: 24px; }
+.pw-status__battery { position: absolute; left: 380px; top: 26px; }
+.pw-home { position: absolute; z-index: 20; left: 145px; top: 956px; width: 154px; height: 5px; border-radius: 3px; background: #fff; }
+.pw-home--dark { left: 146px; background: #0b0b0b; }
+
+/* artwork */
+.pw-art { position: absolute; left: 0; display: block; pointer-events: none; }
+.pw-art--cloud { top: 0; filter: drop-shadow(0 8px 10px rgb(0 70 130 / .18)); }
+.pw-art--ring { top: 380px; filter: drop-shadow(0 6px 10px rgb(0 70 140 / .18)); }
+.pw-art--flower { left: 160px; top: 556px; filter: drop-shadow(0 6px 8px rgb(0 70 140 / .2)); }
+
+/* ---------- paywall ---------- */
+.pw__hero { position: absolute; left: 0; top: 0; width: 446px; height: 612px; overflow: hidden; border-radius: 0 0 56px 56px; background: var(--pw-sky); }
+.pw__close { position: absolute; left: 22px; top: 81px; z-index: 5; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: rgb(255 255 255 / .22); color: #fff; }
+.pw__title { position: absolute; left: 0; right: 0; top: 203px; z-index: 3; color: #fff; text-align: center; font: 600 30px/36px var(--font-sans); letter-spacing: -.01em; }
+.pw__sub { position: absolute; left: 0; right: 0; top: 283px; z-index: 3; color: rgb(255 255 255 / .6); text-align: center; font: 400 17px/22px var(--font-sans); }
+.pw__strip { position: absolute; left: 0; top: 612px; width: 446px; height: 120px; background: #191919; }
+.pw__restore { position: absolute; left: 0; right: 0; top: 630px; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 10px; height: 28px; margin: 0; padding: 0; border: 0; background: none; color: #fff; font: 500 17px/22px var(--font-sans); }
+.pw__restore-icon { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--pw-sky); }
+.pw__sheet { position: absolute; left: 0; top: 675px; width: 446px; height: 295px; z-index: 3; border-radius: 48px 48px 0 0; background: #fff; }
+.pw-plan { position: absolute; left: 0; width: 446px; height: 56px; }
+.pw-plan .pw-radio { position: absolute; left: 25px; top: 10px; }
+.pw-plan__name { position: absolute; left: 62px; top: 0; font: 500 17px/22px var(--font-sans); color: #111; }
+.pw-plan__sub { position: absolute; left: 62px; top: 24px; font: 400 14px/18px var(--font-sans); color: #7b7b82; white-space: nowrap; }
+.pw-plan__was { margin-left: 10px; color: #7fb6e0; text-decoration-color: var(--pw-sky); text-decoration-thickness: 1.5px; }
+.pw-plan__price { position: absolute; right: 27px; top: 11px; font: 600 17px/22px var(--font-sans); color: #111; }
+.pw-radio { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; border: 1.6px solid #dcdce0; background: #fff; flex: none; }
+.pw-radio--on { border: 0; background: #151515; }
+.pw__cta { position: absolute; left: 27px; top: 160px; width: 393px; height: 53px; border: 0; border-radius: 27px; background: var(--pw-sky); color: #fff; font: 600 17px/22px var(--font-sans); }
+.pw__terms { position: absolute; left: 0; right: 0; top: 227px; margin: 0; padding: 0; border: 0; background: none; text-align: center; color: #8e8e93; font: 400 16px/20px var(--font-sans); }
+.pw__close:focus-visible, .pw__restore:focus-visible, .pw__cta:focus-visible, .pw__terms:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+/* ---------- restoring ---------- */
+.pw__back { position: absolute; left: 14px; top: 73px; z-index: 5; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: none; color: #fff; }
+.pw-card { position: absolute; width: 393px; height: 81px; border-radius: 30px; background: #fff; box-shadow: 0 12px 26px rgb(0 70 140 / .2), 0 2px 6px rgb(0 70 140 / .1); }
+.pw-card .pw-radio { position: absolute; left: 24px; top: 28px; }
+.pw-card__name { position: absolute; left: 62px; top: 14px; font: 500 17px/22px var(--font-sans); color: #111; }
+.pw-card__sub { position: absolute; left: 62px; top: 38px; font: 400 14px/18px var(--font-sans); color: #7b7b82; white-space: nowrap; }
+.pw-card__price { position: absolute; right: 27px; top: 29px; font: 600 17px/22px var(--font-sans); color: #111; white-space: nowrap; }
+.pw-card--price .pw-card__price { top: 29px; }
+.pw__title--restoring { top: 711px; z-index: 3; font-size: 28px; line-height: 34px; }
+.pw__sub--restoring { top: 759px; }
+.pw-spinner { position: absolute; left: 202px; top: 839px; }

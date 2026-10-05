@@ -146,3 +146,7 @@ button.app-row:active { background: var(--default); }
 /* Hero phone: accent gradient behind the status bar and the top of the screen. */
 .app-phone--hero .app-phone__screen { background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 82%, #000) 0, var(--accent) 150px, color-mix(in srgb, var(--accent) 38%, var(--app-card-bg)) 270px, var(--app-card-bg) 380px); }
 .app-phone--hero .app-phone__status { color: #fff; }
+
+/* Bare phone: only the rounded frame; the content draws status bar, artwork and home indicator itself. */
+.app-phone--bare { aspect-ratio: auto; width: 320px; height: var(--phone-h, 660px); border-radius: 39px; background: transparent; }
+.app-phone--bare .app-phone__screen { background: transparent; border-radius: 0; }

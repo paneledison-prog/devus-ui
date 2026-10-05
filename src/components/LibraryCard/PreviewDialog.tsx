@@ -20,6 +20,8 @@ export interface PreviewDialogProps {
   defaultZoom?: number;
   /** Phone viewport: opens near life-size and auto-fits the stage. */
   tall?: boolean;
+  /** Outer phone height in px (default 660). */
+  phoneHeight?: number;
   href?: string;
   /** Templates: show the real project files as a file tree in the Code tab. */
   sourceEntries?: SourceEntry[];
@@ -32,7 +34,7 @@ export interface PreviewDialogProps {
 type Tab = 'preview' | 'code' | 'prompt';
 const ZOOMS = [0.75, 1, 1.5, 2] as const;
 
-export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, href, sourceEntries, helper, promptPath }: PreviewDialogProps) {
+export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, phoneHeight = 660, href, sourceEntries, helper, promptPath }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const [root, setRoot] = useState<Element>();
   const [tab, setTab] = useState<Tab>('preview');
@@ -65,12 +67,12 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
   useEffect(() => {
     const el = stageRef.current;
     if (!tall || !open || tab !== 'preview' || !el) return;
-    const measure = () => setFitZoom(Math.min(2, Math.max(0.4, Math.min((el.clientHeight - 56) / 660, (el.clientWidth - 56) / 320))));
+    const measure = () => setFitZoom(Math.min(2, Math.max(0.4, Math.min((el.clientHeight - 56) / phoneHeight, (el.clientWidth - 56) / 320))));
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [tall, open, tab]);
+  }, [tall, open, tab, phoneHeight]);
 
   const text = tab === 'code' ? code : prompt;
   const base = name.replace(/[^a-z0-9]+/gi, '');
