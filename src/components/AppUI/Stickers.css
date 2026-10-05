@@ -1,0 +1,54 @@
+/* Sticker picker and circle editor. A 357x773 canvas scaled to the 320px phone (320 / 357). */
+.sk { position: relative; width: 357px; height: 773px; zoom: 0.896359; overflow: hidden; background: #fff; color: #111; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
+.sk * { box-sizing: border-box; }
+.sk p, .sk h2 { margin: 0; }
+.sk button { font-family: inherit; padding: 0; }
+.sk button:focus-visible { outline: 3px solid #2d8cf0; outline-offset: 2px; }
+
+.sk-status { position: absolute; z-index: 30; left: 0; top: 0; width: 357px; height: 50px; color: #000; pointer-events: none; }
+.sk-status__island { position: absolute; left: 123px; top: 11px; width: 111px; height: 33px; border-radius: 17px; background: #000; }
+.sk-status__island i { position: absolute; right: 12px; top: 9px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle, #151a26 0 35%, #05070c 70%); }
+.sk-status__signal { position: absolute; left: 259px; top: 22px; }
+.sk-status__wifi { position: absolute; left: 285px; top: 22px; }
+.sk-status__battery { position: absolute; left: 303px; top: 22px; }
+.sk-home { position: absolute; z-index: 40; left: 115px; top: 764px; width: 128px; height: 5px; border-radius: 3px; background: #000; }
+
+/* blurred photo behind the picker */
+.sk-blur { position: absolute; left: 0; top: 0; width: 357px; height: 380px; overflow: hidden; background: #a5a3b0; }
+.sk-blur img { position: absolute; left: -40px; top: -10px; width: 440px; height: 440px; object-fit: cover; filter: blur(22px) saturate(.8); }
+.sk-blur::after { content: ''; position: absolute; inset: 0; background: rgb(160 158 176 / .7); }
+
+/* pack tabs */
+.sk-tabs { position: absolute; }
+.sk-tab { position: absolute; top: 0; display: grid; place-items: center; width: 100px; height: 80px; border: 0; border-radius: 22px; background: none; }
+.sk-tab img { width: 66px; height: 66px; object-fit: contain; }
+.sk-tab:nth-child(1) { left: 0; width: 103px; }
+.sk-tab:nth-child(2) { left: 115px; }
+.sk-tab:nth-child(3) { left: 215px; }
+.sk-tab--on { background: linear-gradient(180deg, #3d9cff, #2a82f5); box-shadow: 0 8px 16px rgb(45 140 240 / .3), inset 0 1px 0 rgb(255 255 255 / .3); }
+.sk-tabs--sheet { left: 22px; top: 22px; width: 306px; height: 80px; }
+.sk-tabs--sheet::before { content: ''; position: absolute; left: -7px; top: -2px; width: 327px; height: 88px; border-radius: 30px; background: #f7f7f9; box-shadow: 0 8px 20px rgb(0 0 0 / .06); z-index: -1; }
+.sk-tabs--bar { left: 18px; top: 22px; width: 320px; height: 81px; }
+
+/* sheet (left screen) */
+.sk-sheet { position: absolute; left: 2px; top: 346px; width: 353px; height: 427px; border-radius: 36px 36px 0 0; background: #fff; }
+.sk-grab { position: absolute; left: 158px; top: -9px; width: 34px; height: 5px; border-radius: 3px; background: #bdbcc6; }
+.sk-sticker { position: absolute; display: block; object-fit: contain; filter: drop-shadow(0 6px 8px rgb(0 0 0 / .15)); }
+.sk-sheet__title { position: absolute; left: 19px; top: 363px; font: italic 400 36px/36px 'Georgia', 'Times New Roman', serif; letter-spacing: -.02em; color: #111; }
+.sk-close { position: absolute; left: 287px; top: 364px; display: grid; place-items: center; width: 34px; height: 34px; border: 2.5px solid #3b8ef0; border-radius: 50%; background: #e9f2ff; color: #3b8ef0; box-shadow: 0 0 0 4px rgb(59 142 240 / .12); }
+
+/* circle editor (right screen) */
+.sk-pause { position: absolute; left: 0; right: 0; top: 64px; text-align: center; font: 500 14px/20px var(--font-sans); color: #111; }
+.sk-circle { position: absolute; left: 15px; top: 130px; width: 330px; height: 330px; border-radius: 50%; }
+.sk-circle__rim { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 20deg, #f3d9c6, #d7c6e8, #c4d8f0, #e9e2c4, #f2c9b8, #d9c6e8, #f3d9c6); box-shadow: 0 10px 28px rgb(60 60 90 / .16); }
+.sk-circle__photo { position: absolute; left: 13px; top: 13px; width: 304px; height: 304px; border-radius: 50%; background-size: 125% auto; background-position: 20% 12%; background-repeat: no-repeat; }
+.sk-circle__arc { position: absolute; left: -7px; top: -7px; }
+.sk-play { position: absolute; left: 137px; top: 135px; display: grid; place-items: center; width: 56px; height: 60px; border: 0; background: none; filter: drop-shadow(0 2px 6px rgb(0 0 0 / .25)); }
+.sk-trash { position: absolute; z-index: 5; display: grid; place-items: center; border: 0; border-radius: 50%; background: #fff; color: #2d8cf0; box-shadow: 0 3px 10px rgb(0 0 0 / .12); }
+.sk-chip { position: absolute; z-index: 5; display: grid; place-items: center; width: 44px; height: 26px; border-radius: 13px; background: #2d86f2; color: #fff; font: 600 12px/16px var(--font-sans); }
+.sk-frame { position: absolute; z-index: 4; border: 1px solid rgb(255 255 255 / .9); background: rgb(255 255 255 / .08); box-shadow: 0 0 0 1px rgb(0 0 0 / .08); }
+.sk-frame i { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #2d8cf0; border: 1px solid #fff; }
+.sk-frame i:nth-child(1) { left: -3px; top: -3px; } .sk-frame i:nth-child(2) { right: -3px; top: -3px; }
+.sk-frame i:nth-child(3) { left: -3px; bottom: -3px; } .sk-frame i:nth-child(4) { right: -3px; bottom: -3px; }
+.sk-bar { position: absolute; left: 3px; top: 638px; width: 352px; height: 110px; border-radius: 28px; background: #fff; box-shadow: 0 10px 28px rgb(0 0 0 / .1); }
+.sk-bar .sk-grab { top: -6px; left: 161px; width: 30px; height: 4px; }

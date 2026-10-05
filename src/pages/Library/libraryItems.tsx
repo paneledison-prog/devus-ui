@@ -42,6 +42,10 @@ import { InvoiceDetailExample } from '../../components/AppUI/examples/InvoiceDet
 import { PremiumPaywallExample } from '../../components/AppUI/examples/PremiumPaywall';
 import { NexusHomeExample } from '../../components/AppUI/examples/NexusHome';
 import { MusicWidget, NavigationWidget, CallWidget, HeartRateWidget, ProgressRingWidget, AlarmWidget } from '../../components/Widgets/Widgets';
+import { FomoWelcomeExample } from '../../components/AppUI/examples/FomoWelcome';
+import { WabiWelcomeExample } from '../../components/AppUI/examples/WabiWelcome';
+import { StickerPickerExample } from '../../components/AppUI/examples/StickerPicker';
+import { CircleEditorExample } from '../../components/AppUI/examples/CircleEditor';
 import { MoimoiSignInExample } from '../../components/AppUI/examples/MoimoiSignIn';
 import { NexusTodayExample } from '../../components/AppUI/examples/NexusToday';
 import { NexusDailyExample } from '../../components/AppUI/examples/NexusDaily';
@@ -736,6 +740,46 @@ const appItems: BaseItem[] = [
     sourceEntries: [{ path: 'src/components/AppUI/examples/MoimoiSignIn.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
     helper: 'moimoi-sign-in',
     code: `<MoimoiCanvas>\n  <Cast />\n  <Wordmark />\n  <MoimoiStatusBar />\n  <SignInPanel />\n</MoimoiCanvas>`,
+  },
+  {
+    name: 'Fomo welcome',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <FomoWelcomeExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/FomoWelcome.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'fomo-welcome',
+    code: `<FomoCanvas>\n  ...\n</FomoCanvas>`,
+  },
+  {
+    name: 'Wabi welcome',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 640,
+    preview: <WabiWelcomeExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/WabiWelcome.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'wabi-welcome',
+    code: `<WabiCanvas>\n  ...\n</WabiCanvas>`,
+  },
+  {
+    name: 'Sticker picker',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <StickerPickerExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/StickerPicker.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'sticker-picker',
+    code: `<StickersCanvas>\n  ...\n</StickersCanvas>`,
+  },
+  {
+    name: 'Circle editor',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <CircleEditorExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/CircleEditor.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'circle-editor',
+    code: `<StickersCanvas>\n  ...\n</StickersCanvas>`,
   },
 ];
 

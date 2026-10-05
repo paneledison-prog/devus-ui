@@ -1,0 +1,30 @@
+/* Fomo welcome screen. A 473x1023 canvas scaled to the 320px phone (320 / 473). */
+.fm { position: relative; width: 473px; height: 1023px; zoom: 0.676533; overflow: hidden; background: radial-gradient(70% 38% at 50% 38%, #050806 0%, #07100c 45%, #0c2a1e 100%), #0a2218; color: #fff; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
+.fm * { box-sizing: border-box; }
+.fm p, .fm h1 { margin: 0; }
+.fm button { font-family: inherit; }
+.fm::before { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgb(8 36 24 / .55) 0%, transparent 18%, transparent 52%, rgb(14 60 40 / .55) 100%); pointer-events: none; }
+
+.fm-status { position: absolute; z-index: 30; left: 0; top: 0; width: 473px; height: 60px; color: #fff; pointer-events: none; }
+.fm-status__time { position: absolute; left: 63px; top: 18px; font: 600 19px/24px var(--font-sans); letter-spacing: .01em; }
+.fm-status__signal { position: absolute; left: 350px; top: 25px; }
+.fm-status__wifi { position: absolute; left: 383px; top: 24px; }
+.fm-status__battery { position: absolute; left: 413px; top: 25px; }
+
+.fm-rays { position: absolute; left: 0; top: 0; }
+.fm-avatars { position: absolute; inset: 0; }
+.fm-av { position: absolute; display: block; overflow: hidden; border-style: solid; border-radius: 50%; background: #1b2b24; box-shadow: 0 0 0 3px #000, 0 8px 18px rgb(0 0 0 / .45); }
+.fm-av img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.fm-av i { position: absolute; inset: 0; border-radius: 50%; }
+.fm-glow { position: absolute; border-radius: 50%; background: radial-gradient(circle, #2a8aa0 0, #1d6074 45%, transparent 72%); filter: blur(5px); opacity: .8; }
+.fm-logo { position: absolute; left: 0; top: 321px; display: block; }
+
+.fm-welcome { position: absolute; left: 0; top: 0; width: 473px; height: 1023px; pointer-events: none; }
+.fm-welcome > * { pointer-events: auto; }
+.fm-welcome__title { position: absolute; left: 0; right: 0; top: 677px; text-align: center; font: 800 40px/60px var(--font-sans); letter-spacing: -.015em; }
+.fm-welcome__sub { position: absolute; left: 0; right: 0; top: 746px; text-align: center; font: 500 23px/30px var(--font-sans); color: #7c9184; letter-spacing: -.005em; }
+.fm-btn { position: absolute; left: 44px; width: 385px; height: 67px; display: flex; align-items: center; justify-content: center; gap: 14px; border: 0; border-radius: 34px; font: 800 23px/28px var(--font-sans); letter-spacing: -.01em; }
+.fm-btn--apple { top: 805px; background: #fff; color: #000; }
+.fm-btn--phone { top: 887px; background: rgb(255 255 255 / .09); color: #fff; }
+.fm-btn:focus-visible { outline: 4px solid #8bd6ae; outline-offset: 3px; }
+.fm-home { position: absolute; z-index: 30; left: 153px; top: 1000px; width: 167px; height: 6px; border-radius: 3px; background: #fff; }

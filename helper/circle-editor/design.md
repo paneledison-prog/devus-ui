@@ -1,0 +1,50 @@
+# Circle editor: Design
+
+Visual specification. Match it exactly; do not restyle from memory.
+
+## Tokens
+Use the library tokens directly.
+
+Library tokens (`src/styles/tokens.css`):
+- Colors: `--background`, `--foreground`, `--muted`, `--surface`, `--overlay`, `--separator`, `--link`
+- Accent and states: `--accent`, `--accent-foreground`, `--accent-soft`, `--accent-soft-foreground`, `--danger`, `--danger-soft`, `--warning`
+- Neutrals: `--default`, `--default-hover`, `--default-foreground`
+- Fields: `--field-background`, `--field-foreground`, `--field-placeholder`, `--field-border`, `--focus-ring`
+- Shadows: `--shadow-field`, `--shadow-surface`, `--shadow-overlay`, `--shadow-switch`
+- Space (4px scale): `--space-0-5` ... `--space-6`; radii `--radius-sm` ... `--radius-3xl`, `--radius-full`, `--radius-field`
+- Type: Inter via `--font-sans`; sizes `--text-xs`, `--text-sm`, `--text-base`, `--text-lg`; leading `--leading-sm`, `--leading-base`, `--leading-lg`
+
+## Specification
+- Drawn on a 357x773 canvas scaled to the 320px phone width; coordinates in Stickers.css are canvas pixels taken from the reference image
+- Phone frame is bare (`PhoneFrame bare height={692}`, 39px radius): the screen draws its own status bar
+- Colors and sizes are fixed by the image; text is Inter (`--font-sans`) unless noted
+
+## Typography
+- Inter (`--font-sans`). Body 14px/20px, small 12px, headings 16-18px weight 600 unless the specification above says otherwise.
+- Numbers that update use tabular figures.
+
+## States every interactive element must have
+- Default, hover, focus-visible (2px ring, `--focus-ring` or the template's own ring variable), pressed, disabled (50% opacity, `not-allowed`).
+- Selected / current state is shown with more than color (weight, outline or marker).
+
+## Light and dark
+- Follows the site theme through `[data-theme]` on `<html>`.
+- Never hard-code a color that is not defined for both themes.
+
+## Motion
+- 150-250ms ease-out for state changes. No bounce except where the specification says so.
+- Everything animated must stop under `prefers-reduced-motion: reduce`.
+
+## Bench reference
+This is the real design, measured from the running app. It is the only accepted definition of "the design is right". Do not edit it to make a failure pass.
+
+- Measured: 2026-10-05, at `/?template=circle-editor&bench=1&theme=light` and `theme=dark`, viewport 1440x900, zoom 100%.
+- Light: 11 probes. Dark: 11 probes. A probe is kept only if it measured identically in two samples taken 1.5 s apart.
+- Light row: `[key, x, y, width, height, font-size, font-weight, color, background, border-radius, text-x, text-y, text-width, text-height]`. Positions are in px relative to the top-left of `#bench-root`; the text box is the box of the element's own text (0s when it has none).
+- Dark row: `[key, color, background]`.
+- Tolerance: every position and size (element and text) +-1 px. Everything else must be identical, character for character.
+- `key` is `tag[role]|text-or-label#n` (the n-th element with that prefix, in DOM order).
+
+```json
+{"light":[["button|Delete sticker#1",34,63.5,27,27,13.3333,"400","rgb(45, 140, 240)","rgb(255, 255, 255)","50%",0,0,0,0],["button|Play#1",136,237.5,50,54,13.3333,"400","rgb(0, 0, 0)","rgba(0, 0, 0, 0)","0px",0,0,0,0],["button|Delete sticker#2",244.5,292,27,27,13.3333,"400","rgb(45, 140, 240)","rgb(255, 255, 255)","50%",0,0,0,0],["section|Sticker packs#1",2.5,572,315.5,98.5,14,"400","rgb(17, 17, 17)","rgb(255, 255, 255)","28px",0,0,0,0],["button[tab]|Sky#1",19,591.5,92.5,71.5,13.3333,"400","rgb(0, 0, 0)","rgba(0, 0, 0, 0)","22px",0,0,0,0],["button[tab]|Food#1",122,591.5,89.5,71.5,13.3333,"400","rgb(0, 0, 0)","rgba(0, 0, 0, 0)","22px",0,0,0,0],["button[tab]|Autumn#1",211.5,591.5,89.5,71.5,13.3333,"400","rgb(0, 0, 0)","rgba(0, 0, 0, 0)","22px",0,0,0,0],["p|Pause#1",0,57.5,320,18,14,"500","rgb(17, 17, 17)","rgba(0, 0, 0, 0)","0px",141.5,58.5,37,15],["span|x9#1",69,215,39.5,23.5,12,"600","rgb(255, 255, 255)","rgb(45, 134, 242)","13px",82,219.5,13,13],["span|x12#1",206,445.5,39.5,23.5,12,"600","rgb(255, 255, 255)","rgb(45, 134, 242)","13px",217,450,17.5,13],["div|.sk#1",0,0,320,692,14,"400","rgb(17, 17, 17)","rgb(255, 255, 255)","0px",0,0,0,0]],"dark":[["button|Delete sticker#1","rgb(45, 140, 240)","rgb(255, 255, 255)"],["button|Play#1","rgb(0, 0, 0)","rgba(0, 0, 0, 0)"],["button|Delete sticker#2","rgb(45, 140, 240)","rgb(255, 255, 255)"],["section|Sticker packs#1","rgb(17, 17, 17)","rgb(255, 255, 255)"],["button[tab]|Sky#1","rgb(0, 0, 0)","rgba(0, 0, 0, 0)"],["button[tab]|Food#1","rgb(0, 0, 0)","rgba(0, 0, 0, 0)"],["button[tab]|Autumn#1","rgb(0, 0, 0)","rgba(0, 0, 0, 0)"],["p|Pause#1","rgb(17, 17, 17)","rgba(0, 0, 0, 0)"],["span|x9#1","rgb(255, 255, 255)","rgb(45, 134, 242)"],["span|x12#1","rgb(255, 255, 255)","rgb(45, 134, 242)"],["div|.sk#1","rgb(17, 17, 17)","rgb(255, 255, 255)"]]}
+```
