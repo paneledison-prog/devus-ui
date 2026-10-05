@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { Button } from '../Button/Button';
 import './AiKit.css';
 
@@ -156,20 +156,78 @@ export function AutonomyPicker({ defaultValue = 'plan', onChange }: { defaultVal
 }
 
 /* ---------- Sourced answer ---------- */
-export interface Source { id: string; name: string }
-export function SourcedAnswer({ children, sources }: { children: ReactNode; sources: Source[] }) {
-  const [active, setActive] = useState<string | null>(null);
+export interface Source { id: string; name: string; /** Short type label, for example "Support thread". */ kind?: string; /** Quoted passage the answer relied on. */ excerpt?: string; /** When the source was last updated. */ updated?: string }
+
+const SourcesContext = createContext<{ sources: Source[]; open: string | null; toggle: (key: string) => void } | null>(null);
+
+function SourcePopover({ id, source, n, below = false }: { id: string; source: Source; n: number; below?: boolean }) {
   return (
-    <article className="ai-answer">
-      <p className="ai-answer__text">{children}</p>
-      <div className="ai-answer__sources" role="group" aria-label="Sources">
-        <span className="ai-muted">Sources</span>
-        {sources.map((s, i) => (
-          <button key={s.id} type="button" className="ai-chip" aria-pressed={active === s.id} onClick={() => setActive(active === s.id ? null : s.id)}><span className="ai-chip__n">{i + 1}</span>{s.name}</button>
-        ))}
+    <div className={`ai-pop${below ? ' ai-pop--below' : ''}`} id={id} role="region" aria-label={`Source ${n}: ${source.name}`}>
+      <div className="ai-pop__head">
+        <span className="ai-chip__n">{n}</span>
+        <span className="ai-pop__title">{source.name}</span>
       </div>
-    </article>
+      {source.kind && <p className="ai-pop__kind">{source.kind}</p>}
+      {source.excerpt && <blockquote className="ai-pop__quote">{source.excerpt}</blockquote>}
+      {source.updated && <p className="ai-pop__meta">Updated {source.updated}</p>}
+    </div>
   );
 }
-/** Inline citation marker to use inside <SourcedAnswer>. */
-export function Cite({ n }: { n: number }) { return <sup className="ai-cite" aria-label={`Source ${n}`}>{n}</sup>; }
+
+/** An answer with inline citations and a Sources row. Clicking a chip or a citation opens a small card with the source. */
+export function SourcedAnswer({ children, sources }: { children: ReactNode; sources: Source[] }) {
+  const [open, setOpen] = useState<string | null>(null);
+  const root = useRef<HTMLElement>(null);
+  const uid = useId();
+  const toggle = (key: string) => setOpen((cur) => (cur === key ? null : key));
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => { if (!(e.target as Element).closest?.('.ai-pop-anchor')) setOpen(null); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setOpen(null);
+      root.current?.querySelector<HTMLElement>(`[data-pop="${CSS.escape(open)}"]`)?.focus();
+    };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey); };
+  }, [open]);
+
+  return (
+    <SourcesContext.Provider value={{ sources, open, toggle }}>
+      <article className="ai-answer" ref={root}>
+        <p className="ai-answer__text">{children}</p>
+        <div className="ai-answer__sources" role="group" aria-label="Sources">
+          <span className="ai-muted">Sources</span>
+          {sources.map((s, i) => {
+            const key = `chip-${s.id}`;
+            return (
+              <span key={s.id} className="ai-pop-anchor">
+                <button type="button" className="ai-chip" data-pop={key} aria-expanded={open === key} aria-controls={`${uid}-${key}`} onClick={() => toggle(key)}>
+                  <span className="ai-chip__n">{i + 1}</span>{s.name}
+                </button>
+                {open === key && <SourcePopover id={`${uid}-${key}`} source={s} n={i + 1} below />}
+              </span>
+            );
+          })}
+        </div>
+      </article>
+    </SourcesContext.Provider>
+  );
+}
+
+/** Inline citation marker to use inside <SourcedAnswer>. Opens the same source card as its chip. */
+export function Cite({ n }: { n: number }) {
+  const ctx = useContext(SourcesContext);
+  const uid = useId();
+  const source = ctx?.sources[n - 1];
+  const key = `cite-${n}-${uid}`;
+  if (!ctx || !source) return <sup className="ai-cite-wrap"><span className="ai-cite" aria-label={`Source ${n}`}>{n}</span></sup>;
+  return (
+    <sup className="ai-cite-wrap ai-pop-anchor">
+      <button type="button" className="ai-cite" data-pop={key} aria-label={`Source ${n}: ${source.name}`} aria-expanded={ctx.open === key} aria-controls={`${uid}-pop`} onClick={() => ctx.toggle(key)}>{n}</button>
+      {ctx.open === key && <SourcePopover id={`${uid}-pop`} source={source} n={n} />}
+    </sup>
+  );
+}

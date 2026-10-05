@@ -387,8 +387,8 @@ const blockItems: BaseItem[] = [
     variants: 1,
     tileZoom: 0.8,
     defaultZoom: 1.25,
-    preview: <SourcedAnswer sources={[{ id: '1', name: 'Support thread' }, { id: '2', name: 'Changelog' }]}>The outage began after Tuesday's release.<Cite n={1} /> A fix is already in review and ships Thursday.<Cite n={2} /></SourcedAnswer>,
-    code: `<SourcedAnswer sources={[{ id: '1', name: 'Support thread' }, { id: '2', name: 'Changelog' }]}>\n  The outage began after Tuesday's release.<Cite n={1} />\n  A fix is already in review and ships Thursday.<Cite n={2} />\n</SourcedAnswer>`,
+    preview: <SourcedAnswer sources={[{ id: '1', name: 'Support thread', kind: 'Internal thread', excerpt: 'Errors started at 09:12 UTC, minutes after the 3.4 release went out.', updated: '2 hours ago' }, { id: '2', name: 'Changelog', kind: 'Release notes', excerpt: 'Sync fix merged and in review. Planned for Thursday.', updated: 'yesterday' }]}>The outage began after Tuesday's release.<Cite n={1} /> A fix is already in review and ships Thursday.<Cite n={2} /></SourcedAnswer>,
+    code: `<SourcedAnswer\n  sources={[\n    { id: '1', name: 'Support thread', kind: 'Internal thread', excerpt: 'Errors started at 09:12 UTC...', updated: '2 hours ago' },\n    { id: '2', name: 'Changelog', kind: 'Release notes', excerpt: 'Sync fix merged and in review...', updated: 'yesterday' },\n  ]}\n>\n  The outage began after Tuesday's release.<Cite n={1} />\n  A fix is already in review and ships Thursday.<Cite n={2} />\n</SourcedAnswer>`,
   },
 ];
 
