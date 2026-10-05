@@ -23,6 +23,7 @@ import { ChatCard, MilestoneCard, QrCard, PayoutCard, NavCards, ShowcaseCard, Co
 import { ApprovalCard, ThinkingSteps, ContextMeter, AutonomyPicker, SourcedAnswer, Cite } from '../../components/AiKit/AiKit';
 import { Tooltip, MagneticDock, DynamicIsland, MemberStack } from '../../components/Motion/Motion';
 import { dockItems } from '../../components/Motion/dockItems';
+import { ariaItems } from '../../components/Aria/ariaItems';
 import { PhoneFrame } from '../../components/AppUI/PhoneFrame';
 import { TabBar } from '../../components/AppUI/TabBar';
 import { AppBar } from '../../components/AppUI/AppBar';
@@ -708,6 +709,7 @@ const withCategory = (category: LibraryCategory) => (item: BaseItem): LibraryIte
 
 export const libraryItems: LibraryItem[] = [
   ...componentItems.map(withCategory('components')),
+  ...ariaItems.map(withCategory('components')),
   ...blockItems.map(withCategory('blocks')),
   ...templateItems.map(withCategory('templates')),
   ...backgroundItems.map(withCategory('backgrounds')),

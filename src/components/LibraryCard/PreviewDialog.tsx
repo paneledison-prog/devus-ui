@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button } from '../Button/Button';
 import { CodeBlock } from '../CodeBlock/CodeBlock';
 import { useCopy } from '../../hooks/useCopy';
+import { OverlayRoot } from '../Aria/overlayRoot';
 import './PreviewDialog.css';
 
 export interface PreviewDialogProps {
@@ -25,6 +26,7 @@ const ZOOMS = [0.75, 1, 1.5, 2] as const;
 
 export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, href }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
+  const [root, setRoot] = useState<Element>();
   const [tab, setTab] = useState<Tab>('preview');
   const [zoom, setZoom] = useState<number | 'fit'>(tall ? 'fit' : defaultZoom);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -53,7 +55,7 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
   const text = tab === 'code' ? code : prompt;
 
   return (
-    <dialog ref={ref} className={`ui-preview-dialog${tall ? " ui-preview-dialog--tall" : ""}`} aria-label={`${name} preview`} onClose={onClose}
+    <dialog ref={(el) => { ref.current = el; setRoot((cur) => (cur === el || !el ? cur : el)); }} className={`ui-preview-dialog${tall ? " ui-preview-dialog--tall" : ""}`} aria-label={`${name} preview`} onClose={onClose}
       onClick={(e) => { if (e.target === ref.current) onClose(); }}>
       <header className="ui-preview-dialog__header">
         <h2 className="ui-preview-dialog__title">{name}</h2>
@@ -70,7 +72,7 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
       {tab === 'preview' ? (
         <>
           <div ref={stageRef} className={`ui-preview-dialog__stage${fill ? " ui-preview-dialog__stage--fill" : ""}${tall ? " ui-preview-dialog__stage--tall" : ""}${landscape ? " ui-preview-dialog__stage--landscape" : ""}`}>
-            <div className="ui-preview-dialog__zoom" style={fill ? undefined : { zoom: zoomValue }}>{preview}</div>
+            <div className="ui-preview-dialog__zoom" style={fill ? undefined : { zoom: zoomValue }}><OverlayRoot.Provider value={root}>{preview}</OverlayRoot.Provider></div>
           </div>
           <footer className="ui-preview-dialog__footer">
             <div className="ui-preview-dialog__zooms" role="group" aria-label="Zoom" hidden={fill}>
