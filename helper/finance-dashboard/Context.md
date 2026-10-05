@@ -20,15 +20,18 @@ Public API: `FinanceHeader`, `BalanceHero`, `QuickActions`, `NegotiatorCard`, `B
 
 ## What it does
 - Eye button hides and shows the balance and today's amount
-- Bills filter: All bills / Needs action (only bills marked `urgent`)
+- Real flow: Home -> Confirm payment (bottom sheet over the dimmed, blurred screen) -> Payment sent (modal) -> Home; the bill becomes Paid and the balance drops by its amount (state machine in `examples/FinanceDashboard.tsx`)
+- Close button, scrim press or Escape closes the sheet without paying; Escape does not close a surrounding native dialog (`preventDefault`)
+- Overlay primary button is focused on open, the base screen is `inert`, and focus returns to the bill that opened the flow
+- Bills filter: All bills / Needs action (only unpaid bills marked `urgent`)
 - "Start negotiation" changes to a disabled "Request sent" state
 - Tab bar marks the pressed item with `aria-current="page"`
 - Content scrolls inside the phone; the tab bar stays pinned
 - Tab bar top edge is iOS-style: the scrolling content fades into the bar (28px gradient) and a 1px hairline fades out toward both sides, with no hard border
 
 ## Known gaps
-- Presentational: no real accounts, navigation or persistence
-- Built from the layout of a Stitch design; brand names and the photo avatar were replaced with fictional content and initials
+- No real accounts or persistence: balances and paid state reset when the preview reloads; the other tabs are not wired
+- Built from the layout of the Stitch screens (Dashboard, Confirm Payment Modal, Payment Sent); brand names and the photo avatar were replaced with fictional content and initials
 
 ## How it is wired into the library
 - The library entry is `Finance dashboard` in `src/pages/Library/libraryItems.tsx` (`sourceEntries` points at the entry file above).

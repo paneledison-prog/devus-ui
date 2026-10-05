@@ -20,6 +20,7 @@ Library tokens (`src/styles/tokens.css`):
 - Hero: accent gradient behind the status bar (white status text), fading into `--app-card-bg` by about 380px
 - Balance 30px bold with tabular figures; quick actions are white pills plus a dark square scan button
 - Cards are white (`--surface`) with a soft shadow on the gradient
+- Overlays: a `rgb(0 0 0 / .35)` scrim with a 2px blur covers the whole phone; the sheet has a 28px top radius, the success card 28px; primary buttons are dark pills (`--foreground` on `--background`), 48px tall
 
 ## Typography
 - Inter (`--font-sans`). Body 14px/20px, small 12px, headings 16-18px weight 600 unless the specification above says otherwise.

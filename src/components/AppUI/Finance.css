@@ -1,5 +1,6 @@
 /* Finance dashboard and invoice detail screens (shown in the phone frame). Devus UI tokens only. */
-.app-phone__body:has(> .fin-scroll) { padding: 0; gap: 0; overflow: hidden; }
+.app-phone__body:has(> .fin-scroll), .app-phone__body:has(> .fin-flow) { padding: 0; gap: 0; overflow: hidden; }
+.fin-flow, .fin-flow__home { flex: 1; min-height: 0; display: flex; flex-direction: column; }
 .fin-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: 0 var(--space-4) var(--space-4); display: flex; flex-direction: column; gap: var(--space-4); scrollbar-width: none; }
 .fin-scroll::-webkit-scrollbar { display: none; }
 .fin-scroll button, .fin-tabs button, .inv-actions button { font-family: inherit; }
@@ -106,3 +107,45 @@
 @media (prefers-reduced-motion: reduce) { .fin-glass, .fin-pill, .inv-btn, .fin-tabs__icon { transition: none; } }
 
 [data-theme="dark"] .inv-party__avatar { color: #f9a8d4; }
+
+/* Paid bill */
+.fin-bill:disabled { cursor: default; }
+.fin-bill--paid .fin-bill__icon, .fin-bill--paid .fin-bill__name { opacity: .55; }
+.fin-bill__paid { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); font: 600 12px/16px var(--font-sans); }
+
+/* Overlays (scrim covers the whole screen, status bar included) */
+.fin-scrim { position: absolute; inset: 0; z-index: 5; background: rgb(0 0 0 / .35); backdrop-filter: blur(2px); animation: fin-fade .18s ease-out; }
+.fin-sheet { position: absolute; z-index: 6; left: 0; right: 0; bottom: 0; padding: var(--space-5) var(--space-5) 30px; border-radius: 28px 28px 0 0; background: var(--surface); color: var(--foreground);
+  box-shadow: 0 -10px 35px rgb(0 0 0 / .25); animation: fin-rise .24s cubic-bezier(.2, .8, .2, 1); font-family: var(--font-sans); text-align: left; }
+.fin-sheet__head { position: relative; display: flex; align-items: center; justify-content: center; min-height: 32px; margin-bottom: var(--space-4); }
+.fin-sheet__title { margin: 0; font: 600 16px/22px var(--font-sans); letter-spacing: -.01em; }
+.fin-sheet__close { position: absolute; right: -4px; top: 50%; translate: 0 -50%; display: grid; place-items: center; width: 44px; height: 44px; border: 0; background: none; color: var(--muted); cursor: pointer; border-radius: 50%; }
+.fin-sheet__close::before { content: ""; position: absolute; width: 28px; height: 28px; border-radius: 50%; background: var(--default); z-index: -1; }
+.fin-sheet__close:hover { color: var(--foreground); }
+.fin-sheet__close:focus-visible, .fin-cta:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.fin-sheet__payee { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3); border-radius: 16px; background: var(--app-card-bg); font: 600 13px/18px var(--font-sans); }
+.fin-sheet__icon { width: 36px; height: 36px; border-radius: 50%; }
+.fin-sheet__icon svg { width: 16px; height: 16px; }
+.fin-sheet__sub { margin: var(--space-4) 0 var(--space-2); font: 600 13px/18px var(--font-sans); }
+.fin-sheet__rows { margin: 0; padding: var(--space-3) var(--space-4); border-radius: 16px; background: var(--app-card-bg); font: 400 13px/18px var(--font-sans); }
+.fin-sheet__rows div { display: flex; justify-content: space-between; gap: var(--space-3); padding: 5px 0; }
+.fin-sheet__rows dt { color: var(--muted); }
+.fin-sheet__rows dd { margin: 0; font-weight: 500; text-align: right; }
+.fin-sheet__total { padding-top: var(--space-2) !important; }
+.fin-sheet__total dd { font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; }
+.fin-cta { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); width: 100%; height: 48px; margin-top: var(--space-5); border: 0; border-radius: var(--radius-full); background: var(--foreground); color: var(--background); font: 600 14px/20px var(--font-sans); cursor: pointer; transition: transform .1s, opacity .15s; }
+.fin-cta:active:not(:disabled) { transform: scale(.98); }
+.fin-cta:disabled { opacity: .8; cursor: default; }
+.fin-spin { width: 14px; height: 14px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--background) 35%, transparent); border-top-color: var(--background); animation: fin-spin .7s linear infinite; }
+.fin-modal { position: absolute; z-index: 6; left: 24px; right: 24px; top: 50%; translate: 0 -50%; padding: 32px var(--space-6) var(--space-6); border-radius: 28px; background: var(--surface); color: var(--foreground);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / .3); text-align: center; animation: fin-pop .22s cubic-bezier(.2, .8, .2, 1); font-family: var(--font-sans); }
+.fin-modal__check { display: grid; place-items: center; width: 60px; height: 60px; margin: 0 auto var(--space-4); border-radius: 50%; background: var(--foreground); color: var(--background); }
+.fin-modal__check svg { width: 28px; height: 28px; stroke-width: 3; }
+.fin-modal__title { margin: 0 0 var(--space-2); font: 700 22px/28px var(--font-sans); letter-spacing: -.01em; }
+.fin-modal__text { margin: 0 auto; max-width: 230px; color: var(--muted); font: 400 14px/20px var(--font-sans); }
+.fin-modal .fin-cta { margin-top: var(--space-6); }
+@keyframes fin-fade { from { opacity: 0; } }
+@keyframes fin-rise { from { translate: 0 40px; opacity: 0; } }
+@keyframes fin-pop { from { opacity: 0; scale: .96; } }
+@keyframes fin-spin { to { rotate: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .fin-scrim, .fin-sheet, .fin-modal { animation: none; } .fin-spin { animation-duration: 2s; } }

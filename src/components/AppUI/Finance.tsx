@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode, type Ref } from 'react';
 import { Avatar } from '../Avatar/Avatar';
 import { Badge } from '../Badge/Badge';
 import { BellIcon, SearchIcon } from './icons';
@@ -31,6 +31,7 @@ export const DownloadIcon = () => <I size={16}><path d="M12 4v11M7.5 11 12 15.5 
 export const ShareIcon = () => <I size={16}><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="6" r="2.5" /><circle cx="18" cy="18" r="2.5" /><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6" /></I>;
 export const DotsIcon = () => <I fill><circle cx="12" cy="5" r="1.7" /><circle cx="12" cy="12" r="1.7" /><circle cx="12" cy="19" r="1.7" /></I>;
 export const CheckIcon = () => <I size={16}><path d="m5 12.5 4.5 4.5L19 7" /></I>;
+export const CloseIcon = () => <I size={14}><path d="M6 6l12 12M18 6 6 18" /></I>;
 
 /* ---------- Dashboard pieces ---------- */
 /** Greeting row on the blue hero: avatar, greeting and two glass icon buttons. */
@@ -94,12 +95,12 @@ export function NegotiatorCard({ children }: { children: ReactNode }) {
   );
 }
 
-export interface Bill { id: string; name: string; due: string; amount: string; icon: ReactNode; tone: 'blue' | 'amber' | 'sky'; urgent?: boolean }
+export interface Bill { id: string; name: string; due: string; amount: string; icon: ReactNode; tone: 'blue' | 'amber' | 'sky'; urgent?: boolean; /** Who is paid, for example "FiberLink". */ payee?: string }
 
-/** Bills with an All / Needs action filter. */
-export function BillList({ bills }: { bills: Bill[] }) {
+/** Bills with an All / Needs action filter. Rows open a payment when `onOpen` is given; paid bills are marked and not pressable. */
+export function BillList({ bills, onOpen, paidIds = [] }: { bills: Bill[]; onOpen?: (id: string) => void; paidIds?: string[] }) {
   const [filter, setFilter] = useState<'all' | 'action'>('all');
-  const shown = filter === 'all' ? bills : bills.filter((b) => b.urgent);
+  const shown = filter === 'all' ? bills : bills.filter((b) => b.urgent && !paidIds.includes(b.id));
   return (
     <section className="fin-bills" aria-labelledby="fin-bills-title">
       <h2 className="fin-bills__title" id="fin-bills-title">Bills &amp; payments</h2>
@@ -108,18 +109,71 @@ export function BillList({ bills }: { bills: Bill[] }) {
         <button type="button" aria-pressed={filter === 'action'} onClick={() => setFilter('action')}>Needs action</button>
       </div>
       <ul className="fin-bills__list">
-        {shown.map((b) => (
-          <li key={b.id}>
-            <button type="button" className="fin-bill">
-              <span className={`fin-bill__icon fin-bill__icon--${b.tone}`}>{b.icon}</span>
-              <span className="fin-bill__text"><span className="fin-bill__name">{b.name}</span><span className="fin-bill__due">{b.due}</span></span>
-              <span className="fin-bill__amount">{b.amount}</span>
-            </button>
-          </li>
-        ))}
+        {shown.map((b) => {
+          const paid = paidIds.includes(b.id);
+          return (
+            <li key={b.id}>
+              <button type="button" className={`fin-bill${paid ? ' fin-bill--paid' : ''}`} data-bill={b.id} disabled={paid} onClick={() => onOpen?.(b.id)}>
+                <span className={`fin-bill__icon fin-bill__icon--${b.tone}`}>{b.icon}</span>
+                <span className="fin-bill__text"><span className="fin-bill__name">{b.name}</span><span className="fin-bill__due">{paid ? 'Paid just now' : b.due}</span></span>
+                <span className="fin-bill__amount">{paid ? <span className="fin-bill__paid"><CheckIcon />Paid</span> : b.amount}</span>
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );
+}
+
+/* ---------- Payment flow: confirm sheet and success modal ---------- */
+/** Bottom sheet that asks to confirm a payment. Dims and blurs the screen behind it. */
+export function ConfirmPaymentSheet({ bill, from, busy, onConfirm, onClose }: { bill: Bill; from: string; busy: boolean; onConfirm: () => void; onClose: () => void }) {
+  return (
+    <>
+      <div className="fin-scrim" onClick={onClose} aria-hidden="true" />
+      <section className="fin-sheet" role="dialog" aria-modal="true" aria-labelledby="fin-sheet-title">
+        <header className="fin-sheet__head">
+          <h2 className="fin-sheet__title" id="fin-sheet-title">Confirm payment</h2>
+          <button type="button" className="fin-sheet__close" aria-label="Close" onClick={onClose}><CloseIcon /></button>
+        </header>
+        <div className="fin-sheet__payee">
+          <span className={`fin-bill__icon fin-bill__icon--${bill.tone} fin-sheet__icon`}>{bill.icon}</span>
+          <span>{bill.name} bill pay</span>
+        </div>
+        <h3 className="fin-sheet__sub">Summary</h3>
+        <dl className="fin-sheet__rows">
+          <div><dt>Paying</dt><dd>{bill.name}</dd></div>
+          <div><dt>From</dt><dd>{from}</dd></div>
+          <div><dt>Fee</dt><dd>$0.00</dd></div>
+          <div className="fin-sheet__total"><dt>Total</dt><dd>{bill.amount.replace('$', '')} USD</dd></div>
+        </dl>
+        <button type="button" className="fin-cta" onClick={onConfirm} disabled={busy} aria-busy={busy} autoFocus>
+          {busy ? <><span className="fin-spin" aria-hidden="true" />Confirming…</> : 'Confirm payment'}
+        </button>
+      </section>
+    </>
+  );
+}
+
+/** Centered success card shown after a payment is sent. */
+export function PaymentSentModal({ payee, onDone }: { payee: string; onDone: () => void }) {
+  return (
+    <>
+      <div className="fin-scrim" aria-hidden="true" />
+      <section className="fin-modal" role="alertdialog" aria-modal="true" aria-labelledby="fin-sent-title" aria-describedby="fin-sent-text">
+        <span className="fin-modal__check" aria-hidden="true"><CheckIcon /></span>
+        <h2 className="fin-modal__title" id="fin-sent-title">Payment sent</h2>
+        <p className="fin-modal__text" id="fin-sent-text">Your payment to {payee} has been sent successfully.</p>
+        <button type="button" className="fin-cta" onClick={onDone} autoFocus>Go home</button>
+      </section>
+    </>
+  );
+}
+
+/** Wrapper for a screen flow inside the phone: the base screen plus overlays. */
+export function FinanceFlow({ children, ref }: { children: ReactNode; ref?: Ref<HTMLDivElement> }) {
+  return <div className="fin-flow" ref={ref}>{children}</div>;
 }
 
 /** Bottom navigation with a dark pill on the active item. */

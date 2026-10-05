@@ -557,21 +557,12 @@ const appItems: BaseItem[] = [
   },
   {
     name: 'Finance dashboard',
-    variants: 2,
+    variants: 3,
     ...phoneProps,
     preview: <FinanceDashboardExample />,
     sourceEntries: [{ path: 'src/components/AppUI/examples/FinanceDashboard.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
     helper: 'finance-dashboard',
-    code: `<PhoneFrame hero>
-  <FinanceScroll>
-    <FinanceHeader name="Ethan Carter" initials="EC" />
-    <BalanceHero amount="$124,892.65" change="+8.42%" changeAmount="+$9,684.20" />
-    <QuickActions />
-    <NegotiatorCard>We found a way to cut your fiber internet bill by <strong>$12/month</strong>.</NegotiatorCard>
-    <BillList bills={bills} />
-  </FinanceScroll>
-  <FinanceTabs items={tabs} />
-</PhoneFrame>`,
+    code: `// Home -> Confirm payment (sheet) -> Payment sent (modal) -> Home\n<PhoneFrame hero>\n  <FinanceFlow>\n    <div className="fin-flow__home" inert={step !== 'home'}>\n      <FinanceScroll>\n        <FinanceHeader name="Ethan Carter" initials="EC" />\n        <BalanceHero amount={usd(balance)} change="+8.42%" changeAmount="+$9,684.20" />\n        <QuickActions />\n        <BillList bills={bills} onOpen={open} paidIds={paid} />\n      </FinanceScroll>\n      <FinanceTabs items={tabs} />\n    </div>\n    {step === 'confirm' && <ConfirmPaymentSheet bill={bill} from="Nimbus checking …4821" busy={busy} onConfirm={confirm} onClose={backHome} />}\n    {step === 'sent' && <PaymentSentModal payee={bill.payee} onDone={backHome} />}\n  </FinanceFlow>\n</PhoneFrame>`,
   },
   {
     name: 'Invoice detail',
