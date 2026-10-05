@@ -1,0 +1,25 @@
+/* moimoi sign-in screen. A 558x1208 canvas scaled to the 320px phone (320 / 558). */
+.mm { position: relative; width: 558px; height: 1208px; zoom: 0.573477; overflow: hidden; background: #f6f3ef; color: #111; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
+.mm * { box-sizing: border-box; }
+.mm p, .mm h1 { margin: 0; }
+.mm button { font-family: inherit; }
+.mm::before { content: ''; position: absolute; left: 0; top: 0; width: 558px; height: 758px; background: linear-gradient(180deg, #f5f1fb 0%, #e9f2fb 35%, #dcefff 100%); }
+
+.mm-status { position: absolute; z-index: 20; left: 0; top: 0; width: 558px; height: 90px; color: #000; pointer-events: none; }
+.mm-status__island { position: absolute; left: 190px; top: 16px; width: 176px; height: 52px; border-radius: 26px; background: #000; }
+.mm-status__island i { position: absolute; right: 18px; top: 14px; width: 24px; height: 24px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #151a26 0 35%, #05070c 70%); box-shadow: 0 0 0 2px #0b0d12; }
+.mm-status__time { position: absolute; left: 72px; top: 27px; font: 700 25px/32px var(--font-sans); letter-spacing: .01em; }
+.mm-status__signal { position: absolute; left: 401px; top: 33px; }
+.mm-status__wifi { position: absolute; left: 442px; top: 33px; }
+.mm-status__battery { position: absolute; left: 475px; top: 33px; }
+
+.mm-wordmark { position: absolute; left: 0; top: 110px; display: block; }
+.mm-cast { position: absolute; left: 0; top: 0; display: block; }
+.mm-panel { position: absolute; left: 0; top: 758px; width: 558px; height: 450px; background: #f6f3ef; }
+.mm-panel__lead { position: absolute; left: 0; right: 0; top: 56px; text-align: center; font: 400 22px/28px var(--font-sans); letter-spacing: -.005em; color: #4a4a4c; }
+.mm-btn { position: absolute; left: 33px; width: 468px; height: 70px; display: flex; align-items: center; justify-content: center; gap: 22px; padding: 0 0 0 0; border: 0; border-radius: 35px; font: 600 25px/30px var(--font-sans); letter-spacing: -.01em; }
+.mm-btn--google { top: 118px; background: #fff; color: #111; box-shadow: 0 8px 20px rgb(60 50 30 / .08); }
+.mm-btn--apple { top: 222px; height: 69px; background: #000; color: #fff; }
+.mm-btn--google span { margin-left: -2px; }
+.mm-btn:focus-visible { outline: 4px solid #4c8df6; outline-offset: 3px; }
+.mm-home { position: absolute; z-index: 30; left: 180px; top: 1190px; width: 198px; height: 6px; border-radius: 3px; background: #000; }

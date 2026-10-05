@@ -42,6 +42,7 @@ import { InvoiceDetailExample } from '../../components/AppUI/examples/InvoiceDet
 import { PremiumPaywallExample } from '../../components/AppUI/examples/PremiumPaywall';
 import { NexusHomeExample } from '../../components/AppUI/examples/NexusHome';
 import { MusicWidget, NavigationWidget, CallWidget, HeartRateWidget, ProgressRingWidget, AlarmWidget } from '../../components/Widgets/Widgets';
+import { MoimoiSignInExample } from '../../components/AppUI/examples/MoimoiSignIn';
 import { NexusTodayExample } from '../../components/AppUI/examples/NexusToday';
 import { NexusDailyExample } from '../../components/AppUI/examples/NexusDaily';
 import { NexusCoursesExample } from '../../components/AppUI/examples/NexusCourses';
@@ -725,6 +726,16 @@ const appItems: BaseItem[] = [
   <h2 className="nx-h2">Science & Engineering</h2>
   <ChallengeCard top={804} tone="green" chip="8,240 People" art={<FeltV />} />
 </NexusCanvas>`,
+  },
+  {
+    name: 'Moimoi sign in',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <MoimoiSignInExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/MoimoiSignIn.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'moimoi-sign-in',
+    code: `<MoimoiCanvas>\n  <Cast />\n  <Wordmark />\n  <MoimoiStatusBar />\n  <SignInPanel />\n</MoimoiCanvas>`,
   },
 ];
 
