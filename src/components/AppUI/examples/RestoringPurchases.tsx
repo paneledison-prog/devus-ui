@@ -20,7 +20,8 @@ export function RestoringPurchasesExample() {
         <h1 className="pw__title pw__title--restoring">Restoring Purchases</h1>
         <p className="pw__sub pw__sub--restoring">Just a sec &mdash; restoring<br />what&rsquo;s yours</p>
         <svg className="pw-spinner" width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" role="status" aria-label="Restoring purchases">
-          <circle cx="20" cy="20" r="15" strokeDasharray="78 16" transform="rotate(-100 20 20)" />
+          <circle cx="20" cy="20" r="15" stroke="rgb(255 255 255 / .3)" />
+          <circle cx="20" cy="20" r="15" strokeDasharray="28 66.2" transform="rotate(-90 20 20)" />
         </svg>
         <PayStatusBar />
         <PayHomeBar />

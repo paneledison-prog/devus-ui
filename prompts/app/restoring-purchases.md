@@ -20,7 +20,7 @@ Drawn on the same 446x970 canvas as the paywall (`PayCanvas`, scaled to the phon
 - Clay flower ring: small white/cream clay flower-shaped frame with a tilted rounded-square hole, about 112px, centered at x 220, y 616.
 - Title: "Restoring Purchases", white, 28px/34px, weight 600, centered at y 728.
 - Subtitle: "Just a sec - restoring" / "what's yours" (with an em dash), white at 60%, 17px/22px, centered at y 770 and 792.
-- Spinner ring: thin white circle about 36px with a small gap (about 300 degrees of arc), centered at x 222, y 859. It turns continuously (one turn per second, slowed to 2.8s when reduced motion is requested); this is the only motion on the screen.
+- Spinner ring: about 36px, centered at x 222, y 859. A full muted ring (white at 30%) with a white arc (about 110 degrees) that turns on top of it. The arc turns continuously (one turn per second, slowed to 2.8s when reduced motion is requested); this is the only motion on the screen.
 - Home indicator: 154x5 white bar at the bottom center.
 
 ## Rules
