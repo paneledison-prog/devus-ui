@@ -45,7 +45,7 @@ export function AriaSelect({ label, options, placeholder = 'Choose one', default
 export function AriaComboBox({ label, options, placeholder = 'Type to search' }: { label: string; options: Option[]; placeholder?: string }) {
   const root = useRoot();
   return (
-    <ComboBox className="ra-field" defaultItems={options}>
+    <ComboBox className="ra-field" defaultItems={options} allowsEmptyCollection>
       <Label className="ra-label">{label}</Label>
       <div className="ra-input-wrap">
         <Input className="ra-input" placeholder={placeholder} />
