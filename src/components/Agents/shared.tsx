@@ -1,7 +1,28 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import './Agents.css';
+import avatarA1 from './assets/avatars/a1.webp';
+import avatarA2 from './assets/avatars/a2.webp';
+import avatarA3 from './assets/avatars/a3.webp';
+import avatarA4 from './assets/avatars/a4.webp';
+import avatarA5 from './assets/avatars/a5.webp';
+import avatarA6 from './assets/avatars/a6.webp';
+import avatarA7 from './assets/avatars/a7.webp';
+import avatarA8 from './assets/avatars/a8.webp';
+import avatarMe from './assets/avatars/me.webp';
+import avatarTeam from './assets/avatars/team.webp';
 
 export type Theme = 'light' | 'dark';
+
+/** Portrait avatars (own 3D-style artwork supplied for the project). `avatarFor` gives the same face for the same name. */
+const POOL = [avatarA1, avatarA2, avatarA3, avatarA4, avatarA5, avatarA6, avatarA7, avatarA8];
+export const avatarFor = (name: string) => POOL[[...name].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7) % POOL.length];
+export const AVATAR_ME = avatarMe;
+export const AVATAR_TEAM = avatarTeam;
+
+/** A round portrait. */
+export function Face({ src, size = 28, alt = '' }: { src: string; size?: number; alt?: string }) {
+  return <img className="ag-avatar ag-avatar--img" src={src} alt={alt} width={size} height={size} style={{ width: size, height: size }} draggable={false} />;
+}
 
 export function I({ d, size = 16 }: { d: ReactNode; size?: number }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{d}</svg>;

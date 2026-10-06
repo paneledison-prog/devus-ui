@@ -90,3 +90,5 @@
 .pw-prompt:focus-within, .ba-composer:focus-within { outline: 2px solid color-mix(in srgb, var(--a-accent) 50%, transparent); outline-offset: 1px; }
 .pw-prompt, .ba-composer { transition: outline-color .2s ease; }
 .ag textarea { caret-color: var(--a-accent); }
+
+.ag-avatar--img { object-fit: cover; background: var(--a-soft); box-shadow: 0 0 0 1px var(--a-line); display: block; }

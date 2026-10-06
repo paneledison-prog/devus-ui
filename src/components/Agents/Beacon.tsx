@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { I, ic, Root, ThemeSwitch, useDemoTheme, useOutside, useToast, type Theme } from './shared';
+import { AVATAR_TEAM, avatarFor, Face, I, ic, Root, ThemeSwitch, useDemoTheme, useOutside, useToast, type Theme } from './shared';
 import './Beacon.css';
 
 /* ---------- Data (all fictional) ---------- */
@@ -83,10 +83,10 @@ export function BeaconDemo({ startAt = 'list', defaultTheme }: BeaconDemoProps) 
           <button className="bc-brand" onClick={() => setOpen(null)} aria-label="Beacon Intelligence home"><span className="bc-mark">{ic.spark}</span>Beacon</button>
           <button className="bc-search" onClick={openPalette}>{ic.search}<span className="ag-grow">Search companies, people, investors</span><span className="ag-kbd">Ctrl K</span></button>
           <div style={{ position: 'relative' }} ref={menuRef}>
-            <button className="bc-ws" aria-haspopup="menu" aria-expanded={menu} onClick={() => setMenu((m) => !m)}><span className="ag-avatar" style={{ background: '#3b6fe0', width: 24, height: 24 }}>NG</span>Northgate<I size={14} d={<path d="m6 9 6 6 6-6" />} /></button>
+            <button className="bc-ws" aria-haspopup="menu" aria-expanded={menu} onClick={() => setMenu((m) => !m)}><Face src={AVATAR_TEAM} size={24} />Northgate<I size={14} d={<path d="m6 9 6 6 6-6" />} /></button>
             {menu ? (
               <div className="ag-pop" role="menu" style={{ right: 0, top: 40, width: 260 }}>
-                <div className="ag-row" style={{ padding: '8px 10px' }}><span className="ag-avatar" style={{ background: '#3b6fe0' }}>NG</span><div><b>Northgate team</b><div className="ag-muted">6 seats · Research plan</div></div></div>
+                <div className="ag-row" style={{ padding: '8px 10px' }}><Face src={AVATAR_TEAM} size={28} /><div><b>Northgate team</b><div className="ag-muted">6 seats · Research plan</div></div></div>
                 <hr />
                 <div className="ag-row" style={{ padding: '4px 10px', justifyContent: 'space-between' }}><span>Appearance</span><ThemeSwitch theme={theme} setTheme={setTheme} /></div>
                 <div className="ag-row" style={{ padding: '8px 10px', justifyContent: 'space-between' }}><span>Weekly signal email</span><button type="button" role="switch" aria-checked={alertsOn} aria-label="Weekly signal email" className="ag-switch" data-on={alertsOn} onClick={() => setAlertsOn(!alertsOn)}><span /></button></div>
@@ -109,7 +109,7 @@ export function BeaconDemo({ startAt = 'list', defaultTheme }: BeaconDemoProps) 
             <div className="bc-grid">
               <section className="ag-card bc-panel"><h3>Funding rounds</h3><p className="ag-muted">${co.funding}M raised in total</p><FundingChart rounds={co.rounds} color={co.color} /></section>
               <section className="ag-card bc-panel"><h3>Growth signals</h3><p className="ag-muted">Score {co.growth} / 100</p><div className="ag-bar" style={{ margin: '10px 0 14px' }}><i style={{ width: `${co.growth}%` }} /></div><ul className="bc-list">{co.signals.map((s) => <li key={s}><span className="bc-dot" />{s}</li>)}</ul></section>
-              <section className="ag-card bc-panel"><h3>People</h3><ul className="bc-list">{co.people.map((p) => <li key={p}><span className="ag-avatar" style={{ background: co.color }}>{initials(p)}</span>{p}<span className="ag-pill" style={{ marginLeft: 'auto' }}>Founder</span></li>)}<li><span className="ag-avatar" style={{ background: 'var(--a-muted)' }}>+</span><span className="ag-muted">{co.staff} employees</span></li></ul></section>
+              <section className="ag-card bc-panel"><h3>People</h3><ul className="bc-list">{co.people.map((p) => <li key={p}><Face src={avatarFor(p)} size={28} />{p}<span className="ag-pill" style={{ marginLeft: 'auto' }}>Founder</span></li>)}<li><span className="ag-avatar" style={{ background: 'var(--a-muted)' }}>+</span><span className="ag-muted">{co.staff} employees</span></li></ul></section>
               <section className="ag-card bc-panel"><h3>Investors</h3><ul className="bc-list">{co.investors.map((v) => <li key={v}><span className="bc-inv">{ic.building}</span>{v}</li>)}</ul></section>
             </div>
           </div>

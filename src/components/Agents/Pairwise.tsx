@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ic, Modal, Root, ThemeSwitch, Toggle, useDemoTheme, useOutside, useToast, type Theme } from './shared';
+import { AVATAR_ME, Face, ic, Modal, Root, ThemeSwitch, Toggle, useDemoTheme, useOutside, useToast, type Theme } from './shared';
 import './Pairwise.css';
 
 type Stage = 'signin' | 'app';
@@ -123,7 +123,7 @@ export function PairwiseDemo({ startAt = 'signin', defaultTheme }: PairwiseDemoP
               </div>
             ) : null}
           </div>
-          <span className="ag-avatar" style={{ background: '#d9822b' }} title={email || 'demo'}>{(email || 'D')[0].toUpperCase()}</span>
+          <Face src={AVATAR_ME} size={28} alt={email || 'demo'} />
         </header>
 
         {view === 'build' ? (
