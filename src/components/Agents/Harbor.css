@@ -61,3 +61,23 @@
 .hb-composer .ag-row > div > .ag-btn--ghost[aria-expanded="true"] svg { transform: rotate(180deg); opacity: 1; }
 .hb-composer .ag-row > .ag-btn--ghost:focus-visible, .hb-composer .ag-row > div > .ag-btn--ghost:focus-visible { outline: 2px solid var(--a-focus, #2d8cf0); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .hb-composer .ag-row .ag-btn--ghost, .hb-composer .ag-row .ag-btn--ghost svg { transition: none; } }
+
+/* Sidebar footer: a segmented Light / Dark control with a sliding thumb, and a refined Getting started row. */
+.hb-theme .ag-seg { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: 100%; height: 38px; padding: 3px; border-radius: 12px;
+  background: color-mix(in srgb, var(--a-text) 5%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a-text) 7%, transparent); }
+.hb-theme .ag-seg::before { content: ""; position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 9px; background: var(--a-bg);
+  box-shadow: 0 1px 2px rgb(0 0 0 / .14), 0 0 0 1px color-mix(in srgb, var(--a-text) 8%, transparent); transition: transform .32s cubic-bezier(.3, 1.25, .5, 1); }
+.hb-theme .ag-seg:has(button:last-child[aria-pressed="true"])::before { transform: translateX(100%); }
+.hb-theme .ag-seg button { position: relative; z-index: 1; height: auto; border-radius: 9px; font-weight: 500; cursor: pointer; transition: color .2s ease; }
+.hb-theme .ag-seg button[aria-pressed="true"] { background: none; box-shadow: none; color: var(--a-text); }
+.hb-theme .ag-seg button:not([aria-pressed="true"]):hover { color: var(--a-text); }
+.hb-theme .ag-seg button:focus-visible { outline: 2px solid var(--a-focus, #2d8cf0); outline-offset: -2px; }
+.hb-theme .ag-seg button svg { transition: transform .3s cubic-bezier(.3, 1.4, .5, 1); }
+.hb-theme .ag-seg button[aria-pressed="true"] svg { transform: rotate(18deg) scale(1.08); }
+.hb-gsbtn { height: 40px; border-radius: 12px; font-weight: 500; background: color-mix(in srgb, var(--a-text) 4%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a-text) 7%, transparent); transition: background-color .15s ease, box-shadow .15s ease, transform .12s ease; }
+.hb-gsbtn:hover { background: color-mix(in srgb, var(--a-text) 7%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a-text) 14%, transparent); }
+.hb-gsbtn:active { transform: scale(.985); }
+.hb-gsbtn:focus-visible { outline: 2px solid var(--a-focus, #2d8cf0); outline-offset: 2px; }
+.hb-gsbtn > svg { color: var(--a-accent, #2d6cf0); }
+.hb-gsbtn .ag-pill { font-variant-numeric: tabular-nums; font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .hb-theme .ag-seg::before, .hb-theme .ag-seg button, .hb-theme .ag-seg button svg, .hb-gsbtn { transition: none; } }
