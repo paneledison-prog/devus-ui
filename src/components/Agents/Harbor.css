@@ -81,3 +81,10 @@
 .hb-gsbtn > svg { color: var(--a-accent, #2d6cf0); }
 .hb-gsbtn .ag-pill { font-variant-numeric: tabular-nums; font-weight: 600; }
 @media (prefers-reduced-motion: reduce) { .hb-theme .ag-seg::before, .hb-theme .ag-seg button, .hb-theme .ag-seg button svg, .hb-gsbtn { transition: none; } }
+
+/* Composer focus: no hard box around the text field; the whole composer lights up with a soft ring instead. */
+.hb-composer textarea:focus, .hb-composer textarea:focus-visible { outline: none; box-shadow: none; }
+.hb-composer { transition: box-shadow .2s ease; }
+.hb-composer:focus-within { box-shadow: var(--a-shadow), 0 0 0 1px color-mix(in srgb, var(--a-accent, #4d8dff) 55%, transparent), 0 0 0 4px color-mix(in srgb, var(--a-accent, #4d8dff) 18%, transparent); }
+.hb-composer textarea { caret-color: var(--a-accent, #4d8dff); }
+@media (prefers-reduced-motion: reduce) { .hb-composer { transition: none; } }

@@ -175,6 +175,7 @@ iOS-style messaging demo in the Liquid Glass look, inspired by github.com/Applla
 - Next: edison round 2 from untouched sources; shader backgrounds on request; Pricing page when asked.
 
 ## Changelog
+- 2026-10-06: Harbor composer focus: the text field no longer shows the global hard `.ag :focus-visible` rectangle; the whole composer gets a soft accent ring on `:focus-within` (and the caret is accent colored).
 - 2026-10-06: Harbor sidebar footer: the Light / Dark control is now a segmented control with a sliding thumb (`:has()` on the pressed button, spring easing, the active icon tilts) and the Getting started row has a hairline, hover and press states and an accent bolt. Scoped to `.hb-theme` / `.hb-gsbtn`, so other templates that use `.ag-seg` are unchanged.
 - 2026-10-06: AI platform demo (Harbor): the model picker and Attach buttons in the composer are now soft pills (hairline ring from `--a-text` at 10%, hover and open states, chevron turns when the list is open). Bench reference of ai-platform-demo still needs re-measuring at 1440x900.
 - 2026-10-06: Added 36 more image backgrounds from the user's folder (pictures, halftone mountain ridges in several colors, gradients, abstract textures), WebP at quality 84 and at most 1600 px. Duplicates were checked first: 42 listed files, no identical files, 1 already in the library (a copy of Peach bloom) and 5 more that are the same picture in nearly the same color as one that was kept were left out. Backgrounds are 56, the library is 173 items.
