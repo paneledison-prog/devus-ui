@@ -609,6 +609,24 @@ const backgroundItems: BaseItem[] = [
   background-size: 96px 64px, 96px 64px, 100% 100%;
 }`,
   },
+  {
+    name: 'Honey ember',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#fffdf7', backgroundImage: 'radial-gradient(circle at center, rgb(120 53 15 / .034) 1px, transparent 1px), radial-gradient(42% 42% at 29% 21%, rgb(251 191 36 / .78), transparent), radial-gradient(38% 38% at 77% 39%, rgb(245 158 11 / .7), transparent), radial-gradient(40% 40% at 45% 89%, rgb(251 146 60 / .58), transparent), radial-gradient(34% 34% at 52% 82%, rgb(254 202 202 / .68), transparent)', backgroundSize: '4px 4px, 100% 100%, 100% 100%, 100% 100%, 100% 100%' }} />,
+    code: `.bg-honey-ember {
+  background-color: #fffdf7;
+  background-image:
+    radial-gradient(circle at center, rgb(120 53 15 / .034) 1px, transparent 1px),
+    radial-gradient(42% 42% at 29% 21%, rgb(251 191 36 / .78), transparent),
+    radial-gradient(38% 38% at 77% 39%, rgb(245 158 11 / .7), transparent),
+    radial-gradient(40% 40% at 45% 89%, rgb(251 146 60 / .58), transparent),
+    radial-gradient(34% 34% at 52% 82%, rgb(254 202 202 / .68), transparent);
+  background-size: 4px 4px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+}`,
+  },
 ];
 
 const phoneProps = { tall: true, tileZoom: 0.55, defaultZoom: 0.75 } as const;
