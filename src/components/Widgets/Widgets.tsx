@@ -1,5 +1,6 @@
 import { useId, type ReactNode } from 'react';
 import './Widgets.css';
+import './Motion.css';
 import guitarist from './assets/guitarist.jpg';
 import portrait from './assets/portrait.jpg';
 import streetMap from './assets/street-map.svg';
@@ -7,7 +8,7 @@ import streetMap from './assets/street-map.svg';
 /* Six 305x360 glance widgets. The photos and the street map are generated assets (see assets/README.md). */
 
 function Tile({ children, label, className = '' }: { children: ReactNode; label: string; className?: string }) {
-  return <section className={`wg ${className}`} aria-label={label}>{children}</section>;
+  return <section className={`wg ${className}`} aria-label={label} data-still={new URLSearchParams(window.location.search).get('bench') === '1' || undefined}>{children}</section>;
 }
 
 /** Music player: cover photo, title, artist and transport controls. */

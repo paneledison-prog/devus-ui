@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { TiltButton, useFling, useHold, useLongPress, usePinch, useScrub, useSwipe, useTiltAuto } from '../AppUI/gestures';
 import './Board.css';
+import './Motion.css';
 import man from './assets/board/man.jpg';
 import street from './assets/board/street.jpg';
 import cat from './assets/board/cat.png';
@@ -18,7 +19,7 @@ import lamp from './assets/board/lamp.png';
 const frozen = () => new URLSearchParams(window.location.search).get('bench') === '1';
 
 function Tile({ className, label, children, onClick, hostRef, bind }: { className: string; label: string; children: ReactNode; onClick?: () => void; hostRef?: { current: HTMLElement | null }; bind?: object }) {
-  return <section ref={(el) => { if (hostRef) hostRef.current = el; }} className={`wd ${className}`} aria-label={label} onClick={onClick} {...bind}>{children}</section>;
+  return <section ref={(el) => { if (hostRef) hostRef.current = el; }} className={`wd ${className}`} aria-label={label} data-still={frozen() || undefined} onClick={onClick} {...bind}>{children}</section>;
 }
 
 /* 1. weather */
