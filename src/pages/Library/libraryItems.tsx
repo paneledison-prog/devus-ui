@@ -581,6 +581,18 @@ const backgroundItems: BaseItem[] = [
   background-image: radial-gradient(125% 125% at 50% 10%, #fff 40%, #6633ee 100%);
 }`,
   },
+  {
+    name: 'Violet night',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundImage: 'radial-gradient(125% 125% at 50% 10%, #000 40%, #6633ee 100%)' }} />,
+    code: `.bg-violet-night {
+  background-color: #000;
+  background-image: radial-gradient(125% 125% at 50% 10%, #000 40%, #6633ee 100%);
+}`,
+  },
 ];
 
 const phoneProps = { tall: true, tileZoom: 0.55, defaultZoom: 0.75 } as const;
