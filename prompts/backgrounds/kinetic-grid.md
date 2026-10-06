@@ -4,13 +4,13 @@ Build a React + TypeScript `<KineticGrid>` interactive background for Devus UI, 
 
 ## Look
 
-A deep indigo-black canvas (radial vignette from `#0f0e1c` to `#040408`) with a fine grid (28 px): faint white lines, a brighter major line every fourth line, and a small dot on every intersection (larger on the major ones). The grid bends toward the pointer, a soft violet light (`132, 104, 255`) follows it, and the lines and dots near it glow. While nobody is pointing, the light drifts across the grid on its own. Every click or tap sends a ripple through the grid: a ring that travels outward at about 440 px per second, pushing the lines, drawing a thin violet ring and fading out after about 1.6 s. Frame: 16:10 landscape, 1px white border, 24px radius.
+A near-black canvas (`#040507`) with a soft radial tint of the glow color (12% at the center fading to nothing) with a fine grid (28 px): faint white lines, a brighter major line every fourth line, and a small dot on every intersection (larger on the major ones). The grid bends toward the pointer, a soft emerald light (`45, 212, 170`) follows it, and the lines and dots near it glow. While nobody is pointing, the light drifts across the grid on its own. Every click or tap sends a ripple through the grid: a ring that travels outward at about 440 px per second, pushing the lines, drawing a thin ring in the glow color and fading out after about 1.6 s. Frame: 16:10 landscape, 1px white border, 24px radius.
 
 ## Props
 
 - `spacing?`: grid spacing in px (default 28)
 - `reach?`: radius of the pointer pull in px (default 190)
-- `color?`: glow color as `"r, g, b"` (default `"132, 104, 255"`)
+- `color?`: glow color as `"r, g, b"` (default `"45, 212, 170"`)
 
 ## Behavior and requirements
 

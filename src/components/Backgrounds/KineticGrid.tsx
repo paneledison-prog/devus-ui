@@ -16,7 +16,7 @@ type Pt = { x: number; y: number; glow: number };
  * and sends a ripple through the grid on every click or tap. While nobody is pointing, a soft light drifts across it on its own.
  * It fills its parent. With reduced motion it draws a still grid.
  */
-export function KineticGrid({ spacing = 28, reach = 190, color = '132, 104, 255' }: KineticGridProps) {
+export function KineticGrid({ spacing = 28, reach = 190, color = '45, 212, 170' }: KineticGridProps) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -141,7 +141,7 @@ export function KineticGrid({ spacing = 28, reach = 190, color = '132, 104, 255'
   return (
     <canvas
       ref={ref} aria-hidden="true"
-      style={{ position: 'absolute', inset: 0, display: 'block', touchAction: 'pan-y', background: 'radial-gradient(120% 90% at 50% 38%, #0f0e1c 0%, #08080f 55%, #040408 100%)' }}
+      style={{ position: 'absolute', inset: 0, display: 'block', touchAction: 'pan-y', background: `radial-gradient(120% 90% at 50% 38%, rgba(${color}, 0.12) 0%, rgba(${color}, 0.03) 55%, transparent 100%), #040507` }}
     />
   );
 }
