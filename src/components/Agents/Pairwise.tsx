@@ -20,6 +20,12 @@ const DIFF = [
   { t: ' ', s: 'function retry(fn, tries = 3) {' }, { t: '-', s: '  return fn();' }, { t: '+', s: '  for (let i = 0; i < tries; i++) {' }, { t: '+', s: '    try { return await fn(); } catch (e) { if (i === tries - 1) throw e; }' }, { t: '+', s: '  }' }, { t: ' ', s: '}' },
 ];
 const HISTORY = [{ t: 'Posted PR summary to #eng', when: '9:02 am', ok: true }, { t: 'Tagged 4 urgent tickets', when: 'Yesterday', ok: true }, { t: 'Weekly digest sent', when: 'Mon', ok: true }, { t: 'Invoice reminder paused', when: 'Sun', ok: false }];
+const CREDIT_PLANS = [
+  { name: 'Free', upto: 500, price: 0, perks: ['1 agent', 'Community support'], pop: false },
+  { name: 'Starter', upto: 2500, price: 20, perks: ['5 agents', 'Email support'], pop: false },
+  { name: 'Team', upto: 10000, price: 60, perks: ['Unlimited agents', 'Shared workspaces', 'Priority support'], pop: true },
+  { name: 'Scale', upto: 50000, price: 220, perks: ['SSO and audit log', 'Usage reports', 'Dedicated support'], pop: false },
+];
 const TIERS = [{ upto: 500, price: 0 }, { upto: 2500, price: 20 }, { upto: 10000, price: 60 }, { upto: 50000, price: 220 }];
 
 export interface PairwiseDemoProps { startAt?: Stage; defaultTheme?: Theme }
@@ -164,11 +170,40 @@ export function PairwiseDemo({ startAt = 'signin', defaultTheme }: PairwiseDemoP
 
         {view === 'credits' ? (
           <div className="ag-scroll pw-page pw-credits">
-            <h1>Credits and plans</h1><p className="ag-muted">Pay for what your agents run. Slide to estimate monthly credits.</p>
-            <div className="ag-card pw-slider"><div className="ag-row"><b className="pw-big">{seats.toLocaleString()}</b><span className="ag-muted">credits a month</span><span className="ag-grow" /><b className="pw-big">${tier.price}</b><span className="ag-muted">/ month</span></div>
-              <input type="range" aria-label="Monthly credits" min={100} max={50000} step={100} value={seats} onChange={(e) => setSeats(+e.target.value)} />
-              <div className="ag-row ag-muted" style={{ justifyContent: 'space-between' }}><span>100</span><span>50,000</span></div></div>
-            <div className="pw-tiers">{[['Free', 'Up to 500 credits', 0], ['Starter', 'Up to 2,500 credits', 20], ['Team', 'Up to 10,000 credits', 60], ['Scale', 'Up to 50,000 credits', 220]].map(([n, d, p]) => <div key={n as string} className="ag-card pw-tier" data-on={tier.price === p}><b>{n}</b><span className="ag-muted">{d}</span><span className="pw-big">${p}</span></div>)}</div>
+            <div className="pw-cr">
+              <header className="pw-cr__head">
+                <h1>Credits and plans</h1>
+                <p className="ag-muted">Pay for what your agents run. Slide to estimate your monthly credits and the plan that fits.</p>
+              </header>
+
+              <section className="ag-card pw-slider" aria-label="Estimate your monthly credits">
+                <div className="pw-slider__read">
+                  <div><b className="pw-big">{seats.toLocaleString()}</b><span className="ag-muted"> credits a month</span></div>
+                  <div className="pw-slider__price"><b className="pw-big">${tier.price}</b><span className="ag-muted"> / month</span></div>
+                </div>
+                <input type="range" aria-label="Monthly credits" min={100} max={50000} step={100} value={seats} onChange={(e) => setSeats(+e.target.value)}
+                  style={{ ['--fill' as string]: `${((seats - 100) / (50000 - 100)) * 100}%` }} />
+                <div className="pw-slider__scale ag-muted" aria-hidden="true"><span>100</span><span>50,000</span></div>
+                <p className="pw-slider__hint" role="status">Your estimate fits the <b>{CREDIT_PLANS.find((x) => x.price === tier.price)?.name}</b> plan{tier.price === 0 ? ', which is free.' : '.'}</p>
+              </section>
+
+              <div className="pw-tiers" role="group" aria-label="Plans">
+                {CREDIT_PLANS.map((x) => {
+                  const on = tier.price === x.price;
+                  return (
+                    <button key={x.name} type="button" className="ag-card pw-tier" data-on={on} data-pop={x.pop || undefined} aria-pressed={on} onClick={() => setSeats(Math.max(100, x.upto))}>
+                      {x.pop ? <span className="pw-tier__flag">Most popular</span> : null}
+                      <b className="pw-tier__name">{x.name}</b>
+                      <span className="pw-tier__price"><span className="pw-big">${x.price}</span><span className="ag-muted"> / month</span></span>
+                      <span className="ag-muted pw-tier__up">Up to {x.upto.toLocaleString()} credits</span>
+                      <ul className="pw-tier__list">{x.perks.map((k) => <li key={k}>{ic.check}{k}</li>)}</ul>
+                      <span className="pw-tier__cta">{on ? 'Selected' : 'Choose ' + x.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="pw-cr__foot ag-muted">No card needed for Free. Change or cancel your plan at any time.</p>
+            </div>
           </div>
         ) : null}
 
