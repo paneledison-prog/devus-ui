@@ -1,3 +1,4 @@
+import { portraitFor } from '../Avatar/portraits';
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import './Crm.css';
 
@@ -78,7 +79,6 @@ const STEPS = ['Analyzing your company domain', 'Fetching company name and logo'
 const START_ITEMS: [string, ReactNode][] = [['Connect your channel', ic.flow], ['Build your agent', ic.agents], ['Knowledge base', ic.book], ['Review your inbox', ic.inbox], ['Escalation center', ic.alert]];
 
 const money = (n: number) => `$${n.toLocaleString('en-US')}`;
-const initials = (s: string) => s.split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /* A decorative skyline drawn from rectangles. Deterministic, original artwork. */
@@ -109,7 +109,7 @@ function Skyline() {
 }
 
 function Av({ name, bg, md }: { name: string; bg: string; md?: boolean }) {
-  return <span className={`crm-av${md ? ' crm-av--md' : ''}`} style={{ ['--bg' as string]: bg } as CSSProperties} aria-hidden="true">{initials(name)}</span>;
+  return <span className={`crm-av${md ? ' crm-av--md' : ''}`} style={{ ['--bg' as string]: bg } as CSSProperties} aria-hidden="true"><img src={portraitFor(name)} alt="" draggable={false} /></span>;
 }
 
 /* ---------- Compose dialog ---------- */
@@ -404,7 +404,7 @@ export function CrmDemo({ startAt = 'app', defaultTheme }: CrmDemoProps) {
                 {rows.map((r) => (
                   <tr key={r.id} data-sel={selected.has(r.id)}>
                     <td><div className="crm-name"><input type="checkbox" className="crm-chk" aria-label={`Select ${r.name}`} checked={selected.has(r.id)} onChange={() => setSelected((s) => { const n = new Set(s); if (n.has(r.id)) n.delete(r.id); else n.add(r.id); return n; })} />
-                      <span className="logo" style={{ ['--bg' as string]: r.color } as CSSProperties}>{r.name[0]}</span>{r.name}<span style={{ marginLeft: 'auto' }}><span className="crm-status" data-s={r.status} aria-hidden="true" /></span></div></td>
+                      <span className="logo" style={{ ['--bg' as string]: r.color } as CSSProperties}><img src={portraitFor(r.name)} alt="" draggable={false} /></span>{r.name}<span style={{ marginLeft: 'auto' }}><span className="crm-status" data-s={r.status} aria-hidden="true" /></span></div></td>
                     {cols.cat && <td><span className="crm-cat" style={{ ['--cc' as string]: CAT_COLORS[r.cat] } as CSSProperties}>{r.cat}</span></td>}
                     {cols.domain && <td><a className="crm-dom" href={`https://${r.domain}`} onClick={(e) => e.preventDefault()}>{r.domain}</a></td>}
                     {cols.revenue && <td className="num">{money(r.revenue)}</td>}{cols.funding && <td className="num">{money(r.funding)}</td>}

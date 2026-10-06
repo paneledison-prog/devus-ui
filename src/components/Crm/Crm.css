@@ -224,3 +224,7 @@
 
 /* The Coworker box shows the focus ring, not the text field inside it. */
 .crm-cw__box:focus-within { outline: 2px solid color-mix(in srgb, var(--c-blue) 50%, transparent); outline-offset: 1px; }
+
+/* Portraits instead of initials. */
+.crm-av, .crm-name .logo { overflow: hidden; padding: 0; }
+.crm-av img, .crm-name .logo img { display: block; width: 100%; height: 100%; object-fit: cover; }
