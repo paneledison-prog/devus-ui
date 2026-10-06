@@ -15,7 +15,12 @@ export type Theme = 'light' | 'dark';
 
 /** Portrait avatars (own 3D-style artwork supplied for the project). `avatarFor` gives the same face for the same name. */
 const POOL = [avatarA1, avatarA2, avatarA3, avatarA4, avatarA5, avatarA6, avatarA7, avatarA8];
-export const avatarFor = (name: string) => POOL[[...name].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7) % POOL.length];
+export const avatarFor = (name: string) => {
+  let h = 2166136261;
+  for (const ch of name) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+  h ^= h >>> 15; h = Math.imul(h, 2246822507); h ^= h >>> 13;
+  return POOL[(h >>> 0) % POOL.length];
+};
 export const AVATAR_ME = avatarMe;
 export const AVATAR_TEAM = avatarTeam;
 

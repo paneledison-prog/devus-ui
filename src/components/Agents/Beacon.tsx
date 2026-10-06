@@ -102,7 +102,7 @@ export function BeaconDemo({ startAt = 'list', defaultTheme }: BeaconDemoProps) 
           <div className="ag-scroll bc-detail">
             <button className="ag-btn ag-btn--ghost ag-btn--sm" onClick={() => setOpen(null)}>{ic.back} All companies</button>
             <div className="bc-hero">
-              <span className="bc-logo" style={{ background: co.color }}>{co.name[0]}</span>
+              <Face src={avatarFor(co.name)} size={56} alt={co.name} />
               <div className="ag-grow"><h1>{co.name}</h1><p className="ag-muted">{co.blurb}</p><div className="ag-chips" style={{ marginTop: 10 }}><span className="ag-pill">{co.sector}</span><span className="ag-pill" data-tone="accent">{co.stage}</span><span className="ag-pill">{co.hq}</span><span className="ag-pill">Founded {co.founded}</span></div></div>
               <button className="ag-btn ag-btn--ghost" onClick={() => toggleWatch(co.id)} aria-pressed={watch.has(co.id)}>{ic.star}{watch.has(co.id) ? 'Watching' : 'Watch'}</button>
             </div>
@@ -126,7 +126,7 @@ export function BeaconDemo({ startAt = 'list', defaultTheme }: BeaconDemoProps) 
               <tbody>
                 {rows.map((c) => (
                   <tr key={c.id} data-click="true" onClick={() => setOpen(c.id)}>
-                    <td><span className="ag-row"><span className="bc-logo bc-logo--sm" style={{ background: c.color }}>{c.name[0]}</span><b>{c.name}</b></span></td>
+                    <td><span className="ag-row"><Face src={avatarFor(c.name)} size={28} /><b>{c.name}</b></span></td>
                     <td className="ag-muted">{c.sector}</td><td><span className="ag-pill">{c.stage}</span></td>
                     <td className="num">${c.funding}M</td>
                     <td><span className="ag-row" style={{ gap: 8 }}><span className="ag-bar" style={{ width: 70 }}><i style={{ width: `${c.growth}%`, background: c.growth > 45 ? 'var(--a-good)' : 'var(--a-accent)' }} /></span>{c.growth}</span></td>
@@ -150,7 +150,7 @@ export function BeaconDemo({ startAt = 'list', defaultTheme }: BeaconDemoProps) 
               <div className="bc-palette__in">{ic.search}<input ref={pRef} placeholder={`Search ${pTab.toLowerCase()}`} value={pq} onChange={(e) => { setPq(e.target.value); setPIdx(0); }} aria-label="Search" /><span className="ag-kbd">Esc</span></div>
               <div className="ag-tabs" role="tablist" style={{ padding: '0 10px' }}>{(['Companies', 'People', 'Investors'] as const).map((t) => <button key={t} role="tab" aria-selected={pTab === t} className="ag-tab" onClick={() => { setPTab(t); setPIdx(0); }}>{t}</button>)}</div>
               <ul className="bc-results" role="listbox">
-                {results.map((r, i) => <li key={r.key} role="option" aria-selected={i === pIdx} onMouseEnter={() => setPIdx(i)} onClick={() => pick(i)}><span className="bc-logo bc-logo--sm" style={{ background: r.color }}>{r.title[0]}</span><span className="ag-grow"><b>{r.title}</b><span className="ag-muted"> {r.sub}</span></span>{i === pIdx ? <span className="ag-kbd">↵</span> : null}</li>)}
+                {results.map((r, i) => <li key={r.key} role="option" aria-selected={i === pIdx} onMouseEnter={() => setPIdx(i)} onClick={() => pick(i)}><Face src={avatarFor(r.title)} size={28} /><span className="ag-grow"><b>{r.title}</b><span className="ag-muted"> {r.sub}</span></span>{i === pIdx ? <span className="ag-kbd">↵</span> : null}</li>)}
                 {results.length === 0 ? <li className="ag-muted" style={{ justifyContent: 'center', height: 80 }}>Nothing found</li> : null}
               </ul>
             </div>
