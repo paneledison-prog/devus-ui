@@ -215,3 +215,7 @@ button.app-row:active { background: var(--default); }
 .app-phone input, .app-phone textarea, .app-phone [contenteditable="true"] { -webkit-user-select: text; user-select: text; }
 .app-phone ::selection { background: transparent; }
 .app-phone input::selection, .app-phone textarea::selection { background: Highlight; }
+
+/* Containment: nothing inside a phone may draw, scroll or position itself outside the phone, whatever a gesture does. */
+.app-phone { overflow: hidden; contain: layout paint; isolation: isolate;}
+.app-phone__screen { overflow: hidden; contain: paint; }

@@ -29,6 +29,16 @@ type Bind = {
   onClickCapture: (e: React.MouseEvent<Element>) => void;
 };
 
+/** Screen-pixel room an element has to move inside its phone: it may never be dragged out of the container. */
+function roomIn(el: Element, ox: number, oy: number) {
+  const box = el.closest('.app-phone')?.getBoundingClientRect();
+  if (!box) return { minX: -Infinity, maxX: Infinity, minY: -Infinity, maxY: Infinity };
+  const r = el.getBoundingClientRect();
+  const l = r.left - ox; const t = r.top - oy; const rt = r.right - ox; const b = r.bottom - oy;
+  return { minX: Math.min(0, box.left - l), maxX: Math.max(0, box.right - rt), minY: Math.min(0, box.top - t), maxY: Math.max(0, box.bottom - b) };
+}
+const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+
 /** Frozen clocks and timers for the design bench. */
 export const benchFrozen = () => typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('bench') === '1';
 
@@ -76,7 +86,11 @@ export function useSwipe(opts: SwipeOptions) {
         suppress.current = true;
         setDragging(true);
       }
-      if (s.moved && o.current.follow) setOffset({ x: s.lock === 'y' && o.current.axis === 'y' ? 0 : dx, y: s.lock === 'x' && o.current.axis === 'x' ? 0 : dy });
+      if (s.moved && o.current.follow) {
+        const box = (e.currentTarget as Element).closest('.app-phone')?.getBoundingClientRect();
+        const mx = box ? box.width * 0.7 : Infinity; const my = box ? box.height * 0.7 : Infinity;
+        setOffset({ x: clamp(s.lock === 'y' && o.current.axis === 'y' ? 0 : dx, -mx, mx), y: clamp(s.lock === 'x' && o.current.axis === 'x' ? 0 : dy, -my, my) });
+      }
     },
     onPointerUp: (e) => {
       const s = start.current;
@@ -365,7 +379,7 @@ export function useTilt(host: RefObject<HTMLElement | null>, target: RefObject<H
 export function useFling(opts: { returns?: boolean; onFling?: (dir: Dir, speed: number) => void } = {}) {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
-  const ref = useRef({ x: 0, y: 0, vx: 0, vy: 0, sx: 0, sy: 0, ox: 0, oy: 0, id: -1, t: 0, lx: 0, ly: 0, moved: false });
+  const ref = useRef({ x: 0, y: 0, vx: 0, vy: 0, sx: 0, sy: 0, ox: 0, oy: 0, id: -1, t: 0, lx: 0, ly: 0, moved: false, el: null as Element | null, lim: { minX: -Infinity, maxX: Infinity, minY: -Infinity, maxY: Infinity } });
   const raf = useRef(0);
   const o = useRef(opts);
   o.current = opts;
@@ -375,6 +389,8 @@ export function useFling(opts: { returns?: boolean; onFling?: (dir: Dir, speed: 
     const s = ref.current;
     const ret = o.current.returns !== false;
     s.x += s.vx; s.y += s.vy;
+    if (s.x < s.lim.minX || s.x > s.lim.maxX) { s.x = clamp(s.x, s.lim.minX, s.lim.maxX); s.vx *= -0.4; }
+    if (s.y < s.lim.minY || s.y > s.lim.maxY) { s.y = clamp(s.y, s.lim.minY, s.lim.maxY); s.vy *= -0.4; }
     s.vx *= 0.93; s.vy *= 0.93;
     if (ret) { s.vx += -s.x * 0.04; s.vy += -s.y * 0.04; }
     setPos({ x: s.x, y: s.y });
@@ -388,7 +404,8 @@ export function useFling(opts: { returns?: boolean; onFling?: (dir: Dir, speed: 
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       cancelAnimationFrame(raf.current);
       const s = ref.current;
-      s.id = e.pointerId; s.sx = e.clientX; s.sy = e.clientY; s.ox = s.x; s.oy = s.y; s.vx = 0; s.vy = 0; s.t = performance.now(); s.lx = e.clientX; s.ly = e.clientY; s.moved = false;
+      s.el = e.currentTarget; s.id = e.pointerId; s.sx = e.clientX; s.sy = e.clientY; s.ox = s.x; s.oy = s.y; s.vx = 0; s.vy = 0; s.t = performance.now(); s.lx = e.clientX; s.ly = e.clientY; s.moved = false;
+      s.lim = roomIn(e.currentTarget, s.x, s.y);
       suppress.current = false;
     },
     onPointerMove: (e) => {
@@ -399,7 +416,7 @@ export function useFling(opts: { returns?: boolean; onFling?: (dir: Dir, speed: 
       if (!s.moved) return;
       const now = performance.now(); const dt = Math.max(1, now - s.t);
       s.vx = ((e.clientX - s.lx) / dt) * 16; s.vy = ((e.clientY - s.ly) / dt) * 16; s.lx = e.clientX; s.ly = e.clientY; s.t = now;
-      s.x = s.ox + dx; s.y = s.oy + dy;
+      s.x = clamp(s.ox + dx, s.lim.minX, s.lim.maxX); s.y = clamp(s.oy + dy, s.lim.minY, s.lim.maxY);
       setPos({ x: s.x, y: s.y });
     },
     onPointerUp: () => {

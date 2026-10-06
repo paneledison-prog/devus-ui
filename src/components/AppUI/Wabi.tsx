@@ -67,7 +67,7 @@ export function Spheres() {
   const root = useRef<HTMLDivElement>(null);
   const tilt = useTiltAuto(root);
   const [zoom, setZoom] = useState({ s: 1, snap: false });
-  const pinch = usePinch(root, ({ scale }) => setZoom({ s: scale, snap: false }), { min: 0.7, max: 2, onEnd: () => { pinch.reset(); setZoom({ s: 1, snap: true }); } });
+  const pinch = usePinch(root, ({ scale }) => setZoom({ s: scale, snap: false }), { min: 0.8, max: 1.5, onEnd: () => { pinch.reset(); setZoom({ s: 1, snap: true }); } });
   const [wave, setWave] = useState(false);
   const poke = () => { setWave(false); window.requestAnimationFrame(() => setWave(true)); window.setTimeout(() => setWave(false), 1400); };
   return (
