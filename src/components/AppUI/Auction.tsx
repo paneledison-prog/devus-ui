@@ -204,7 +204,7 @@ function BidItem({ onTip, children }: { onTip: () => void; children: ReactNode }
 export function AuctionFlow({ initial = 'live' }: { initial?: 'live' | 'detail' }) {
   const [screen, setScreen] = useState<'live' | 'detail'>(initial);
   return (
-    <PhoneFrame bare height={688}>
+    <PhoneFrame bare height={688} tone="light">
       <div className="au">
         <div className="au-swap" key={screen}>
           {screen === 'live' ? <Live onOpen={() => setScreen('detail')} /> : <Detail onBack={() => setScreen('live')} />}

@@ -51,3 +51,6 @@
 .wb-spheres[data-snap] { transition: scale .4s cubic-bezier(.3, 1.4, .5, 1); }
 .wb .app-tilt-btn { position: absolute; left: 50%; top: 250px; translate: -50% 0; z-index: 6; padding: 22px 44px; font-size: 32px; }
 @media (prefers-reduced-motion: reduce) { .wb-spheres[data-snap] { transition: none; } }
+
+/* The cropped TestFlight strip is replaced by the container status bar. */
+.wb-status { display: none; }

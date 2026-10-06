@@ -12,7 +12,7 @@ function StatusIcons() {
 }
 
 /** Phone viewport used to show mobile-style elements in context. Outer size 320x660 px (classic iPhone ratio 2.06), borderless with a 30px radius. */
-export function PhoneFrame({ children, hero = false, bare = false, height }: {
+export function PhoneFrame({ children, hero = false, bare = false, height, tone = 'dark' }: {
   children: ReactNode;
   /** Blue gradient behind the status bar and the top of the screen (white status text). */
   hero?: boolean;
@@ -20,11 +20,17 @@ export function PhoneFrame({ children, hero = false, bare = false, height }: {
   bare?: boolean;
   /** Outer height in px (default 660). Only used with `bare`. */
   height?: number;
+  /** Color of the container status bar on a `bare` frame: `dark` text for light screens, `light` for dark screens. */
+  tone?: 'dark' | 'light';
 }) {
   if (bare) {
     return (
       <div className="app-phone app-phone--bare" style={height ? { ['--phone-h' as string]: `${height}px` } : undefined}>
-        <div className="app-phone__screen">{children}</div>
+        <div className="app-phone__screen">
+          {children}
+          {/* Container status bar: each part hides itself when the screen draws its own (see AppUI.css). */}
+          <div className="app-phone__bar" data-tone={tone} aria-hidden="true"><span className="app-phone__bar-time">9:41</span><StatusIcons /></div>
+        </div>
       </div>
     );
   }
