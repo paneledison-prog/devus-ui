@@ -1,0 +1,62 @@
+/* NFT auction flow. Canvas 327x703 scaled to the 320px phone (320 / 327). */
+.au { position: relative; width: 327px; height: 703px; zoom: 0.978593; overflow: hidden; background: #151515; color: #fff; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
+.au * { box-sizing: border-box; }
+.au p, .au h1, .au h2, .au h3, .au b { margin: 0; }
+:where(.au) button { font-family: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.au-swap { position: absolute; inset: 0; animation: au-in .25s ease both; }
+@keyframes au-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.au-home { position: absolute; z-index: 60; left: 112px; top: 690px; width: 104px; height: 4px; border-radius: 2px; background: #fff; }
+.au-status { position: absolute; z-index: 30; left: 0; top: 0; width: 327px; height: 56px; pointer-events: none; }
+.au-status__island { position: absolute; left: 110px; top: 10px; width: 107px; height: 32px; border-radius: 16px; background: #000; box-shadow: 0 0 0 1px #202020; }
+.au small { display: block; font-weight: 400; }
+
+.au-sq { position: absolute; z-index: 25; display: grid; place-items: center; width: 52px; height: 52px; padding: 0; border: 1px solid rgb(255 255 255 / .1); border-radius: 16px; background: rgb(24 24 24 / .78); backdrop-filter: blur(10px); transition: transform .12s ease; } .au-sq:active { transform: scale(.94); }
+.au-circ { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: rgb(24 24 24 / .7); backdrop-filter: blur(8px); transition: transform .12s ease; } .au-circ:active { transform: scale(.9); }
+.au-live { position: absolute; inset: 0; }
+.au-sq--back { left: 14px; top: 41px; } .au-sq--bell { left: 265px; top: 41px; }
+.au-live h1 { position: absolute; left: 0; right: 0; top: 88px; text-align: center; font: 700 32px/40px var(--font-sans); letter-spacing: -.02em; }
+.au-cards { position: absolute; left: 15px; top: 148px; width: 296px; display: grid; gap: 14px; }
+.au-card { position: relative; height: 296px; overflow: hidden; border-radius: 22px; cursor: pointer; transition: transform .15s ease; } .au-card:active { transform: scale(.985); }
+.au-card--orange { background: linear-gradient(160deg, #fbb860, #f08a2a); } .au-card--blue { background: linear-gradient(180deg, #7fa6dc, #b3c9ea); }
+.au-card__art { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.au-art--orange { mix-blend-mode: multiply; opacity: .85; } .au-art--sheep { filter: hue-rotate(155deg) saturate(1.8) brightness(1.15); object-position: 50% 20%; transform: scale(1.1); }
+.au-card__time { position: absolute; left: 12px; top: 12px; padding: 0 12px; height: 30px; display: grid; place-items: center; border-radius: 15px; background: rgb(60 50 40 / .55); backdrop-filter: blur(8px); font: 500 13px/16px var(--font-sans); }
+.au-icon { position: absolute; top: 12px; display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 0; border-radius: 50%; background: rgb(60 50 40 / .5); backdrop-filter: blur(8px); } .au-icon--a { right: 54px; } .au-icon--b { right: 12px; }
+.au-card__panel { position: absolute; left: 12px; right: 12px; bottom: 12px; height: 72px; padding: 10px 14px; border-radius: 18px; background: rgb(70 56 40 / .6); backdrop-filter: blur(12px); }
+.au-card__panel b { display: block; font: 600 17px/22px var(--font-sans); }
+.au-card__by { position: absolute; left: 14px; bottom: 10px; display: flex; align-items: center; gap: 8px; font: 400 14px/18px var(--font-sans); } .au-card__by img { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; }
+.au-card__bid { position: absolute; right: 14px; bottom: 10px; text-align: right; font: 500 14px/18px var(--font-sans); } .au-card__bid small { color: rgb(255 255 255 / .7); font-size: 11px; }
+
+/* detail */
+.au-detail { position: absolute; inset: 0; }
+.au-scroll { position: absolute; inset: 0; overflow-y: auto; scrollbar-width: none; } .au-scroll::-webkit-scrollbar { display: none; }
+.au-hero { position: relative; height: 448px; overflow: hidden; background: #111; } .au-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; filter: grayscale(1) contrast(1.1); } .au-hero__fade { position: absolute; left: 0; right: 0; bottom: 0; height: 120px; background: linear-gradient(180deg, transparent, #151515); }
+.au-auction { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; height: 74px; margin: -38px 16px 0; padding: 0 22px; border-radius: 20px; background: rgb(48 48 50 / .62); backdrop-filter: blur(14px); font: 500 15px/20px var(--font-sans); } .au-auction small { color: rgb(255 255 255 / .6); font-size: 12px; margin-bottom: 4px; } .au-auction__bid { text-align: right; } .au-clock sub { font-size: 11px; color: rgb(255 255 255 / .7); vertical-align: baseline; }
+.au-name { margin: 24px 16px 0; font: 600 22px/28px var(--font-sans); letter-spacing: -.01em; }
+.au-tags { display: flex; gap: 8px; margin: 12px 16px 0; } .au-tags span { padding: 5px 14px; border-radius: 16px; background: #2b2b2d; color: #d0d0d4; font: 400 14px/20px var(--font-sans); }
+.au-by { display: flex; align-items: center; gap: 12px; margin: 22px 16px 0; } .au-by img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; } .au-by span { flex: 1; } .au-by b { display: block; font: 500 15px/18px var(--font-sans); } .au-by small { color: #8a8a8e; font-size: 12px; }
+.au-follow { width: 78px; height: 36px; border: 0; border-radius: 18px; background: #e2f47c; color: #151515; font: 600 14px/1 var(--font-sans); transition: background .2s ease, color .2s ease, transform .12s ease; } .au-follow:active { transform: scale(.95); } .au-follow.is-on { background: #333336; color: #fff; }
+.au-views { display: flex; gap: 22px; margin: 22px 16px 0; color: #9a9a9e; font: 400 13px/16px var(--font-sans); } .au-views span { display: flex; align-items: center; gap: 8px; }
+.au-desc { margin: 18px 16px 0; color: #78787c; font: 400 14px/22px var(--font-sans); }
+.au-tabs { display: flex; gap: 28px; margin: 28px 16px 0; } .au-tabs button { position: relative; padding: 0 0 10px; border: 0; background: none; color: #8a8a8e; font: 500 18px/22px var(--font-sans); transition: color .2s ease; } .au-tabs .is-on { color: #fff; } .au-tabs i { position: absolute; left: 50%; bottom: 0; width: 5px; height: 5px; margin-left: -2px; border-radius: 50%; background: #fff; }
+.au-list { margin: 12px 8px 0; padding: 8px 8px; border-radius: 20px; background: #202022; animation: au-in .25s ease both; }
+.au-bid { display: flex; align-items: center; gap: 12px; padding: 9px 10px; } .au-bid img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; } .au-bid span { flex: 1; } .au-bid b { display: block; font: 500 15px/18px var(--font-sans); } .au-bid small { color: #8a8a8e; font-size: 12px; } .au-bid em { font-style: normal; font: 600 15px/18px var(--font-sans); } .au-bid em small { display: inline; color: #8a8a8e; font-size: 12px; }
+.au-none { padding: 26px 0; text-align: center; color: #8a8a8e; font: 400 14px/20px var(--font-sans); }
+.au-pad { height: 100px; }
+.au-topbar { position: absolute; z-index: 25; left: 0; right: 0; top: 0; height: 100px; pointer-events: none; }
+.au-topbar > * { pointer-events: auto; }
+.au-topbar .au-sq { left: 19px; top: 42px; }
+.au-topbar__r { position: absolute; right: 26px; top: 50px; display: flex; gap: 20px; }
+.au-menu { position: absolute; right: 14px; top: 92px; width: 88px; padding: 8px 0; border-radius: 12px; background: rgb(48 48 50 / .85); backdrop-filter: blur(14px); animation: au-in .15s ease both; } .au-menu button { display: block; width: 100%; padding: 8px 14px; border: 0; background: none; text-align: left; color: #fff; font: 400 14px/18px var(--font-sans); } .au-menu button:hover { background: rgb(255 255 255 / .08); }
+.au-actions { position: absolute; z-index: 30; left: 0; right: 0; bottom: 0; display: flex; gap: 10px; padding: 18px 16px 24px; background: linear-gradient(180deg, rgb(21 21 21 / 0), #151515 36%); transform: translateY(110%); transition: transform .3s cubic-bezier(.3, .9, .3, 1); } .au-actions.is-on { transform: none; }
+.au-outline, .au-lime { height: 44px; border-radius: 22px; font: 600 15px/1 var(--font-sans); transition: transform .12s ease; } .au-outline:active, .au-lime:active { transform: scale(.97); }
+.au-outline { flex: 1; border: 1px solid #5a5a5e; background: #151515; color: #fff; } .au-lime { flex: 1.25; border: 0; background: #e2f47c; color: #151515; }
+.au-sheetwrap { position: absolute; z-index: 50; inset: 0; background: rgb(0 0 0 / .5); animation: au-fade .2s ease both; }
+@keyframes au-fade { from { opacity: 0; } to { opacity: 1; } }
+.au-sheet { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 20px 36px; border-radius: 26px 26px 0 0; background: #1f1f21; animation: au-up .3s cubic-bezier(.3, .9, .3, 1) both; } @keyframes au-up { from { transform: translateY(100%); } to { transform: none; } }
+.au-sheet__grab { display: block; width: 36px; height: 4px; margin: 0 auto 16px; border-radius: 2px; background: #4a4a4d; } .au-sheet h3 { font: 600 20px/26px var(--font-sans); } .au-sheet p { margin: 6px 0 18px; color: #8a8a8e; font: 400 14px/20px var(--font-sans); }
+.au-step { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 12px; margin-bottom: 16px; border-radius: 18px; background: #2a2a2d; } .au-step button { width: 40px; height: 40px; border: 0; border-radius: 50%; background: #3a3a3e; font: 500 22px/1 var(--font-sans); } .au-step b { font: 600 24px/30px var(--font-sans); } .au-step small { display: inline; color: #8a8a8e; font-size: 14px; }
+.au-lime--wide { width: 100%; flex: none; }
+.au-toast { position: absolute; z-index: 70; left: 50%; bottom: 96px; transform: translateX(-50%); padding: 10px 18px; border-radius: 20px; background: #e2f47c; color: #151515; font: 600 14px/18px var(--font-sans); white-space: nowrap; animation: au-in .2s ease both; }
+.au button:focus-visible { outline: 2px solid #e2f47c; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .au-swap, .au-list, .au-actions, .au-sheet, .au-toast { animation: none; transition: none; } }

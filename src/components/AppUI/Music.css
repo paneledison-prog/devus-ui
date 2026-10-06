@@ -2,7 +2,7 @@
 .ms { position: relative; width: 390px; height: 843px; zoom: 0.820513; overflow: hidden; background: #111112; color: #fff; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
 .ms * { box-sizing: border-box; }
 .ms p, .ms h2, .ms b { margin: 0; }
-.ms button { font-family: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+:where(.ms) button { font-family: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .ms small { display: block; font-weight: 400; }
 .ms-status { position: absolute; z-index: 20; left: 0; top: 0; width: 390px; height: 56px; color: #fff; pointer-events: none; background: linear-gradient(180deg, #111112 55%, rgb(17 17 18 / 0)); }
 .ms-status__time { position: absolute; left: 36px; top: 17px; font: 600 16px/20px var(--font-sans); }

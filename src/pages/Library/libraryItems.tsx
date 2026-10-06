@@ -54,6 +54,10 @@ import { MusicProfileCompactExample } from '../../components/AppUI/examples/Musi
 import { MusicProfileTilesExample } from '../../components/AppUI/examples/MusicProfileTiles';
 import { MusicControlCenterExample } from '../../components/AppUI/examples/MusicControlCenter';
 import { MusicProfileBannersExample } from '../../components/AppUI/examples/MusicProfileBanners';
+import { VoiceRoomsFlowExample } from '../../components/AppUI/examples/VoiceRoomsFlow';
+import { NftAuctionFlowExample } from '../../components/AppUI/examples/NftAuctionFlow';
+import { BookshelfFlowExample } from '../../components/AppUI/examples/BookshelfFlow';
+import { BookOnboardingFlowExample } from '../../components/AppUI/examples/BookOnboardingFlow';
 import { MoimoiSignInExample } from '../../components/AppUI/examples/MoimoiSignIn';
 import { NexusTodayExample } from '../../components/AppUI/examples/NexusToday';
 import { NexusDailyExample } from '../../components/AppUI/examples/NexusDaily';
@@ -841,6 +845,46 @@ const appItems: BaseItem[] = [
     sourceEntries: [{ path: 'src/components/AppUI/examples/MusicProfileBanners.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
     helper: 'music-profile-banners',
     code: `<MusicProfileBanners />`,
+  },
+  {
+    name: 'Voice rooms flow',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <VoiceRoomsFlowExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/VoiceRoomsFlow.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'voice-rooms-flow',
+    code: `// Home -> Live room -> Participants / Chat; Home -> Teaser, Universe, Creator Card, Your voice\n<VoiceFlow initial="home" />`,
+  },
+  {
+    name: 'NFT auction flow',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 688,
+    preview: <NftAuctionFlowExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/NftAuctionFlow.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'nft-auction-flow',
+    code: `// Live Bids -> item detail (Bids / Offers) -> Place a bid sheet\n<AuctionFlow initial="live" />`,
+  },
+  {
+    name: 'Bookshelf flow',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <BookshelfFlowExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/BookshelfFlow.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'bookshelf-flow',
+    code: `// Explore <-> Library through the tab bar\n<BookshelfFlow initial="explore" />`,
+  },
+  {
+    name: 'Book onboarding flow',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <BookOnboardingFlowExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/BookOnboardingFlow.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'book-onboarding-flow',
+    code: `// Learn Smarter -> Topics -> Are you interested in this book? (Yes / No through three books) -> back to the start\n<OnboardingFlow />`,
   },
 ];
 
