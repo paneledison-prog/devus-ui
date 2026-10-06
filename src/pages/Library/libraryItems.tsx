@@ -58,6 +58,7 @@ import { VoiceRoomsFlowExample } from '../../components/AppUI/examples/VoiceRoom
 import { NftAuctionFlowExample } from '../../components/AppUI/examples/NftAuctionFlow';
 import { BookshelfFlowExample } from '../../components/AppUI/examples/BookshelfFlow';
 import { BookOnboardingFlowExample } from '../../components/AppUI/examples/BookOnboardingFlow';
+import { WidgetBoardExample } from '../../components/AppUI/examples/WidgetBoard';
 import { MoimoiSignInExample } from '../../components/AppUI/examples/MoimoiSignIn';
 import { NexusTodayExample } from '../../components/AppUI/examples/NexusToday';
 import { NexusDailyExample } from '../../components/AppUI/examples/NexusDaily';
@@ -885,6 +886,16 @@ const appItems: BaseItem[] = [
     sourceEntries: [{ path: 'src/components/AppUI/examples/BookOnboardingFlow.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
     helper: 'book-onboarding-flow',
     code: `// Learn Smarter -> Topics -> Are you interested in this book? (Yes / No through three books) -> back to the start\n<OnboardingFlow />`,
+  },
+  {
+    name: 'Widget board',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <WidgetBoardExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/WidgetBoard.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'widget-board',
+    code: `<WidgetBoard />`,
   },
 ];
 
