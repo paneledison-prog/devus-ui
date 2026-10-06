@@ -6,12 +6,6 @@
 .pt-bg { position: absolute; left: 0; top: 0; width: 517px; height: 1126px; object-fit: cover; object-position: 50% 20%; }
 .pt-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(8 60 62 / .15) 0%, rgb(8 50 52 / .1) 40%, rgb(8 44 46 / .72) 62%, rgb(7 38 40 / .92) 100%); }
 
-.pt-status { position: absolute; z-index: 20; left: 0; top: 0; width: 517px; height: 70px; color: #fff; pointer-events: none; }
-.pt-status__time { position: absolute; left: 74px; top: 22px; font: 600 22px/30px var(--font-sans); }
-.pt-status__island { position: absolute; left: 176px; top: 14px; width: 160px; height: 47px; border-radius: 24px; background: #000; }
-.pt-status__signal { position: absolute; left: 366px; top: 26px; }
-.pt-status__wifi { position: absolute; left: 400px; top: 25px; }
-.pt-status__battery { position: absolute; left: 433px; top: 26px; }
 
 .pt-round { position: absolute; z-index: 10; top: 86px; display: grid; place-items: center; width: 56px; height: 56px; padding: 0; border: 0; border-radius: 50%; background: rgb(255 255 255 / .22); backdrop-filter: blur(6px); transition: transform .12s ease, background .2s ease; }
 .pt-round--close { left: 25px; } .pt-round--more { left: 435px; }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PhoneFrame } from './PhoneFrame';
 import { useSwipe } from './gestures';
-import { ClayCloud, ClayFlower, ClayRing, PayCanvas, PayHomeBar, PayStatusBar, PlanCard, PlanRow, UpArrow, type Plan } from './Paywall';
+import { ClayCloud, ClayFlower, ClayRing, PayCanvas, PayHomeBar, PlanCard, PlanRow, UpArrow, type Plan } from './Paywall';
 
 type Screen = 'paywall' | 'restoring';
 type PlanId = 'annual' | 'monthly';
@@ -29,7 +29,7 @@ export function PaywallFlow({ initial }: { initial: Screen }) {
   const monthly: Plan = { id: 'monthly', name: 'Monthly', perYear: '$59.99/year', price: '$5.99/month', selected: plan === 'monthly' };
 
   return (
-    <PhoneFrame bare height={696}>
+    <PhoneFrame bare height={696} tone="light">
       <div className="pw-screen" key={screen}>
         {screen === 'paywall' ? (
           <PayCanvas tone="paywall">
@@ -50,7 +50,6 @@ export function PaywallFlow({ initial }: { initial: Screen }) {
               <button type="button" className="pw__cta" aria-busy={busy} disabled={busy} onClick={() => setBusy(true)}>{busy ? <i className="pw-cta-spin" aria-hidden="true" /> : 'Start Free Trial'}</button>
               <button type="button" className="pw__terms">Terms of Service</button>
             </section>
-            <PayStatusBar />
             <PayHomeBar dark />
           </PayCanvas>
         ) : (
@@ -69,7 +68,6 @@ export function PaywallFlow({ initial }: { initial: Screen }) {
               <circle cx="20" cy="20" r="15" stroke="rgb(255 255 255 / .3)" />
               <circle cx="20" cy="20" r="15" strokeDasharray="28 66.2" transform="rotate(-90 20 20)" />
             </svg>
-            <PayStatusBar />
             <PayHomeBar />
           </PayCanvas>
         )}

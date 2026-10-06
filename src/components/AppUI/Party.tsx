@@ -36,23 +36,16 @@ export function PartyInvite() {
   const swipe = useSwipe({ axis: 'y', threshold: 110, flickSpeed: 0.8, ignore: '.pt-rsvp', onSwipe: (d) => { if (d === 'down') setOpen(false); } });
   if (!open) {
     return (
-      <PhoneFrame bare height={697}>
+      <PhoneFrame bare height={697} tone="light">
         <div className="pt-closed"><p>Invitation closed</p><button type="button" onClick={() => setOpen(true)}>Open the invitation</button></div>
       </PhoneFrame>
     );
   }
   return (
-    <PhoneFrame bare height={697}>
+    <PhoneFrame bare height={697} tone="light">
       <div className="pt" {...swipe.bind}>
         <img className="pt-bg" src={bg} alt="" />
         <div className="pt-shade" aria-hidden="true" />
-        <div className="pt-status" aria-hidden="true">
-          <span className="pt-status__time">9:41</span>
-          <span className="pt-status__island" />
-          <svg className="pt-status__signal" width="30" height="20" viewBox="0 0 22 14" fill="currentColor"><rect x="0" y="9" width="3.600" height="5" rx="1.100" /><rect x="6" y="6.500" width="3.600" height="7.500" rx="1.100" /><rect x="12" y="3.500" width="3.600" height="10.500" rx="1.100" /><rect x="18" y="0" width="3.600" height="14" rx="1.100" /></svg>
-          <svg className="pt-status__wifi" width="28" height="21" viewBox="0 0 24 18" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M2 6.500a14 14 0 0 1 20 0" /><path d="M6 11a8.500 8.500 0 0 1 12 0" /><circle cx="12" cy="15.400" r="1.800" fill="currentColor" stroke="none" /></svg>
-          <svg className="pt-status__battery" width="42" height="20" viewBox="0 0 32 14" fill="none"><rect x="0.500" y="0.500" width="27" height="13" rx="4" stroke="currentColor" opacity=".4" /><rect x="2.500" y="2.500" width="23" height="9" rx="2.400" fill="currentColor" /><rect x="29" y="4.500" width="2.200" height="5" rx="1.100" fill="currentColor" opacity=".45" /></svg>
-        </div>
         <button type="button" className="pt-round pt-round--close" aria-label="Close" onClick={() => setOpen(false)}><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#fff" strokeWidth="2.400" strokeLinecap="round" aria-hidden="true"><path d="m4 4 14 14M18 4 4 18" /></svg></button>
         <button type="button" className="pt-round pt-round--more" aria-label="More"><svg width="26" height="6" viewBox="0 0 26 6" fill="#fff" aria-hidden="true"><circle cx="3" cy="3" r="2.800" /><circle cx="13" cy="3" r="2.800" /><circle cx="23" cy="3" r="2.800" /></svg></button>
 

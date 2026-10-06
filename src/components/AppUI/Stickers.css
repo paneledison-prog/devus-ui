@@ -5,12 +5,6 @@
 .sk button { font-family: inherit; padding: 0; }
 .sk button:focus-visible { outline: 3px solid #2d8cf0; outline-offset: 2px; }
 
-.sk-status { position: absolute; z-index: 30; left: 0; top: 0; width: 357px; height: 50px; color: #000; pointer-events: none; }
-.sk-status__island { position: absolute; left: 123px; top: 11px; width: 111px; height: 33px; border-radius: 17px; background: #000; }
-.sk-status__island i { position: absolute; right: 12px; top: 9px; width: 15px; height: 15px; border-radius: 50%; background: radial-gradient(circle, #151a26 0 35%, #05070c 70%); }
-.sk-status__signal { position: absolute; left: 259px; top: 22px; }
-.sk-status__wifi { position: absolute; left: 285px; top: 22px; }
-.sk-status__battery { position: absolute; left: 303px; top: 22px; }
 .sk-home { position: absolute; z-index: 40; left: 115px; top: 764px; width: 128px; height: 5px; border-radius: 3px; background: #000; }
 
 /* blurred photo behind the picker */

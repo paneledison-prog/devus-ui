@@ -4,10 +4,6 @@
 .ms p, .ms h2, .ms b { margin: 0; }
 :where(.ms) button { font-family: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .ms small { display: block; font-weight: 400; }
-.ms-status { position: absolute; z-index: 20; left: 0; top: 0; width: 390px; height: 56px; color: #fff; pointer-events: none; background: linear-gradient(180deg, #111112 55%, rgb(17 17 18 / 0)); }
-.ms-status__time { position: absolute; left: 36px; top: 17px; font: 600 16px/20px var(--font-sans); }
-.ms-status__island { position: absolute; left: 118px; top: 10px; width: 112px; height: 32px; border-radius: 16px; background: #000; box-shadow: 0 0 0 1px #1c1c1e; }
-.ms-status__signal { position: absolute; left: 290px; top: 20px; } .ms-status__wifi { position: absolute; left: 316px; top: 19px; } .ms-status__battery { position: absolute; left: 340px; top: 20px; }
 .ms-scroll { position: absolute; inset: 0; overflow-y: auto; padding: 60px 14px 40px; scrollbar-width: none; display: flex; flex-direction: column; gap: 8px; }
 .ms-scroll::-webkit-scrollbar { display: none; }
 .ms-grab { align-self: center; width: 36px; height: 4px; border-radius: 2px; background: #4a4a4d; margin: -4px 0 4px; flex: none; }

@@ -29,21 +29,6 @@ function Round({ label, on, onClick, children, disabled, tone = 'glass', classNa
   );
 }
 
-function StatusBar() {
-  return (
-    <div className="cl-status" aria-hidden="true">
-      <span className="cl-status__time">11:00</span>
-      <span className="cl-status__island">
-        <svg width="56" height="46" viewBox="0 0 56 46" fill="none" stroke="#30d158" strokeWidth="6" strokeLinecap="round"><rect x="4" y="12" width="30" height="22" rx="11" transform="rotate(-18 19 23)" /><rect x="22" y="12" width="30" height="22" rx="11" transform="rotate(-18 37 23)" /></svg>
-      </span>
-      <svg className="cl-status__signal" width="44" height="30" viewBox="0 0 22 14" fill="#fff"><rect x="0" y="9" width="3.600" height="5" rx="1.100" /><rect x="6" y="6.500" width="3.600" height="7.500" rx="1.100" /><rect x="12" y="3.500" width="3.600" height="10.500" rx="1.100" /><rect x="18" y="0" width="3.600" height="14" rx="1.100" /></svg>
-      <span className="cl-status__net">5G</span>
-      <span className="cl-status__bat"><b>55</b></span>
-      <i className="cl-status__dot" />
-    </div>
-  );
-}
-
 function pad(n: number) { return String(n).padStart(2, '0'); }
 
 function Key({ d, l, onType }: { d: string; l: string; onType: (c: string) => void }) {
@@ -113,9 +98,8 @@ export function CallScreen() {
   const clock = `${pad(Math.floor(seconds / 60))}:${pad(seconds % 60)}`;
 
   return (
-    <PhoneFrame bare height={692}>
+    <PhoneFrame bare height={692} tone="light">
       <div className={`cl${ended ? ' is-ended' : ''}`}>
-        <StatusBar />
         <svg className="cl-wave" width="66" height="66" viewBox="0 0 66 66" aria-hidden="true"><g stroke="#fff" strokeWidth="5" strokeLinecap="round"><path d="M6 24v18M16 14v38M26 24v20M36 8v32M46 24v12" /></g><circle cx="52" cy="52" r="13" fill="#fff" /><circle cx="52" cy="52" r="6" fill="#55524f" /></svg>
         <button type="button" className="cl-info" aria-label="Contact info"><span>i</span></button>
         <p className="cl-timer" aria-live="off">{ended ? 'Call Ended' : clock}</p>

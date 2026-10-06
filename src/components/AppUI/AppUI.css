@@ -220,12 +220,9 @@ button.app-row:active { background: var(--default); }
 .app-phone { overflow: hidden; contain: layout paint; isolation: isolate;}
 .app-phone__screen { overflow: hidden; contain: paint; }
 
-/* Dynamic Island: part of the phone container, not of the screens. Screens that draw their own island keep it and do not get a second one. */
+/* Dynamic Island: part of the phone container, not of the screens. Screens never draw their own island or status bar. */
 .app-phone__screen::after { content: ""; position: absolute; z-index: 60; left: 50%; top: 10px; width: 92px; height: 26px; margin-left: -46px; border-radius: 999px; background: #000; pointer-events: none; }
-.app-phone--bare .app-phone__screen:has([class*="island"])::after { display: none; }
 
-/* Container status bar for bare screens: time on the left, signal / wifi / battery on the right. Hidden part by part when the screen has its own. */
+/* Container status bar for bare screens: time on the left, signal / wifi / battery on the right. The only status bar: screens do not draw their own. */
 .app-phone__bar { position: absolute; z-index: 59; left: 0; right: 0; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 16px 26px 8px; pointer-events: none; color: #111; font: 600 12px/14px var(--font-sans); }
 .app-phone__bar[data-tone="light"] { color: #fff; }
-.app-phone__screen:has([class*="status__time"]) .app-phone__bar-time { visibility: hidden; }
-.app-phone__screen:has([class*="status__signal"], [class*="status__battery"]) .app-phone__bar .app-phone__icons { visibility: hidden; }

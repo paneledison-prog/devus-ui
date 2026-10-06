@@ -16,18 +16,6 @@ import c3 from './assets/orb/c3.jpg';
  * Coordinates are canvas pixels taken from the reference image. The photos are generated image assets.
  */
 
-function Status() {
-  return (
-    <div className="ob-status" aria-hidden="true">
-      <span className="ob-status__time">9:41</span>
-      <span className="ob-status__island"><i /></span>
-      <svg className="ob-status__signal" width="50" height="32" viewBox="0 0 22 14" fill="currentColor"><rect x="0" y="9" width="3.600" height="5" rx="1.100" /><rect x="6" y="6.500" width="3.600" height="7.500" rx="1.100" /><rect x="12" y="3.500" width="3.600" height="10.500" rx="1.100" /><rect x="18" y="0" width="3.600" height="14" rx="1.100" /></svg>
-      <svg className="ob-status__wifi" width="46" height="34" viewBox="0 0 24 18" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M2 6.500a14 14 0 0 1 20 0" /><path d="M6 11a8.500 8.500 0 0 1 12 0" /><circle cx="12" cy="15.400" r="1.800" fill="currentColor" stroke="none" /></svg>
-      <svg className="ob-status__battery" width="66" height="30" viewBox="0 0 32 14" fill="none"><rect x="0.500" y="0.500" width="27" height="13" rx="4" stroke="currentColor" opacity=".4" /><rect x="2.500" y="2.500" width="23" height="9" rx="2.400" fill="currentColor" /><rect x="29" y="4.500" width="2.200" height="5" rx="1.100" fill="currentColor" opacity=".45" /></svg>
-    </div>
-  );
-}
-
 function scallop(cx: number, cy: number, r: number, lobes: number, amp: number) {
   const pts: string[] = [];
   const n = lobes * 12;
@@ -102,18 +90,17 @@ export function OrbProfile() {
   const hold = useLongPress(() => setBig(true), 450);
   if (!open) {
     return (
-      <PhoneFrame bare height={694}>
+      <PhoneFrame bare height={694} tone="light">
         <div className="ob-closed"><p>Profile closed</p><button type="button" onClick={() => setOpen(true)}>Open Evelyn&rsquo;s profile</button></div>
       </PhoneFrame>
     );
   }
   return (
-    <PhoneFrame bare height={694}>
+    <PhoneFrame bare height={694} tone="light">
       <div className="ob" ref={root} {...swipe.bind}>
         <img className="ob-hero" src={hero} alt="" />
         <div className="ob-frost" aria-hidden="true"><img src={hero} alt="" /></div>
         <div className="ob-shade" aria-hidden="true" />
-        <Status />
         <button type="button" className="ob-round ob-round--close" aria-label="Close" onClick={() => setOpen(false)}><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" aria-hidden="true"><path d="m7 7 20 20M27 7 7 27" /></svg></button>
         <button type="button" className="ob-round ob-round--more" aria-label="More"><svg width="40" height="10" viewBox="0 0 40 10" fill="#fff" aria-hidden="true"><circle cx="5" cy="5" r="4.500" /><circle cx="20" cy="5" r="4.500" /><circle cx="35" cy="5" r="4.500" /></svg></button>
         <p className="ob-url">orb.club/@evelynsmith</p>

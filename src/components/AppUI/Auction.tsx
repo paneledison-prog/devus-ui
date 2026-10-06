@@ -20,14 +20,6 @@ const Bell = () => <svg width="18" height="20" viewBox="0 0 18 20" fill="none" s
 const Send = () => <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" strokeWidth="1.600" strokeLinejoin="round" aria-hidden="true"><path d="M3 3v12l12-6L3 3Z" /></svg>;
 const Eye = () => <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="currentColor" strokeWidth="1.400" aria-hidden="true"><path d="M1 6s2.500-4.500 7-4.500S15 6 15 6s-2.500 4.500-7 4.500S1 6 1 6Z" /><circle cx="8" cy="6" r="2" fill="currentColor" /></svg>;
 
-function Status() {
-  return (
-    <div className="au-status" aria-hidden="true">
-      <span className="au-status__island" />
-    </div>
-  );
-}
-
 function useCountdown(start: number) {
   const [left, setLeft] = useState(start);
   const frozen = new URLSearchParams(window.location.search).get('bench') === '1';
@@ -82,7 +74,6 @@ function Live({ onOpen }: { onOpen: () => void }) {
     <div className="au-live" ref={host}>
       <div className="au-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 36)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}><i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} /></div>
       {fresh && <div className="au-toast au-toast--top" role="status">Bids refreshed</div>}
-      <Status />
       <button type="button" className="au-sq au-sq--back" aria-label="Back"><Back /></button>
       <button type="button" className="au-sq au-sq--bell" aria-label="Notifications"><Bell /></button>
       <h1>Live Bids</h1>

@@ -19,18 +19,6 @@ export const StickerCanvas = forwardRef<HTMLDivElement, { children: ReactNode }>
   return <div className="sk" ref={ref}>{children}</div>;
 });
 
-/** Dynamic Island plus the right side of the status bar (the reference shows no time). */
-export function StickerStatusBar() {
-  return (
-    <div className="sk-status" aria-hidden="true">
-      <span className="sk-status__island"><i /></span>
-      <svg className="sk-status__signal" width="19" height="12" viewBox="0 0 22 14" fill="currentColor"><rect x="0" y="9" width="3.600" height="5" rx="1.100" /><rect x="6" y="6.500" width="3.600" height="7.500" rx="1.100" /><rect x="12" y="3.500" width="3.600" height="10.500" rx="1.100" /><rect x="18" y="0" width="3.600" height="14" rx="1.100" /></svg>
-      <svg className="sk-status__wifi" width="17" height="13" viewBox="0 0 24 18" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M2 6.500a14 14 0 0 1 20 0" /><path d="M6 11a8.500 8.500 0 0 1 12 0" /><circle cx="12" cy="15.400" r="1.800" fill="currentColor" stroke="none" /></svg>
-      <svg className="sk-status__battery" width="26" height="12" viewBox="0 0 32 14" fill="none"><rect x="0.500" y="0.500" width="27" height="13" rx="4" stroke="currentColor" opacity=".4" /><rect x="2.500" y="2.500" width="23" height="9" rx="2.400" fill="currentColor" /><rect x="29" y="4.500" width="2.200" height="5" rx="1.100" fill="currentColor" opacity=".45" /></svg>
-    </div>
-  );
-}
-
 export function StickerHomeBar() { return <span className="sk-home" aria-hidden="true" />; }
 
 export const stickers = { rainbow, egg, leaves, beer, peace, heart };
@@ -235,7 +223,6 @@ export function CircleEditorScreen() {
 
   return (
     <StickerCanvas ref={canvas}>
-      <StickerStatusBar />
       <p className="sk-pause">Pause</p>
       <VideoCircle playing={playing} onToggle={() => setPlaying((p) => !p)} progress={progress} onScrub={setProgress} />
       {items.map((it) => <PlacedSticker key={it.id} it={it} selected={sel === it.id} scale={scale} onMove={move} onSelect={setSel} onDelete={remove} onCopy={copy} />)}

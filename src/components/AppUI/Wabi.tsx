@@ -27,17 +27,6 @@ export function WabiCanvas({ children }: { children: ReactNode }) {
   return <div className="wb">{children}</div>;
 }
 
-/** The status bar of the cropped screenshot: only its lower edge is visible. */
-export function WabiStatusBar() {
-  return (
-    <div className="wb-status" aria-hidden="true">
-      <span className="wb-status__back">&#9666; TestFlight</span>
-      <span className="wb-status__sig" />
-      <span className="wb-status__bat" />
-    </div>
-  );
-}
-
 export function WabiLogo() {
   return (
     <svg className="wb-logo" width="96" height="60" viewBox="0 0 96 60" aria-label="Wabi" role="img">

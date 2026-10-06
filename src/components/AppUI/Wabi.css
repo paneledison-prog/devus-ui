@@ -4,10 +4,6 @@
 .wb p, .wb h1 { margin: 0; }
 .wb button { font-family: inherit; }
 
-.wb-status { position: absolute; z-index: 20; left: 0; top: 0; width: 736px; height: 30px; color: #000; pointer-events: none; }
-.wb-status__back { position: absolute; left: 22px; top: -16px; font: 500 26px/32px var(--font-sans); }
-.wb-status__sig { position: absolute; left: 527px; top: -18px; width: 40px; height: 26px; background: linear-gradient(90deg, #000 0 20%, transparent 20% 28%, #000 28% 48%, transparent 48% 56%, #000 56% 76%, transparent 76% 84%, #bbb 84%); border-radius: 4px; }
-.wb-status__bat { position: absolute; left: 622px; top: -18px; width: 46px; height: 24px; border: 3px solid #999; border-radius: 9px; }
 .wb-logo { position: absolute; left: 320px; top: 82px; display: block; }
 
 .wb-spheres { position: absolute; inset: 0; }
@@ -53,4 +49,3 @@
 @media (prefers-reduced-motion: reduce) { .wb-spheres[data-snap] { transition: none; } }
 
 /* The cropped TestFlight strip is replaced by the container status bar. */
-.wb-status { display: none; }

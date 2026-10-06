@@ -8,10 +8,6 @@
 @keyframes vc-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .vc-home-bar { position: absolute; z-index: 60; left: 130px; top: 828px; width: 130px; height: 5px; border-radius: 3px; background: #fff; }
 
-.vc-status { position: absolute; z-index: 30; left: 0; top: 0; width: 390px; height: 56px; color: #fff; pointer-events: none; }
-.vc-status__time { position: absolute; left: 38px; top: 18px; display: flex; align-items: center; gap: 4px; font: 600 13px/18px var(--font-sans); }
-.vc-status__island { position: absolute; left: 134px; top: 10px; width: 122px; height: 34px; border-radius: 17px; background: #000; }
-.vc-status__signal { position: absolute; left: 284px; top: 22px; } .vc-status__net { position: absolute; left: 308px; top: 19px; font: 600 11px/18px var(--font-sans); } .vc-status__battery { position: absolute; left: 332px; top: 22px; }
 .vc-grab { position: absolute; z-index: 40; left: 160px; top: 54px; width: 70px; height: 18px; padding: 0; border: 0; background: none; } .vc-grab::after { content: ''; position: absolute; left: 17px; top: 7px; width: 36px; height: 4px; border-radius: 2px; background: rgb(255 255 255 / .55); }
 
 .vc-visa { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 6px; border-radius: 6px; background: linear-gradient(120deg, #6a3df0, #e8458a 55%, #ffb03a); font: 800 9px/1 var(--font-sans); letter-spacing: .04em; color: #fff; } .vc-visa i { display: none; }

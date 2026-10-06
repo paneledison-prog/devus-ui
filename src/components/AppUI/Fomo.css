@@ -5,11 +5,6 @@
 .fm button { font-family: inherit; }
 .fm::before { content: ''; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgb(8 36 24 / .55) 0%, transparent 18%, transparent 52%, rgb(14 60 40 / .55) 100%); pointer-events: none; }
 
-.fm-status { position: absolute; z-index: 30; left: 0; top: 0; width: 473px; height: 60px; color: #fff; pointer-events: none; }
-.fm-status__time { position: absolute; left: 63px; top: 18px; font: 600 19px/24px var(--font-sans); letter-spacing: .01em; }
-.fm-status__signal { position: absolute; left: 350px; top: 25px; }
-.fm-status__wifi { position: absolute; left: 383px; top: 24px; }
-.fm-status__battery { position: absolute; left: 413px; top: 25px; }
 
 .fm-rays { position: absolute; left: 0; top: 0; }
 .fm-avatars { position: absolute; inset: 0; }

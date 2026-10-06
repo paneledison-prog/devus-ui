@@ -4,14 +4,6 @@
 .cl p, .cl h1 { margin: 0; }
 .cl button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 
-.cl-status { position: absolute; z-index: 20; left: 0; top: 0; width: 923px; height: 120px; color: #fff; pointer-events: none; }
-.cl-status__time { position: absolute; left: 88px; top: 44px; font: 600 40px/50px var(--font-sans); letter-spacing: .01em; }
-.cl-status__island { position: absolute; left: 242px; top: 27px; display: flex; align-items: center; width: 421px; height: 85px; padding-left: 20px; border-radius: 43px; background: #000; }
-.cl-status__signal { position: absolute; left: 687px; top: 54px; }
-.cl-status__net { position: absolute; left: 741px; top: 48px; font: 700 28px/36px var(--font-sans); }
-.cl-status__bat { position: absolute; left: 800px; top: 50px; display: grid; place-items: center; width: 58px; height: 36px; border-radius: 12px; background: rgb(255 255 255 / .85); color: #3a3a3a; }
-.cl-status__bat b { font: 700 26px/30px var(--font-sans); }
-.cl-status__dot { position: absolute; left: 884px; top: 61px; width: 16px; height: 16px; border-radius: 50%; background: #ff9f0a; }
 
 .cl-wave { position: absolute; left: 46px; top: 156px; }
 .cl-info { position: absolute; left: 828px; top: 153px; display: grid; place-items: center; width: 54px; height: 54px; padding: 0; border: 3.5px solid #fff; border-radius: 50%; background: none; color: #fff; font: 600 34px/1 Georgia, serif; font-style: italic; }

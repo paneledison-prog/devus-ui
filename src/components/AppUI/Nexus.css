@@ -5,11 +5,6 @@
 .nx button { font-family: inherit; }
 
 /* status bar and home indicator */
-.nx-status { position: absolute; z-index: 20; left: 0; top: 0; width: 454px; height: 64px; color: #111; pointer-events: none; }
-.nx-status__time { position: absolute; left: 43px; top: 24px; font: 600 20px/24px var(--font-sans); letter-spacing: .01em; }
-.nx-status__signal { position: absolute; left: 332px; top: 29px; }
-.nx-status__wifi { position: absolute; left: 363px; top: 29px; }
-.nx-status__battery { position: absolute; left: 392px; top: 29px; }
 .nx-home { position: absolute; z-index: 30; left: 150px; top: 969px; width: 155px; height: 5px; border-radius: 3px; background: #111; }
 
 /* header */

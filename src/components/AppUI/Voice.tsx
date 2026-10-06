@@ -36,23 +36,10 @@ const Bubble = () => <svg width="18" height="18" viewBox="0 0 18 18" fill="curre
 const Info = () => <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.200" aria-hidden="true"><circle cx="6.500" cy="6.500" r="5.500" /><path d="M6.500 6v3.500M6.500 3.800v.4" strokeLinecap="round" /></svg>;
 const Chevron = () => <svg width="14" height="8" viewBox="0 0 14 8" fill="none" stroke="currentColor" strokeWidth="1.800" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m1 1 6 6 6-6" /></svg>;
 
-function Status({ time }: { time: string }) {
-  return (
-    <div className="vc-status" aria-hidden="true">
-      <span className="vc-status__time">{time}<svg width="9" height="9" viewBox="0 0 10 10" fill="currentColor"><path d="M1 5 9 1 5 9V5H1Z" /></svg></span>
-      <span className="vc-status__island" />
-      <svg className="vc-status__signal" width="19" height="12" viewBox="0 0 22 14" fill="currentColor"><rect x="0" y="9" width="3.600" height="5" rx="1.100" /><rect x="6" y="6.500" width="3.600" height="7.500" rx="1.100" /><rect x="12" y="3.500" width="3.600" height="10.500" rx="1.100" /><rect x="18" y="0" width="3.600" height="14" rx="1.100" /></svg>
-      <span className="vc-status__net">5G</span>
-      <svg className="vc-status__battery" width="24" height="12" viewBox="0 0 32 14" fill="none"><rect x="0.500" y="0.500" width="27" height="13" rx="4" stroke="currentColor" opacity=".4" /><rect x="2.500" y="2.500" width="23" height="9" rx="2.400" fill="currentColor" /></svg>
-    </div>
-  );
-}
-
 /** A sheet-style screen: grab handle at the top (tap to go back), status bar and content. */
 function Sheet({ time, children, onBack, className = '' }: { time: string; children: ReactNode; onBack: () => void; className?: string }) {
   return (
     <div className={`vc-sheet ${className}`}>
-      <Status time={time} />
       <button type="button" className="vc-grab" aria-label="Back" onClick={onBack} />
       {children}
     </div>
@@ -84,7 +71,6 @@ function Home({ go }: { go: (s: Screen) => void }) {
   return (
     <div className="vc-home" ref={host}>
       <div className="vc-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 36)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}><i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} /></div>
-      <Status time="11:02" />
       <div className="vc-top">
         <button type="button" className="vc-top__me" onClick={() => go('chat')} aria-label="Messages, 9"><img src={tess} alt="" /><span>9 <Bubble /></span></button>
         <button type="button" className="vc-top__visa" onClick={() => go('card')} aria-label="Creator card"><Visa /></button>
@@ -146,7 +132,6 @@ function Room({ go }: { go: (s: Screen) => void }) {
   return (
     <div className="vc-room">
       <img className="vc-room__bg" src={michael} alt="" />
-      <Status time="12:07" />
       <img className="vc-room__pip" src={pip} alt="" />
       <p className="vc-room__who"><span className="vc-live">LIVE</span> Michael <Spark s={16} /></p>
       <Controls go={go} />
@@ -177,7 +162,6 @@ function People({ go }: { go: (s: Screen) => void }) {
   const [hand, setHand] = useState(false);
   return (
     <div className="vc-people">
-      <Status time="7:22" />
       <button type="button" className="vc-grab" aria-label="Back to the room" onClick={() => go('room')} />
       <p className="vc-reward">REWARD <Spark s={8} />0.1 for every <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="3" r="2.500" /><path d="M0 10c.5-3 2.500-4 5-4s4.500 1 5 4Z" /></svg><span className="vc-reward__bar"><i /></span></p>
       <div className="vc-tiles"><div className="vc-tile"><img src={chun} alt="" /><b>Chun</b></div><div className="vc-tile"><img src={james} alt="" /><span className="vc-tile__mic"><Mic off /></span><b>James <Spark s={12} /></b></div></div>
@@ -239,7 +223,6 @@ function Chat({ go }: { go: (s: Screen) => void }) {
   return (
     <div className="vc-chat">
       <img className="vc-chat__bg" src={curly} alt="" />
-      <Status time="4:41" />
       <img className="vc-room__pip vc-chat__pip" src={fashion} alt="" />
       <button type="button" className="vc-grab" aria-label="Back to the room" onClick={() => go('room')} />
       <div className="vc-chat__panel">
@@ -318,7 +301,7 @@ export function VoiceFlow({ initial = 'home' }: { initial?: Screen }) {
     },
   });
   return (
-    <PhoneFrame bare height={692}>
+    <PhoneFrame bare height={692} tone="light">
       <div className="vc" {...nav.bind}>
         <div className="vc-swap" key={screen}>
           {screen === 'home' && <Home go={setScreen} />}

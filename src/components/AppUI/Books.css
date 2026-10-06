@@ -8,9 +8,6 @@
 .bk-screen { position: absolute; inset: 0; }
 .bk-home { position: absolute; z-index: 30; left: 130px; top: 833px; width: 130px; height: 5px; border-radius: 3px; background: #1a1a1a; }
 
-.bk-status { position: absolute; z-index: 20; left: 0; top: 0; width: 390px; height: 56px; color: #111; pointer-events: none; }
-.bk-status__time { position: absolute; left: 52px; top: 17px; font: 600 16px/20px var(--font-sans); }
-.bk-status__signal { position: absolute; left: 275px; top: 21px; } .bk-status__wifi { position: absolute; left: 300px; top: 20px; } .bk-status__battery { position: absolute; left: 325px; top: 21px; }
 
 /* covers (original artwork) */
 .bk-cover { container-type: inline-size; position: relative; display: flex; flex-direction: column; justify-content: space-between; width: 100%; aspect-ratio: 2 / 3; padding: 9% 8% 8%; overflow: hidden; border-radius: 4px; text-align: center; background: #eee; color: #111; font-family: var(--font-sans); line-height: 1.05; }

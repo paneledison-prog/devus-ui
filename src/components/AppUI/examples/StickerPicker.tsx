@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PhoneFrame } from '../PhoneFrame';
-import { BlurredPhoto, StickerCanvas, StickerHomeBar, StickerSheet, StickerStatusBar } from '../Stickers';
+import { BlurredPhoto, StickerCanvas, StickerHomeBar, StickerSheet } from '../Stickers';
 
 /** "Sticker picker": switch packs, tap stickers, close the sheet (it slides away) and tap the photo to bring it back. */
 export function StickerPickerExample() {
@@ -9,7 +9,6 @@ export function StickerPickerExample() {
     <PhoneFrame bare height={692}>
       <StickerCanvas>
         <BlurredPhoto sheetOpen={open} onOpen={() => setOpen(true)} />
-        <StickerStatusBar />
         <StickerSheet open={open} onClose={() => setOpen(false)} />
         <StickerHomeBar />
       </StickerCanvas>

@@ -11,18 +11,6 @@ export function PayCanvas({ children, tone, swipe }: { children: ReactNode; tone
   return <div className={`pw-root pw--${tone}`} {...swipe}>{children}</div>;
 }
 
-/** White status bar: time on the left, signal, wifi and battery on the right. */
-export function PayStatusBar() {
-  return (
-    <div className="pw-status" aria-hidden="true">
-      <span className="pw-status__time">9:41</span>
-      <svg className="pw-status__signal" width="21" height="14" viewBox="0 0 21 14" fill="currentColor"><rect x="0" y="9" width="3.6" height="5" rx="1.2" /><rect x="5.8" y="6.5" width="3.6" height="7.5" rx="1.2" /><rect x="11.6" y="3.5" width="3.6" height="10.5" rx="1.2" /><rect x="17.4" y="0" width="3.6" height="14" rx="1.2" /></svg>
-      <svg className="pw-status__wifi" width="22" height="16" viewBox="0 0 24 18" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round"><path d="M2 6.5a14 14 0 0 1 20 0" /><path d="M6 11a8.5 8.5 0 0 1 12 0" /><circle cx="12" cy="15.4" r="1.7" fill="currentColor" stroke="none" /></svg>
-      <svg className="pw-status__battery" width="26" height="13" viewBox="0 0 26 13" fill="currentColor"><rect width="26" height="13" rx="4.2" /></svg>
-    </div>
-  );
-}
-
 /** Rounded home indicator bar. */
 export function PayHomeBar({ dark = false }: { dark?: boolean }) {
   return <span className={`pw-home${dark ? ' pw-home--dark' : ''}`} aria-hidden="true" />;

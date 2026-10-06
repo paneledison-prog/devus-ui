@@ -5,11 +5,6 @@
 .pw-root p, .pw-root h1, .pw-root h2 { margin: 0; }
 
 /* status bar and home indicator */
-.pw-status { position: absolute; z-index: 20; left: 0; top: 0; width: 446px; height: 64px; color: #fff; pointer-events: none; }
-.pw-status__time { position: absolute; left: 59px; top: 20px; font: 600 19px/24px var(--font-sans); letter-spacing: .01em; }
-.pw-status__signal { position: absolute; left: 322px; top: 25px; }
-.pw-status__wifi { position: absolute; left: 350px; top: 24px; }
-.pw-status__battery { position: absolute; left: 380px; top: 26px; }
 .pw-home { position: absolute; z-index: 20; left: 145px; top: 956px; width: 154px; height: 5px; border-radius: 3px; background: #fff; }
 .pw-home--dark { left: 146px; background: #0b0b0b; }
 

@@ -58,17 +58,6 @@ export function Cover({ id, className = '' }: { id: BookId; className?: string }
 }
 
 /* ---------- shared bits ---------- */
-function Status({ dark = false }: { dark?: boolean }) {
-  return (
-    <div className={`bk-status${dark ? ' is-dark' : ''}`} aria-hidden="true">
-      <span className="bk-status__time">9:41</span>
-      <svg className="bk-status__signal" width="19" height="12" viewBox="0 0 22 14" fill="currentColor"><rect x="0" y="9" width="3.600" height="5" rx="1.100" /><rect x="6" y="6.500" width="3.600" height="7.500" rx="1.100" /><rect x="12" y="3.500" width="3.600" height="10.500" rx="1.100" /><rect x="18" y="0" width="3.600" height="14" rx="1.100" /></svg>
-      <svg className="bk-status__wifi" width="17" height="13" viewBox="0 0 24 18" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M2 6.500a14 14 0 0 1 20 0" /><path d="M6 11a8.500 8.500 0 0 1 12 0" /><circle cx="12" cy="15.400" r="1.800" fill="currentColor" stroke="none" /></svg>
-      <svg className="bk-status__battery" width="27" height="13" viewBox="0 0 32 14" fill="none"><rect x="0.500" y="0.500" width="27" height="13" rx="4" stroke="currentColor" opacity=".4" /><rect x="2.500" y="2.500" width="23" height="9" rx="2.400" fill="currentColor" /><rect x="29" y="4.500" width="2.200" height="5" rx="1.100" fill="currentColor" opacity=".45" /></svg>
-    </div>
-  );
-}
-
 const I = {
   home: <svg width="26" height="26" viewBox="0 0 26 26" fill="currentColor" aria-hidden="true"><path d="M13 3 3 11v10a2 2 0 0 0 2 2h5v-6h6v6h5a2 2 0 0 0 2-2V11L13 3Z" /></svg>,
   explore: <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" strokeWidth="2.200" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7.500" /><path d="m17 17 6 6" /></svg>,
@@ -134,7 +123,6 @@ function Explore({ onTab }: { onTab: (t: Tab) => void }) {
     <div className="bk-screen bk-screen--explore" ref={host}>
       <div className="bk-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 36)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}><i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} /></div>
       {toast && <p className="bk-toast" role="status">{toast}</p>}
-      <Status />
       <label className="bk-search">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#8a8a8e" strokeWidth="1.800" strokeLinecap="round" aria-hidden="true"><circle cx="9" cy="9" r="6.500" /><path d="m14 14 4 4" /></svg>
         <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search books, authors, genres..." aria-label="Search books" spellCheck={false} />
@@ -196,7 +184,6 @@ function Library({ onTab }: { onTab: (t: Tab) => void }) {
   const list = shelves.filter((s) => (f === 'All' || s.tags.includes(f)) && !removed.includes(s.title));
   return (
     <div className="bk-screen bk-screen--library">
-      <Status />
       <h1 className="bk-title">My Bookmarks</h1>
       <button type="button" className="bk-roundbtn bk-roundbtn--more" aria-label="More"><svg width="22" height="6" viewBox="0 0 22 6" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="2.500" /><circle cx="11" cy="3" r="2.500" /><circle cx="19" cy="3" r="2.500" /></svg></button>
       <div className="bk-filters" role="tablist" aria-label="Filter" ref={fil} {...panFil}>
@@ -293,7 +280,6 @@ export function OnboardingFlow({ initial = 'intro' }: { initial?: Step }) {
         )}
         {step === 'topics' && (
           <div className="bk-screen bk-topics">
-            <Status />
             <Prog total={4} full={0} partial={0.55} label="Step 1 of 4" />
             <span className="bk-tag">Profile</span>
             <h1>What Topics Interest<br />You Most?</h1>
@@ -314,7 +300,6 @@ export function OnboardingFlow({ initial = 'intro' }: { initial?: Step }) {
         )}
         {step === 'book' && (
           <div className="bk-screen bk-ask">
-            <Status />
             <Prog total={5} full={2 + idx} partial={0.55} label={`Book ${idx + 1} of ${queue.length}`} className="bk-prog--5" />
             <span className="bk-tag">Like time</span>
             <h1>Are you interested<br />in this book?</h1>

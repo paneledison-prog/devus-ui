@@ -11,18 +11,6 @@ export function NexusCanvas({ children, dim = false }: { children: ReactNode; di
   return <div className={`nx${dim ? ' nx--dim' : ''}`}>{children}</div>;
 }
 
-/** Dark status bar (time left, signal, wifi and battery right). */
-export function NexusStatusBar() {
-  return (
-    <div className="nx-status" aria-hidden="true">
-      <span className="nx-status__time">9:41</span>
-      <svg className="nx-status__signal" width="22" height="14" viewBox="0 0 22 14" fill="currentColor"><rect x="0" y="9" width="3.6" height="5" rx="1.1" /><rect x="6" y="6.5" width="3.6" height="7.5" rx="1.1" /><rect x="12" y="3.5" width="3.6" height="10.5" rx="1.1" /><rect x="18" y="0" width="3.6" height="14" rx="1.1" /></svg>
-      <svg className="nx-status__wifi" width="19" height="14" viewBox="0 0 24 18" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M2 6.5a14 14 0 0 1 20 0" /><path d="M6 11a8.5 8.5 0 0 1 12 0" /><circle cx="12" cy="15.4" r="1.8" fill="currentColor" stroke="none" /></svg>
-      <svg className="nx-status__battery" width="32" height="14" viewBox="0 0 32 14" fill="none"><rect x="0.5" y="0.5" width="27" height="13" rx="4" stroke="currentColor" opacity=".4" /><rect x="2.5" y="2.5" width="23" height="9" rx="2.4" fill="currentColor" /><rect x="29" y="4.5" width="2.2" height="5" rx="1.1" fill="currentColor" opacity=".45" /></svg>
-    </div>
-  );
-}
-
 export function NexusHomeBar() { return <span className="nx-home" aria-hidden="true" />; }
 
 /* ---------- icons ---------- */

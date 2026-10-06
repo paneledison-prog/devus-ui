@@ -5,13 +5,6 @@
 .mm button { font-family: inherit; }
 .mm::before { content: ''; position: absolute; left: 0; top: 0; width: 558px; height: 758px; background: linear-gradient(180deg, #f5f1fb 0%, #e9f2fb 35%, #dcefff 100%); }
 
-.mm-status { position: absolute; z-index: 20; left: 0; top: 0; width: 558px; height: 90px; color: #000; pointer-events: none; }
-.mm-status__island { position: absolute; left: 190px; top: 16px; width: 176px; height: 52px; border-radius: 26px; background: #000; }
-.mm-status__island i { position: absolute; right: 18px; top: 14px; width: 24px; height: 24px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #151a26 0 35%, #05070c 70%); box-shadow: 0 0 0 2px #0b0d12; }
-.mm-status__time { position: absolute; left: 72px; top: 27px; font: 700 25px/32px var(--font-sans); letter-spacing: .01em; }
-.mm-status__signal { position: absolute; left: 401px; top: 33px; }
-.mm-status__wifi { position: absolute; left: 442px; top: 33px; }
-.mm-status__battery { position: absolute; left: 475px; top: 33px; }
 
 .mm-wordmark { position: absolute; left: 0; top: 110px; display: block; }
 .mm-cast { position: absolute; left: 0; top: 0; display: block; }
