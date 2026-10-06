@@ -163,6 +163,7 @@ iOS-style messaging demo in the Liquid Glass look, inspired by github.com/Applla
 - `devus.space` is connected and serving the homepage.
 
 ## Known gaps and ideas
+- Status 2026-10-06: library is 173 items (Components 32, Blocks 32, Templates 8, Backgrounds 56, UI Elements 8, App 37), checked against the rendered page. Backgrounds mix pure CSS, two components (Kinetic grid canvas, Dither shader WebGL) and about 50 bundled WebP/JPG pictures in `src/components/Backgrounds/assets/` (about 7 MB; keep adding pictures there only after a duplicate check, see the 2026-10-06 changelog). Library tiles build their preview only near the viewport and show `Skeleton` placeholders until then.
 - The bench references of the App items whose DOM changed with the gesture pass (Music x4, Voice, Auction, Books, Nexus x4, Finance x2, Call, Orb, Housewarming, NFT search, Sticker picker, Circle editor, Balance card, Story rings, Week strip, Task list, Home screen, App bar, Tracking steps, Grouped list, Bottom sheet) and `ai-platform-demo` (Send button) were not re-measured: the in-app browser is not 1440x900. Re-measure at 1440x900 (step 9 of the verify skill) before relying on the bench for them.
 - Gyroscope parallax was verified with simulated orientation events and the pointer fallback, not on a physical phone.
 - Segmented control track uses --default-hover (not --default) so it stays visible on the gray library tiles; inactive segments get a hover fill.
