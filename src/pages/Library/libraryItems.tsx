@@ -58,7 +58,7 @@ import { VoiceRoomsFlowExample } from '../../components/AppUI/examples/VoiceRoom
 import { NftAuctionFlowExample } from '../../components/AppUI/examples/NftAuctionFlow';
 import { BookshelfFlowExample } from '../../components/AppUI/examples/BookshelfFlow';
 import { BookOnboardingFlowExample } from '../../components/AppUI/examples/BookOnboardingFlow';
-import { WidgetBoardExample } from '../../components/AppUI/examples/WidgetBoard';
+import { WeatherWidget, MeetingWidget, TimerWidget, AiPhotoWidget, ProfileWidget, ContactWidget, DroneWidget, FlightWidget, BalanceWidget, UsdcWidget, NowPlayingWidget, LampWidget } from '../../components/Widgets/Board';
 import { MoimoiSignInExample } from '../../components/AppUI/examples/MoimoiSignIn';
 import { NexusTodayExample } from '../../components/AppUI/examples/NexusToday';
 import { NexusDailyExample } from '../../components/AppUI/examples/NexusDaily';
@@ -466,6 +466,102 @@ const blockItems: BaseItem[] = [
     defaultZoom: 1.2,
     preview: <div style={{ padding: 24 }}><AlarmWidget time="7:30 AM" /></div>,
     code: `<AlarmWidget time="7:30 AM" />`,
+  },
+  {
+    name: 'Weather widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><WeatherWidget /></div>,
+    code: `<WeatherWidget />`,
+  },
+  {
+    name: 'Meeting widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><MeetingWidget /></div>,
+    code: `<MeetingWidget />`,
+  },
+  {
+    name: 'Timer widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><TimerWidget /></div>,
+    code: `<TimerWidget />`,
+  },
+  {
+    name: 'AI photo widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><AiPhotoWidget /></div>,
+    code: `<AiPhotoWidget />`,
+  },
+  {
+    name: 'Profile widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><ProfileWidget /></div>,
+    code: `<ProfileWidget />`,
+  },
+  {
+    name: 'Contact widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><ContactWidget /></div>,
+    code: `<ContactWidget />`,
+  },
+  {
+    name: 'Drone battery widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><DroneWidget /></div>,
+    code: `<DroneWidget />`,
+  },
+  {
+    name: 'Flight board widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><FlightWidget /></div>,
+    code: `<FlightWidget />`,
+  },
+  {
+    name: 'Balance widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><BalanceWidget /></div>,
+    code: `<BalanceWidget />`,
+  },
+  {
+    name: 'USDC widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><UsdcWidget /></div>,
+    code: `<UsdcWidget />`,
+  },
+  {
+    name: 'Now playing widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><NowPlayingWidget /></div>,
+    code: `<NowPlayingWidget />`,
+  },
+  {
+    name: 'Lamp widget',
+    variants: 1,
+    tileZoom: 0.62,
+    defaultZoom: 1.2,
+    preview: <div style={{ padding: 24 }}><LampWidget /></div>,
+    code: `<LampWidget />`,
   },
 ];
 
@@ -886,16 +982,6 @@ const appItems: BaseItem[] = [
     sourceEntries: [{ path: 'src/components/AppUI/examples/BookOnboardingFlow.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
     helper: 'book-onboarding-flow',
     code: `// Learn Smarter -> Topics -> Are you interested in this book? (Yes / No through three books) -> back to the start\n<OnboardingFlow />`,
-  },
-  {
-    name: 'Widget board',
-    variants: 1,
-    ...phoneProps,
-    phoneHeight: 692,
-    preview: <WidgetBoardExample />,
-    sourceEntries: [{ path: 'src/components/AppUI/examples/WidgetBoard.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
-    helper: 'widget-board',
-    code: `<WidgetBoard />`,
   },
 ];
 

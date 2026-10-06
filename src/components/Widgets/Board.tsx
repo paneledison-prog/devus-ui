@@ -1,19 +1,18 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { TiltButton, useFling, useHold, useLongPress, usePanScroll, usePinch, usePull, useScrub, useSwipe, useTiltAuto } from './gestures';
-import { PhoneFrame } from './PhoneFrame';
-import './WidgetBoard.css';
-import man from './assets/widgets/man.jpg';
-import street from './assets/widgets/street.jpg';
-import cat from './assets/widgets/cat.png';
-import couple from './assets/widgets/couple.jpg';
-import zion from './assets/widgets/zion.jpg';
-import car from './assets/widgets/car.jpg';
-import side from './assets/widgets/side.jpg';
-import lamp from './assets/widgets/lamp.png';
+import { TiltButton, useFling, useHold, useLongPress, usePinch, useScrub, useSwipe, useTiltAuto } from '../AppUI/gestures';
+import './Board.css';
+import man from './assets/board/man.jpg';
+import street from './assets/board/street.jpg';
+import cat from './assets/board/cat.png';
+import couple from './assets/board/couple.jpg';
+import zion from './assets/board/zion.jpg';
+import car from './assets/board/car.jpg';
+import side from './assets/board/side.jpg';
+import lamp from './assets/board/lamp.png';
 
 /*
- * A board of twelve live widgets, one per tile (286x286), in a scrolling phone page.
- * Layout and sizes come from the reference image; pictures are generated with the Stitch MCP.
+ * Twelve live 286x286 widgets, each exported on its own.
+ * Layout and sizes come from the reference image; pictures are generated image assets.
  */
 
 const frozen = () => new URLSearchParams(window.location.search).get('bench') === '1';
@@ -23,7 +22,8 @@ function Tile({ className, label, children, onClick, hostRef, bind }: { classNam
 }
 
 /* 1. weather */
-function Weather() {
+/** WeatherWidget. */
+export function WeatherWidget() {
   const [f, setF] = useState(false);
   return (
     <Tile className="wd-weather" label={f ? 'Weather, Fahrenheit (tap to switch)' : 'Weather, Celsius (tap to switch)'} onClick={() => setF((v) => !v)}>
@@ -33,7 +33,8 @@ function Weather() {
 }
 
 /* 2. meeting */
-function Meeting() {
+/** MeetingWidget. */
+export function MeetingWidget() {
   const [added, setAdded] = useState(false);
   return (
     <Tile className="wd-meeting" label="Meeting with Jack Reed">
@@ -50,7 +51,8 @@ function Meeting() {
 }
 
 /* 3. timer */
-function Timer() {
+/** TimerWidget. */
+export function TimerWidget() {
   const [run, setRun] = useState(false);
   const [s, setS] = useState(0);
   useEffect(() => {
@@ -73,7 +75,8 @@ function Timer() {
 }
 
 /* 4. AI photo */
-function Suggested() {
+/** AiPhotoWidget. */
+export function AiPhotoWidget() {
   const [ok, setOk] = useState(false);
   const [edit, setEdit] = useState(false);
   const host = useRef<HTMLElement | null>(null);
@@ -93,7 +96,8 @@ function Suggested() {
 }
 
 /* 5. profile pills */
-function Profile() {
+/** ProfileWidget. */
+export function ProfileWidget() {
   const [on, setOn] = useState<[boolean, boolean, boolean]>([false, false, false]);
   const base = [8, 4, 9];
   const flip = (i: number) => setOn((o) => o.map((v, j) => (j === i ? !v : v)) as [boolean, boolean, boolean]);
@@ -115,7 +119,8 @@ function Profile() {
 }
 
 /* 6. contact */
-function Contact() {
+/** ContactWidget. */
+export function ContactWidget() {
   const [act, setAct] = useState<string | null>(null);
   const [fav, setFav] = useState(false);
   const lp = useLongPress(() => setFav((v) => !v), 500);
@@ -136,7 +141,8 @@ function Contact() {
 }
 
 /* 7. drone */
-function Drone() {
+/** DroneWidget. */
+export function DroneWidget() {
   const [pct, setPct] = useState(38);
   const [on, setOn] = useState(true);
   const scrub = useScrub((f) => setPct(Math.max(5, Math.round(f * 100))));
@@ -193,7 +199,8 @@ function DotRow({ text, tone }: { text: string; tone: 'lime' | 'white' }) {
   for (let r = 0; r < 7; r++) for (let c = 0; c < COLS; c++) cells.push(<i key={`${c},${r}`} className={on.has(`${c},${r}`) ? `is-${tone}` : ''} />);
   return <div className="wd-dots" aria-hidden="true">{cells}</div>;
 }
-function Flight() {
+/** FlightWidget. */
+export function FlightWidget() {
   const [t24, setT24] = useState(true);
   return (
     <Tile className="wd-flight" label="Next flight Tokyo to London, 15 Jan, 13:30" onClick={() => setT24((v) => !v)}>
@@ -204,7 +211,8 @@ function Flight() {
 }
 
 /* 9. balance */
-function Balance() {
+/** BalanceWidget. */
+export function BalanceWidget() {
   const [view, setView] = useState<'card' | 'chart'>('card');
   const [dot, setDot] = useState(0);
   const swipe = useSwipe({ axis: 'x', threshold: 40, ignore: '.wd-balance__dots, .wd-balance__pill', onSwipe: () => setView((v) => (v === 'card' ? 'chart' : 'card')) });
@@ -234,7 +242,8 @@ function Balance() {
 }
 
 /* 10. USDC */
-function Usdc() {
+/** UsdcWidget. */
+export function UsdcWidget() {
   const [amount, setAmount] = useState(987.86);
   const [delta, setDelta] = useState(-99.56);
   const [flip, setFlip] = useState(false);
@@ -252,7 +261,8 @@ function Usdc() {
 }
 
 /* 11. music */
-function Music() {
+/** NowPlayingWidget. */
+export function NowPlayingWidget() {
   const [play, setPlay] = useState(false);
   const [t, setT] = useState(151);
   const scrub = useScrub((f) => setT(Math.round(f * 214)));
@@ -280,7 +290,8 @@ function Music() {
 }
 
 /* 12. lamp */
-function Lamp() {
+/** LampWidget. */
+export function LampWidget() {
   const [on, setOn] = useState(true);
   const host = useRef<HTMLElement | null>(null);
   const tilt = useTiltAuto(host);
@@ -294,30 +305,5 @@ function Lamp() {
         <button type="button" aria-label="Turn on" aria-pressed={on} className={on ? 'is-on' : ''} onClick={() => setOn(true)}><svg width="22" height="26" viewBox="0 0 22 26" fill={on ? '#2a2a2a' : '#777'} aria-hidden="true"><path d="M11 2a8 8 0 0 0-4.500 14.600V20h9v-3.400A8 8 0 0 0 11 2Z" /><rect x="7.500" y="22" width="7" height="2.500" rx="1.200" /></svg></button>
       </div>
     </Tile>
-  );
-}
-
-/**
- * Twelve live widgets: weather units, calendar chip, timer, AI suggestion, social pills, contact actions, drone charging, flight board, balance card, USDC, music player and a lamp.
- * Gestures: scroll or drag the board, pull it down at the top to refresh, fling the cat, hold the time to reset the timer, pinch the photo,
- * press and hold the avatar to favorite, drag the battery or the track bar, swipe the balance card to flip it, tilt the phone and the lamp glow moves.
- */
-export function WidgetBoard() {
-  const sc = useRef<HTMLDivElement>(null);
-  const pan = usePanScroll(sc, 'y');
-  const [fresh, setFresh] = useState(false);
-  const pull = usePull(sc, () => setFresh(true), { threshold: 56, ms: 900 });
-  useEffect(() => { if (!fresh) return; const t = window.setTimeout(() => setFresh(false), 1500); return () => window.clearTimeout(t); }, [fresh]);
-  return (
-    <PhoneFrame bare height={692}>
-      <div className="wdb">
-        <div className="wdb-status" aria-hidden="true"><span>9:41</span><i /></div>
-        <div className="wdb-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 40)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}><i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} /></div>
-        {fresh && <p className="wdb-toast" role="status">Widgets refreshed</p>}
-        <div className="wdb-scroll" ref={sc} {...pan}>
-          <Weather /><Meeting /><Timer /><Suggested /><Profile /><Contact /><Drone /><Flight /><Balance /><Usdc /><Music /><Lamp />
-        </div>
-      </div>
-    </PhoneFrame>
   );
 }

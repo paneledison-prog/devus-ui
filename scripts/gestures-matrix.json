@@ -1,198 +1,518 @@
 {
   "app-bar": [
-    ["Scroll", "the list under the bars scrolls; the large title shrinks to a compact one after a few pixels (`compact` prop)"]
+    [
+      "Scroll",
+      "the list under the bars scrolls; the large title shrinks to a compact one after a few pixels (`compact` prop)"
+    ]
   ],
   "balance-card": [
-    ["Flip", "the card flips in 3D to a back with the card number, expiry, holder and limit (flip button, or swipe sideways); the hidden face is `inert`"],
-    ["Swipe", "swipe the card sideways to flip it"]
+    [
+      "Flip",
+      "the card flips in 3D to a back with the card number, expiry, holder and limit (flip button, or swipe sideways); the hidden face is `inert`"
+    ],
+    [
+      "Swipe",
+      "swipe the card sideways to flip it"
+    ]
   ],
   "book-onboarding-flow": [
-    ["Swipe", "swipe the intro left or right to change the page dot"],
-    ["Drag", "drag the book card; a green ring means Yes, a red ring means No, and the card tilts with the finger"],
-    ["Flick", "a quick flick of the card counts even when the drag is short"]
+    [
+      "Swipe",
+      "swipe the intro left or right to change the page dot"
+    ],
+    [
+      "Drag",
+      "drag the book card; a green ring means Yes, a red ring means No, and the card tilts with the finger"
+    ],
+    [
+      "Flick",
+      "a quick flick of the card counts even when the drag is short"
+    ]
   ],
   "bookshelf-flow": [
-    ["Pan", "the trending books, the categories and the filter pills pan sideways (mouse drag, touch scroll, coasting)"],
-    ["Pull", "pull Explore down at the top to refresh (the trending order rotates, a toast says Updated just now)"],
-    ["Long press", "press and hold a trending book to save it to My Bookmarks (toast)"],
-    ["Swipe", "swipe a shelf card sideways to remove it from the library; Undo brings it back"],
-    ["Typing", "the search field filters Trending as you type"]
+    [
+      "Pan",
+      "the trending books, the categories and the filter pills pan sideways (mouse drag, touch scroll, coasting)"
+    ],
+    [
+      "Pull",
+      "pull Explore down at the top to refresh (the trending order rotates, a toast says Updated just now)"
+    ],
+    [
+      "Long press",
+      "press and hold a trending book to save it to My Bookmarks (toast)"
+    ],
+    [
+      "Swipe",
+      "swipe a shelf card sideways to remove it from the library; Undo brings it back"
+    ],
+    [
+      "Typing",
+      "the search field filters Trending as you type"
+    ]
   ],
   "bottom-sheet": [
-    ["Drag", "drag the handle or the sheet; it follows the finger and springs back if released early"],
-    ["Slide", "the sheet slides down and away when dismissed; a Share project button brings it back"],
-    ["Swipe", "swipe the sheet down to dismiss it"],
-    ["Flick", "a quick flick down dismisses it even when the drag is short"]
+    [
+      "Drag",
+      "drag the handle or the sheet; it follows the finger and springs back if released early"
+    ],
+    [
+      "Slide",
+      "the sheet slides down and away when dismissed; a Share project button brings it back"
+    ],
+    [
+      "Swipe",
+      "swipe the sheet down to dismiss it"
+    ],
+    [
+      "Flick",
+      "a quick flick down dismisses it even when the drag is short"
+    ]
   ],
   "call-flow": [
-    ["Hold", "press and hold End for 0.9 s to hang up (a white ring fills); a plain tap only shows the hint"],
-    ["Long press", "press and hold 0 on the keypad to type +"],
-    ["Swipe", "swipe the keypad down to hide it"],
-    ["Typing", "with the keypad open, a real keyboard types digits, * # +; Backspace deletes, Escape hides"]
+    [
+      "Hold",
+      "press and hold End for 0.9 s to hang up (a white ring fills); a plain tap only shows the hint"
+    ],
+    [
+      "Long press",
+      "press and hold 0 on the keypad to type +"
+    ],
+    [
+      "Swipe",
+      "swipe the keypad down to hide it"
+    ],
+    [
+      "Typing",
+      "with the keypad open, a real keyboard types digits, * # +; Backspace deletes, Escape hides"
+    ]
   ],
   "circle-editor": [
-    ["Drag", "drag a sticker around the circle"],
-    ["Pinch", "two fingers (or ctrl + wheel) resize and rotate the selected sticker"],
-    ["Long press", "press and hold a sticker to place a copy"],
-    ["Scrub", "drag around the blue ring to scrub the video; Left and Right arrows on the play button step by 5 %"]
+    [
+      "Drag",
+      "drag a sticker around the circle"
+    ],
+    [
+      "Pinch",
+      "two fingers (or ctrl + wheel) resize and rotate the selected sticker"
+    ],
+    [
+      "Long press",
+      "press and hold a sticker to place a copy"
+    ],
+    [
+      "Scrub",
+      "drag around the blue ring to scrub the video; Left and Right arrows on the play button step by 5 %"
+    ]
   ],
   "finance-dashboard": [
-    ["Scroll", "the home screen scrolls"],
-    ["Pan", "a mouse can drag the page to scroll it, as a finger would"],
-    ["Pull", "pull the page down at the top to refresh (spinner, then a toast)"],
-    ["Swipe", "swipe the tab bar sideways to change tab"],
-    ["Slide", "swipe the Confirm payment sheet down to close it"]
+    [
+      "Scroll",
+      "the home screen scrolls"
+    ],
+    [
+      "Pan",
+      "a mouse can drag the page to scroll it, as a finger would"
+    ],
+    [
+      "Pull",
+      "pull the page down at the top to refresh (spinner, then a toast)"
+    ],
+    [
+      "Swipe",
+      "swipe the tab bar sideways to change tab"
+    ],
+    [
+      "Slide",
+      "swipe the Confirm payment sheet down to close it"
+    ]
   ],
   "floating-action-button": [
-    ["Drag", "drag the buttons anywhere; they spring back to the dock"],
-    ["Flick", "flick them left or right to move the dock to the other side"]
+    [
+      "Drag",
+      "drag the buttons anywhere; they spring back to the dock"
+    ],
+    [
+      "Flick",
+      "flick them left or right to move the dock to the other side"
+    ]
   ],
   "floating-tab-bar": [
-    ["Swipe", "swipe the pill sideways to move to the next or the previous tab"]
+    [
+      "Swipe",
+      "swipe the pill sideways to move to the next or the previous tab"
+    ]
   ],
   "fomo-welcome": [
-    ["Gyroscope", "tilt the phone and the avatars drift at different depths; a desktop pointer over the phone stands in; iOS gets an Enable tilt button for the permission"],
-    ["Drag", "drag any avatar"],
-    ["Flick", "let go and it flies off and springs back"]
+    [
+      "Gyroscope",
+      "tilt the phone and the avatars drift at different depths; a desktop pointer over the phone stands in; iOS gets an Enable tilt button for the permission"
+    ],
+    [
+      "Drag",
+      "drag any avatar"
+    ],
+    [
+      "Flick",
+      "let go and it flies off and springs back"
+    ]
   ],
   "grouped-list": [
-    ["Swipe", "swipe a row left to reveal Delete; swipe right to close it"],
-    ["Slide", "the row slides over the red action; Restore rows brings the deleted rows back"]
+    [
+      "Swipe",
+      "swipe a row left to reveal Delete; swipe right to close it"
+    ],
+    [
+      "Slide",
+      "the row slides over the red action; Restore rows brings the deleted rows back"
+    ]
   ],
   "home-screen": [
-    ["Swipe", "swipe the week strip for the next or the previous week, swipe the tab bar to change tab"],
-    ["Typing", "type in Add a task and press Enter to add a checkbox"]
+    [
+      "Swipe",
+      "swipe the week strip for the next or the previous week, swipe the tab bar to change tab"
+    ],
+    [
+      "Typing",
+      "type in Add a task and press Enter to add a checkbox"
+    ]
   ],
   "housewarming-invite": [
-    ["Slide", "slide a finger along the RSVP bar to choose Going, Not Going or Maybe (arrow keys work too)"],
-    ["Swipe", "swipe the invitation down (or tap close) to dismiss it; a button reopens it"]
+    [
+      "Slide",
+      "slide a finger along the RSVP bar to choose Going, Not Going or Maybe (arrow keys work too)"
+    ],
+    [
+      "Swipe",
+      "swipe the invitation down (or tap close) to dismiss it; a button reopens it"
+    ]
   ],
   "invoice-detail": [
-    ["Scroll", "the invoice scrolls"],
-    ["Pan", "a mouse can drag the page to scroll it"],
-    ["Pull", "pull the page down at the top to refresh"]
+    [
+      "Scroll",
+      "the invoice scrolls"
+    ],
+    [
+      "Pan",
+      "a mouse can drag the page to scroll it"
+    ],
+    [
+      "Pull",
+      "pull the page down at the top to refresh"
+    ]
   ],
   "moimoi-sign-in": [
-    ["Gyroscope", "tilt the phone and the six characters drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button"],
-    ["Drag", "drag a character"],
-    ["Flick", "let go and it flies off and springs back"]
+    [
+      "Gyroscope",
+      "tilt the phone and the six characters drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button"
+    ],
+    [
+      "Drag",
+      "drag a character"
+    ],
+    [
+      "Flick",
+      "let go and it flies off and springs back"
+    ]
   ],
   "music-control-center": [
-    ["Scroll", "the page scrolls"],
-    ["Pan", "a mouse can drag the page to scroll it"],
-    ["Pull", "pull down at the top to refresh (spinner, toast Обновлено)"],
-    ["Swipe", "swipe a notification row sideways to dismiss it; Вернуть restores them"],
-    ["Scrub", "drag along the listening bars to see the hours at that point"],
-    ["Slide", "slide the Детский режим switch"]
+    [
+      "Scroll",
+      "the page scrolls"
+    ],
+    [
+      "Pan",
+      "a mouse can drag the page to scroll it"
+    ],
+    [
+      "Pull",
+      "pull down at the top to refresh (spinner, toast Обновлено)"
+    ],
+    [
+      "Swipe",
+      "swipe a notification row sideways to dismiss it; Вернуть restores them"
+    ],
+    [
+      "Scrub",
+      "drag along the listening bars to see the hours at that point"
+    ],
+    [
+      "Slide",
+      "slide the Детский режим switch"
+    ]
   ],
   "music-profile-banners": [
-    ["Scroll", "the page scrolls"],
-    ["Pan", "a mouse can drag the page to scroll it"],
-    ["Pull", "pull down at the top to refresh"],
-    ["Swipe", "swipe a notification row sideways to dismiss it"],
-    ["Scrub", "drag along the listening bars"]
+    [
+      "Scroll",
+      "the page scrolls"
+    ],
+    [
+      "Pan",
+      "a mouse can drag the page to scroll it"
+    ],
+    [
+      "Pull",
+      "pull down at the top to refresh"
+    ],
+    [
+      "Swipe",
+      "swipe a notification row sideways to dismiss it"
+    ],
+    [
+      "Scrub",
+      "drag along the listening bars"
+    ]
   ],
   "music-profile-compact": [
-    ["Scroll", "the page scrolls"],
-    ["Pan", "a mouse can drag the page to scroll it"],
-    ["Pull", "pull down at the top to refresh"],
-    ["Swipe", "swipe a notification row sideways to dismiss it"]
+    [
+      "Scroll",
+      "the page scrolls"
+    ],
+    [
+      "Pan",
+      "a mouse can drag the page to scroll it"
+    ],
+    [
+      "Pull",
+      "pull down at the top to refresh"
+    ],
+    [
+      "Swipe",
+      "swipe a notification row sideways to dismiss it"
+    ]
   ],
   "music-profile-tiles": [
-    ["Scroll", "the page scrolls"],
-    ["Pan", "a mouse can drag the page to scroll it"],
-    ["Pull", "pull down at the top to refresh"],
-    ["Swipe", "swipe a notification row sideways to dismiss it"],
-    ["Scrub", "drag along the listening bars"],
-    ["Long press", "press and hold an achievement for its caption"],
-    ["Slide", "slide the Детский режим switch"]
+    [
+      "Scroll",
+      "the page scrolls"
+    ],
+    [
+      "Pan",
+      "a mouse can drag the page to scroll it"
+    ],
+    [
+      "Pull",
+      "pull down at the top to refresh"
+    ],
+    [
+      "Swipe",
+      "swipe a notification row sideways to dismiss it"
+    ],
+    [
+      "Scrub",
+      "drag along the listening bars"
+    ],
+    [
+      "Long press",
+      "press and hold an achievement for its caption"
+    ],
+    [
+      "Slide",
+      "slide the Детский режим switch"
+    ]
   ],
   "nexus-courses": [
-    ["Swipe", "swipe the screen left or right to go to the next or the previous tab"],
-    ["Pull", "pull down to refresh (spinner, toast Up to date)"],
-    ["Long press", "press and hold a course card to save it (blue ring, Saved chip)"]
+    [
+      "Swipe",
+      "swipe the screen left or right to go to the next or the previous tab"
+    ],
+    [
+      "Pull",
+      "pull down to refresh (spinner, toast Up to date)"
+    ],
+    [
+      "Long press",
+      "press and hold a course card to save it (blue ring, Saved chip)"
+    ]
   ],
   "nexus-daily-activity": [
-    ["Swipe", "swipe the week strip to move the selected day"],
-    ["Long press", "press and hold a challenge card to join it (the chip says Joined)"]
+    [
+      "Swipe",
+      "swipe the week strip to move the selected day"
+    ],
+    [
+      "Long press",
+      "press and hold a challenge card to join it (the chip says Joined)"
+    ]
   ],
   "nexus-home": [
-    ["Swipe", "swipe the screen left or right to change tab; swipe the week strip to move the selected day"],
-    ["Pull", "pull down to refresh (spinner, toast Up to date)"]
+    [
+      "Swipe",
+      "swipe the screen left or right to change tab; swipe the week strip to move the selected day"
+    ],
+    [
+      "Pull",
+      "pull down to refresh (spinner, toast Up to date)"
+    ]
   ],
   "nexus-today": [
-    ["Swipe", "swipe the screen left or right to change tab; swipe the week strip to move the selected day"],
-    ["Pull", "pull down to refresh"],
-    ["Long press", "press and hold a challenge card to join it"]
+    [
+      "Swipe",
+      "swipe the screen left or right to change tab; swipe the week strip to move the selected day"
+    ],
+    [
+      "Pull",
+      "pull down to refresh"
+    ],
+    [
+      "Long press",
+      "press and hold a challenge card to join it"
+    ]
   ],
   "nft-auction-flow": [
-    ["Swipe", "swipe a live card right to like it, left to unlike it"],
-    ["Pull", "pull Live Bids down to refresh (spinner, new current bid, toast)"],
-    ["Pinch", "two fingers (or ctrl + wheel) zoom the item picture; it eases back when released"],
-    ["Scroll", "the item page scrolls and the sticky actions appear"],
-    ["Slide", "swipe the Place a bid sheet down to close it"],
-    ["Scrub", "drag along the bar to set the bid amount (arrow keys step by 0.05 ETH)"],
-    ["Hold", "press and hold Confirm for 0.8 s to place the bid; a tap only shows the hint"],
-    ["Long press", "press and hold a bid row to copy its details (toast)"]
+    [
+      "Swipe",
+      "swipe a live card right to like it, left to unlike it"
+    ],
+    [
+      "Pull",
+      "pull Live Bids down to refresh (spinner, new current bid, toast)"
+    ],
+    [
+      "Pinch",
+      "two fingers (or ctrl + wheel) zoom the item picture; it eases back when released"
+    ],
+    [
+      "Scroll",
+      "the item page scrolls and the sticky actions appear"
+    ],
+    [
+      "Slide",
+      "swipe the Place a bid sheet down to close it"
+    ],
+    [
+      "Scrub",
+      "drag along the bar to set the bid amount (arrow keys step by 0.05 ETH)"
+    ],
+    [
+      "Hold",
+      "press and hold Confirm for 0.8 s to place the bid; a tap only shows the hint"
+    ],
+    [
+      "Long press",
+      "press and hold a bid row to copy its details (toast)"
+    ]
   ],
   "nft-search-results": [
-    ["Pan", "pan the collections row sideways (eight collections, the chevron scrolls it)"],
-    ["Flick", "flick or swipe a card to throw it to the front or the back"],
-    ["Typing", "the search field is a real input"]
+    [
+      "Pan",
+      "pan the collections row sideways (eight collections, the chevron scrolls it)"
+    ],
+    [
+      "Flick",
+      "flick or swipe a card to throw it to the front or the back"
+    ],
+    [
+      "Typing",
+      "the search field is a real input"
+    ]
   ],
   "orb-profile": [
-    ["Gyroscope", "tilt the phone and the photo and the three badges drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button"],
-    ["Swipe", "swipe the screen down (or tap close) to dismiss it; a button reopens it"],
-    ["Long press", "press and hold the avatar to enlarge it; tap to close"]
+    [
+      "Gyroscope",
+      "tilt the phone and the photo and the three badges drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button"
+    ],
+    [
+      "Swipe",
+      "swipe the screen down (or tap close) to dismiss it; a button reopens it"
+    ],
+    [
+      "Long press",
+      "press and hold the avatar to enlarge it; tap to close"
+    ]
   ],
   "premium-paywall": [
-    ["Swipe", "swipe the plan sheet left for Monthly, right for Annual"]
+    [
+      "Swipe",
+      "swipe the plan sheet left for Monthly, right for Annual"
+    ]
   ],
   "restoring-purchases": [
-    ["Swipe", "swipe the screen to the right to go back to the paywall"]
+    [
+      "Swipe",
+      "swipe the screen to the right to go back to the paywall"
+    ]
   ],
   "sticker-picker": [
-    ["Swipe", "swipe the sheet down to close it; swipe it sideways to change the pack"],
-    ["Long press", "press and hold a sticker to peek at it full size; let go to dismiss"]
+    [
+      "Swipe",
+      "swipe the sheet down to close it; swipe it sideways to change the pack"
+    ],
+    [
+      "Long press",
+      "press and hold a sticker to peek at it full size; let go to dismiss"
+    ]
   ],
   "story-rings": [
-    ["Pan", "pan the row sideways (seven stories)"],
-    ["Long press", "press and hold a story to mark it as new again; a tap marks it seen"]
+    [
+      "Pan",
+      "pan the row sideways (seven stories)"
+    ],
+    [
+      "Long press",
+      "press and hold a story to mark it as new again; a tap marks it seen"
+    ]
   ],
   "task-list": [
-    ["Typing", "type in Add a task and press Enter to add a checkbox"]
+    [
+      "Typing",
+      "type in Add a task and press Enter to add a checkbox"
+    ]
   ],
   "tracking-steps": [
-    ["Scrub", "drag along the steps to move the shipment forward or back (Left and Right arrow keys too)"]
+    [
+      "Scrub",
+      "drag along the steps to move the shipment forward or back (Left and Right arrow keys too)"
+    ]
   ],
   "voice-rooms-flow": [
-    ["Swipe", "swipe any screen down to go back; swipe Home left for the Universe; swipe a feed row sideways to hide it"],
-    ["Pull", "pull Home down to refresh (spinner, the viewer counts grow)"],
-    ["Hold", "press and hold the hand in a room for 0.7 s to raise it (toast)"],
-    ["Long press", "press and hold a chat message to react with a thumbs up"],
-    ["Typing", "the chat input sends messages"]
+    [
+      "Swipe",
+      "swipe any screen down to go back; swipe Home left for the Universe; swipe a feed row sideways to hide it"
+    ],
+    [
+      "Pull",
+      "pull Home down to refresh (spinner, the viewer counts grow)"
+    ],
+    [
+      "Hold",
+      "press and hold the hand in a room for 0.7 s to raise it (toast)"
+    ],
+    [
+      "Long press",
+      "press and hold a chat message to react with a thumbs up"
+    ],
+    [
+      "Typing",
+      "the chat input sends messages"
+    ]
   ],
   "wabi-welcome": [
-    ["Gyroscope", "tilt the phone and the spheres drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button"],
-    ["Drag", "drag any sphere"],
-    ["Flick", "let go and it flies off and springs back"],
-    ["Pinch", "two fingers (or ctrl + wheel) zoom the whole field; it eases back when released"]
+    [
+      "Gyroscope",
+      "tilt the phone and the spheres drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button"
+    ],
+    [
+      "Drag",
+      "drag any sphere"
+    ],
+    [
+      "Flick",
+      "let go and it flies off and springs back"
+    ],
+    [
+      "Pinch",
+      "two fingers (or ctrl + wheel) zoom the whole field; it eases back when released"
+    ]
   ],
   "week-strip": [
-    ["Swipe", "swipe the strip sideways for the next or the previous week (the dates change)"],
-    ["Slide", "the days slide with the finger"]
-  ],
-  "widget-board": [
-    ["Scroll", "the board scrolls"],
-    ["Pan", "a mouse can drag the board to scroll it"],
-    ["Pull", "pull down at the top to refresh (spinner, toast Widgets refreshed)"],
-    ["Flick", "drag the cat and let go; it flies off and springs back"],
-    ["Hold", "press and hold the timer for 0.7 s to reset it"],
-    ["Pinch", "two fingers (or ctrl + wheel) zoom the suggested photo; it eases back"],
-    ["Long press", "press and hold Zion's avatar to favorite him"],
-    ["Scrub", "drag along the drone battery or the track bar to set them"],
-    ["Swipe", "swipe the balance widget sideways to switch between the card and the chart"],
-    ["Flip", "the card and chart swap with a 3D flip"],
-    ["Gyroscope", "tilt the phone and the lamp glow moves"]
+    [
+      "Swipe",
+      "swipe the strip sideways for the next or the previous week (the dates change)"
+    ],
+    [
+      "Slide",
+      "the days slide with the finger"
+    ]
   ]
 }
