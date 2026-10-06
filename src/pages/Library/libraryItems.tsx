@@ -570,33 +570,6 @@ const fillStyle = { width: '100%', height: '100%' } as const;
 
 const backgroundItems: BaseItem[] = [
   {
-    name: 'Soft gradient',
-    variants: 1,
-    fill: true,
-    landscape: true,
-    lang: 'css',
-    preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundImage: 'radial-gradient(60% 34% at 22% 100%, #fff4e6 0%, #ffb27a 38%, transparent 78%), radial-gradient(48% 30% at 78% 100%, #ffe8ee 0%, #ff8aa5 42%, transparent 78%), radial-gradient(16% 70% at 70% 0%, rgb(255 140 170 / .85), transparent 100%), linear-gradient(to top, #e0603f 0%, transparent 55%)' }} />,
-    code: `.bg-soft {\n  background-color: #000;\n  background-image:\n    radial-gradient(60% 34% at 22% 100%, #fff4e6 0%, #ffb27a 38%, transparent 78%),\n    radial-gradient(48% 30% at 78% 100%, #ffe8ee 0%, #ff8aa5 42%, transparent 78%),\n    radial-gradient(16% 70% at 70% 0%, rgb(255 140 170 / .85), transparent 100%),\n    linear-gradient(to top, #e0603f 0%, transparent 55%);\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
-  },
-  {
-    name: 'Emerald glow',
-    variants: 1,
-    fill: true,
-    landscape: true,
-    lang: 'css',
-    preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundImage: 'radial-gradient(60% 34% at 80% 100%, #f0fff7 0%, #6ff0b0 38%, transparent 78%), radial-gradient(48% 30% at 28% 100%, #dcffee 0%, #46d796 42%, transparent 78%), radial-gradient(15% 72% at 62% 0%, rgb(70 215 155 / .9), transparent 100%), radial-gradient(14% 62% at 8% 0%, rgb(70 215 155 / .75), transparent 100%), linear-gradient(to top, #25a874 0%, transparent 58%)' }} />,
-    code: `.bg-emerald {\n  background-color: #000;\n  background-image:\n    radial-gradient(60% 34% at 80% 100%, #f0fff7 0%, #6ff0b0 38%, transparent 78%),\n    radial-gradient(48% 30% at 28% 100%, #dcffee 0%, #46d796 42%, transparent 78%),\n    radial-gradient(15% 72% at 62% 0%, rgb(70 215 155 / .9), transparent 100%),\n    radial-gradient(14% 62% at 8% 0%, rgb(70 215 155 / .75), transparent 100%),\n    linear-gradient(to top, #25a874 0%, transparent 58%);\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
-  },
-  {
-    name: 'Lilac fade',
-    variants: 1,
-    fill: true,
-    landscape: true,
-    lang: 'css',
-    preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundRepeat: 'no-repeat', backgroundImage: 'radial-gradient(42% 46% at 0% 0%, rgb(186 156 200 / .75), transparent 100%), radial-gradient(70% 26% at 62% 52%, rgb(238 208 255 / .95), transparent 100%), linear-gradient(to bottom, #fbf7ff 0%, #fbf7ff 38%, #c9a2ee 52%, #5a2d82 66%, #120519 80%, #000 100%)' }} />,
-    code: `.bg-lilac {\n  background-color: #000;\n  background-repeat: no-repeat;\n  background-image:\n    radial-gradient(42% 46% at 0% 0%, rgb(186 156 200 / .75), transparent 100%),\n    radial-gradient(70% 26% at 62% 52%, rgb(238 208 255 / .95), transparent 100%),\n    linear-gradient(to bottom, #fbf7ff 0%, #fbf7ff 38%, #c9a2ee 52%, #5a2d82 66%, #120519 80%, #000 100%);\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
-  },
-  {
     name: 'Violet radial',
     variants: 1,
     fill: true,
