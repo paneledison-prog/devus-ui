@@ -28,8 +28,17 @@ Canvas: 825x1790, scaled to the phone width. Coordinates are canvas pixels.
 
 Eight images generated with the Stitch MCP (hero photo of a woman in wraparound sunglasses, round avatar photo, three friend avatars, three club logos), in `src/components/AppUI/assets/orb/`. Do not hotlink images or use stock photos. Prompts and the review loop are in `.claude/skills/stitch-image-assets/SKILL.md`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Gyroscope:** tilt the phone and the photo and the three badges drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button.
+- **Swipe:** swipe the screen down (or tap close) to dismiss it; a button reopens it.
+- **Long press:** press and hold the avatar to enlarge it; tap to close.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/OrbProfile.tsx` (the example)
 - `src/components/AppUI/Orb.tsx`
 - `src/components/AppUI/Orb.css`

@@ -32,8 +32,16 @@ Use the Devus UI tokens from `src/styles/tokens.css` (CSS variables).
 | Focus | `--focus-ring` |
 | Themes | `[data-theme="light"]` and `[data-theme="dark"]` |
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Drag:** drag the buttons anywhere; they spring back to the dock.
+- **Flick:** flick them left or right to move the dock to the other side.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/FloatingActionButton.tsx` (the example, with its data)
 - `src/components/AppUI/Fab.tsx`
 - `src/components/AppUI/PhoneFrame.tsx`

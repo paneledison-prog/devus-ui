@@ -7,6 +7,7 @@
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 ## Conventions
 - Entry component: `src/components/AppUI/examples/NexusDaily.tsx`. Public API: `NexusCanvas({ dim })`, `NexusStatusBar`, `WeekStrip`, `ChallengeCard` and the `Felt*` characters (in Nexus.tsx); `PhoneFrame({ bare, height })`.

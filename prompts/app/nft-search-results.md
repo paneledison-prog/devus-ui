@@ -28,8 +28,17 @@ Canvas: 517x1126, scaled to the phone width. Coordinates are canvas pixels.
 
 Three ape avatars and a large ape cut out with a white-free edge, generated with the Stitch MCP, in `src/components/AppUI/assets/nft/`. Do not hotlink images or use stock photos. Prompts and the review loop are in `.claude/skills/stitch-image-assets/SKILL.md`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Pan:** pan the collections row sideways (eight collections, the chevron scrolls it).
+- **Flick:** flick or swipe a card to throw it to the front or the back.
+- **Typing:** the search field is a real input.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/NftSearchResults.tsx` (the example)
 - `src/components/AppUI/Nft.tsx`
 - `src/components/AppUI/Nft.css`

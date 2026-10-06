@@ -7,6 +7,7 @@
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 ## Conventions
 - Entry component: `src/components/AppUI/examples/MoimoiSignIn.tsx`. Public API: `MoimoiCanvas`, `MoimoiStatusBar`, `Wordmark`, `Cast`, `SignInPanel` (in Moimoi.tsx); `PhoneFrame({ bare, height })`.

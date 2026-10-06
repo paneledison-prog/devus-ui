@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference images). Find it in the App s
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Voice.tsx` exports; `PhoneFrame({ bare, height })`.
 
@@ -24,6 +25,11 @@ Public API: `Voice.tsx` exports; `PhoneFrame({ bare, height })`.
 - Flow: Participants: mic and hand toggle, the people pill returns to the Live room, the chat pill opens Chat
 - Flow: Chat: send a message (appears as a lime bubble), react to a message, the chevron returns to the Live room
 - Flow: Sheets (Teaser, Universe, Creator Card, Your voice): the grab handle returns to Home; Universe options select; the payouts switch toggles; "Sell some voices" opens the Creator Card
+- Gesture: Swipe - swipe any screen down to go back; swipe Home left for the Universe; swipe a feed row sideways to hide it
+- Gesture: Pull - pull Home down to refresh (spinner, the viewer counts grow)
+- Gesture: Hold - press and hold the hand in a room for 0.7 s to raise it (toast)
+- Gesture: Long press - press and hold a chat message to react with a thumbs up
+- Gesture: Typing - the chat input sends messages
 
 ## Known gaps
 - The portraits are Stitch look-alikes (same kind of subject, not the exact photos); a few are small crops of Stitch design screenshots

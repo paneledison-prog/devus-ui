@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `MoimoiCanvas`, `MoimoiStatusBar`, `Wordmark`, `Cast`, `SignInPanel` (in Moimoi.tsx); `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,9 @@ Public API: `MoimoiCanvas`, `MoimoiStatusBar`, `Wordmark`, `Cast`, `SignInPanel`
 - Only what the reference image shows: Dynamic Island, status bar, wordmark, six characters, loose lines, sprout, Hello~ bubble, lead text, two buttons, home indicator
 - The wordmark is a labelled SVG; the characters are decorative (`aria-hidden`)
 - All artwork is original SVG (radial gradients, drop shadows, black strokes); no image files
+- Gesture: Gyroscope - tilt the phone and the six characters drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button
+- Gesture: Drag - drag a character
+- Gesture: Flick - let go and it flies off and springs back
 
 ## Known gaps
 - Static replica: no handlers, no state, no animation (as in the image)

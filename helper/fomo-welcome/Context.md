@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `FomoCanvas` and the screen pieces (in Fomo.tsx); `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,9 @@ Public API: `FomoCanvas` and the screen pieces (in Fomo.tsx); `PhoneFrame({ bare
 - Only what the reference image shows (see the layout list in the prompt)
 - Image assets generated with the Stitch MCP using the review loop in `.claude/skills/stitch-image-assets/SKILL.md`
 - Decorative images use `alt=""`; buttons are real buttons
+- Gesture: Gyroscope - tilt the phone and the avatars drift at different depths; a desktop pointer over the phone stands in; iOS gets an Enable tilt button for the permission
+- Gesture: Drag - drag any avatar
+- Gesture: Flick - let go and it flies off and springs back
 
 ## Known gaps
 - The avatars are Stitch-generated look-alikes (same subject and framing), not the exact images of the reference

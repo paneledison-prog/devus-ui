@@ -7,6 +7,7 @@
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 ## Conventions
 - Entry component: `src/components/AppUI/examples/PremiumPaywall.tsx`. Public API: `PayCanvas`, `PayStatusBar`, `PayHomeBar`, `ClayCloud`, `ClayRing`, `PlanRow` (in Paywall.tsx); `PhoneFrame({ bare, height })`.

@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `NexusCanvas`, `NexusStatusBar`, `NexusTabs`, `NexusHomeBar` and the screen pieces (in Nexus.tsx); `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,8 @@ Public API: `NexusCanvas`, `NexusStatusBar`, `NexusTabs`, `NexusHomeBar` and the
 - Only what the reference image shows: status bar, logo and name, search and notification buttons, two stat cards with progress rings, six-day week strip, hero card with title and Register Now button, tab bar, home indicator
 - Week strip is a group; the selected day has `aria-current="date"`
 - Characters and lotus marks are decorative (`aria-hidden`)
+- Gesture: Swipe - swipe the screen left or right to change tab; swipe the week strip to move the selected day
+- Gesture: Pull - pull down to refresh (spinner, toast Up to date)
 
 ## Known gaps
 - Static replica: no handlers, no state, no animation (as in the image)

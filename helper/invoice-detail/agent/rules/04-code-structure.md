@@ -8,6 +8,7 @@
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 ## Conventions
 - Entry component: `src/components/AppUI/examples/InvoiceDetail.tsx`. Public API: `InvoiceSummary`, `InvoiceParty`, `InvoiceItems`, `InvoiceActions` (in Finance.tsx); `AppBar`.

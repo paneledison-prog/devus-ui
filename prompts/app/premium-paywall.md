@@ -41,8 +41,15 @@ The screen is drawn on a 446x970 canvas (`PayCanvas`) that is scaled to the phon
 
 Colors on this screen are fixed by the image (`#62C5FF`, `#191919`, white, grays); fonts use the library `--font-sans` (Inter).
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Swipe:** swipe the plan sheet left for Monthly, right for Annual.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/PremiumPaywall.tsx` (the example, with its data)
 - `src/components/AppUI/Paywall.tsx`
 - `src/components/AppUI/Paywall.css`

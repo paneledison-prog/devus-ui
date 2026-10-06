@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference images). Find it in the App s
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Books.tsx` exports; `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,11 @@ Public API: `Books.tsx` exports; `PhoneFrame({ bare, height })`.
 - Flow: Tab bar: Explore and Library switch screens (Home, Store and Profile only press)
 - Flow: Explore: typing filters Trending by title or author; recent chips are removable and Clear All removes them; books select; the filter button toggles
 - Flow: Library: filter chips filter the shelves; the add and more buttons press
+- Gesture: Pan - the trending books, the categories and the filter pills pan sideways (mouse drag, touch scroll, coasting)
+- Gesture: Pull - pull Explore down at the top to refresh (the trending order rotates, a toast says Updated just now)
+- Gesture: Long press - press and hold a trending book to save it to My Bookmarks (toast)
+- Gesture: Swipe - swipe a shelf card sideways to remove it from the library; Undo brings it back
+- Gesture: Typing - the search field filters Trending as you type
 
 ## Known gaps
 - Covers are original artwork, so they do not reproduce the real book covers

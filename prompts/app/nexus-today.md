@@ -30,8 +30,17 @@ Drawn on the same 454x982 canvas as the other Nexus screens (`NexusCanvas dim`, 
 - The tab bar is a `nav` and the active tab carries `aria-current="page"`.
 - The characters and lotus marks are decorative (`aria-hidden`).
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Swipe:** swipe the screen left or right to change tab; swipe the week strip to move the selected day.
+- **Pull:** pull down to refresh.
+- **Long press:** press and hold a challenge card to join it.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/NexusToday.tsx` (the example, with its data)
 - `src/components/AppUI/Nexus.tsx`
 - `src/components/AppUI/Nexus.css`

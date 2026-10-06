@@ -29,8 +29,16 @@ Use the Devus UI tokens from `src/styles/tokens.css` (CSS variables).
 | Focus | `--focus-ring` |
 | Themes | `[data-theme="light"]` and `[data-theme="dark"]` |
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Pan:** pan the row sideways (seven stories).
+- **Long press:** press and hold a story to mark it as new again; a tap marks it seen.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/StoryRings.tsx` (the example, with its data)
 - `src/components/AppUI/StoryRing.tsx`
 - `src/components/AppUI/PhoneFrame.tsx`

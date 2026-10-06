@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `StickersCanvas` and the screen pieces (in Stickers.tsx); `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,10 @@ Public API: `StickersCanvas` and the screen pieces (in Stickers.tsx); `PhoneFram
 - Only what the reference image shows (see the layout list in the prompt)
 - Image assets generated with the Stitch MCP using the review loop in `.claude/skills/stitch-image-assets/SKILL.md`
 - Decorative images use `alt=""`; buttons are real buttons
+- Gesture: Drag - drag a sticker around the circle
+- Gesture: Pinch - two fingers (or ctrl + wheel) resize and rotate the selected sticker
+- Gesture: Long press - press and hold a sticker to place a copy
+- Gesture: Scrub - drag around the blue ring to scrub the video; Left and Right arrows on the play button step by 5 %
 
 ## Known gaps
 - The stickers and the photo are Stitch-generated look-alikes, not the exact images

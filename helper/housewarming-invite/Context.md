@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Party.tsx` exports; `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,8 @@ Public API: `Party.tsx` exports; `PhoneFrame({ bare, height })`.
 - Interactive: The RSVP control is a radio group: tapping an option slides the white pill under it and tints the icon and label
 - Interactive: Close, more and the chip press
 - Image assets generated with the Stitch MCP using the review loop in `.claude/skills/stitch-image-assets/SKILL.md`
+- Gesture: Slide - slide a finger along the RSVP bar to choose Going, Not Going or Maybe (arrow keys work too)
+- Gesture: Swipe - swipe the invitation down (or tap close) to dismiss it; a button reopens it
 
 ## Known gaps
 - The photo and avatar are Stitch look-alikes, not the exact images

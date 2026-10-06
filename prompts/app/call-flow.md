@@ -33,8 +33,18 @@ Canvas: 923x1996, scaled to the phone width. Coordinates are canvas pixels.
 
 No image assets (all icons are SVG). Do not hotlink images or use stock photos. Prompts and the review loop are in `.claude/skills/stitch-image-assets/SKILL.md`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Hold:** press and hold End for 0.9 s to hang up (a white ring fills); a plain tap only shows the hint.
+- **Long press:** press and hold 0 on the keypad to type +.
+- **Swipe:** swipe the keypad down to hide it.
+- **Typing:** with the keypad open, a real keyboard types digits, * # +; Backspace deletes, Escape hides.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/CallFlow.tsx` (the example)
 - `src/components/AppUI/Call.tsx`
 - `src/components/AppUI/Call.css`

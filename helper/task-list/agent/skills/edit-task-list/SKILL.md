@@ -14,6 +14,7 @@ Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, t
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 ## Steps
 1. Edit `TaskCard` in `examples/data.tsx` for content

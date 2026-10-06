@@ -35,8 +35,15 @@ Drawn on the same 446x970 canvas as the paywall (`PayCanvas`, scaled to the phon
 - The cards and artwork are decorative (`aria-hidden`).
 - Text is white on `#62C5FF`; the large title meets 3:1, the smaller subtitle is the image's own 60% white and is below AA, as in the reference.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Swipe:** swipe the screen to the right to go back to the paywall.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/RestoringPurchases.tsx` (the example, with its data)
 - `src/components/AppUI/Paywall.tsx`
 - `src/components/AppUI/Paywall.css`

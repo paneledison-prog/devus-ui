@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Nft.tsx` exports; `PhoneFrame({ bare, height })`.
 
@@ -24,6 +25,9 @@ Public API: `Nft.tsx` exports; `PhoneFrame({ bare, height })`.
 - Interactive: Tapping a card swaps front and back with a tilt animation
 - Interactive: The tab bar is live: the purple square moves to the tapped tab
 - Image assets generated with the Stitch MCP using the review loop in `.claude/skills/stitch-image-assets/SKILL.md`
+- Gesture: Pan - pan the collections row sideways (eight collections, the chevron scrolls it)
+- Gesture: Flick - flick or swipe a card to throw it to the front or the back
+- Gesture: Typing - the search field is a real input
 
 ## Known gaps
 - The ape pictures are Stitch look-alikes, not the exact NFTs

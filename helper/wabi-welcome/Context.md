@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `WabiCanvas` and the screen pieces (in Wabi.tsx); `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,10 @@ Public API: `WabiCanvas` and the screen pieces (in Wabi.tsx); `PhoneFrame({ bare
 - Only what the reference image shows (see the layout list in the prompt)
 - Image assets generated with the Stitch MCP using the review loop in `.claude/skills/stitch-image-assets/SKILL.md`
 - Decorative images use `alt=""`; buttons are real buttons
+- Gesture: Gyroscope - tilt the phone and the spheres drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button
+- Gesture: Drag - drag any sphere
+- Gesture: Flick - let go and it flies off and springs back
+- Gesture: Pinch - two fingers (or ctrl + wheel) zoom the whole field; it eases back when released
 
 ## Known gaps
 - The sphere photos are Stitch-generated look-alikes (same subjects), not the exact images of the reference

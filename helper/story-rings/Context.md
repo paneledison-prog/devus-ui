@@ -14,6 +14,7 @@ Brand: none (generic sample content). Find it in the App section of the homepage
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `StoryRow({ stories })` (`Story = { name, initials, seen? }`).
 
@@ -21,6 +22,8 @@ Public API: `StoryRow({ stories })` (`Story = { name, initials, seen? }`).
 - Gradient ring is 4px with a 2px gap around the avatar
 - Seen stories use a muted gray ring
 - Each button names whether the story is new
+- Gesture: Pan - pan the row sideways (seven stories)
+- Gesture: Long press - press and hold a story to mark it as new again; a tap marks it seen
 
 ## Known gaps
 - Presentational only: no navigation or persistence

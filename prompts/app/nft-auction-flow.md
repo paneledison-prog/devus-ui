@@ -27,8 +27,22 @@ Canvas: 327x703, scaled to the phone width. Coordinates are canvas pixels.
 
 Five pictures generated with the Stitch MCP (a black-and-white dog character with a beanie and headphones, a black head sculpture with an orange splash, a turquoise sheep with heart sunglasses and a halo, an orb and an astronaut avatar), stored in `src/components/AppUI/assets/auction/`. Prompts and the review loop are in `.claude/skills/stitch-image-assets/SKILL.md`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Swipe:** swipe a live card right to like it, left to unlike it.
+- **Pull:** pull Live Bids down to refresh (spinner, new current bid, toast).
+- **Pinch:** two fingers (or ctrl + wheel) zoom the item picture; it eases back when released.
+- **Scroll:** the item page scrolls and the sticky actions appear.
+- **Slide:** swipe the Place a bid sheet down to close it.
+- **Scrub:** drag along the bar to set the bid amount (arrow keys step by 0.05 ETH).
+- **Hold:** press and hold Confirm for 0.8 s to place the bid; a tap only shows the hint.
+- **Long press:** press and hold a bid row to copy its details (toast).
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/NftAuctionFlow.tsx` (the example)
 - `src/components/AppUI/Auction.tsx`
 - `src/components/AppUI/Auction.css`

@@ -30,8 +30,16 @@ Use the Devus UI tokens from `src/styles/tokens.css` (CSS variables).
 | Focus | `--focus-ring` |
 | Themes | `[data-theme="light"]` and `[data-theme="dark"]` |
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Swipe:** swipe the week strip for the next or the previous week, swipe the tab bar to change tab.
+- **Typing:** type in Add a task and press Enter to add a checkbox.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/HomeScreen.tsx` (the example, with its data)
 - `src/components/AppUI/AppBar.tsx`
 - `src/components/AppUI/Cards.tsx`

@@ -29,8 +29,16 @@ Use the Devus UI tokens from `src/styles/tokens.css` (CSS variables).
 | Focus | `--focus-ring` |
 | Themes | `[data-theme="light"]` and `[data-theme="dark"]` |
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Flip:** the card flips in 3D to a back with the card number, expiry, holder and limit (flip button, or swipe sideways); the hidden face is `inert`.
+- **Swipe:** swipe the card sideways to flip it.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/BalanceCardExample.tsx` (the example, with its data)
 - `src/components/AppUI/Cards.tsx`
 - `src/components/AppUI/PhoneFrame.tsx`

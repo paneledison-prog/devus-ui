@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference images). Find it in the App s
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Books.tsx` exports; `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,9 @@ Public API: `Books.tsx` exports; `PhoneFrame({ bare, height })`.
 - Flow: Intro: the pager dots select; Continue opens Topics
 - Flow: Topics: chips toggle (at least one is needed to continue); Continue opens the book step
 - Flow: Book step: Yes or No moves to the next of three books and fills the progress bar; after the last book the flow returns to the intro
+- Gesture: Swipe - swipe the intro left or right to change the page dot
+- Gesture: Drag - drag the book card; a green ring means Yes, a red ring means No, and the card tilts with the finger
+- Gesture: Flick - a quick flick of the card counts even when the drag is short
 
 ## Known gaps
 - Covers are original artwork, not the real covers

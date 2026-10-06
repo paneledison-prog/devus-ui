@@ -29,8 +29,18 @@ Fifteen sphere images generated with the Stitch MCP (swirl, iridescent glass, ne
 
 - Buttons are real buttons with labels or `aria-label`; decorative images use `alt=""` or `aria-hidden`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Gyroscope:** tilt the phone and the spheres drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button.
+- **Drag:** drag any sphere.
+- **Flick:** let go and it flies off and springs back.
+- **Pinch:** two fingers (or ctrl + wheel) zoom the whole field; it eases back when released.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/WabiWelcome.tsx` (the example)
 - `src/components/AppUI/Wabi.tsx`
 - `src/components/AppUI/Wabi.css`

@@ -414,6 +414,14 @@ add('book-onboarding-flow', name='Book onboarding flow', brand='none (text and a
 
 
 
+
+# ---- Gestures (App category): features and the shared hooks file, from scripts/gestures-matrix.json ----
+_GM = json.load(open(os.path.join(HERE, 'gestures-matrix.json'), encoding='utf8'))
+for _slug, _rows in _GM.items():
+    if _slug in T:
+        T[_slug]['features'] = list(T[_slug].get('features', [])) + ['Gesture: ' + a + ' - ' + b for a, b in _rows]
+        T[_slug]['files'] = list(T[_slug].get('files', [])) + ['src/components/AppUI/gestures.tsx  (gesture hooks)']
+
 def bullets(items):
     return '\n'.join(f'- {i}' for i in items)
 

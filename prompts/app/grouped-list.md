@@ -29,8 +29,16 @@ Use the Devus UI tokens from `src/styles/tokens.css` (CSS variables).
 | Focus | `--focus-ring` |
 | Themes | `[data-theme="light"]` and `[data-theme="dark"]` |
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Swipe:** swipe a row left to reveal Delete; swipe right to close it.
+- **Slide:** the row slides over the red action; Restore rows brings the deleted rows back.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/GroupedList.tsx` (the example, with its data)
 - `src/components/AppUI/ListRow.tsx`
 - `src/components/AppUI/PhoneFrame.tsx`

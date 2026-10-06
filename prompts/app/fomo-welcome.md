@@ -30,8 +30,17 @@ Eleven avatar images generated with the Stitch MCP (groundhog in a cowboy hat, m
 
 - Buttons are real buttons with labels or `aria-label`; decorative images use `alt=""` or `aria-hidden`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Gyroscope:** tilt the phone and the avatars drift at different depths; a desktop pointer over the phone stands in; iOS gets an Enable tilt button for the permission.
+- **Drag:** drag any avatar.
+- **Flick:** let go and it flies off and springs back.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/FomoWelcome.tsx` (the example)
 - `src/components/AppUI/Fomo.tsx`
 - `src/components/AppUI/Fomo.css`

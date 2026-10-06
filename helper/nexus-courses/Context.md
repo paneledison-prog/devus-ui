@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `NexusCanvas`, `NexusStatusBar`, `NexusTabs`, `NexusHomeBar` and the screen pieces (in Nexus.tsx); `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,9 @@ Public API: `NexusCanvas`, `NexusStatusBar`, `NexusTabs`, `NexusHomeBar` and the
 - Only what the reference image shows: status bar, two headings, suggested card with Lesson 34 chip, title and play button, two course cards (Photography, Financial), tab bar with Courses active, home indicator
 - Active tab carries `aria-current="page"`
 - Characters are decorative (`aria-hidden`)
+- Gesture: Swipe - swipe the screen left or right to go to the next or the previous tab
+- Gesture: Pull - pull down to refresh (spinner, toast Up to date)
+- Gesture: Long press - press and hold a course card to save it (blue ring, Saved chip)
 
 ## Known gaps
 - Static replica: no handlers, no state, no animation (as in the image)

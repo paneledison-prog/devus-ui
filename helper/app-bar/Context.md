@@ -15,6 +15,7 @@ Brand: none (generic sample content). Find it in the App section of the homepage
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `AppBar({ title, subtitle?, large?, onBack?, action? })`.
 
@@ -22,6 +23,7 @@ Public API: `AppBar({ title, subtitle?, large?, onBack?, action? })`.
 - Compact variant with back button
 - Large variant with subtitle and action
 - An empty action slot is hidden (no empty circle)
+- Gesture: Scroll - the list under the bars scrolls; the large title shrinks to a compact one after a few pixels (`compact` prop)
 
 ## Known gaps
 - Presentational only: no navigation or persistence

@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Music.tsx` exports; `PhoneFrame({ bare, height })`.
 
@@ -24,6 +25,12 @@ Public API: `Music.tsx` exports; `PhoneFrame({ bare, height })`.
 - Interactive: "Очистить кэш" clears the cache (780 MB to 0 MB) after a short wait
 - Interactive: Controls select, notification rows select
 - Image assets generated with the Stitch MCP using the review loop in `.claude/skills/stitch-image-assets/SKILL.md`
+- Gesture: Scroll - the page scrolls
+- Gesture: Pan - a mouse can drag the page to scroll it
+- Gesture: Pull - pull down at the top to refresh (spinner, toast Обновлено)
+- Gesture: Swipe - swipe a notification row sideways to dismiss it; Вернуть restores them
+- Gesture: Scrub - drag along the listening bars to see the hours at that point
+- Gesture: Slide - slide the Детский режим switch
 
 ## Known gaps
 - Pictures are Stitch look-alikes

@@ -7,6 +7,7 @@
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 ## Conventions
 - Entry component: `src/components/AppUI/examples/StickerPicker.tsx`. Public API: `StickersCanvas` and the screen pieces (in Stickers.tsx); `PhoneFrame({ bare, height })`.

@@ -31,8 +31,18 @@ The same Stitch-generated stickers and selfie as the Sticker picker (cut out wit
 
 - Buttons are real buttons with labels or `aria-label`; decorative images use `alt=""` or `aria-hidden`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Drag:** drag a sticker around the circle.
+- **Pinch:** two fingers (or ctrl + wheel) resize and rotate the selected sticker.
+- **Long press:** press and hold a sticker to place a copy.
+- **Scrub:** drag around the blue ring to scrub the video; Left and Right arrows on the play button step by 5 %.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/CircleEditor.tsx` (the example)
 - `src/components/AppUI/Stickers.tsx`
 - `src/components/AppUI/Stickers.css`

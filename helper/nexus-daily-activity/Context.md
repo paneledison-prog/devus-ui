@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `NexusCanvas({ dim })`, `NexusStatusBar`, `WeekStrip`, `ChallengeCard` and the `Felt*` characters (in Nexus.tsx); `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,8 @@ Public API: `NexusCanvas({ dim })`, `NexusStatusBar`, `WeekStrip`, `ChallengeCar
 - Only what the reference image shows: status bar, heading, week strip with dividers, 100 Day Challenge card with panel and arrow button, Science & Engineering heading and card top; no tab bar
 - The arrow button has an `aria-label`
 - Characters are decorative (`aria-hidden`)
+- Gesture: Swipe - swipe the week strip to move the selected day
+- Gesture: Long press - press and hold a challenge card to join it (the chip says Joined)
 
 ## Known gaps
 - Static replica: no handlers, no state, no animation (as in the image)

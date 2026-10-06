@@ -33,8 +33,17 @@ Drawn on a 558x1208 canvas (`MoimoiCanvas`, scaled by 320/558 to the phone width
 - The wordmark is an SVG with `role="img"` and an `aria-label`; the characters are decorative (`aria-hidden`).
 - The two sign-in buttons are real buttons with visible labels.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Gyroscope:** tilt the phone and the six characters drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button.
+- **Drag:** drag a character.
+- **Flick:** let go and it flies off and springs back.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/MoimoiSignIn.tsx` (the example)
 - `src/components/AppUI/Moimoi.tsx`
 - `src/components/AppUI/Moimoi.css`

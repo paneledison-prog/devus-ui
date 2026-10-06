@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `PayCanvas`, `PayStatusBar`, `PayHomeBar`, `ClayCloud`, `ClayRing`, `PlanRow` (in Paywall.tsx); `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,7 @@ Public API: `PayCanvas`, `PayStatusBar`, `PayHomeBar`, `ClayCloud`, `ClayRing`, 
 - Only what the reference image shows: status bar, clay cloud, close button, title, subtitle, clay ring, restore row, Annual (selected, with struck-through $69.99) and Monthly plans, trial button, terms link, home indicator
 - Plan rows carry an `aria-label` with name, price and selected state
 - Clay artwork is original SVG (vertical gradient plus blurred light and shadow blobs clipped to the shape), no image files
+- Gesture: Swipe - swipe the plan sheet left for Monthly, right for Annual
 
 ## Known gaps
 - Static replica: no handlers, no selection state, no animation (as in the image)

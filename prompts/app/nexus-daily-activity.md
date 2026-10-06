@@ -29,8 +29,16 @@ Drawn on the same 454x982 canvas as the other Nexus screens (`NexusCanvas dim`, 
 - The arrow button has an `aria-label`; the week strip is a group and the selected day carries `aria-current="date"`.
 - Cards are labelled sections; the characters are decorative (`aria-hidden`).
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Swipe:** swipe the week strip to move the selected day.
+- **Long press:** press and hold a challenge card to join it (the chip says Joined).
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/NexusDaily.tsx` (the example, with its data)
 - `src/components/AppUI/Nexus.tsx`
 - `src/components/AppUI/Nexus.css`

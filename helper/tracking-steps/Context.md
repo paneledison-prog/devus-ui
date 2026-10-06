@@ -14,12 +14,14 @@ Brand: none (generic sample content). Find it in the App section of the homepage
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `TrackSteps({ steps })` (`TrackStep = { label, time, state }`).
 
 ## What it does
 - Ordered list with `aria-current="step"` on the active step
 - State is also shown with text and a check mark, not color alone
+- Gesture: Scrub - drag along the steps to move the shipment forward or back (Left and Right arrow keys too)
 
 ## Known gaps
 - Presentational only: no navigation or persistence

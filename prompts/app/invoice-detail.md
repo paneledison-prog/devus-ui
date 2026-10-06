@@ -52,8 +52,17 @@ Use the Devus UI tokens from `src/styles/tokens.css` (CSS variables).
 
 All names, emails and amounts are fictional placeholders (`example.com` addresses). No real brands or photos.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Scroll:** the invoice scrolls.
+- **Pan:** a mouse can drag the page to scroll it.
+- **Pull:** pull the page down at the top to refresh.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/InvoiceDetail.tsx` (the example, with its data)
 - `src/components/AppUI/Finance.tsx`
 - `src/components/AppUI/Finance.css`

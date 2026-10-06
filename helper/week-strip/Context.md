@@ -14,12 +14,15 @@ Brand: none (generic sample content). Find it in the App section of the homepage
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `WeekStrip({ days, defaultValue?, onChange? })` (`WeekDay = { id, day, date }`).
 
 ## What it does
 - Six days with a weekday and date each
 - Controlled by `defaultValue` and `onChange(id)`
+- Gesture: Swipe - swipe the strip sideways for the next or the previous week (the dates change)
+- Gesture: Slide - the days slide with the finger
 
 ## Known gaps
 - Presentational only: no navigation or persistence

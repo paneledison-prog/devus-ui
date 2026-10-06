@@ -16,6 +16,7 @@ Brand: none (fictional sample data). Find it in the App section of the homepage 
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `InvoiceSummary`, `InvoiceParty`, `InvoiceItems`, `InvoiceActions` (in Finance.tsx); `AppBar`.
 
@@ -24,6 +25,9 @@ Public API: `InvoiceSummary`, `InvoiceParty`, `InvoiceItems`, `InvoiceActions` (
 - Download PDF briefly shows "Saved"; Share briefly shows "Link copied" (about 1.6s, timer cleared on unmount)
 - Table has column headers with `scope="col"`; dates and totals are description lists
 - Content scrolls inside the phone; the actions stay pinned above the home indicator
+- Gesture: Scroll - the invoice scrolls
+- Gesture: Pan - a mouse can drag the page to scroll it
+- Gesture: Pull - pull the page down at the top to refresh
 
 ## Known gaps
 - Presentational: no real invoice data, PDF or share sheet

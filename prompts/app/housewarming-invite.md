@@ -26,8 +26,16 @@ Canvas: 517x1126, scaled to the phone width. Coordinates are canvas pixels.
 
 A motion-blurred portrait background and a 3D memoji host avatar generated with the Stitch MCP, in `src/components/AppUI/assets/party/`. Do not hotlink images or use stock photos. Prompts and the review loop are in `.claude/skills/stitch-image-assets/SKILL.md`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Slide:** slide a finger along the RSVP bar to choose Going, Not Going or Maybe (arrow keys work too).
+- **Swipe:** swipe the invitation down (or tap close) to dismiss it; a button reopens it.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/HousewarmingInvite.tsx` (the example)
 - `src/components/AppUI/Party.tsx`
 - `src/components/AppUI/Party.css`

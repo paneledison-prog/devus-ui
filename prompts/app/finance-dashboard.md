@@ -76,8 +76,19 @@ Use the Devus UI tokens from `src/styles/tokens.css` (CSS variables).
 
 All names, amounts and merchants are fictional placeholders. No real brands or logos; the avatar shows initials.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Scroll:** the home screen scrolls.
+- **Pan:** a mouse can drag the page to scroll it, as a finger would.
+- **Pull:** pull the page down at the top to refresh (spinner, then a toast).
+- **Swipe:** swipe the tab bar sideways to change tab.
+- **Slide:** swipe the Confirm payment sheet down to close it.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/FinanceDashboard.tsx` (the example, with its data)
 - `src/components/AppUI/Finance.tsx`
 - `src/components/AppUI/Finance.css`

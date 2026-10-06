@@ -15,12 +15,15 @@ Brand: none (generic sample content). Find it in the App section of the homepage
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Fab({ icon?, label?, tone?: "accent" | "dark", ...button props })`.
 
 ## What it does
 - Default plus icon with `aria-label="Create"`
 - 52px target; press feedback scales to 94%
+- Gesture: Drag - drag the buttons anywhere; they spring back to the dock
+- Gesture: Flick - flick them left or right to move the dock to the other side
 
 ## Known gaps
 - Presentational only: no navigation or persistence

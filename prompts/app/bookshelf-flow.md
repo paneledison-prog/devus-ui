@@ -26,8 +26,19 @@ Canvas: 390x843, scaled to the phone width. Coordinates are canvas pixels.
 
 No image assets: the covers are original CSS and SVG artwork that use real titles and authors as text only. 
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Pan:** the trending books, the categories and the filter pills pan sideways (mouse drag, touch scroll, coasting).
+- **Pull:** pull Explore down at the top to refresh (the trending order rotates, a toast says Updated just now).
+- **Long press:** press and hold a trending book to save it to My Bookmarks (toast).
+- **Swipe:** swipe a shelf card sideways to remove it from the library; Undo brings it back.
+- **Typing:** the search field filters Trending as you type.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/BookshelfFlow.tsx` (the example)
 - `src/components/AppUI/Books.tsx`
 - `src/components/AppUI/Books.css`

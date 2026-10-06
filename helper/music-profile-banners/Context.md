@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Music.tsx` exports; `PhoneFrame({ bare, height })`.
 
@@ -24,6 +25,11 @@ Public API: `Music.tsx` exports; `PhoneFrame({ bare, height })`.
 - Interactive: Notification rows select and the pause button toggles
 - Interactive: Tiles press
 - Image assets generated with the Stitch MCP using the review loop in `.claude/skills/stitch-image-assets/SKILL.md`
+- Gesture: Scroll - the page scrolls
+- Gesture: Pan - a mouse can drag the page to scroll it
+- Gesture: Pull - pull down at the top to refresh
+- Gesture: Swipe - swipe a notification row sideways to dismiss it
+- Gesture: Scrub - drag along the listening bars
 
 ## Known gaps
 - Pictures are Stitch look-alikes

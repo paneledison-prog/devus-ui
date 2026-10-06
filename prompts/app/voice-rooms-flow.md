@@ -30,8 +30,19 @@ Canvas: 390x843, scaled to the phone width. Coordinates are canvas pixels.
 
 Fifteen pictures generated with the Stitch MCP (a concert-stage photo, portraits and small avatars, a cartoon dog), stored in `src/components/AppUI/assets/voice/`. Prompts and the review loop are in `.claude/skills/stitch-image-assets/SKILL.md`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Swipe:** swipe any screen down to go back; swipe Home left for the Universe; swipe a feed row sideways to hide it.
+- **Pull:** pull Home down to refresh (spinner, the viewer counts grow).
+- **Hold:** press and hold the hand in a room for 0.7 s to raise it (toast).
+- **Long press:** press and hold a chat message to react with a thumbs up.
+- **Typing:** the chat input sends messages.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/VoiceRoomsFlow.tsx` (the example)
 - `src/components/AppUI/Voice.tsx`
 - `src/components/AppUI/Voice.css`

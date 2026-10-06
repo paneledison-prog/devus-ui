@@ -15,6 +15,7 @@ Brand: none (generic sample content). Find it in the App section of the homepage
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `ListRow({ icon?, title, value?, trailing?, onClick? })`, `ListGroup({ label?, children })`.
 
@@ -22,6 +23,8 @@ Public API: `ListRow({ icon?, title, value?, trailing?, onClick? })`, `ListGroup
 - Rows with icon, title, value and a Switch
 - Rows are buttons only when clickable
 - Rows are at least 48px tall
+- Gesture: Swipe - swipe a row left to reveal Delete; swipe right to close it
+- Gesture: Slide - the row slides over the red action; Restore rows brings the deleted rows back
 
 ## Known gaps
 - Presentational only: no navigation or persistence

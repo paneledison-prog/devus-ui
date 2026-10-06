@@ -15,6 +15,7 @@ Brand: none (generic sample content). Find it in the App section of the homepage
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `TabBar({ items, label?, value?, defaultValue?, onChange?, floating?, action? })`.
 
@@ -22,6 +23,7 @@ Public API: `TabBar({ items, label?, value?, defaultValue?, onChange?, floating?
 - Items fill the bar width; the active item is wider and animated
 - Bar uses a light-gray fill in light mode; the active pill is lifted above the bar in dark mode
 - Optional action button (Fab)
+- Gesture: Swipe - swipe the pill sideways to move to the next or the previous tab
 
 ## Known gaps
 - Presentational only: no navigation or persistence

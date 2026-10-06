@@ -6,6 +6,7 @@
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 ## Conventions
 - Entry component: `src/components/AppUI/examples/StoryRings.tsx`. Public API: `StoryRow({ stories })` (`Story = { name, initials, seen? }`).

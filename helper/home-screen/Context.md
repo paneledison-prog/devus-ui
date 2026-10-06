@@ -17,6 +17,7 @@ Brand: none (generic sample content). Find it in the App section of the homepage
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: none (the example is self-contained).
 
@@ -25,6 +26,8 @@ Public API: none (the example is self-contained).
 - WeekStrip with Wednesday selected
 - Task card: segmented filter and two titled checkbox sections
 - Floating TabBar with a dark Fab
+- Gesture: Swipe - swipe the week strip for the next or the previous week, swipe the tab bar to change tab
+- Gesture: Typing - type in Add a task and press Enter to add a checkbox
 
 ## Known gaps
 - Presentational only: no navigation or persistence

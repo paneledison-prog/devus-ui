@@ -15,6 +15,7 @@ Brand: none (fictional sample data). Find it in the App section of the homepage 
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `FinanceHeader`, `BalanceHero`, `QuickActions`, `NegotiatorCard`, `BillList`, `FinanceTabs`, `FinanceScroll` (all in Finance.tsx); `PhoneFrame({ hero? })`.
 
@@ -28,6 +29,11 @@ Public API: `FinanceHeader`, `BalanceHero`, `QuickActions`, `NegotiatorCard`, `B
 - Tab bar marks the pressed item with `aria-current="page"`
 - Content scrolls inside the phone; the tab bar stays pinned
 - Tab bar top edge is iOS-style: the scrolling content fades into the bar (28px gradient) and a 1px hairline fades out toward both sides, with no hard border
+- Gesture: Scroll - the home screen scrolls
+- Gesture: Pan - a mouse can drag the page to scroll it, as a finger would
+- Gesture: Pull - pull the page down at the top to refresh (spinner, then a toast)
+- Gesture: Swipe - swipe the tab bar sideways to change tab
+- Gesture: Slide - swipe the Confirm payment sheet down to close it
 
 ## Known gaps
 - No real accounts or persistence: balances and paid state reset when the preview reloads; the other tabs are not wired

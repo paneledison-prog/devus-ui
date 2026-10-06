@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference images). Find it in the App s
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Auction.tsx` exports; `PhoneFrame({ bare, height })`.
 
@@ -23,6 +24,14 @@ Public API: `Auction.tsx` exports; `PhoneFrame({ bare, height })`.
 - Flow: Detail: the countdown runs; heart and Follow toggle; More opens Share / Report; Bids / Offers switch lists; scrolling reveals the sticky actions
 - Flow: Place a bid: a sheet with a stepper (min above the current bid); Confirm adds your bid to the list and raises the current bid; Purchase shows a toast
 - Flow: The back button returns to Live Bids
+- Gesture: Swipe - swipe a live card right to like it, left to unlike it
+- Gesture: Pull - pull Live Bids down to refresh (spinner, new current bid, toast)
+- Gesture: Pinch - two fingers (or ctrl + wheel) zoom the item picture; it eases back when released
+- Gesture: Scroll - the item page scrolls and the sticky actions appear
+- Gesture: Slide - swipe the Place a bid sheet down to close it
+- Gesture: Scrub - drag along the bar to set the bid amount (arrow keys step by 0.05 ETH)
+- Gesture: Hold - press and hold Confirm for 0.8 s to place the bid; a tap only shows the hint
+- Gesture: Long press - press and hold a bid row to copy its details (toast)
 
 ## Known gaps
 - The artwork is Stitch-generated to match the references but is not the exact NFTs

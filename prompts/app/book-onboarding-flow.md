@@ -26,8 +26,17 @@ Canvas: 390x843, scaled to the phone width. Coordinates are canvas pixels.
 
 No image assets: the covers are original CSS and SVG artwork that use real titles and authors as text only. 
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Swipe:** swipe the intro left or right to change the page dot.
+- **Drag:** drag the book card; a green ring means Yes, a red ring means No, and the card tilts with the finger.
+- **Flick:** a quick flick of the card counts even when the drag is short.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/BookOnboardingFlow.tsx` (the example)
 - `src/components/AppUI/Books.tsx`
 - `src/components/AppUI/Books.css`

@@ -31,8 +31,16 @@ Six sticker images (rainbow, fried egg and sausage, autumn leaves, beer mug, pea
 
 - Buttons are real buttons with labels or `aria-label`; decorative images use `alt=""` or `aria-hidden`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Swipe:** swipe the sheet down to close it; swipe it sideways to change the pack.
+- **Long press:** press and hold a sticker to peek at it full size; let go to dismiss.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/StickerPicker.tsx` (the example)
 - `src/components/AppUI/Stickers.tsx`
 - `src/components/AppUI/Stickers.css`

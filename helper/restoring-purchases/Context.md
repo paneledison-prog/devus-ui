@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `PayCanvas`, `PayStatusBar`, `PayHomeBar`, `PlanCard`, `ClayFlower` (in Paywall.tsx); `PhoneFrame({ bare, height })`.
 
@@ -22,6 +23,7 @@ Public API: `PayCanvas`, `PayStatusBar`, `PayHomeBar`, `PlanCard`, `ClayFlower` 
 - Only what the reference image shows: status bar, back chevron, four tilted plan cards (right-edge card -8 degrees, "$5.99/month" card 7.6 degrees, Monthly -15 degrees, Annual 1.5 degrees in front), flower ring, title, subtitle, spinner ring, home indicator
 - The spinner ring turns continuously (1s per turn, 2.8s under reduced motion), the only motion; added on request, the image shows it static
 - Cards and artwork are `aria-hidden`; the spinner has `role="status"` and a label
+- Gesture: Swipe - swipe the screen to the right to go back to the paywall
 
 ## Known gaps
 - No handlers; the spinner is the only animation

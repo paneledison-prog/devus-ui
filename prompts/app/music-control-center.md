@@ -26,8 +26,20 @@ Canvas: 390 wide, scrolling, scaled to the phone width. Coordinates are canvas p
 
 Banner picture, avatars, album cover and a holographic disc generated with the Stitch MCP, in `src/components/AppUI/assets/music/`. Do not hotlink images or use stock photos. Prompts and the review loop are in `.claude/skills/stitch-image-assets/SKILL.md`.
 
+## Gestures
+
+Pointer events (`src/components/AppUI/gestures.tsx`), so mouse, pen and touch all work; every gesture has a keyboard or tap alternative, respects `prefers-reduced-motion`, and nothing can leave the phone.
+
+- **Scroll:** the page scrolls.
+- **Pan:** a mouse can drag the page to scroll it.
+- **Pull:** pull down at the top to refresh (spinner, toast Обновлено).
+- **Swipe:** swipe a notification row sideways to dismiss it; Вернуть restores them.
+- **Scrub:** drag along the listening bars to see the hours at that point.
+- **Slide:** slide the Детский режим switch.
+
 ## Reference implementation (real files)
 
+- `src/components/AppUI/gestures.tsx` (the gesture hooks)
 - `src/components/AppUI/examples/MusicControlCenter.tsx` (the example)
 - `src/components/AppUI/Music.tsx`
 - `src/components/AppUI/Music.css`

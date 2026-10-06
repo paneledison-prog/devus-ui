@@ -54,6 +54,50 @@ Defined in `src/pages/Library/libraryItems.tsx`. Each item has `name`, `category
 
 Also in the codebase: `Logo` (brand mark), `CodeBlock` (Shiki), `LibraryCard`, `PreviewDialog`, `SearchDialog`.
 
+### App gestures (`src/components/AppUI/gestures.tsx`)
+Hooks on pointer events (mouse, pen, touch): `useSwipe` (swipe and flick, optional follow), `useFling` (drag, throw, spring back, clamped to the phone), `useLongPress`, `useHold` (progress 0..1), `usePanScroll` (mouse drag scroll with momentum), `usePinch` (two pointers or ctrl+wheel), `usePull` (pull to refresh), `useScrub`, `useTilt`/`useTiltAuto` (gyroscope with an Enable tilt button on iOS and the pointer position as the desktop stand-in), `useDrift`. A gesture that moves more than 8 px cancels the click that would follow. Phones clip everything (`contain: layout paint`) and cannot be selected (`user-select: none`, inputs excepted). Covered: Typing, Scroll, Swipe, Slide, Drag, Flick, Pan, Pull, Scrub, Pinch, Hold, Long press, Flip, Gyroscope. Per item (details in `scripts/gestures-matrix.json`, `prompts/app/*.md` and each helper `design.md`):
+
+| Item | Gestures |
+| --- | --- |
+| app-bar | Scroll |
+| balance-card | Swipe, Flip |
+| book-onboarding-flow | Swipe, Drag, Flick |
+| bookshelf-flow | Typing, Swipe, Pan, Pull, Long press |
+| bottom-sheet | Swipe, Slide, Drag, Flick |
+| call-flow | Typing, Swipe, Hold, Long press |
+| circle-editor | Drag, Scrub, Pinch, Long press |
+| finance-dashboard | Scroll, Swipe, Slide, Pan, Pull |
+| floating-action-button | Drag, Flick |
+| floating-tab-bar | Swipe |
+| fomo-welcome | Drag, Flick, Gyroscope |
+| grouped-list | Swipe, Slide |
+| home-screen | Typing, Swipe |
+| housewarming-invite | Swipe, Slide |
+| invoice-detail | Scroll, Pan, Pull |
+| moimoi-sign-in | Drag, Flick, Gyroscope |
+| music-control-center | Scroll, Swipe, Slide, Pan, Pull, Scrub |
+| music-profile-banners | Scroll, Swipe, Pan, Pull, Scrub |
+| music-profile-compact | Scroll, Swipe, Pan, Pull |
+| music-profile-tiles | Scroll, Swipe, Slide, Pan, Pull, Scrub, Long press |
+| nexus-courses | Swipe, Pull, Long press |
+| nexus-daily-activity | Swipe, Long press |
+| nexus-home | Swipe, Pull |
+| nexus-today | Swipe, Pull, Long press |
+| nft-auction-flow | Scroll, Swipe, Slide, Pull, Scrub, Pinch, Hold, Long press |
+| nft-search-results | Typing, Flick, Pan |
+| orb-profile | Swipe, Long press, Gyroscope |
+| premium-paywall | Swipe |
+| restoring-purchases | Swipe |
+| sticker-picker | Swipe, Long press |
+| story-rings | Pan, Long press |
+| task-list | Typing |
+| tracking-steps | Scrub |
+| voice-rooms-flow | Typing, Swipe, Pull, Hold, Long press |
+| wabi-welcome | Drag, Flick, Pinch, Gyroscope |
+| week-strip | Swipe, Slide |
+
+Rules: use the individual `translate`/`rotate`/`scale` properties for gesture motion, never `transform: translate` together with `scale` on one element; a closed or dismissed state must never leave an empty screen; component root classes must be unique project-wide.
+
 ### Accessible primitives (`src/components/Aria/`)
 Sixteen components that wrap `react-aria-components` (behavior, keyboard and ARIA from the library; look from Devus tokens in `Aria.css`, classes `.ra-*`, state via the library's `data-*` attributes). `Aria.tsx` exports `AriaSelect`, `AriaComboBox`, `AriaSlider`, `AriaTabs`, `AriaAccordion`, `AriaRadioGroup`, `AriaNumberField`, `AriaMenu`, `AriaCalendar`, `AriaDateField`, `AriaTagGroup`, `AriaSearchField`, `AriaBreadcrumbs`, `AriaToggleGroup`, `AriaMeter`, `AriaModal`; `ariaItems.tsx` holds their library entries (spread into Components in `libraryItems.tsx`); one Storybook file. Code and prompts shown to users use the plain library imports. Gotcha: the large preview is a native modal `<dialog>` (top layer), so popovers and modals would render beneath it; `overlayRoot.ts` provides a context that PreviewDialog fills with the dialog element and the popover/modal components pass as `UNSTABLE_portalContainer`. Popovers only work in the large preview (tiles are covered by the open button). Dev note: `sed -i` edits can be missed by the Vite watcher on Windows; `touch` the file.
 
@@ -119,6 +163,8 @@ iOS-style messaging demo in the Liquid Glass look, inspired by github.com/Applla
 - `devus.space` is connected and serving the homepage.
 
 ## Known gaps and ideas
+- The bench references of the App items whose DOM changed with the gesture pass (Music x4, Voice, Auction, Books, Nexus x4, Finance x2, Call, Orb, Housewarming, NFT search, Sticker picker, Circle editor, Balance card, Story rings, Week strip, Task list, Home screen, App bar, Tracking steps, Grouped list, Bottom sheet) and `ai-platform-demo` (Send button) were not re-measured: the in-app browser is not 1440x900. Re-measure at 1440x900 (step 9 of the verify skill) before relying on the bench for them.
+- Gyroscope parallax was verified with simulated orientation events and the pointer fallback, not on a physical phone.
 - Segmented control track uses --default-hover (not --default) so it stays visible on the gray library tiles; inactive segments get a hover fill.
 - Nav links are hidden under 640px wide (no mobile menu yet).
 - Search ranking is a plain substring match (name and description weighted equally).
@@ -137,7 +183,7 @@ iOS-style messaging demo in the Liquid Glass look, inspired by github.com/Applla
 - 2026-10-05: App items can no longer be selected: `.app-phone` disables text and image selection, the touch callout and image dragging (the blue selection boxes on stickers came from drags and long presses); inputs stay selectable. Rule in `AppUI.css`.
 - 2026-10-05: Fixed the touch cursor jumping when pressed: it was positioned with `transform` and scaled with the `scale` property, and `scale` is applied before `transform`, so shrinking on press also scaled the position. It is now positioned with the `translate` property. Rule: never mix `transform: translate()` with the `scale` property on the same element.
 - 2026-10-05: Touch cursor (phone previews) redone: 22px liquid-glass dot (blur, saturate, specular highlight, thin light rim, light and dark variants), rendered through a portal inside the preview `<dialog>` with the maximum z-index so no app UI or toast can cover it; mouse and pen only.
-- 2026-10-05: Moved the Widget board out of App: its twelve widgets are now twelve separate Blocks items (Weather, Meeting, Timer, AI photo, Profile, Contact, Drone battery, Flight board, Balance, USDC, Now playing, Lamp) in `src/components/Widgets/Board.tsx` / `Board.css` (pictures in `Widgets/assets/board/`), with prompts in `prompts/blocks/`. The App item, its prompt, helper folder, generator entry and bench reference were removed (helper folders 46). Also: the touch cursor ring no longer shows on touch devices; gesture toolkit `src/components/AppUI/gestures.tsx` added to App items (matrix in `scripts/gestures-matrix.json`; docs and bench re-measure still pending).
+- 2026-10-05: Moved the Widget board out of App: its twelve widgets are now twelve separate Blocks items (Weather, Meeting, Timer, AI photo, Profile, Contact, Drone battery, Flight board, Balance, USDC, Now playing, Lamp) in `src/components/Widgets/Board.tsx` / `Board.css` (pictures in `Widgets/assets/board/`), with prompts in `prompts/blocks/`. The App item, its prompt, helper folder, generator entry and bench reference were removed (helper folders 46). Also: the touch cursor ring no longer shows on touch devices; gesture toolkit `src/components/AppUI/gestures.tsx` added to App items (matrix in `scripts/gestures-matrix.json`; documented here and in the prompts).
 - 2026-10-05: Fixed the AI chat studio and Moodboard styling: the `.cs p/button` and `.mb p/button` resets had higher specificity than the component classes, which removed bubble, badge and chip padding and made button colors inherit (sparkle and T buttons lost their colors). Resets now use `:where()`; bench references re-measured. Rule: never reset `p`, `button`, `b` with a class-prefixed selector; use `:where(.root)`.
 - 2026-10-05: Added the AI chat studio template (fully interactive messenger with an AI assistant panel) from a pasted screenshot, built without the Stitch MCP (own SVG art), with prompt, story, helper folder (47) and bench reference.
 - 2026-10-05: Added the Moodboard canvas template (fully interactive pinboard) from a pasted screenshot, built without the Stitch MCP (own SVG artwork), with prompt, story, helper folder (46) and bench reference.

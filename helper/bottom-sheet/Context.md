@@ -15,12 +15,17 @@ Brand: none (generic sample content). Find it in the App section of the homepage
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `BottomSheet({ title, children, footer? })`.
 
 ## What it does
 - White sheet over a dimmed (32% black) scrim so the borderless phone stays visually whole
 - Footer buttons are 48px tall
+- Gesture: Drag - drag the handle or the sheet; it follows the finger and springs back if released early
+- Gesture: Slide - the sheet slides down and away when dismissed; a Share project button brings it back
+- Gesture: Swipe - swipe the sheet down to dismiss it
+- Gesture: Flick - a quick flick down dismisses it even when the drag is short
 
 ## Known gaps
 - Presentational only: no navigation or persistence

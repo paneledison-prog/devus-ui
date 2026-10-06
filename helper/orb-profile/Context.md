@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Orb.tsx` exports; `PhoneFrame({ bare, height })`.
 
@@ -23,6 +24,9 @@ Public API: `Orb.tsx` exports; `PhoneFrame({ bare, height })`.
 - Interactive: Close, more and the chips press
 - Interactive: The Friends button toggles to "Add Friend" (white pill) and back
 - Image assets generated with the Stitch MCP using the review loop in `.claude/skills/stitch-image-assets/SKILL.md`
+- Gesture: Gyroscope - tilt the phone and the photo and the three badges drift at different depths; a desktop pointer stands in; iOS gets an Enable tilt button
+- Gesture: Swipe - swipe the screen down (or tap close) to dismiss it; a button reopens it
+- Gesture: Long press - press and hold the avatar to enlarge it; tap to close
 
 ## Known gaps
 - The photos are Stitch look-alikes, not the exact images

@@ -15,6 +15,7 @@ Brand: none (text and art taken from the reference image). Find it in the App se
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `Call.tsx` exports; `PhoneFrame({ bare, height })`.
 
@@ -25,6 +26,10 @@ Public API: `Call.tsx` exports; `PhoneFrame({ bare, height })`.
 - Interactive: End shows "Call Ended" with dimmed controls, then returns to the call after 2.6 seconds
 - Interactive: FaceTime and Add press only (their destinations are not in the image)
 - Image assets generated with the Stitch MCP using the review loop in `.claude/skills/stitch-image-assets/SKILL.md`
+- Gesture: Hold - press and hold End for 0.9 s to hang up (a white ring fills); a plain tap only shows the hint
+- Gesture: Long press - press and hold 0 on the keypad to type +
+- Gesture: Swipe - swipe the keypad down to hide it
+- Gesture: Typing - with the keypad open, a real keyboard types digits, * # +; Backspace deletes, Escape hides
 
 ## Known gaps
 - The keypad and call-ended views are not in the image; they were added as the requested flow in the same style

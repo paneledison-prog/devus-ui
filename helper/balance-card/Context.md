@@ -15,12 +15,15 @@ Brand: none (generic sample content). Find it in the App section of the homepage
 - `src/components/AppUI/PhoneFrame.tsx`
 - `src/components/AppUI/AppUI.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 Public API: `BalanceCard({ label?, amount, primary?, actions? })`.
 
 ## What it does
 - White-on-black text that meets WCAG AA
 - Primary pill plus secondary actions as real buttons
+- Gesture: Flip - the card flips in 3D to a back with the card number, expiry, holder and limit (flip button, or swipe sideways); the hidden face is `inert`
+- Gesture: Swipe - swipe the card sideways to flip it
 
 ## Known gaps
 - Presentational only: no navigation or persistence
