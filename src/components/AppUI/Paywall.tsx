@@ -8,7 +8,7 @@ import './Paywall.css';
 
 /** 446x970 canvas, scaled by CSS zoom to the phone width. */
 export function PayCanvas({ children, tone, swipe }: { children: ReactNode; tone: 'paywall' | 'restoring'; swipe?: object }) {
-  return <div className={`pw pw--${tone}`} {...swipe}>{children}</div>;
+  return <div className={`pw-root pw--${tone}`} {...swipe}>{children}</div>;
 }
 
 /** White status bar: time on the left, signal, wifi and battery on the right. */

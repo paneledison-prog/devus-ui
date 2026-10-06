@@ -1,8 +1,8 @@
 /* Premium paywall and restoring screens. A 446x970 canvas scaled to the 320px phone (320 / 446). */
-.pw { --pw-sky: #62c5ff; position: relative; width: 446px; height: 970px; zoom: 0.717489; overflow: hidden; background: var(--pw-sky); color: #111; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
-.pw * { box-sizing: border-box; }
+.pw-root { --pw-sky: #62c5ff; position: relative; width: 446px; height: 970px; zoom: 0.717489; overflow: hidden; background: var(--pw-sky); color: #111; font-family: var(--font-sans); text-align: left; -webkit-font-smoothing: antialiased; }
+.pw-root * { box-sizing: border-box; }
 .pw--paywall { background: #191919; }
-.pw p, .pw h1, .pw h2 { margin: 0; }
+.pw-root p, .pw-root h1, .pw-root h2 { margin: 0; }
 
 /* status bar and home indicator */
 .pw-status { position: absolute; z-index: 20; left: 0; top: 0; width: 446px; height: 64px; color: #fff; pointer-events: none; }
@@ -55,7 +55,7 @@
 @media (prefers-reduced-motion: reduce) { .pw-spinner { animation-duration: 2.8s; } }
 
 /* ---------- interaction ---------- */
-.pw button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.pw-root button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .pw-plan { padding: 0; border: 0; background: none; text-align: left; font: inherit; color: inherit; transition: transform .12s ease; }
 .pw-plan:active { transform: scale(.985); }
 .pw-radio { transition: background .18s ease, border-color .18s ease; }
