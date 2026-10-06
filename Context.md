@@ -174,6 +174,7 @@ iOS-style messaging demo in the Liquid Glass look, inspired by github.com/Applla
 - Next: edison round 2 from untouched sources; shader backgrounds on request; Pricing page when asked.
 
 ## Changelog
+- 2026-10-06: Lilac grid now uses the exact layering of the pasted computed style: grid lines (96px x 64px) above the lilac glow, `800px at 100% 200px`.
 - 2026-10-06: Added the Lilac grid background (white, 6rem x 4rem light-gray grid, lilac `#d5c5ff` glow from the upper right, `.bg-lilac-grid`, from a pasted Tailwind snippet rewritten as plain CSS) with its prompt. Backgrounds are 3, the library is 120 items.
 - 2026-10-06: Added the Violet night background (black at the top center fading to `#6633ee`, `.bg-violet-night`, the dark twin of Violet radial) with its prompt. Backgrounds are 2, the library is 119 items.
 - 2026-10-06: Removed the Backgrounds Soft gradient, Emerald glow and Lilac fade (library entries and prompts). Backgrounds are 1 (Violet radial), the library is 118 items.

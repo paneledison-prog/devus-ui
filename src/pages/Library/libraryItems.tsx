@@ -599,14 +599,14 @@ const backgroundItems: BaseItem[] = [
     fill: true,
     landscape: true,
     lang: 'css',
-    preview: <div style={{ ...fillStyle, backgroundColor: '#fff', backgroundImage: 'radial-gradient(circle 800px at 100% 200px, #d5c5ff, transparent), linear-gradient(to right, #f0f0f0 1px, transparent 1px), linear-gradient(to bottom, #f0f0f0 1px, transparent 1px)', backgroundSize: '100% 100%, 6rem 4rem, 6rem 4rem' }} />,
+    preview: <div style={{ ...fillStyle, backgroundColor: '#fff', backgroundImage: 'linear-gradient(to right, #f0f0f0 1px, transparent 1px), linear-gradient(#f0f0f0 1px, transparent 1px), radial-gradient(800px at 100% 200px, #d5c5ff, transparent)', backgroundSize: '96px 64px, 96px 64px, 100% 100%' }} />,
     code: `.bg-lilac-grid {
   background-color: #fff;
   background-image:
-    radial-gradient(circle 800px at 100% 200px, #d5c5ff, transparent),
     linear-gradient(to right, #f0f0f0 1px, transparent 1px),
-    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
-  background-size: 100% 100%, 6rem 4rem, 6rem 4rem;
+    linear-gradient(#f0f0f0 1px, transparent 1px),
+    radial-gradient(800px at 100% 200px, #d5c5ff, transparent);
+  background-size: 96px 64px, 96px 64px, 100% 100%;
 }`,
   },
 ];
