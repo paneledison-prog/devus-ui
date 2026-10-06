@@ -128,6 +128,7 @@ iOS-style messaging demo in the Liquid Glass look, inspired by github.com/Applla
 - Next: edison round 2 from untouched sources; shader backgrounds on request; Pricing page when asked.
 
 ## Changelog
+- 2026-10-05: Sticker picker: after the sheet is closed the blurred photo now fills the whole screen with a "Tap to show stickers" pill, instead of leaving a blank white area. Rule: a closed or dismissed state must never leave an empty screen.
 - 2026-10-05: App items can no longer be selected: `.app-phone` disables text and image selection, the touch callout and image dragging (the blue selection boxes on stickers came from drags and long presses); inputs stay selectable. Rule in `AppUI.css`.
 - 2026-10-05: Fixed the touch cursor jumping when pressed: it was positioned with `transform` and scaled with the `scale` property, and `scale` is applied before `transform`, so shrinking on press also scaled the position. It is now positioned with the `translate` property. Rule: never mix `transform: translate()` with the `scale` property on the same element.
 - 2026-10-05: Touch cursor (phone previews) redone: 22px liquid-glass dot (blur, saturate, specular highlight, thin light rim, light and dark variants), rendered through a portal inside the preview `<dialog>` with the maximum z-index so no app UI or toast can cover it; mouse and pen only.

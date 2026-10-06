@@ -88,3 +88,10 @@
 .sk-circle__arc { pointer-events: none; }
 .sk-circle__arc .sk-circle__track { pointer-events: stroke; }
 @media (prefers-reduced-motion: reduce) { .sk-sticker--tap[data-pressing] { transition: none; } .sk-peek { animation: none; } }
+
+/* Closed sheet: the photo fills the whole screen, never a blank area. */
+.sk-blur { transition: height .38s cubic-bezier(.3, .9, .3, 1); }
+.sk-blur:not(:disabled) { height: 773px; }
+.sk-blur:not(:disabled) img { height: 773px; width: 560px; left: -100px; top: 0; }
+.sk-blur:not(:disabled)::before { content: "Tap to show stickers"; position: absolute; z-index: 1; left: 50%; bottom: 56px; translate: -50% 0; padding: 10px 20px; border-radius: 999px; background: rgb(255 255 255 / .55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: #111; font: 600 15px/18px var(--font-sans); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .sk-blur { transition: none; } }
