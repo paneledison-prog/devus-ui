@@ -128,7 +128,7 @@ export function HarborDemo({ startAt = 'chat', defaultTheme }: HarborDemoProps) 
                   </div>
                   <button type="button" className="ag-btn ag-btn--ghost ag-btn--sm" onClick={() => toast.show('Attach files (demo)')}>{ic.plus} Attach</button>
                   <span className="ag-grow" />
-                  <button className="ag-btn ag-btn--sm" disabled={!text.trim() || typing}>{ic.send} Send</button>
+                  <button type="submit" className="hb-send" aria-label="Send message" disabled={!text.trim() || typing}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.500 12 5l6.500 6.500" /></svg></button>
                 </div>
               </form>
             </div>
