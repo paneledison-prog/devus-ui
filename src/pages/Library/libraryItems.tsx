@@ -61,6 +61,17 @@ import { BookOnboardingFlowExample } from '../../components/AppUI/examples/BookO
 import { LiquidChatExample } from '../../components/AppUI/examples/LiquidChat';
 import tulipCode from '../../components/Backgrounds/assets/tulip-code.jpg';
 import tulipDigital from '../../components/Backgrounds/assets/tulip-digital.jpg';
+import bgImgBlueScanlines from '../../components/Backgrounds/assets/blue-scanlines.webp';
+import bgImgLakesidePicnic from '../../components/Backgrounds/assets/lakeside-picnic.webp';
+import bgImgOrangeHaze from '../../components/Backgrounds/assets/orange-haze.webp';
+import bgImgPeachBloom from '../../components/Backgrounds/assets/peach-bloom.webp';
+import bgImgValleyHaze from '../../components/Backgrounds/assets/valley-haze.webp';
+import bgImgBlueCut from '../../components/Backgrounds/assets/blue-cut.webp';
+import bgImgNightStudy from '../../components/Backgrounds/assets/night-study.webp';
+import bgImgWildMeadow from '../../components/Backgrounds/assets/wild-meadow.webp';
+import bgImgRetroBloom from '../../components/Backgrounds/assets/retro-bloom.webp';
+import bgImgLilacSky from '../../components/Backgrounds/assets/lilac-sky.webp';
+import bgImgBlueArch from '../../components/Backgrounds/assets/blue-arch.webp';
 import { DitherShader } from '../../components/Backgrounds/DitherShader';
 import { KineticGrid } from '../../components/Backgrounds/KineticGrid';
 import { WeatherWidget, MeetingWidget, TimerWidget, AiPhotoWidget, ProfileWidget, ContactWidget, DroneWidget, FlightWidget, BalanceWidget, UsdcWidget, NowPlayingWidget, LampWidget } from '../../components/Widgets/Board';
@@ -682,6 +693,105 @@ const backgroundItems: BaseItem[] = [
     preview: <div style={{ ...fillStyle, backgroundColor: '#9dbfe0', backgroundImage: `url(${tulipDigital})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
     code: `.bg-tulip-digital {\n  background-color: #9dbfe0;\n  background-image: url('/assets/tulip-digital.jpg');\n  background-size: cover;\n  background-position: center;\n}`,
   },
+  {
+    name: 'Blue scanlines',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#0a1f4a', backgroundImage: `url(${bgImgBlueScanlines})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-blue-scanlines {\n  background-color: #0a1f4a;\n  background-image: url('/assets/blue-scanlines.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Lakeside picnic',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#7fb2dd', backgroundImage: `url(${bgImgLakesidePicnic})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-lakeside-picnic {\n  background-color: #7fb2dd;\n  background-image: url('/assets/lakeside-picnic.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Orange haze',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f58a1f', backgroundImage: `url(${bgImgOrangeHaze})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-orange-haze {\n  background-color: #f58a1f;\n  background-image: url('/assets/orange-haze.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Peach bloom',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#fff4ec', backgroundImage: `url(${bgImgPeachBloom})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-peach-bloom {\n  background-color: #fff4ec;\n  background-image: url('/assets/peach-bloom.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Valley haze',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#b5bcc2', backgroundImage: `url(${bgImgValleyHaze})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-valley-haze {\n  background-color: #b5bcc2;\n  background-image: url('/assets/valley-haze.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Blue cut',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f6f3ef', backgroundImage: `url(${bgImgBlueCut})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-blue-cut {\n  background-color: #f6f3ef;\n  background-image: url('/assets/blue-cut.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Night study',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#0b2a4d', backgroundImage: `url(${bgImgNightStudy})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-night-study {\n  background-color: #0b2a4d;\n  background-image: url('/assets/night-study.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Wild meadow',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#1a1a12', backgroundImage: `url(${bgImgWildMeadow})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-wild-meadow {\n  background-color: #1a1a12;\n  background-image: url('/assets/wild-meadow.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Retro bloom',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#6aa6d8', backgroundImage: `url(${bgImgRetroBloom})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-retro-bloom {\n  background-color: #6aa6d8;\n  background-image: url('/assets/retro-bloom.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Lilac sky',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#cdb5f2', backgroundImage: `url(${bgImgLilacSky})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-lilac-sky {\n  background-color: #cdb5f2;\n  background-image: url('/assets/lilac-sky.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Blue arch',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#06102a', backgroundImage: `url(${bgImgBlueArch})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-blue-arch {\n  background-color: #06102a;\n  background-image: url('/assets/blue-arch.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
 ];
 
 const phoneProps = { tall: true, tileZoom: 0.55, defaultZoom: 0.75 } as const;
@@ -1108,7 +1218,7 @@ export const libraryCategories: { id: LibraryCategory; label: string; subtitle: 
   { id: 'components', label: 'Components', subtitle: 'Core building blocks. Click a tile for a large preview, or copy its code or master prompt.' },
   { id: 'blocks', label: 'Blocks', subtitle: 'Ready-made sections composed from the components above.' },
   { id: 'templates', label: 'Templates', subtitle: 'Full-page layouts: landing, dashboard, sign in and settings.' },
-  { id: 'backgrounds', label: 'Backgrounds', subtitle: 'Pure-CSS backgrounds that follow the light and dark themes.' },
+  { id: 'backgrounds', label: 'Backgrounds', subtitle: 'Gradients, patterns, shaders and pictures to put behind your content.' },
   { id: 'ui-elements', label: 'UI Elements', subtitle: 'Small primitives: badges, keys, dividers and progress.' },
   { id: 'app', label: 'App', subtitle: 'Mobile app style elements: tab bar, app bar, grouped lists, bottom sheet and more.' },
 ];
