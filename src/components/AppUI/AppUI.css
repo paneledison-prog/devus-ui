@@ -208,3 +208,10 @@ button.app-row:active { background: var(--default); }
 .app-scrollbox::-webkit-scrollbar { display: none; }
 .app-scrollbox:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .app-bar__large, .app-bar--large { transition: none; } }
+
+/* Apps behave like native screens: no text or image selection, no callout menu, no image dragging. Fields stay editable. */
+.app-phone, .app-phone * { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+.app-phone img, .app-phone svg { -webkit-user-drag: none; user-drag: none; }
+.app-phone input, .app-phone textarea, .app-phone [contenteditable="true"] { -webkit-user-select: text; user-select: text; }
+.app-phone ::selection { background: transparent; }
+.app-phone input::selection, .app-phone textarea::selection { background: Highlight; }
