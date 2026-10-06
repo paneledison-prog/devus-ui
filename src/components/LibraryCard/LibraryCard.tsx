@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button } from '../Button/Button';
+import { Skeleton } from '../Skeleton/Skeleton';
 import { useCopy } from '../../hooks/useCopy';
 import { PreviewDialog } from './PreviewDialog';
 import type { SourceEntry } from '../../pages/Library/sourceFiles';
@@ -54,6 +55,15 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
 
   // Phone tiles: scale the phone (320x660, classic iPhone ratio) to ~96% of the tile height, like a store listing.
   const tileRef = useRef<HTMLDivElement>(null);
+  // The tile preview is only built when the tile is close to the screen; until then a skeleton holds the place (no layout shift).
+  const [ready, setReady] = useState(typeof IntersectionObserver === 'undefined');
+  useEffect(() => {
+    const el = tileRef.current;
+    if (ready || !el) return;
+    const io = new IntersectionObserver((entries) => { if (entries.some((e) => e.isIntersecting)) { setReady(true); io.disconnect(); } }, { rootMargin: '480px 0px' });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [ready]);
   const [fitZoom, setFitZoom] = useState<number | undefined>(undefined);
   useEffect(() => {
     const el = tileRef.current;
@@ -69,7 +79,8 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
     <article className="ui-library-card">
       <div ref={tileRef} className={`ui-library-card__preview${fill ? " ui-library-card__preview--fill" : ""}${tall ? " ui-library-card__preview--tall" : ""}${landscape ? " ui-library-card__preview--landscape" : ""}`}>
         <button type="button" className="ui-library-card__open" aria-label={`Open ${name} in large preview`} onClick={() => setOpen(true)} />
-        <div className="ui-library-card__content" style={tall && fitZoom ? { zoom: fitZoom } : tileZoom ? { zoom: tileZoom } : undefined}>{preview}</div>
+        <div className="ui-library-card__content" style={tall && fitZoom ? { zoom: fitZoom } : tileZoom ? { zoom: tileZoom } : undefined}>{ready ? <div className="ui-library-card__reveal">{preview}</div> : null}</div>
+        {!ready && <Skeleton fill />}
         <div className="ui-library-card__actions">
           <Button size="sm" variant="secondary" onClick={() => copy(prompt, 'prompt')}>{copied === 'prompt' ? 'Copied ✓' : 'Prompt'}</Button>
           <Button size="sm" variant="secondary" onClick={() => copy(code, 'code')}>{copied === 'code' ? 'Copied ✓' : 'Code'}</Button>

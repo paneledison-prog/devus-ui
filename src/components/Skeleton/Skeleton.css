@@ -1,0 +1,13 @@
+/* Skeleton: a quiet placeholder with a slow light sweep. Static under reduced motion. */
+.ui-skeleton { --sk-base: var(--default); --sk-light: color-mix(in srgb, var(--surface) 70%, transparent);
+  position: relative; display: block; overflow: hidden; border-radius: var(--radius-lg); background: var(--sk-base); }
+.ui-skeleton--circle { border-radius: 50%; }
+.ui-skeleton--text { height: 1em; border-radius: var(--radius-sm, 6px); }
+.ui-skeleton--fill { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: inherit; }
+.ui-skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(100deg, transparent 20%, var(--sk-light) 50%, transparent 80%); }
+@media (prefers-reduced-motion: no-preference) {
+  .ui-skeleton::after { animation: ui-skeleton-sweep 1.6s cubic-bezier(.4, 0, .2, 1) infinite; }
+}
+@keyframes ui-skeleton-sweep { to { transform: translateX(100%); } }
+.ui-skeleton-lines { display: grid; gap: 8px; }

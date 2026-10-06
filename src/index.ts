@@ -22,3 +22,4 @@ export * from './components/BuildAgent/BuildAgent';
 export * from './components/LiquidChat/LiquidChat';
 export * from './components/Backgrounds/KineticGrid';
 export * from './components/Backgrounds/DitherShader';
+export * from './components/Skeleton/Skeleton';

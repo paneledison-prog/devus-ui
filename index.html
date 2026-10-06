@@ -6,9 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Devus UI: a React + TypeScript component library with live previews, copy-ready code and prompts." />
     <title>Devus UI</title>
+    <script>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('devus-theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+    <style>
+      html { background: #f5f5f5; }
+      html[data-theme='dark'] { background: #0b0b0c; }
+      .boot { --b-bg: #f5f5f5; --b-bar: #ffffffcc; --b-line: #e4e4e7; --b-fill: #ebebec; --b-glint: #ffffffb3;
+        min-height: 100vh; background: var(--b-bg); font-family: system-ui, sans-serif; }
+      html[data-theme='dark'] .boot { --b-bg: #0b0b0c; --b-bar: #0b0b0ccc; --b-line: #27272a; --b-fill: #1b1b1d; --b-glint: #ffffff14; }
+      .boot__bar { position: sticky; top: 0; height: 56px; display: flex; align-items: center; gap: 12px; padding: 0 24px; background: var(--b-bar); border-bottom: 1px solid var(--b-line); }
+      .boot__main { max-width: 1280px; margin: 0 auto; padding: 48px 24px; }
+      .boot__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 40px 24px; margin-top: 28px; }
+      .boot i { position: relative; display: block; overflow: hidden; background: var(--b-fill); border-radius: 10px; }
+      .boot i::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(100deg, transparent 20%, var(--b-glint) 50%, transparent 80%); }
+      @media (prefers-reduced-motion: no-preference) { .boot i::after { animation: boot-sweep 1.6s cubic-bezier(.4, 0, .2, 1) infinite; } }
+      @keyframes boot-sweep { to { transform: translateX(100%); } }
+      .boot__tile { aspect-ratio: 313 / 255; border-radius: 24px !important; }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot" aria-busy="true" role="status" aria-label="Loading Devus UI">
+        <div class="boot__bar"><i style="width:30px;height:30px;border-radius:8px"></i><i style="width:96px;height:14px"></i><span style="flex:1"></span><i style="width:240px;height:30px;border-radius:15px"></i></div>
+        <div class="boot__main">
+          <i style="width:180px;height:26px"></i><i style="width:min(420px,70%);height:14px;margin-top:12px"></i>
+          <div class="boot__grid">
+            <div><i class="boot__tile"></i><i style="width:55%;height:14px;margin-top:14px"></i><i style="width:30%;height:11px;margin-top:8px"></i></div>
+            <div><i class="boot__tile"></i><i style="width:45%;height:14px;margin-top:14px"></i><i style="width:30%;height:11px;margin-top:8px"></i></div>
+            <div><i class="boot__tile"></i><i style="width:60%;height:14px;margin-top:14px"></i><i style="width:30%;height:11px;margin-top:8px"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

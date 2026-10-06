@@ -31,3 +31,11 @@
 /* Glow backgrounds: 16:10 landscape frame, 24px radius, 1px white border. */
 .ui-library-card__preview--landscape { aspect-ratio: 16 / 10; border: 1px solid #fff; border-radius: 24px; }
 .ui-library-card__preview--landscape .ui-library-card__content { border-radius: inherit; overflow: hidden; }
+
+/* Tile loading: a skeleton holds the tile until the preview is built, which then fades in. */
+.ui-library-card__preview > .ui-skeleton { border-radius: inherit; z-index: 0; }
+.ui-library-card__reveal { display: contents; }
+@media (prefers-reduced-motion: no-preference) {
+  .ui-library-card__content { animation: ui-tile-in .45s cubic-bezier(.2, .8, .2, 1) both; }
+}
+@keyframes ui-tile-in { from { opacity: 0; transform: translateY(6px) scale(.985); } }
