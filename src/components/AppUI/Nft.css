@@ -55,3 +55,21 @@
 
 /* gestures */
 .nf-card { touch-action: pan-y; user-select: none; }
+
+/* Modern pass: glass bar, glass search field, softer round action. */
+.nf-nav { background: linear-gradient(180deg, rgb(70 70 74 / .66), rgb(36 36 40 / .72)); -webkit-backdrop-filter: blur(22px) saturate(1.6); backdrop-filter: blur(22px) saturate(1.6);
+  border-color: rgb(255 255 255 / .14); box-shadow: 0 14px 40px rgb(0 0 0 / .45), inset 0 1px 0 rgb(255 255 255 / .16), inset 0 -1px 0 rgb(0 0 0 / .25); }
+.nf-nav__item { border-radius: 22px; color: rgb(255 255 255 / .82); transition: background .25s ease, color .2s ease, transform .15s cubic-bezier(.3, 1.4, .5, 1), box-shadow .25s ease; }
+.nf-nav__item:hover:not(.is-on) { background: rgb(255 255 255 / .08); color: #fff; }
+.nf-nav__item.is-on { color: #fff; background: linear-gradient(160deg, #9a6cf6, #6a3cd6); box-shadow: 0 6px 20px rgb(110 70 230 / .55), inset 0 1px 0 rgb(255 255 255 / .35); }
+.nf-nav__badge { box-shadow: 0 0 0 3px rgb(44 44 48), 0 2px 6px rgb(255 59 48 / .5); }
+.nf-search { background: linear-gradient(180deg, rgb(88 90 96 / .5), rgb(56 58 62 / .45)); -webkit-backdrop-filter: blur(20px) saturate(1.5); backdrop-filter: blur(20px) saturate(1.5);
+  border-color: rgb(255 255 255 / .14); box-shadow: 0 8px 24px rgb(0 0 0 / .3), inset 0 1px 0 rgb(255 255 255 / .14); transition: border-color .2s ease, box-shadow .2s ease; }
+.nf-search svg { flex: none; padding: 9px; box-sizing: content-box; width: 30px; height: 30px; border-radius: 50%; background: rgb(255 255 255 / .1); }
+.nf-search:focus-within { border-color: rgb(185 156 255 / .8); box-shadow: 0 0 0 4px rgb(150 110 255 / .28), 0 8px 24px rgb(0 0 0 / .3), inset 0 1px 0 rgb(255 255 255 / .14); outline: none; }
+.nf-card__go { left: 250px; top: 276px; width: 76px; height: 76px; background: rgb(255 255 255 / .92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: 0 10px 26px rgb(0 0 0 / .32), inset 0 1px 0 rgb(255 255 255 / .9); transition: transform .15s cubic-bezier(.3, 1.4, .5, 1); }
+.nf-card__go svg { width: 12px; height: 22px; }
+.nf-card:hover .nf-card__go { transform: translateX(3px); }
+.nf-card:active .nf-card__go { transform: scale(.94); }
+@media (prefers-reduced-motion: reduce) { .nf-nav__item, .nf-search, .nf-card__go { transition: none; } }
