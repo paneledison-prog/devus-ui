@@ -110,3 +110,7 @@
   .ui-files__seg button { height: 24px; }
   .ui-files__body > pre { padding: var(--space-3); font-size: 12px; line-height: 18px; }
 }
+
+/* Templates: no scrolling, the template is scaled to the stage. */
+.ui-preview-dialog__stage--fit { overflow: hidden; padding: var(--space-3); }
+.ui-preview-dialog__stage--fit .ui-preview-dialog__zoom { transition: none; }

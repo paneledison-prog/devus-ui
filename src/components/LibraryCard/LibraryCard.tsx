@@ -26,6 +26,8 @@ export interface LibraryCardProps {
   defaultZoom?: number;
   /** Portrait tile for phone viewports. */
   tall?: boolean;
+  /** Templates: the large preview scales the whole template to the stage, with no scrolling and no zoom buttons. */
+  fitStage?: boolean;
   /** Outer phone height in px (default 660). */
   phoneHeight?: number;
   /** Standalone URL (templates). Adds an "Open in new tab" action. */
@@ -41,7 +43,7 @@ export interface LibraryCardProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, landscape, tileZoom, defaultZoom, tall, phoneHeight = 660, href, sourceEntries, helper, promptPath, open: openProp, onOpenChange }: LibraryCardProps) {
+export function LibraryCard({ name, variants, preview, code, prompt, lang, fill, landscape, tileZoom, defaultZoom, tall, fitStage, phoneHeight = 660, href, sourceEntries, helper, promptPath, open: openProp, onOpenChange }: LibraryCardProps) {
   const [localOpen, setLocalOpen] = useState(false);
   const open = openProp ?? localOpen;
   const setOpen = (next: boolean) => {
@@ -79,7 +81,7 @@ export function LibraryCard({ name, variants, preview, code, prompt, lang, fill,
         <h3 className="ui-library-card__name">{name}</h3>
         <p className="ui-library-card__meta">{variants} {variants === 1 ? 'variant' : 'variants'}</p>
       </div>
-      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} landscape={landscape} defaultZoom={defaultZoom} tall={tall} phoneHeight={phoneHeight} href={href} sourceEntries={sourceEntries} helper={helper} promptPath={promptPath} />
+      <PreviewDialog open={open} onClose={() => setOpen(false)} name={name} preview={preview} code={code} prompt={prompt} lang={lang} fill={fill} landscape={landscape} defaultZoom={defaultZoom} tall={tall} fitStage={fitStage} phoneHeight={phoneHeight} href={href} sourceEntries={sourceEntries} helper={helper} promptPath={promptPath} />
     </article>
   );
 }

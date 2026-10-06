@@ -41,6 +41,7 @@ export function LibraryPage({
             key={item.name}
             {...item}
             href={item.category === 'templates' ? templateUrl(item.name) : undefined}
+            fitStage={item.category === 'templates'}
             open={active === item.name}
             onOpenChange={(o) => setActive(o ? item.name : null)}
           />

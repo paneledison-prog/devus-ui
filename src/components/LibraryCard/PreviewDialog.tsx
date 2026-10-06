@@ -18,6 +18,7 @@ export interface PreviewDialogProps {
   fill?: boolean;
   landscape?: boolean;
   defaultZoom?: number;
+  fitStage?: boolean;
   /** Phone viewport: opens near life-size and auto-fits the stage. */
   tall?: boolean;
   /** Outer phone height in px (default 660). */
@@ -34,7 +35,7 @@ export interface PreviewDialogProps {
 type Tab = 'preview' | 'code' | 'prompt';
 const ZOOMS = [0.75, 1, 1.5, 2] as const;
 
-export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, phoneHeight = 660, href, sourceEntries, helper, promptPath }: PreviewDialogProps) {
+export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang = 'tsx', fill = false, landscape = false, defaultZoom = 1.5, tall = false, fitStage = false, phoneHeight = 660, href, sourceEntries, helper, promptPath }: PreviewDialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const [root, setRoot] = useState<Element>();
   const [tab, setTab] = useState<Tab>('preview');
@@ -43,7 +44,9 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
   const [fitZoom, setFitZoom] = useState(1);
   // The dialog is up to 2x its original size; zoom steps are relative to the original stage so "100%" looks the same, just larger.
   const [scale, setScale] = useState(1);
-  const zoomValue = zoom === 'fit' ? fitZoom : zoom * scale;
+  const zoomRef = useRef<HTMLDivElement>(null);
+  const [stageFit, setStageFit] = useState(1);
+  const zoomValue = fitStage ? stageFit : zoom === 'fit' ? fitZoom : zoom * scale;
   const { copied, copy } = useCopy();
 
   useEffect(() => {
@@ -62,6 +65,23 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
     ro.observe(el);
     return () => ro.disconnect();
   }, [open, tab]);
+
+  // Templates: scale the whole template to the stage so it is always fully visible, with no scrollbars.
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!fitStage || !open || tab !== 'preview' || !el) return;
+    const measure = () => {
+      const c = zoomRef.current?.firstElementChild as HTMLElement | null;
+      if (!c) return;
+      const w = c.offsetWidth || 1; const h = c.offsetHeight || 1;
+      setStageFit(Math.max(0.2, Math.min((el.clientWidth - 24) / w, (el.clientHeight - 24) / h)));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    if (zoomRef.current?.firstElementChild) ro.observe(zoomRef.current.firstElementChild);
+    return () => ro.disconnect();
+  }, [fitStage, open, tab]);
 
   // Phones: fit the 320x660 device to the stage (up to 2x) so it opens near life-size.
   useEffect(() => {
@@ -96,12 +116,12 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
 
       {tab === 'preview' ? (
         <>
-          <div ref={stageRef} className={`ui-preview-dialog__stage${fill ? " ui-preview-dialog__stage--fill" : ""}${tall ? " ui-preview-dialog__stage--tall" : ""}${landscape ? " ui-preview-dialog__stage--landscape" : ""}`}>
-            <div className="ui-preview-dialog__zoom" style={fill ? undefined : { zoom: zoomValue }}><OverlayRoot.Provider value={root}>{preview}</OverlayRoot.Provider></div>
+          <div ref={stageRef} className={`ui-preview-dialog__stage${fitStage ? " ui-preview-dialog__stage--fit" : ""}${fill ? " ui-preview-dialog__stage--fill" : ""}${tall ? " ui-preview-dialog__stage--tall" : ""}${landscape ? " ui-preview-dialog__stage--landscape" : ""}`}>
+            <div ref={zoomRef} className="ui-preview-dialog__zoom" style={fill ? undefined : { zoom: zoomValue }}><OverlayRoot.Provider value={root}>{preview}</OverlayRoot.Provider></div>
             {tall && <TouchCursor stage={stageRef} />}
           </div>
           <footer className="ui-preview-dialog__footer">
-            <div className="ui-preview-dialog__zooms" role="group" aria-label="Zoom" hidden={fill}>
+            <div className="ui-preview-dialog__zooms" role="group" aria-label="Zoom" hidden={fill || fitStage}>
               {tall && (
                 <Button size="sm" variant={zoom === 'fit' ? 'secondary' : 'ghost'} aria-pressed={zoom === 'fit'} onClick={() => setZoom('fit')}>Fit</Button>
               )}
