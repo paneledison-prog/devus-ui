@@ -72,6 +72,42 @@ import bgImgWildMeadow from '../../components/Backgrounds/assets/wild-meadow.web
 import bgImgRetroBloom from '../../components/Backgrounds/assets/retro-bloom.webp';
 import bgImgLilacSky from '../../components/Backgrounds/assets/lilac-sky.webp';
 import bgImgBlueArch from '../../components/Backgrounds/assets/blue-arch.webp';
+import bgImgRoseRidge from '../../components/Backgrounds/assets/rose-ridge.webp';
+import bgImgLilacMesh from '../../components/Backgrounds/assets/lilac-mesh.webp';
+import bgImgSunHatPortrait from '../../components/Backgrounds/assets/sun-hat-portrait.webp';
+import bgImgSmokeBlack from '../../components/Backgrounds/assets/smoke-black.webp';
+import bgImgDuskHaze from '../../components/Backgrounds/assets/dusk-haze.webp';
+import bgImgTealCode from '../../components/Backgrounds/assets/teal-code.webp';
+import bgImgBlueMarble from '../../components/Backgrounds/assets/blue-marble.webp';
+import bgImgHalftoneFade from '../../components/Backgrounds/assets/halftone-fade.webp';
+import bgImgTreeShoes from '../../components/Backgrounds/assets/tree-shoes.webp';
+import bgImgVioletDrip from '../../components/Backgrounds/assets/violet-drip.webp';
+import bgImgCyanDescent from '../../components/Backgrounds/assets/cyan-descent.webp';
+import bgImgJellyfishBlue from '../../components/Backgrounds/assets/jellyfish-blue.webp';
+import bgImgNavyHalftone from '../../components/Backgrounds/assets/navy-halftone.webp';
+import bgImgGreenContour from '../../components/Backgrounds/assets/green-contour.webp';
+import bgImgMintRidge from '../../components/Backgrounds/assets/mint-ridge.webp';
+import bgImgNavyRidge from '../../components/Backgrounds/assets/navy-ridge.webp';
+import bgImgClayRidge from '../../components/Backgrounds/assets/clay-ridge.webp';
+import bgImgOrangeRidge from '../../components/Backgrounds/assets/orange-ridge.webp';
+import bgImgTerracottaPeaks from '../../components/Backgrounds/assets/terracotta-peaks.webp';
+import bgImgEmberBlur from '../../components/Backgrounds/assets/ember-blur.webp';
+import bgImgCocoaGlow from '../../components/Backgrounds/assets/cocoa-glow.webp';
+import bgImgLimeRidge from '../../components/Backgrounds/assets/lime-ridge.webp';
+import bgImgMagentaRidge from '../../components/Backgrounds/assets/magenta-ridge.webp';
+import bgImgPurpleRidge from '../../components/Backgrounds/assets/purple-ridge.webp';
+import bgImgEmeraldRidge from '../../components/Backgrounds/assets/emerald-ridge.webp';
+import bgImgChromeMark from '../../components/Backgrounds/assets/chrome-mark.webp';
+import bgImgIndigoRise from '../../components/Backgrounds/assets/indigo-rise.webp';
+import bgImgAmberBloom from '../../components/Backgrounds/assets/amber-bloom.webp';
+import bgImgPastelCloud from '../../components/Backgrounds/assets/pastel-cloud.webp';
+import bgImgLavenderFade from '../../components/Backgrounds/assets/lavender-fade.webp';
+import bgImgWarmSky from '../../components/Backgrounds/assets/warm-sky.webp';
+import bgImgDuskSky from '../../components/Backgrounds/assets/dusk-sky.webp';
+import bgImgPaintedBlooms from '../../components/Backgrounds/assets/painted-blooms.webp';
+import bgImgSunsetOrange from '../../components/Backgrounds/assets/sunset-orange.webp';
+import bgImgUnderwater from '../../components/Backgrounds/assets/underwater.webp';
+import bgImgGreenBokeh from '../../components/Backgrounds/assets/green-bokeh.webp';
 import { DitherShader } from '../../components/Backgrounds/DitherShader';
 import { KineticGrid } from '../../components/Backgrounds/KineticGrid';
 import { WeatherWidget, MeetingWidget, TimerWidget, AiPhotoWidget, ProfileWidget, ContactWidget, DroneWidget, FlightWidget, BalanceWidget, UsdcWidget, NowPlayingWidget, LampWidget } from '../../components/Widgets/Board';
@@ -791,6 +827,330 @@ const backgroundItems: BaseItem[] = [
     lang: 'css',
     preview: <div style={{ ...fillStyle, backgroundColor: '#06102a', backgroundImage: `url(${bgImgBlueArch})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
     code: `.bg-blue-arch {\n  background-color: #06102a;\n  background-image: url('/assets/blue-arch.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Rose ridge',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f1c4d0', backgroundImage: `url(${bgImgRoseRidge})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-rose-ridge {\n  background-color: #f1c4d0;\n  background-image: url('/assets/rose-ridge.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Lilac mesh',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f4f2f4', backgroundImage: `url(${bgImgLilacMesh})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-lilac-mesh {\n  background-color: #f4f2f4;\n  background-image: url('/assets/lilac-mesh.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Sun hat portrait',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#5a8fbf', backgroundImage: `url(${bgImgSunHatPortrait})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-sun-hat-portrait {\n  background-color: #5a8fbf;\n  background-image: url('/assets/sun-hat-portrait.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Smoke black',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#101214', backgroundImage: `url(${bgImgSmokeBlack})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-smoke-black {\n  background-color: #101214;\n  background-image: url('/assets/smoke-black.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Dusk haze',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#16181a', backgroundImage: `url(${bgImgDuskHaze})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-dusk-haze {\n  background-color: #16181a;\n  background-image: url('/assets/dusk-haze.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Teal code',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#0a2a40', backgroundImage: `url(${bgImgTealCode})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-teal-code {\n  background-color: #0a2a40;\n  background-image: url('/assets/teal-code.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Blue marble',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#a9c3ee', backgroundImage: `url(${bgImgBlueMarble})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-blue-marble {\n  background-color: #a9c3ee;\n  background-image: url('/assets/blue-marble.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Halftone fade',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#ffffff', backgroundImage: `url(${bgImgHalftoneFade})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-halftone-fade {\n  background-color: #ffffff;\n  background-image: url('/assets/halftone-fade.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Tree shoes',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#2a5a30', backgroundImage: `url(${bgImgTreeShoes})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-tree-shoes {\n  background-color: #2a5a30;\n  background-image: url('/assets/tree-shoes.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Violet drip',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#6a5ac8', backgroundImage: `url(${bgImgVioletDrip})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-violet-drip {\n  background-color: #6a5ac8;\n  background-image: url('/assets/violet-drip.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Cyan descent',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#0b1a22', backgroundImage: `url(${bgImgCyanDescent})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-cyan-descent {\n  background-color: #0b1a22;\n  background-image: url('/assets/cyan-descent.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Jellyfish blue',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#0a3a8a', backgroundImage: `url(${bgImgJellyfishBlue})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-jellyfish-blue {\n  background-color: #0a3a8a;\n  background-image: url('/assets/jellyfish-blue.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Navy halftone',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#06134f', backgroundImage: `url(${bgImgNavyHalftone})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-navy-halftone {\n  background-color: #06134f;\n  background-image: url('/assets/navy-halftone.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Green contour',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#2e6a40', backgroundImage: `url(${bgImgGreenContour})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-green-contour {\n  background-color: #2e6a40;\n  background-image: url('/assets/green-contour.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Mint ridge',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#c9f0e6', backgroundImage: `url(${bgImgMintRidge})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-mint-ridge {\n  background-color: #c9f0e6;\n  background-image: url('/assets/mint-ridge.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Navy ridge',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f1eddc', backgroundImage: `url(${bgImgNavyRidge})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-navy-ridge {\n  background-color: #f1eddc;\n  background-image: url('/assets/navy-ridge.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Clay ridge',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f6dcc6', backgroundImage: `url(${bgImgClayRidge})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-clay-ridge {\n  background-color: #f6dcc6;\n  background-image: url('/assets/clay-ridge.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Orange ridge',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f7b878', backgroundImage: `url(${bgImgOrangeRidge})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-orange-ridge {\n  background-color: #f7b878;\n  background-image: url('/assets/orange-ridge.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Terracotta peaks',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#e6bba4', backgroundImage: `url(${bgImgTerracottaPeaks})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-terracotta-peaks {\n  background-color: #e6bba4;\n  background-image: url('/assets/terracotta-peaks.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Ember blur',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#e8550c', backgroundImage: `url(${bgImgEmberBlur})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-ember-blur {\n  background-color: #e8550c;\n  background-image: url('/assets/ember-blur.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Cocoa glow',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#3a1a0a', backgroundImage: `url(${bgImgCocoaGlow})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-cocoa-glow {\n  background-color: #3a1a0a;\n  background-image: url('/assets/cocoa-glow.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Lime ridge',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#dcf27a', backgroundImage: `url(${bgImgLimeRidge})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-lime-ridge {\n  background-color: #dcf27a;\n  background-image: url('/assets/lime-ridge.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Magenta ridge',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f6a8f6', backgroundImage: `url(${bgImgMagentaRidge})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-magenta-ridge {\n  background-color: #f6a8f6;\n  background-image: url('/assets/magenta-ridge.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Purple ridge',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#dcd8ec', backgroundImage: `url(${bgImgPurpleRidge})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-purple-ridge {\n  background-color: #dcd8ec;\n  background-image: url('/assets/purple-ridge.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Emerald ridge',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#b4eacb', backgroundImage: `url(${bgImgEmeraldRidge})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-emerald-ridge {\n  background-color: #b4eacb;\n  background-image: url('/assets/emerald-ridge.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Chrome mark',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f4eefd', backgroundImage: `url(${bgImgChromeMark})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-chrome-mark {\n  background-color: #f4eefd;\n  background-image: url('/assets/chrome-mark.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Indigo rise',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#1c1c8a', backgroundImage: `url(${bgImgIndigoRise})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-indigo-rise {\n  background-color: #1c1c8a;\n  background-image: url('/assets/indigo-rise.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Amber bloom',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f6f4ea', backgroundImage: `url(${bgImgAmberBloom})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-amber-bloom {\n  background-color: #f6f4ea;\n  background-image: url('/assets/amber-bloom.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Pastel cloud',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f1b8d8', backgroundImage: `url(${bgImgPastelCloud})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-pastel-cloud {\n  background-color: #f1b8d8;\n  background-image: url('/assets/pastel-cloud.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Lavender fade',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#f4f2ec', backgroundImage: `url(${bgImgLavenderFade})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-lavender-fade {\n  background-color: #f4f2ec;\n  background-image: url('/assets/lavender-fade.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Warm sky',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#d7cfc4', backgroundImage: `url(${bgImgWarmSky})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-warm-sky {\n  background-color: #d7cfc4;\n  background-image: url('/assets/warm-sky.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Dusk sky',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#2a2a6a', backgroundImage: `url(${bgImgDuskSky})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-dusk-sky {\n  background-color: #2a2a6a;\n  background-image: url('/assets/dusk-sky.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Painted blooms',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#cfe0e0', backgroundImage: `url(${bgImgPaintedBlooms})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-painted-blooms {\n  background-color: #cfe0e0;\n  background-image: url('/assets/painted-blooms.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Sunset orange',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#d9560b', backgroundImage: `url(${bgImgSunsetOrange})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-sunset-orange {\n  background-color: #d9560b;\n  background-image: url('/assets/sunset-orange.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Underwater',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#2a7a88', backgroundImage: `url(${bgImgUnderwater})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-underwater {\n  background-color: #2a7a88;\n  background-image: url('/assets/underwater.webp');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Green bokeh',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#2a5a2a', backgroundImage: `url(${bgImgGreenBokeh})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-green-bokeh {\n  background-color: #2a5a2a;\n  background-image: url('/assets/green-bokeh.webp');\n  background-size: cover;\n  background-position: center;\n}`,
   },
 ];
 
