@@ -17,7 +17,7 @@
 .ob-status__battery { position: absolute; left: 704px; top: 40px; opacity: .85; }
 
 .ob-round { position: absolute; z-index: 10; top: 118px; display: grid; place-items: center; width: 88px; height: 88px; padding: 0; border: 0; border-radius: 50%; background: rgb(96 96 98 / .78); box-shadow: 0 6px 18px rgb(0 0 0 / .18); transition: transform .12s ease, background .2s ease; }
-.ob-round--close { left: 34px; } .ob-round--more { left: 621px; }
+.ob-round--close { left: 34px; } .ob-round--more { left: 703px; }
 .ob-round:active { transform: scale(.92); background: rgb(70 70 72 / .85); }
 .ob-url { position: absolute; left: 0; right: 0; top: 140px; text-align: center; font: 500 36px/44px var(--font-sans); color: rgb(255 255 255 / .5); letter-spacing: -.01em; }
 
