@@ -593,6 +593,22 @@ const backgroundItems: BaseItem[] = [
   background-image: radial-gradient(125% 125% at 50% 10%, #000 40%, #6633ee 100%);
 }`,
   },
+  {
+    name: 'Lilac grid',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#fff', backgroundImage: 'radial-gradient(circle 800px at 100% 200px, #d5c5ff, transparent), linear-gradient(to right, #f0f0f0 1px, transparent 1px), linear-gradient(to bottom, #f0f0f0 1px, transparent 1px)', backgroundSize: '100% 100%, 6rem 4rem, 6rem 4rem' }} />,
+    code: `.bg-lilac-grid {
+  background-color: #fff;
+  background-image:
+    radial-gradient(circle 800px at 100% 200px, #d5c5ff, transparent),
+    linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+    linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+  background-size: 100% 100%, 6rem 4rem, 6rem 4rem;
+}`,
+  },
 ];
 
 const phoneProps = { tall: true, tileZoom: 0.55, defaultZoom: 0.75 } as const;
