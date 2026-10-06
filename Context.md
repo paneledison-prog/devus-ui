@@ -128,6 +128,7 @@ iOS-style messaging demo in the Liquid Glass look, inspired by github.com/Applla
 - Next: edison round 2 from untouched sources; shader backgrounds on request; Pricing page when asked.
 
 ## Changelog
+- 2026-10-05: Fixed the AI chat studio and Moodboard styling: the `.cs p/button` and `.mb p/button` resets had higher specificity than the component classes, which removed bubble, badge and chip padding and made button colors inherit (sparkle and T buttons lost their colors). Resets now use `:where()`; bench references re-measured. Rule: never reset `p`, `button`, `b` with a class-prefixed selector; use `:where(.root)`.
 - 2026-10-05: Added the AI chat studio template (fully interactive messenger with an AI assistant panel) from a pasted screenshot, built without the Stitch MCP (own SVG art), with prompt, story, helper folder (47) and bench reference.
 - 2026-10-05: Added the Moodboard canvas template (fully interactive pinboard) from a pasted screenshot, built without the Stitch MCP (own SVG artwork), with prompt, story, helper folder (46) and bench reference.
 - 2026-10-05: Added Widget board (App) from a pasted widget poster: twelve interactive widgets, Stitch-generated pictures (lamp and lucky cat cut out), prompt, helper folder (45) and bench reference.

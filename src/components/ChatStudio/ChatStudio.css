@@ -1,9 +1,9 @@
 /* AI chat studio. A fixed 1200x750 stage scaled to its container. */
 .cs { position: relative; width: 100%; height: 100%; overflow: hidden; background: #eae7e1; color: #111; font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 .cs *, .cs *::before, .cs *::after { box-sizing: border-box; }
-.cs p, .cs h1, .cs h2, .cs ul, .cs b, .cs strong, .cs small, .cs em { margin: 0; padding: 0; }
-.cs ul { list-style: none; }
-.cs button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+:where(.cs) p, :where(.cs) h1, :where(.cs) h2, :where(.cs) ul, :where(.cs) b, :where(.cs) strong, :where(.cs) small, :where(.cs) em { margin: 0; padding: 0; }
+:where(.cs) ul { list-style: none; }
+:where(.cs) button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .cs button:focus-visible, .cs input:focus-visible { outline: 2px solid #5a46c8; outline-offset: 2px; }
 .cs-stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; background: #eae7e1; }
 .cs-av { display: inline-grid; overflow: hidden; border-radius: 50%; flex: none; } .cs-face { display: block; }

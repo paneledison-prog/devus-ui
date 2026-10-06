@@ -1,8 +1,8 @@
 /* Moodboard template. The board is a fixed 1023x717 stage scaled to its container; chrome sits in container pixels. */
 .mb { position: relative; width: 100%; height: 100%; overflow: hidden; background: #dad2c5; color: #1c1a17; font-family: var(--font-sans); outline: none; -webkit-font-smoothing: antialiased; user-select: none; transition: background .3s ease; }
 .mb *, .mb *::before, .mb *::after { box-sizing: border-box; }
-.mb p, .mb ul, .mb b { margin: 0; padding: 0; }
-.mb button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+:where(.mb) p, :where(.mb) ul, :where(.mb) b { margin: 0; padding: 0; }
+:where(.mb) button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .mb button:focus-visible, .mb input:focus-visible { outline: 2px solid #5a46c8; outline-offset: 2px; }
 .mb-stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
 .mb[data-tool='pen'] .mb-stage, .mb[data-tool='marker'] .mb-stage { cursor: crosshair; } .mb[data-tool='eraser'] .mb-stage { cursor: cell; } .mb[data-tool='text'] .mb-stage { cursor: text; }
