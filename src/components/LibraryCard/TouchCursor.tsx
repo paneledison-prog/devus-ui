@@ -1,4 +1,5 @@
-import { useEffect, useRef, type RefObject } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
+import { createPortal } from 'react-dom';
 
 /**
  * Replaces the mouse cursor with a round "finger" touch indicator while the pointer is over the phone,
@@ -6,6 +7,9 @@ import { useEffect, useRef, type RefObject } from 'react';
  */
 export function TouchCursor({ stage }: { stage: RefObject<HTMLElement | null> }) {
   const dot = useRef<HTMLDivElement>(null);
+  // Rendered inside the nearest <dialog> (top layer), after all app UI, so nothing can draw above it.
+  const [home, setHome] = useState<Element | null>(null);
+  useEffect(() => { setHome(stage.current?.closest('dialog') ?? document.body); }, [stage]);
 
   useEffect(() => {
     const host = stage.current;
@@ -53,7 +57,8 @@ export function TouchCursor({ stage }: { stage: RefObject<HTMLElement | null> })
       host.classList.remove('is-touch-cursor');
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [stage]);
+  }, [stage, home]);
 
-  return <div ref={dot} className="ui-touch-cursor" aria-hidden="true" data-on="false" data-down="false" />;
+  if (!home) return null;
+  return createPortal(<div ref={dot} className="ui-touch-cursor" aria-hidden="true" data-on="false" data-down="false" />, home);
 }

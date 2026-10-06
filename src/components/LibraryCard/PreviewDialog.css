@@ -76,11 +76,13 @@
 
 /* Touch cursor for phone previews: a round fingertip indicator replaces the arrow while over the phone. */
 .ui-preview-dialog__stage.is-touch-cursor, .ui-preview-dialog__stage.is-touch-cursor * { cursor: none !important; }
-.ui-touch-cursor { position: fixed; left: 0; top: 0; z-index: 30; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; pointer-events: none;
-  background: rgb(110 110 118 / .34); border: 1.5px solid rgb(255 255 255 / .8); box-shadow: 0 1px 8px rgb(0 0 0 / .28), inset 0 0 0 1px rgb(0 0 0 / .06);
-  opacity: 0; scale: .8; transition: opacity .14s ease, scale .12s ease, background-color .12s ease; will-change: transform; }
+.ui-touch-cursor { position: fixed; left: 0; top: 0; z-index: 2147483647; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; pointer-events: none; isolation: isolate;
+  background: radial-gradient(circle at 32% 24%, rgb(255 255 255 / .55), rgb(255 255 255 / .12) 55%, rgb(255 255 255 / .06));
+  -webkit-backdrop-filter: blur(5px) saturate(1.8) brightness(1.08); backdrop-filter: blur(5px) saturate(1.8) brightness(1.08);
+  border: 1px solid rgb(255 255 255 / .7);
+  box-shadow: 0 2px 8px rgb(0 0 0 / .22), inset 0 1px 1px rgb(255 255 255 / .8), inset 0 -1px 2px rgb(255 255 255 / .25);
+  opacity: 0; scale: .7; transition: opacity .14s ease, scale .14s cubic-bezier(.3, 1.4, .5, 1); will-change: transform; }
 .ui-touch-cursor[data-on="true"] { opacity: 1; scale: 1; }
-.ui-touch-cursor[data-on="true"][data-down="true"] { scale: .72; background: rgb(90 90 98 / .55); }
-[data-theme="dark"] .ui-touch-cursor { background: rgb(235 235 245 / .3); border-color: rgb(255 255 255 / .55); }
-[data-theme="dark"] .ui-touch-cursor[data-on="true"][data-down="true"] { background: rgb(235 235 245 / .5); }
+.ui-touch-cursor[data-on="true"][data-down="true"] { scale: .78; backdrop-filter: blur(7px) saturate(2) brightness(1.15); -webkit-backdrop-filter: blur(7px) saturate(2) brightness(1.15); }
+[data-theme="dark"] .ui-touch-cursor { background: radial-gradient(circle at 32% 24%, rgb(255 255 255 / .42), rgb(255 255 255 / .08) 55%, rgb(255 255 255 / .04)); border-color: rgb(255 255 255 / .5); box-shadow: 0 2px 8px rgb(0 0 0 / .5), inset 0 1px 1px rgb(255 255 255 / .55), inset 0 -1px 2px rgb(255 255 255 / .15); }
 @media (prefers-reduced-motion: reduce) { .ui-touch-cursor { transition: none; } }
