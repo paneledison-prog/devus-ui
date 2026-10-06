@@ -59,6 +59,7 @@ import { NftAuctionFlowExample } from '../../components/AppUI/examples/NftAuctio
 import { BookshelfFlowExample } from '../../components/AppUI/examples/BookshelfFlow';
 import { BookOnboardingFlowExample } from '../../components/AppUI/examples/BookOnboardingFlow';
 import { LiquidChatExample } from '../../components/AppUI/examples/LiquidChat';
+import { KineticGrid } from '../../components/Backgrounds/KineticGrid';
 import { WeatherWidget, MeetingWidget, TimerWidget, AiPhotoWidget, ProfileWidget, ContactWidget, DroneWidget, FlightWidget, BalanceWidget, UsdcWidget, NowPlayingWidget, LampWidget } from '../../components/Widgets/Board';
 import { MoimoiSignInExample } from '../../components/AppUI/examples/MoimoiSignIn';
 import { NexusTodayExample } from '../../components/AppUI/examples/NexusToday';
@@ -626,6 +627,16 @@ const backgroundItems: BaseItem[] = [
     radial-gradient(34% 34% at 52% 82%, rgb(254 202 202 / .68), transparent);
   background-size: 4px 4px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
 }`,
+  },
+  {
+    name: 'Kinetic grid',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'tsx',
+    preview: <div style={{ ...fillStyle, position: 'relative' }}><KineticGrid /></div>,
+    sourceEntries: [{ path: 'src/components/Backgrounds/KineticGrid.tsx' }],
+    code: `<div style={{ position: 'relative', height: '100vh' }}>\n  <KineticGrid />\n  {/* your content goes here */}\n</div>\n\n// Options:\n<KineticGrid spacing={30} reach={170} color="124, 92, 255" />`,
   },
 ];
 
