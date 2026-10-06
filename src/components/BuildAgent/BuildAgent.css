@@ -157,3 +157,9 @@ button.ba-tbtn:hover:not(:disabled) { background: var(--a-hover); color: var(--a
 .ba-diff div[data-t="-"] { background: color-mix(in srgb, var(--a-bad) 16%, transparent); }
 .ba-diff span { width: 8px; color: var(--a-muted); flex: none; }
 @media (prefers-reduced-motion: reduce) { .ba-stage, .ba-scale, .ba-phone, .ba-post, .ba-post__body { transition: none; } .ba-mic[data-on="true"] { animation: none; } }
+
+/* Flat interface: no drop shadows in the Build agent demo; only the 1px hairlines stay. */
+.ag.ba, .ag.ba[data-theme] { --a-shadow: 0 0 0 0 transparent; }
+.ag.ba .ba-annpop { box-shadow: 0 0 0 1px rgb(0 0 0 / .12); }
+.ag.ba .ba-sheet { box-shadow: 0 0 0 1px rgb(0 0 0 / .1); }
+.ag.ba .ag-seg button[aria-pressed="true"] { box-shadow: inset 0 0 0 1px var(--a-line); }
