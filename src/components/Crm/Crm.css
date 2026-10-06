@@ -221,3 +221,6 @@
 .crm-newco { position: relative; width: 380px; padding: 20px; border-radius: 18px; background: var(--c-card); box-shadow: var(--c-shadow), 0 0 0 1px var(--c-line); }
 .crm-newco h3 { margin-bottom: 14px; font: 600 16px/22px var(--font-sans); }
 .crm-newco .actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; }
+
+/* The Coworker box shows the focus ring, not the text field inside it. */
+.crm-cw__box:focus-within { outline: 2px solid color-mix(in srgb, var(--c-blue) 50%, transparent); outline-offset: 1px; }

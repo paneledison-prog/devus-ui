@@ -84,3 +84,9 @@
 .ag-steps i[data-on="true"] { background: var(--a-accent); }
 
 @media (prefers-reduced-motion: reduce) { .ag * { transition: none !important; animation: none !important; } }
+
+/* Text areas inside a composer never get the hard global focus box; the composer around them shows the focus instead. */
+.ag textarea:focus, .ag textarea:focus-visible { outline: none; }
+.pw-prompt:focus-within, .ba-composer:focus-within { outline: 2px solid color-mix(in srgb, var(--a-accent) 50%, transparent); outline-offset: 1px; }
+.pw-prompt, .ba-composer { transition: outline-color .2s ease; }
+.ag textarea { caret-color: var(--a-accent); }
