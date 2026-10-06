@@ -514,5 +514,19 @@
       "Slide",
       "the days slide with the finger"
     ]
+  ],
+  "liquid-glass-chat": [
+    [
+      "Drag",
+      "drag the Your circle ribbon vertically to open or close it (it snaps)"
+    ],
+    [
+      "Tap",
+      "open chats, compose, attach, send, zoom the photo"
+    ],
+    [
+      "Typing",
+      "the composer and the search field are real inputs"
+    ]
   ]
 }

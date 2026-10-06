@@ -9,9 +9,11 @@ description: Use when changing, extending or fixing the Liquid glass chat templa
 Read `../../../Context.md`, `../../../guidelines.md` and `../../../design.md`, then every file in `../../rules/`.
 
 ## Where things live
+- `src/components/AppUI/examples/LiquidChat.tsx  (the example shown in the preview)`
 - `src/components/LiquidChat/LiquidChat.tsx`
 - `src/components/LiquidChat/LiquidChat.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 ## Steps
 1. Keep glass values in the `.lq` variables

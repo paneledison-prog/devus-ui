@@ -3,8 +3,8 @@
 Product and copy guidelines. These are requirements, not suggestions.
 
 ## Product
-- Keep the template a finished, believable screen. It is a working demo: every control that looks clickable must do something visible.
-- Scope: An iOS-style messaging demo in the Liquid Glass look, shown inside a scaled 390x844 phone with its own light/dark theme.
+- Keep the template a finished, believable screen. It is a presentational mobile component shown inside the phone frame: no behavior beyond its documented props.
+- Scope: An iOS-style messaging demo in the Liquid Glass look, shown as a 390x844 screen scaled to the 320px phone frame (`embedded`), with light/dark theme.
 - Do not add pages, sections or features that the request did not ask for.
 - Never add a Pricing page unless the user asks.
 
@@ -14,12 +14,12 @@ Product and copy guidelines. These are requirements, not suggestions.
 - Sentence case for buttons and headings. No exclamation marks.
 
 ## Behavior
-- State survives closing the preview dialog (the dialog keeps content mounted); do not reset state on blur.
+- Presentational: keep state local and minimal; callbacks come in as props.
 - Anything simulated (replies, runs, uploads) must be cancelable and must clear its timers on unmount.
 - Respect `prefers-reduced-motion`: animations stop or become instant.
 
 ## Layout
-- The root fills its container (width and height 100%). It must work at the 1200x740 library preview size and full window in a new tab.
+- The component is designed for the 320x660 phone frame (`PhoneFrame`). Do not use viewport units; it must also render in the library tile at reduced size.
 - Text must not clip or overlap at the design size. Check long names and long numbers.
 
 ## Out of scope

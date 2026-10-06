@@ -1,6 +1,6 @@
 # Agent contract: Liquid glass chat
 
-You are changing the **Liquid glass chat** template of Devus UI. This folder is the source of truth. Follow it exactly.
+You are changing the **Liquid glass chat** component of Devus UI. This folder is the source of truth. Follow it exactly.
 
 ## Read protocol (strict)
 1. Read every file in the order below, in full, top to bottom. Not skimmed. Not summarized from memory.
@@ -32,7 +32,7 @@ You are changing the **Liquid glass chat** template of Devus UI. This folder is 
 - [ ] `npm run build` passes
 - [ ] Bench, light: `PASS n/n probes` (output quoted)
 - [ ] Bench, dark: `PASS n/n probes` (output quoted)
-- [ ] The template was used by hand (`http://localhost:5173/?template=liquid-glass-chat`), light and dark, and the console has no new errors
+- [ ] The component was used by hand (the App section of `http://localhost:5173` (open the tile large preview)), light and dark, and the console has no new errors
 - [ ] `../Context.md` is updated (files, features, gaps, date)
 - [ ] The change is committed locally with a clear message
 - [ ] The final report lists everything that was **not** checked

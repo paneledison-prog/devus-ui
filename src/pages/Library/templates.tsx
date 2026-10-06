@@ -6,7 +6,6 @@ import { BeaconDemo } from '../../components/Agents/Beacon';
 import { HarborDemo } from '../../components/Agents/Harbor';
 import { PairwiseDemo } from '../../components/Agents/Pairwise';
 import { BuildAgentDemo } from '../../components/BuildAgent/BuildAgent';
-import { LiquidChatDemo } from '../../components/LiquidChat/LiquidChat';
 import { MoodboardDemo } from '../../components/Moodboard/Moodboard';
 import { ChatStudioDemo } from '../../components/ChatStudio/ChatStudio';
 import { slugify } from './slug';
@@ -92,22 +91,6 @@ const templateBase: TemplateItem[] = [
     standalone: <BuildAgentDemo />,
     preview: <div style={{ width: 1200, height: 740 }}><BuildAgentDemo /></div>,
     code: `<BuildAgentDemo />\n\n// Jump straight into a running thread with the simulator:\n<BuildAgentDemo startAt="thread" />\n\n// Dark theme:\n<BuildAgentDemo defaultTheme="dark" />`,
-  },
-  {
-    name: 'Liquid glass chat',
-    sourceEntries: [{ path: 'src/components/LiquidChat/LiquidChat.tsx' }, { path: 'src/styles/tokens.css' }],
-    variants: 2,
-    tileZoom: 0.3,
-    defaultZoom: 0.75,
-    standalone: <LiquidChatDemo />,
-    preview: <div style={{ width: 1000, height: 720 }}><LiquidChatDemo /></div>,
-    code: `<LiquidChatDemo />
-
-// Open straight into a conversation:
-<LiquidChatDemo startAt="chat" />
-
-// Dark theme:
-<LiquidChatDemo defaultTheme="dark" />`,
   },
   {
     name: 'Moodboard canvas',

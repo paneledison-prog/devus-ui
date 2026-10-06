@@ -87,9 +87,16 @@ const Avatar = ({ face, size }: { face: string; size: number }) => (
   <span className="lq-avatar" style={{ width: size, height: size }}>{face === 'coast' ? <Coast w={size} h={size} /> : <Portrait id={face} size={size} />}</span>
 );
 
-export interface LiquidChatDemoProps { startAt?: 'inbox' | 'chat'; defaultTheme?: Theme }
+export interface LiquidChatDemoProps {
+  startAt?: 'inbox' | 'chat';
+  defaultTheme?: Theme;
+  /** App mode: drawn at 320 px wide inside a PhoneFrame (the frame supplies the island and status bar); no theme button, fixed scale. */
+  embedded?: boolean;
+}
 
-export function LiquidChatDemo({ startAt = 'inbox', defaultTheme }: LiquidChatDemoProps) {
+const EMBED_SCALE = 320 / 390;
+
+export function LiquidChatDemo({ startAt = 'inbox', defaultTheme, embedded = false }: LiquidChatDemoProps) {
   const [theme, setTheme] = useState<Theme>(() => defaultTheme ?? (typeof document !== 'undefined' && document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'));
   const [convs, setConvs] = useState(CONVS0);
   const [openId, setOpenId] = useState<string | null>(startAt === 'chat' ? 'noor' : null);
@@ -103,7 +110,7 @@ export function LiquidChatDemo({ startAt = 'inbox', defaultTheme }: LiquidChatDe
   const [photo, setPhoto] = useState(false);
   const [zoom, setZoom] = useState(false);
   const [note, setNote] = useState<string | null>(null);
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(embedded ? EMBED_SCALE : 1);
   const rootRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const timers = useRef<number[]>([]);
@@ -114,10 +121,10 @@ export function LiquidChatDemo({ startAt = 'inbox', defaultTheme }: LiquidChatDe
 
   useEffect(() => () => timers.current.forEach((t) => window.clearTimeout(t)), []);
   useEffect(() => {
-    const el = rootRef.current; if (!el) return;
+    const el = rootRef.current; if (!el || embedded) return;
     const fit = () => setScale(Math.max(0.3, Math.min(1.25, (el.clientHeight - 40) / 844, (el.clientWidth - 24) / 390)));
     fit(); const ro = new ResizeObserver(fit); ro.observe(el); return () => ro.disconnect();
-  }, []);
+  }, [embedded]);
   const cur = convs.find((c) => c.id === openId) ?? null;
   const lastCount = cur?.msgs.length ?? 0;
   useEffect(() => { const el = scrollRef.current; if (el) el.scrollTop = el.scrollHeight; }, [lastCount, typing, openId]);
@@ -156,17 +163,17 @@ export function LiquidChatDemo({ startAt = 'inbox', defaultTheme }: LiquidChatDe
   const vars = { '--p': p, '--lens': `url(#${lensId})` } as CSSProperties;
 
   return (
-    <div className="lq" data-theme={theme} ref={rootRef} style={vars}>
+    <div className={`lq${embedded ? ' lq--embedded' : ''}`} data-theme={theme} ref={rootRef} style={vars}>
       <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
         <filter id={lensId} x="-10%" y="-10%" width="120%" height="120%" colorInterpolationFilters="sRGB">
           <feTurbulence type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="2" seed="7" result="n" />
           <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G" />
         </filter>
       </svg>
-      <button className="lq-theme lq-glass" aria-label={theme === 'dark' ? 'Switch to light' : 'Switch to dark'} onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? I.sun : I.moon}</button>
+      {!embedded && <button className="lq-theme lq-glass" aria-label={theme === 'dark' ? 'Switch to light' : 'Switch to dark'} onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? I.sun : I.moon}</button>}
       <div className="lq-stage" style={{ width: 390 * scale, height: 844 * scale }}>
         <div className="lq-phone" style={{ transform: `scale(${scale})` }}>
-          <div className="lq-status" aria-hidden="true"><b>9:41</b><span><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1" /><rect x="5" y="5" width="3" height="7" rx="1" /><rect x="10" y="2.5" width="3" height="9.5" rx="1" /><rect x="15" y="0" width="3" height="12" rx="1" /></svg><svg width="26" height="13" viewBox="0 0 26 13" fill="none"><rect x=".5" y=".5" width="22" height="12" rx="4" stroke="currentColor" opacity=".4" /><rect x="2" y="2" width="19" height="9" rx="2.6" fill="currentColor" /></svg></span></div>
+          {!embedded && <div className="lq-status" aria-hidden="true"><b>9:41</b><span><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1" /><rect x="5" y="5" width="3" height="7" rx="1" /><rect x="10" y="2.5" width="3" height="9.5" rx="1" /><rect x="15" y="0" width="3" height="12" rx="1" /></svg><svg width="26" height="13" viewBox="0 0 26 13" fill="none"><rect x=".5" y=".5" width="22" height="12" rx="4" stroke="currentColor" opacity=".4" /><rect x="2" y="2" width="19" height="9" rx="2.6" fill="currentColor" /></svg></span></div>}
 
           {/* Inbox */}
           <section className="lq-screen lq-inbox" data-away={!!cur} aria-hidden={!!cur} inert={!!cur}>

@@ -112,5 +112,5 @@
 }
 
 /* Templates: no scrolling, the template is scaled to the stage. */
-.ui-preview-dialog__stage--fit { overflow: hidden; padding: var(--space-3); }
+.ui-preview-dialog__stage--fit { overflow: hidden; padding: 0; margin: 0; border-radius: 0; background: transparent; display: grid; place-items: center; }
 .ui-preview-dialog__stage--fit .ui-preview-dialog__zoom { transition: none; }

@@ -1,6 +1,6 @@
 ---
 name: verify-template
-description: Use after any change to the Liquid glass chat template of Devus UI, and before saying it is done. Runs the design bench against the real design and reports pass or fail with the printed numbers.
+description: Use after any change to the Liquid glass chat component of Devus UI, and before saying it is done. Runs the design bench against the real design and reports pass or fail with the printed numbers.
 ---
 
 # Verify Liquid glass chat: the design bench
@@ -13,10 +13,10 @@ The real design is recorded in `../../../design.md` under "Bench reference": 27 
 The bench measures the design you are running in exactly the same way and compares it probe by probe. Positions and sizes may differ by 1 px; everything else must be identical. A probe that is missing, moved, resized or recolored is a FAIL.
 
 ## What it cannot see
-Animation, hover and focus states, behavior, and any copy or element that is not a probe. Those are checked by hand in step 10. Passing the bench does not mean the whole template is right; it means the probed design matches.
+Animation, hover and focus states, behavior, and any copy or element that is not a probe. Those are checked by hand in step 10. Passing the bench does not mean the whole component is right; it means the probed design matches.
 
 ## Two modes
-- **Change** (the usual case): you edited the template. The bench is a regression test. It must PASS unless the user asked for a design change (then see step 9).
+- **Change** (the usual case): you edited the component. The bench is a regression test. It must PASS unless the user asked for a design change (then see step 9).
 - **Rebuild**: you rebuilt it from the master prompt. The bench is the fidelity test against the real design. It must PASS. Extra elements are allowed and are counted in the output.
 
 ## Steps
@@ -29,7 +29,7 @@ Animation, hover and focus states, behavior, and any copy or element that is not
 7. Open the same URL with `theme=dark` (reload; the viewport stays 1440x900), define `bench` and `REF` again, run `await bench({ ref: REF })` again.
 8. Read both results. Both `summary` values must be `PASS n/n probes`. Anything else is FAIL. A `viewport` failure means the bench was invalid: fix the viewport and rerun. If a result is FAIL: fix the code (never the reference), then restart from step 3.
 9. **Only if the user asked for a design change:** after the bench shows the intended probes failing and nothing else, re-measure with `await bench({ measure: true })` in light and in dark, replace both arrays in `../../../design.md` and in `scripts/bench-reference.json` (dark rows are `[key, color, background]`), rerun steps 3 to 8, and list every probe that changed, with old and new values, in the commit message and in your report.
-10. Use the template by hand (`http://localhost:5173/?template=liquid-glass-chat`): every control you touched, keyboard (Tab, Enter, Escape), light and dark, and read the browser console: no new errors or warnings.
+10. Use the component by hand (the App section of `http://localhost:5173` (open the tile large preview)): every control you touched, keyboard (Tab, Enter, Escape), light and dark, and read the browser console: no new errors or warnings.
 11. Open the library tile and the large preview: it must still fit and not clip. Open the Code tab: the file tree must show the files listed in `../../../Context.md`.
 12. `npm run build` must succeed.
 

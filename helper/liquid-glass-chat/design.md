@@ -3,7 +3,7 @@
 Visual specification. Match it exactly; do not restyle from memory.
 
 ## Tokens
-This template defines its own scoped theme variables on `.lq` (light) and `.lq[data-theme="dark"]`. Use those variables for colors; fall back to library tokens for spacing, radius and type.
+Use the library tokens directly.
 
 Library tokens (`src/styles/tokens.css`):
 - Colors: `--background`, `--foreground`, `--muted`, `--surface`, `--overlay`, `--separator`, `--link`
@@ -28,7 +28,7 @@ Library tokens (`src/styles/tokens.css`):
 - Selected / current state is shown with more than color (weight, outline or marker).
 
 ## Light and dark
-- Has its own light/dark switch on its root; the initial value is the site theme or the `defaultTheme` prop.
+- Follows the site theme through `[data-theme]` on `<html>`.
 - Never hard-code a color that is not defined for both themes.
 
 ## Motion

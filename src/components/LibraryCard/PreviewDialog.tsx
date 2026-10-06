@@ -73,8 +73,16 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
     const measure = () => {
       const c = zoomRef.current?.firstElementChild as HTMLElement | null;
       if (!c) return;
-      const w = c.offsetWidth || 1; const h = c.offsetHeight || 1;
-      setStageFit(Math.max(0.2, Math.min((el.clientWidth - 24) / w, (el.clientHeight - 24) / h)));
+      // Natural (designed) size, remembered the first time; afterwards the box is stretched to fill the stage.
+      const w = Number(c.dataset.nw) || (c.dataset.nw = String(c.offsetWidth || 1), c.offsetWidth || 1);
+      const h = Number(c.dataset.nh) || (c.dataset.nh = String(c.offsetHeight || 1), c.offsetHeight || 1);
+      const sw = el.clientWidth; const sh = el.clientHeight;
+      const z = Math.max(0.2, Math.min(sw / w, sh / h));
+      // Stretch the free dimension only when it is close to the design (within 12%); otherwise keep the design proportions and center.
+      const fw = sw / z; const fh = sh / z;
+      c.style.width = `${fw / w <= 1.12 ? fw : w}px`; c.style.height = `${fh / h <= 1.12 ? fh : h}px`;
+      c.style.margin = '0 auto';
+      setStageFit(z);
     };
     measure();
     const ro = new ResizeObserver(measure);

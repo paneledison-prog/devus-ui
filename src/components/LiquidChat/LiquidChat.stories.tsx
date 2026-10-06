@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { LiquidChatDemo } from './LiquidChat';
 
 const meta = {
-  title: 'Templates/Liquid Glass Chat',
+  title: 'App/Liquid Glass Chat',
   component: LiquidChatDemo,
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
@@ -13,4 +13,5 @@ type Story = StoryObj<typeof meta>;
 
 export const Inbox: Story = { args: {} };
 export const Conversation: Story = { args: { startAt: 'chat' } };
+export const Embedded: Story = { args: { embedded: true }, parameters: { layout: 'centered' }, decorators: [(Story) => <div style={{ width: 320, height: 692 }}><Story /></div>] };
 export const Dark: Story = { args: { defaultTheme: 'dark' } };

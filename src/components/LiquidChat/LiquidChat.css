@@ -118,3 +118,7 @@
 .lq-viewer__img { padding: 0; border: 0; background: none; border-radius: 28px; overflow: hidden; transition: transform .3s cubic-bezier(.3, .8, .2, 1); cursor: zoom-in; }
 .lq-note { position: absolute; left: 50%; bottom: 120px; z-index: 60; transform: translateX(-50%); padding: 12px 22px; border-radius: 999px; font-size: 17px; white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .lq-screen, .lq-ribbon, .lq-body, .lq-msg, .lq-menu, .lq-attach, .lq-sheet, .lq-viewer, .lq-viewer__img, .lq-sendbtn { transition: none !important; animation: none !important; } .lq-typing i { animation: none; } }
+
+/* Embedded (App) mode: only the screen, drawn inside the phone container. */
+.lq--embedded { width: 320px; height: 100%; background: var(--bg); place-items: start; }
+.lq--embedded .lq-phone { border-radius: 0; box-shadow: none; }

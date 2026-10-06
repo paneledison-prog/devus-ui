@@ -58,6 +58,7 @@ import { VoiceRoomsFlowExample } from '../../components/AppUI/examples/VoiceRoom
 import { NftAuctionFlowExample } from '../../components/AppUI/examples/NftAuctionFlow';
 import { BookshelfFlowExample } from '../../components/AppUI/examples/BookshelfFlow';
 import { BookOnboardingFlowExample } from '../../components/AppUI/examples/BookOnboardingFlow';
+import { LiquidChatExample } from '../../components/AppUI/examples/LiquidChat';
 import { WeatherWidget, MeetingWidget, TimerWidget, AiPhotoWidget, ProfileWidget, ContactWidget, DroneWidget, FlightWidget, BalanceWidget, UsdcWidget, NowPlayingWidget, LampWidget } from '../../components/Widgets/Board';
 import { MoimoiSignInExample } from '../../components/AppUI/examples/MoimoiSignIn';
 import { NexusTodayExample } from '../../components/AppUI/examples/NexusToday';
@@ -982,6 +983,16 @@ const appItems: BaseItem[] = [
     sourceEntries: [{ path: 'src/components/AppUI/examples/BookOnboardingFlow.tsx' }, { path: 'src/components/AppUI/AppUI.css' }, { path: 'src/styles/tokens.css' }],
     helper: 'book-onboarding-flow',
     code: `// Learn Smarter -> Topics -> Are you interested in this book? (Yes / No through three books) -> back to the start\n<OnboardingFlow />`,
+  },
+  {
+    name: 'Liquid glass chat',
+    variants: 1,
+    ...phoneProps,
+    phoneHeight: 692,
+    preview: <LiquidChatExample />,
+    sourceEntries: [{ path: 'src/components/AppUI/examples/LiquidChat.tsx' }, { path: 'src/components/LiquidChat/LiquidChat.tsx' }, { path: 'src/components/LiquidChat/LiquidChat.css' }, { path: 'src/styles/tokens.css' }],
+    helper: 'liquid-glass-chat',
+    code: `<LiquidChatDemo embedded />\n\n// Open straight into a conversation:\n<LiquidChatDemo embedded startAt="chat" />\n\n// Dark theme:\n<LiquidChatDemo embedded defaultTheme="dark" />`,
   },
 ];
 

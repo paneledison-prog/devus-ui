@@ -117,10 +117,10 @@ add('build-agent-demo', name='Build agent demo', brand='ChirpApp (fictional)', k
     design=['Uses the shared `--a-*` tokens plus `ba-` layout classes', 'Simulator is a generic phone, scaled to fit its pane', 'Annotation outlines are green'],
     edit=['Extend the run script, never add unbounded timers', 'Every script step must be cancelable', 'Keep the simulator generic (no brand marks)'])
 
-add('liquid-glass-chat', name='Liquid glass chat', brand='fictional names and messages', kind='app', root='.lq', prefix='lq-',
-    files=['src/components/LiquidChat/LiquidChat.tsx', 'src/components/LiquidChat/LiquidChat.css', 'src/styles/tokens.css'],
-    entry='src/components/LiquidChat/LiquidChat.tsx', props='`LiquidChatDemo({ startAt?: "inbox" | "chat", defaultTheme? })`',
-    summary='An iOS-style messaging demo in the Liquid Glass look, shown inside a scaled 390x844 phone with its own light/dark theme.',
+add('liquid-glass-chat', name='Liquid glass chat', brand='fictional names and messages', kind='phone', root='.app-phone', prefix='lq-',
+    files=['src/components/AppUI/examples/LiquidChat.tsx  (the example shown in the preview)', 'src/components/LiquidChat/LiquidChat.tsx', 'src/components/LiquidChat/LiquidChat.css', 'src/styles/tokens.css'],
+    entry='src/components/AppUI/examples/LiquidChat.tsx', props='`LiquidChatDemo({ startAt?: "inbox" | "chat", defaultTheme?, embedded? })` (App uses `embedded`)',
+    summary='An iOS-style messaging demo in the Liquid Glass look, shown as a 390x844 screen scaled to the 320px phone frame (`embedded`), with light/dark theme.',
     features=['Messages inbox, "Your circle" ribbon (tap or drag vertically), compose sheet, live search, All / Unread / Groups', 'Chat with glass header buttons, bubbles, photo bubble with caption chip and tap-to-zoom viewer',
               'Double-click hearts, glass composer and send button, enter animation, typing dots and a simulated reply', 'More menu (mute, share photo, clear chat) and attach menu'],
     gaps=['Lens rim uses SVG feTurbulence + feDisplacementMap via backdrop-filter (Chromium only; others get a plain rim)', 'No story rail, voice or video'],

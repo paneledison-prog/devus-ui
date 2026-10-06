@@ -2,7 +2,7 @@
 
 - Use CSS variables for every color, spacing step, radius and font size.
 - No new hex colors in this template unless they are added to its scoped variables for BOTH light and dark.
-- Scope for this template: scoped variables on `.lq` plus library tokens.
+- Scope for this template: library tokens (`src/styles/tokens.css`).
 - Dark mode is `[data-theme="dark"]`. A shadow list must never contain the bare word `none` between commas (it invalidates the whole declaration); use a zero shadow such as `0 0 0 0 #0000`.
 
 ## Available tokens

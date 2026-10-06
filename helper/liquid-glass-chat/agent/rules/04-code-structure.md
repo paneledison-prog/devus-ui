@@ -1,13 +1,15 @@
 # Rule 04: Code structure
 
 ## Files
+- `src/components/AppUI/examples/LiquidChat.tsx  (the example shown in the preview)`
 - `src/components/LiquidChat/LiquidChat.tsx`
 - `src/components/LiquidChat/LiquidChat.css`
 - `src/styles/tokens.css`
+- `src/components/AppUI/gestures.tsx  (gesture hooks)`
 
 ## Conventions
-- Entry component: `src/components/LiquidChat/LiquidChat.tsx`. Public API: `LiquidChatDemo({ startAt?: "inbox" | "chat", defaultTheme? })`.
-- CSS class prefix: `lq-`. Root selector: `.lq`. Do not use unprefixed class names.
+- Entry component: `src/components/AppUI/examples/LiquidChat.tsx`. Public API: `LiquidChatDemo({ startAt?: "inbox" | "chat", defaultTheme?, embedded? })` (App uses `embedded`).
+- CSS class prefix: `lq-`. Root selector: `.app-phone`. Do not use unprefixed class names.
 - Plain CSS next to the component. No Tailwind, no CSS-in-JS, no new runtime dependency.
 - TypeScript strict: no `any`, no non-null assertions on user data. `npm run typecheck` must pass.
 - Function components and hooks only. Derived values are computed, not stored.
