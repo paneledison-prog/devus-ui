@@ -46,3 +46,18 @@
 .hb-send:disabled { background: var(--a-line); color: var(--a-muted, var(--a-text)); box-shadow: none; cursor: default; opacity: .7; }
 .hb-send:focus-visible { outline: 2px solid var(--a-focus, #2d8cf0); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .hb-send { transition: none; } }
+
+/* Composer chips (model picker, Attach): soft pills with a hairline, a lift on hover and a clear pressed and open state. */
+.hb-composer .ag-row > .ag-btn--ghost, .hb-composer .ag-row > div > .ag-btn--ghost {
+  height: 30px; padding: 0 12px 0 10px; border-radius: 999px; gap: 6px; font-weight: 500; letter-spacing: -.005em;
+  color: var(--a-text); background: color-mix(in srgb, var(--a-text) 4%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a-text) 10%, transparent);
+  transition: background-color .15s ease, box-shadow .15s ease, transform .12s ease;
+}
+.hb-composer .ag-row > .ag-btn--ghost svg, .hb-composer .ag-row > div > .ag-btn--ghost svg { opacity: .65; transition: transform .2s ease, opacity .15s; }
+.hb-composer .ag-row > .ag-btn--ghost:hover, .hb-composer .ag-row > div > .ag-btn--ghost:hover { filter: none; background: color-mix(in srgb, var(--a-text) 8%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a-text) 18%, transparent); }
+.hb-composer .ag-row > .ag-btn--ghost:hover svg, .hb-composer .ag-row > div > .ag-btn--ghost:hover svg { opacity: 1; }
+.hb-composer .ag-row > .ag-btn--ghost:active, .hb-composer .ag-row > div > .ag-btn--ghost:active { transform: scale(.96); }
+.hb-composer .ag-row > div > .ag-btn--ghost[aria-expanded="true"] { background: color-mix(in srgb, var(--a-text) 10%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--a-text) 24%, transparent); }
+.hb-composer .ag-row > div > .ag-btn--ghost[aria-expanded="true"] svg { transform: rotate(180deg); opacity: 1; }
+.hb-composer .ag-row > .ag-btn--ghost:focus-visible, .hb-composer .ag-row > div > .ag-btn--ghost:focus-visible { outline: 2px solid var(--a-focus, #2d8cf0); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .hb-composer .ag-row .ag-btn--ghost, .hb-composer .ag-row .ag-btn--ghost svg { transition: none; } }
