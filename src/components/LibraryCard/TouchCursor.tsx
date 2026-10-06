@@ -26,7 +26,7 @@ export function TouchCursor({ stage }: { stage: RefObject<HTMLElement | null> })
       host.classList.toggle('is-touch-cursor', on);
       if (!on) el.dataset.down = 'false';
     };
-    const place = () => { raf = 0; el.style.transform = `translate(${x}px, ${y}px)`; };
+    const place = () => { raf = 0; el.style.translate = `${x}px ${y}px`; };
     const move = (e: PointerEvent) => {
       if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') { show(false); return; }
       x = e.clientX;
