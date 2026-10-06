@@ -78,10 +78,9 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
       const h = Number(c.dataset.nh) || (c.dataset.nh = String(c.offsetHeight || 1), c.offsetHeight || 1);
       const sw = el.clientWidth; const sh = el.clientHeight;
       const z = Math.max(0.2, Math.min(sw / w, sh / h));
-      // Stretch the free dimension only when it is close to the design (within 12%); otherwise keep the design proportions and center.
-      const fw = sw / z; const fh = sh / z;
-      c.style.width = `${fw / w <= 1.12 ? fw : w}px`; c.style.height = `${fh / h <= 1.12 ? fh : h}px`;
-      c.style.margin = '0 auto';
+      // The template box is stretched to the full stage in both directions, so no part of the viewport stays empty.
+      c.style.width = `${sw / z}px`; c.style.height = `${sh / z}px`;
+      c.style.margin = '0';
       setStageFit(z);
     };
     measure();

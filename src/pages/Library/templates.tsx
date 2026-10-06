@@ -1,5 +1,4 @@
 import type { LibraryItem } from './libraryItems';
-import { CaseStudyTemplate } from '../../components/CaseStudy/CaseStudy';
 import { WorkspaceDemo } from '../../components/Workspace/Workspace';
 import { CrmDemo } from '../../components/Crm/Crm';
 import { BeaconDemo } from '../../components/Agents/Beacon';
@@ -13,16 +12,6 @@ import { slugify } from './slug';
 type TemplateItem = Omit<LibraryItem, 'category' | 'prompt' | 'promptPath'>;
 
 const templateBase: TemplateItem[] = [
-  {
-    name: 'Case study',
-    sourceEntries: [{ path: 'src/components/CaseStudy/CaseStudy.tsx' }, { path: 'src/styles/tokens.css' }],
-    standalone: <CaseStudyTemplate />,
-    variants: 1,
-    tileZoom: 0.21,
-    defaultZoom: 0.7,
-    preview: <div style={{ width: 1280, height: 800, overflow: 'hidden', borderRadius: 16 }}><CaseStudyTemplate /></div>,
-    code: `<CaseStudyTemplate\n  name="Orbit AI"\n  overview="A workspace for teams building with open models. We rebuilt the product around discovery, setup and secure deployment."\n  scope="Visual system, design direction, product redesign"\n/>`,
-  },
   {
     name: 'AI workspace demo',
     sourceEntries: [{ path: 'src/components/Workspace/Workspace.tsx' }, { path: 'src/styles/tokens.css' }],

@@ -11,7 +11,6 @@ export * from './components/LibraryCard/LibraryCard';
 export * from './components/CodeBlock/CodeBlock';
 export * from './components/Logo/Logo';
 export * from './components/Blocks/Blocks';
-export * from './components/CaseStudy/CaseStudy';
 export * from './components/Workspace/Workspace';
 export * from './components/Crm/Crm';
 export * from './components/Agents/Beacon';

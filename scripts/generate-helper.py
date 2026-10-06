@@ -42,16 +42,6 @@ def add(slug, **kw):
     T[slug] = kw
 
 
-add('case-study', name='Case study', brand='Orbit AI (fictional)', kind='app', root='.cs-page', prefix='cs-',
-    files=['src/components/CaseStudy/CaseStudy.tsx', 'src/components/CaseStudy/CaseStudy.css', 'src/styles/tokens.css'],
-    entry='src/components/CaseStudy/CaseStudy.tsx', props='`CaseStudyTemplate` accepts optional string props name, overview and scope (defaults provided)',
-    summary='Dark portfolio case-study page on a 1280x800 scrolling canvas: sticky header, a sticky Name / Overview / Scope panel on the left and a stack of scaled product screens on the right.',
-    features=['Sticky header with logo, mono nav and two buttons', 'Sticky details panel (Name, Overview, Scope)', 'Product screens designed on a 1140x662 canvas and scaled to the column width',
-              'Screens: sky banner, Starter/Pro plan chooser, connect-apps dialog, welcome, new chat, artifacts'],
-    gaps=['Screens are illustrations, not interactive', 'Single dark theme'],
-    design=['Page background #000, text #fff, hairlines `rgb(255 255 255 / .14)`', 'Mono labels: uppercase, letter-spacing .08em', 'Product screens are light cards on the dark page'],
-    edit=['Edit copy through the name, overview and scope props', 'Add a screen by adding a 1140x662 block to the screen stack', 'Keep the sticky behavior of the left panel'])
-
 add('ai-workspace-demo', name='AI workspace demo', brand='Orbit (fictional)', kind='app', root='.ws-frame', prefix='ws-',
     files=['src/components/Workspace/Workspace.tsx', 'src/components/Workspace/Workspace.css', 'src/components/Switch/Switch.tsx', 'src/components/Switch/Switch.css', 'src/styles/tokens.css'],
     entry='src/components/Workspace/Workspace.tsx', props='`WorkspaceDemo({ defaultTheme?: "light" | "dark" })`',
