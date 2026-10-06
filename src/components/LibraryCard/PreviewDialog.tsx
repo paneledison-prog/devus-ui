@@ -38,7 +38,7 @@ export function PreviewDialog({ open, onClose, name, preview, code, prompt, lang
   const ref = useRef<HTMLDialogElement>(null);
   const [root, setRoot] = useState<Element>();
   const [tab, setTab] = useState<Tab>('preview');
-  const [zoom, setZoom] = useState<number | 'fit'>(tall ? 'fit' : defaultZoom);
+  const [zoom, setZoom] = useState<number | 'fit'>(0.75);
   const stageRef = useRef<HTMLDivElement>(null);
   const [fitZoom, setFitZoom] = useState(1);
   // The dialog is up to 2x its original size; zoom steps are relative to the original stage so "100%" looks the same, just larger.
