@@ -11,6 +11,8 @@ export function TouchCursor({ stage }: { stage: RefObject<HTMLElement | null> })
     const host = stage.current;
     const el = dot.current;
     if (!host || !el) return;
+    // Only on devices with a real mouse; phones and tablets use the real finger.
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     let raf = 0;
     let x = 0;
     let y = 0;
@@ -22,22 +24,27 @@ export function TouchCursor({ stage }: { stage: RefObject<HTMLElement | null> })
     };
     const place = () => { raf = 0; el.style.transform = `translate(${x}px, ${y}px)`; };
     const move = (e: PointerEvent) => {
-      if (e.pointerType === 'touch') { show(false); return; }
+      if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') { show(false); return; }
       x = e.clientX;
       y = e.clientY;
       if (!raf) raf = requestAnimationFrame(place);
       show(!!(e.target as Element).closest?.('.app-phone'));
     };
-    const down = (e: PointerEvent) => { if (e.pointerType !== 'touch' && (e.target as Element).closest?.('.app-phone')) el.dataset.down = 'true'; };
+    const down = (e: PointerEvent) => { if (e.pointerType === 'touch') { show(false); return; } if ( (e.target as Element).closest?.('.app-phone')) el.dataset.down = 'true'; };
     const up = () => { el.dataset.down = 'false'; };
     const leave = () => show(false);
+    const touch = () => show(false);
 
     host.addEventListener('pointermove', move);
     host.addEventListener('pointerdown', down);
     window.addEventListener('pointerup', up);
     host.addEventListener('pointerleave', leave);
     window.addEventListener('blur', leave);
+    host.addEventListener('touchstart', touch, { passive: true });
+    host.addEventListener('pointercancel', leave);
     return () => {
+      host.removeEventListener('touchstart', touch);
+      host.removeEventListener('pointercancel', leave);
       host.removeEventListener('pointermove', move);
       host.removeEventListener('pointerdown', down);
       window.removeEventListener('pointerup', up);

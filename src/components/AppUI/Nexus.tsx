@@ -1,4 +1,5 @@
 import { useId, useState, type ReactNode } from 'react';
+import { useLongPress, useSwipe } from './gestures';
 import './Nexus.css';
 
 /*
@@ -116,9 +117,11 @@ export const BookSquare = () => <svg width="22" height="22" viewBox="0 0 22 22" 
 
 const HOME_CENTERS = [47, 118, 189, 263, 337, 408];
 
+/** The week strip. Tap a day, or swipe the strip sideways to move to the next or the previous day. */
 export function WeekStrip({ days, selected, onSelect, top = 290, centers = HOME_CENTERS, flat = false, dividers = false }: { days: { day: string; date: number }[]; selected: number; onSelect?: (i: number) => void; top?: number; centers?: number[]; flat?: boolean; dividers?: boolean }) {
+  const swipe = useSwipe({ axis: 'x', threshold: 30, flickSpeed: 0.7, onSwipe: (d) => { const i = selected + (d === 'left' ? 1 : -1); if (i >= 0 && i < days.length) onSelect?.(i); } });
   return (
-    <div className={`nx-week${flat ? ' nx-week--flat' : ''}`} style={{ top }} role="group" aria-label="This week">
+    <div className={`nx-week${flat ? ' nx-week--flat' : ''}`} style={{ top }} role="group" aria-label="This week. Swipe to change the day" {...swipe.bind}>
       {days.map((d, i) => (
         <button type="button" key={d.day} className={`nx-week__day${i === selected ? ' is-on' : ''}`} style={{ left: centers[i] - 30 }} aria-current={i === selected ? 'date' : undefined} aria-label={`${d.day} ${d.date}`} onClick={() => onSelect?.(i)}>
           <span className="nx-week__name">{d.day}</span>
@@ -287,9 +290,13 @@ export function SuggestedCard() {
   );
 }
 
+/** A course card. Press and hold to save it for later. */
 export function CourseCard({ x, tone, topic, title, children }: { x: number; tone: 'peach' | 'mint'; topic: string; title: string; children: ReactNode }) {
+  const [saved, setSaved] = useState(false);
+  const lp = useLongPress(() => setSaved((v) => !v), 480);
   return (
-    <article className="nx-course" style={{ left: x }}>
+    <article className="nx-course" style={{ left: x }} data-saved={saved || undefined} data-pressing={lp.pressing || undefined} aria-label={`${topic}: ${title}${saved ? ', saved' : ''}. Press and hold to save`} {...lp.bind}>
+      {saved && <span className="nx-saved">Saved</span>}
       <div className={`nx-course__img nx-course__img--${tone}`}>{children}</div>
       <p className="nx-course__topic">{topic}</p>
       <h3 className="nx-course__title">{title}</h3>
@@ -379,10 +386,13 @@ export function TrophyHero() {
 }
 
 /** Challenge card: a pill, a felt character and a white panel (title plus a round action button). */
+/** A challenge card. Press and hold to join it. */
 export function ChallengeCard({ top, tone, chip, art, title, arrow = false }: { top: number; tone: 'lavender' | 'green'; chip: string; art: ReactNode; title?: ReactNode; arrow?: boolean }) {
+  const [joined, setJoined] = useState(false);
+  const lp = useLongPress(() => setJoined((v) => !v), 480);
   return (
-    <section className={`nx-sug nx-sug--${tone}`} style={{ top }} aria-label={chip}>
-      <span className="nx-sug__chip nx-sug__chip--pill">{chip}</span>
+    <section className={`nx-sug nx-sug--${tone}`} style={{ top }} aria-label={`${chip}${joined ? ', joined' : ''}. Press and hold to join`} data-saved={joined || undefined} data-pressing={lp.pressing || undefined} {...lp.bind}>
+      <span className="nx-sug__chip nx-sug__chip--pill">{joined ? 'Joined' : chip}</span>
       {art}
       {title && (
         <div className="nx-sug__panel">

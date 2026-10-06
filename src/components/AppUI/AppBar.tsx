@@ -8,15 +8,17 @@ export interface AppBarProps {
   subtitle?: string;
   /** Large left-aligned title instead of the centered one. */
   large?: boolean;
+  /** Shrinks a large title to a compact one (use it while the content below is scrolled). */
+  compact?: boolean;
   onBack?: () => void;
   action?: ReactNode;
 }
 
 /** Top app bar with optional back button, trailing action and large title. */
-export function AppBar({ title, subtitle, large = false, onBack, action }: AppBarProps) {
+export function AppBar({ title, subtitle, large = false, compact = false, onBack, action }: AppBarProps) {
   if (large) {
     return (
-      <header className="app-bar app-bar--large">
+      <header className={`app-bar app-bar--large${compact ? ' app-bar--compact' : ''}`}>
         <div className="app-bar__heading">
           <h2 className="app-bar__large">{title}</h2>
           {subtitle && <p className="app-bar__sub">{subtitle}</p>}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode, type Ref } from 'react';
 import { Avatar } from '../Avatar/Avatar';
 import { Badge } from '../Badge/Badge';
 import { BellIcon, SearchIcon } from './icons';
+import { usePanScroll, usePull, useSwipe } from './gestures';
 import './Finance.css';
 
 /* ---------- Icons (24px grid, 2px stroke) ---------- */
@@ -129,10 +130,11 @@ export function BillList({ bills, onOpen, paidIds = [] }: { bills: Bill[]; onOpe
 /* ---------- Payment flow: confirm sheet and success modal ---------- */
 /** Bottom sheet that asks to confirm a payment. Dims and blurs the screen behind it. */
 export function ConfirmPaymentSheet({ bill, from, busy, onConfirm, onClose }: { bill: Bill; from: string; busy: boolean; onConfirm: () => void; onClose: () => void }) {
+  const swipe = useSwipe({ axis: 'y', follow: true, threshold: 90, flickSpeed: 0.7, ignore: 'button', onSwipe: (d) => { if (d === 'down' && !busy) onClose(); } });
   return (
     <>
       <div className="fin-scrim" onClick={onClose} aria-hidden="true" />
-      <section className="fin-sheet" role="dialog" aria-modal="true" aria-labelledby="fin-sheet-title">
+      <section className="fin-sheet" role="dialog" aria-modal="true" aria-labelledby="fin-sheet-title" data-dragging={swipe.dragging || undefined} style={{ translate: swipe.offset.y > 0 ? `0 ${swipe.offset.y}px` : undefined }} {...swipe.bind}>
         <header className="fin-sheet__head">
           <h2 className="fin-sheet__title" id="fin-sheet-title">Confirm payment</h2>
           <button type="button" className="fin-sheet__close" aria-label="Close" onClick={onClose}><CloseIcon /></button>
@@ -179,8 +181,9 @@ export function FinanceFlow({ children, ref }: { children: ReactNode; ref?: Ref<
 /** Bottom navigation with a dark pill on the active item. */
 export function FinanceTabs({ items }: { items: { id: string; label: string; icon: ReactNode }[] }) {
   const [active, setActive] = useState(items[0]?.id);
+  const swipe = useSwipe({ axis: 'x', threshold: 30, onSwipe: (d) => { const i = items.findIndex((it) => it.id === active); const n = items[d === 'left' ? i + 1 : i - 1]; if (n) setActive(n.id); } });
   return (
-    <nav className="fin-tabs" aria-label="Primary">
+    <nav className="fin-tabs" aria-label="Primary" {...swipe.bind}>
       {items.map((it) => (
         <button key={it.id} type="button" className="fin-tabs__item" aria-current={active === it.id ? 'page' : undefined} onClick={() => setActive(it.id)}>
           <span className="fin-tabs__icon">{it.icon}</span>
@@ -191,9 +194,20 @@ export function FinanceTabs({ items }: { items: { id: string; label: string; ico
   );
 }
 
-/** Scrolling area of a finance screen (scrollbar hidden). */
+/** Scrolling area of a finance screen (scrollbar hidden). Scroll it, drag it with a mouse, or pull it down at the top to refresh. */
 export function FinanceScroll({ children }: { children: ReactNode }) {
-  return <div className="fin-scroll">{children}</div>;
+  const ref = useRef<HTMLDivElement>(null);
+  const pan = usePanScroll(ref, 'y');
+  const [fresh, setFresh] = useState(false);
+  const pull = usePull(ref, () => setFresh(true), { threshold: 56, ms: 900 });
+  useEffect(() => { if (!fresh) return; const t = window.setTimeout(() => setFresh(false), 1500); return () => window.clearTimeout(t); }, [fresh]);
+  return (
+    <div className="fin-scroll" ref={ref} {...pan}>
+      <div className="fin-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 40)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}><i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} /></div>
+      {fresh && <p className="fin-toast" role="status">Up to date</p>}
+      {children}
+    </div>
+  );
 }
 
 /* ---------- Invoice pieces ---------- */

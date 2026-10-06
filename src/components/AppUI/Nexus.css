@@ -101,3 +101,18 @@
 .nx-screen { animation: nx-in .26s ease both; }
 @keyframes nx-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .nx-screen { animation: none; } .nx-week__day, .nx-tabs__item, .nx-hero__btn, .nx-sug__play { transition: none; } }
+
+/* gestures */
+.nx-host { position: absolute; inset: 0; touch-action: pan-y; }
+.nx-week { touch-action: pan-y; }
+.nx-course, .nx-sug { user-select: none; }
+.nx-course[data-pressing], .nx-sug[data-pressing] { transform: scale(.98); transition: transform .45s ease-in; }
+.nx-course[data-saved] { border-color: #2b9be3; box-shadow: 0 0 0 2px rgb(43 155 227 / .25); }
+.nx-sug[data-saved] { box-shadow: 0 0 0 3px #2b9be3; }
+.nx-saved { position: absolute; z-index: 2; right: 12px; top: 12px; padding: 4px 12px; border-radius: 999px; background: #2b9be3; color: #fff; font: 600 14px/18px var(--font-sans); }
+.nx-pull { position: absolute; z-index: 9; left: 50%; top: 40px; width: 34px; height: 34px; margin-left: -17px; display: grid; place-items: center; border-radius: 50%; background: #fff; box-shadow: 0 4px 14px rgb(30 40 80 / .2); pointer-events: none; }
+.nx-pull i { width: 16px; height: 16px; border: 2.5px solid #2b9be3; border-right-color: transparent; border-radius: 50%; }
+.nx-pull i.is-spin { animation: nx-spin .8s linear infinite; }
+@keyframes nx-spin { to { transform: rotate(360deg); } }
+.nx-toast { position: absolute; z-index: 10; left: 50%; top: 52px; margin: 0; padding: 7px 14px; translate: -50% 0; border-radius: 999px; background: #2a2a2e; color: #fff; font: 600 12px/14px var(--font-sans); }
+@media (prefers-reduced-motion: reduce) { .nx-course[data-pressing], .nx-sug[data-pressing] { transition: none; } .nx-pull i.is-spin { animation-duration: 2.4s; } }

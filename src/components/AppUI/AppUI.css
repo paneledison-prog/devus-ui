@@ -194,3 +194,17 @@ button.app-row:active { background: var(--default); }
 
 .app-tilt-btn { position: absolute; left: 50%; bottom: 40px; translate: -50% 0; z-index: 9; height: 36px; padding: 0 var(--space-4); border: 0; border-radius: var(--radius-full); background: var(--foreground); color: var(--background); cursor: pointer; font: 600 var(--text-xs)/1 var(--font-sans); }
 .app-tilt-btn:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+.app-add { display: flex; }
+.app-add input { flex: 1; min-width: 0; height: 36px; padding: 0 var(--space-3); border: 1px dashed var(--separator); border-radius: var(--radius-lg); background: none; color: var(--foreground); font: 400 var(--text-sm)/1 var(--font-sans); }
+.app-add input::placeholder { color: var(--muted); }
+.app-add input:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; border-style: solid; }
+
+.app-bar--large { transition: padding .2s ease; }
+.app-bar--compact .app-bar__large { font-size: 17px; line-height: 24px; }
+.app-bar--compact .app-bar__sub { display: none; }
+.app-bar__large { transition: font-size .2s ease; }
+.app-scrollbox { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: none; border-radius: var(--radius-2xl); }
+.app-scrollbox::-webkit-scrollbar { display: none; }
+.app-scrollbox:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .app-bar__large, .app-bar--large { transition: none; } }

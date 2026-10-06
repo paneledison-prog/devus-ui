@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePull, useSwipe } from './gestures';
 import { PhoneFrame } from './PhoneFrame';
 import { BookSquare, ChallengeCard, CourseCard, FeltBlob, FeltCamera, FeltV, FeltX, HeroCard, NexusCanvas, NexusHeader, NexusHomeBar, NexusStatusBar, NexusTabs, PlaySquare, StatCard, SuggestedCard, TrophyHero, WeekStrip, type NexusTab } from './Nexus';
 
@@ -58,15 +59,37 @@ function TodayScreen({ onTab }: { onTab: (t: NexusTab) => void }) {
   );
 }
 
-/** The Nexus tab bar is live: Home, Courses and Today switch between the three screens. The week strips select a day. */
+const ORDER: NexusTab[] = ['home', 'courses', 'today'];
+
+/**
+ * The Nexus tab bar is live: Home, Courses and Today switch between the three screens. The week strips select a day.
+ * Gestures: swipe a screen left or right to go to the next tab, swipe a week strip to change the day, pull a screen down to refresh,
+ * press and hold a course or a challenge card to save or join it.
+ */
 export function NexusApp({ initial }: { initial: NexusTab }) {
   const [tab, setTab] = useState<NexusTab>(initial);
+  const [fresh, setFresh] = useState(false);
+  const host = useRef<HTMLDivElement>(null);
+  const pull = usePull(host, () => setFresh(true), { threshold: 70, ms: 900 });
+  const nav = useSwipe({
+    threshold: 70, flickSpeed: 0.8, ignore: '.nx-week',
+    onSwipe: (d, { dx, dy }) => {
+      if (Math.abs(dx) < Math.abs(dy) * 1.4) return;
+      const i = ORDER.indexOf(tab) + (d === 'left' ? 1 : d === 'right' ? -1 : 0);
+      if (i >= 0 && i < ORDER.length) setTab(ORDER[i]);
+    },
+  });
+  useEffect(() => { if (!fresh) return; const t = window.setTimeout(() => setFresh(false), 1500); return () => window.clearTimeout(t); }, [fresh]);
   return (
     <PhoneFrame bare height={692}>
-      <div className="nx-screen" key={tab}>
-        {tab === 'home' && <HomeScreen onTab={setTab} />}
-        {tab === 'courses' && <CoursesScreen onTab={setTab} />}
-        {tab === 'today' && <TodayScreen onTab={setTab} />}
+      <div className="nx-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 36)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}><i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} /></div>
+      {fresh && <p className="nx-toast" role="status">Up to date</p>}
+      <div className="nx-host" ref={host} {...nav.bind}>
+        <div className="nx-screen" key={tab}>
+          {tab === 'home' && <HomeScreen onTab={setTab} />}
+          {tab === 'courses' && <CoursesScreen onTab={setTab} />}
+          {tab === 'today' && <TodayScreen onTab={setTab} />}
+        </div>
       </div>
     </PhoneFrame>
   );

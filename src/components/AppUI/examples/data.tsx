@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { SegmentedControl } from '../../SegmentedControl/SegmentedControl';
 import { Checkbox } from '../../Checkbox/Checkbox';
 import { AppCard } from '../Cards';
@@ -37,8 +38,11 @@ export const appSteps: { label: string; time: string; state: 'done' | 'active' |
   { label: 'Delivered', time: 'Pending', state: 'todo' },
 ];
 
-/** Checklist card used by the Home screen and Task list examples. */
+/** Checklist card used by the Home screen and Task list examples. Type in the field and press Enter to add a task. */
 export function TaskCard() {
+  const [added, setAdded] = useState<string[]>([]);
+  const [text, setText] = useState('');
+  const add = () => { const t = text.trim(); if (t) { setAdded((l) => [...l, t].slice(-3)); setText(''); } };
   return (
     <AppCard label="Tasks">
       <SegmentedControl label="Filter" defaultValue="todo" options={appFilter} />
@@ -48,6 +52,10 @@ export function TaskCard() {
       <h3 className="app-card__title">Workload</h3>
       <Checkbox label="Polish UI components" />
       <Checkbox label="Share updates with team" />
+      {added.map((t, i) => <Checkbox key={`${t}${i}`} label={t} />)}
+      <form className="app-add" onSubmit={(e) => { e.preventDefault(); add(); }}>
+        <input value={text} onChange={(e) => setText(e.target.value)} maxLength={40} placeholder="Add a task" aria-label="Add a task" enterKeyHint="done" />
+      </form>
     </AppCard>
   );
 }

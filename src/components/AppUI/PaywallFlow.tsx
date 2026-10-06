@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PhoneFrame } from './PhoneFrame';
+import { useSwipe } from './gestures';
 import { ClayCloud, ClayFlower, ClayRing, PayCanvas, PayHomeBar, PayStatusBar, PlanCard, PlanRow, UpArrow, type Plan } from './Paywall';
 
 type Screen = 'paywall' | 'restoring';
@@ -9,11 +10,14 @@ type PlanId = 'annual' | 'monthly';
  * Premium paywall and Restoring purchases as one small flow:
  * choose a plan, start the trial (the button shows a spinner), or tap Restore Purchases to reach the Restoring screen,
  * whose back chevron returns to the paywall.
+ * Gestures: swipe the plan sheet left or right to switch plan, swipe the Restoring screen to the right to go back.
  */
 export function PaywallFlow({ initial }: { initial: Screen }) {
   const [screen, setScreen] = useState<Screen>(initial);
   const [plan, setPlan] = useState<PlanId>('annual');
   const [busy, setBusy] = useState(false);
+  const plans = useSwipe({ axis: 'x', threshold: 36, flickSpeed: 0.7, onSwipe: (d) => setPlan(d === 'left' ? 'monthly' : 'annual') });
+  const back = useSwipe({ axis: 'x', threshold: 60, flickSpeed: 0.8, onSwipe: (d) => { if (d === 'right') setScreen('paywall'); } });
 
   useEffect(() => {
     if (!busy) return;
@@ -40,7 +44,7 @@ export function PaywallFlow({ initial }: { initial: Screen }) {
             </div>
             <div className="pw__strip" />
             <button type="button" className="pw__restore" onClick={() => setScreen('restoring')}><span className="pw__restore-icon"><UpArrow /></span>Restore Purchases</button>
-            <section className="pw__sheet" aria-label="Plans" role="radiogroup">
+            <section className="pw__sheet" aria-label="Plans. Swipe to switch plan" role="radiogroup" {...plans.bind}>
               <PlanRow plan={annual} top={26} onSelect={() => setPlan('annual')} />
               <PlanRow plan={monthly} top={93} onSelect={() => setPlan('monthly')} />
               <button type="button" className="pw__cta" aria-busy={busy} disabled={busy} onClick={() => setBusy(true)}>{busy ? <i className="pw-cta-spin" aria-hidden="true" /> : 'Start Free Trial'}</button>
@@ -50,7 +54,7 @@ export function PaywallFlow({ initial }: { initial: Screen }) {
             <PayHomeBar dark />
           </PayCanvas>
         ) : (
-          <PayCanvas tone="restoring">
+          <PayCanvas tone="restoring" swipe={back.bind}>
             <button type="button" className="pw__back" aria-label="Back" onClick={() => setScreen('paywall')}>
               <svg width="14" height="22" viewBox="0 0 14 22" fill="none" stroke="#fff" strokeWidth="2.400" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 2 3 11l8 9" /></svg>
             </button>

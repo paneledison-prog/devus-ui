@@ -149,3 +149,15 @@
 @keyframes fin-pop { from { opacity: 0; scale: .96; } }
 @keyframes fin-spin { to { rotate: 360deg; } }
 @media (prefers-reduced-motion: reduce) { .fin-scrim, .fin-sheet, .fin-modal { animation: none; } .fin-spin { animation-duration: 2s; } }
+
+/* gestures */
+.fin-scroll { position: relative; cursor: grab; }
+.fin-pull { position: sticky; z-index: 6; top: 0; align-self: center; flex: none; width: 34px; height: 34px; margin: -34px 0 0; display: grid; place-items: center; border-radius: 50%; background: var(--surface); box-shadow: 0 4px 14px rgb(0 0 0 / .2); pointer-events: none; }
+.fin-pull i { width: 16px; height: 16px; border: 2.5px solid var(--foreground); border-right-color: transparent; border-radius: 50%; }
+.fin-pull i.is-spin { animation: fin-spin2 .8s linear infinite; }
+@keyframes fin-spin2 { to { transform: rotate(360deg); } }
+.fin-toast { position: sticky; z-index: 7; top: 8px; align-self: center; flex: none; margin: -34px 0 0; padding: 7px 14px; border-radius: 999px; background: var(--foreground); color: var(--background); font: 600 12px/14px var(--font-sans); }
+.fin-sheet { touch-action: none; }
+.fin-sheet:not([data-dragging]) { transition: translate .2s ease; }
+.fin-tabs { touch-action: pan-y; }
+@media (prefers-reduced-motion: reduce) { .fin-sheet:not([data-dragging]) { transition: none; } .fin-pull i.is-spin { animation-duration: 2.4s; } }
