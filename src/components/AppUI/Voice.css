@@ -26,7 +26,7 @@
 .vc-cards { position: absolute; left: 18px; top: 118px; right: 0; display: flex; gap: 10px; }
 .vc-card { position: relative; flex: none; height: 300px; overflow: hidden; padding: 0; border: 0; border-radius: 22px; background: #333; transition: transform .15s ease; text-align: left; } .vc-card:active { transform: scale(.98); }
 .vc-card--music { width: 168px; } .vc-card--yellow { width: 168px; background: #f2d517; }
-.vc-stage { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vc-stage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .vc-card__logo { position: absolute; left: 14px; bottom: 120px; display: flex; align-items: center; gap: 6px; font: 800 20px/1 var(--font-sans); letter-spacing: -.02em; } .vc-card__logo i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid #fff; box-shadow: inset 0 0 0 3px #4a5a8a; }
 .vc-card--yellow img { position: absolute; left: 0; top: 0; width: 100%; height: 190px; object-fit: cover; object-position: 50% 20%; } .vc-card--yellow::after { content: ''; position: absolute; left: 0; right: 0; top: 140px; height: 60px; background: linear-gradient(180deg, transparent, #f2d517); }
 .vc-card__tag { position: absolute; z-index: 2; left: 14px; bottom: 82px; display: flex; align-items: center; gap: 4px; color: #111; font: 600 8px/1 var(--font-sans); letter-spacing: .06em; }

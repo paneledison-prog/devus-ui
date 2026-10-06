@@ -25,7 +25,7 @@ Public API: `Auction.tsx` exports; `PhoneFrame({ bare, height })`.
 - Flow: The back button returns to Live Bids
 
 ## Known gaps
-- The artwork subjects are stand-ins, not the exact NFTs
+- The artwork is Stitch-generated to match the references but is not the exact NFTs
 - The bid sheet, toast and Offers empty state are not in the image; they were added so the flow works
 - The bench freezes the countdown
 - Mobile touch cursor tested in the large preview

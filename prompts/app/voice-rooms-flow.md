@@ -28,7 +28,7 @@ Canvas: 390x843, scaled to the phone width. Coordinates are canvas pixels.
 
 ## Assets
 
-Portraits and avatars reused from the Stitch assets already in the repo; the stage picture on the Music card is drawn in SVG. The pictures are stand-ins generated earlier with the Stitch MCP (the Stitch image quota ran out before the exact subjects could be generated); regenerate them with `.claude/skills/stitch-image-assets/SKILL.md` when quota is available.
+Fifteen pictures generated with the Stitch MCP (a concert-stage photo, portraits and small avatars, a cartoon dog), stored in `src/components/AppUI/assets/voice/`. Prompts and the review loop are in `.claude/skills/stitch-image-assets/SKILL.md`.
 
 ## Reference implementation (real files)
 

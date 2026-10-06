@@ -1,24 +1,27 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { PhoneFrame } from './PhoneFrame';
 import './Voice.css';
-import woman from './assets/wabi/sun.jpg';
-import michael from './assets/stickers/selfie.jpg';
-import pip from './assets/music/art1.jpg';
-import cliff from './assets/music/art2.jpg';
-import chun from './assets/wabi/laugh.jpg';
-import james from './assets/orb/f1.jpg';
-import imani from './assets/music/elena.jpg';
-import frank from './assets/music/slava.jpg';
-import cj from './assets/orb/f3.jpg';
-import tess from './assets/wabi/headphones.jpg';
-import max from './assets/fomo/dog.jpg';
-import fashion from './assets/orb/avatar.jpg';
+import stage from './assets/voice/stage.jpg';
+import woman from './assets/voice/woman.jpg';
+import michael from './assets/voice/michael.jpg';
+import pip from './assets/voice/pip.jpg';
+import cliff from './assets/voice/cliff.jpg';
+import chun from './assets/voice/chun.jpg';
+import james from './assets/voice/james.jpg';
+import imani from './assets/voice/imani.jpg';
+import erica from './assets/voice/erica.jpg';
+import frank from './assets/voice/frank.jpg';
+import cj from './assets/voice/cj.jpg';
+import tess from './assets/voice/tess.jpg';
+import max from './assets/voice/dog.jpg';
+import curly from './assets/voice/curly.jpg';
+import fashion from './assets/voice/fashion.jpg';
 
 /*
  * Voice: a live audio-and-video rooms app as one flow of eight screens
  * Home -> Live room -> Participants -> Chat, Home -> Teaser, Universe, Creator Card, Your voice.
  * Canvas 390x843 scaled to the 320px phone (320 / 390). The portraits are stand-ins generated earlier with Stitch
- * (the Stitch quota ran out before the exact subjects could be generated); the stage picture is drawn in SVG.
+ * (generated with the Stitch MCP to match the poster).
  */
 
 type Screen = 'home' | 'room' | 'people' | 'chat' | 'teaser' | 'universe' | 'card' | 'voice';
@@ -55,14 +58,7 @@ function Sheet({ time, children, onBack, className = '' }: { time: string; child
   );
 }
 
-const StageArt = () => (
-  <svg className="vc-stage" viewBox="0 0 120 170" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><linearGradient id="vcs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#2a3550" /><stop offset="1" stopColor="#0d0f16" /></linearGradient><linearGradient id="vcl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#bcd0ff" stopOpacity=".7" /><stop offset="1" stopColor="#bcd0ff" stopOpacity="0" /></linearGradient></defs>
-    <rect width="120" height="170" fill="url(#vcs)" />
-    <path d="M14 0h22l12 120H2Z" fill="url(#vcl)" /><path d="M84 0h22l12 120H82Z" fill="url(#vcl)" /><path d="M46 0h28l8 110H38Z" fill="url(#vcl)" opacity=".6" />
-    <rect x="30" y="112" width="60" height="6" rx="2" fill="#10131c" /><path d="M54 70c0-8 12-8 12 0v22H54Z" fill="#080a10" /><circle cx="60" cy="62" r="6" fill="#080a10" />
-  </svg>
-);
+const StageArt = () => <img className="vc-stage" src={stage} alt="" draggable={false} />;
 
 function Avatar({ src, name, dot, hand }: { src: string; name: string; dot?: boolean; hand?: boolean }) {
   return <span className="vc-av"><img src={src} alt="" /><small>{name}{dot && <i />}</small>{hand && <b aria-hidden="true">&#9995;</b>}</span>;
@@ -160,8 +156,8 @@ function People({ go }: { go: (s: Screen) => void }) {
       <p className="vc-reward">REWARD <Spark s={8} />0.1 for every <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="3" r="2.500" /><path d="M0 10c.5-3 2.500-4 5-4s4.500 1 5 4Z" /></svg><span className="vc-reward__bar"><i /></span></p>
       <div className="vc-tiles"><div className="vc-tile"><img src={chun} alt="" /><b>Chun</b></div><div className="vc-tile"><img src={james} alt="" /><span className="vc-tile__mic"><Mic off /></span><b>James <Spark s={12} /></b></div></div>
       <div className="vc-grid">
-        <Avatar src={imani} name="Imani" dot /><Avatar src={tess} name="Erica" dot /><Avatar src={frank} name="Frank" dot />
-        <Avatar src={cj} name="CJ" dot /><Avatar src={woman} name="Tess" hand /><Avatar src={max} name="Max" />
+        <Avatar src={imani} name="Imani" dot /><Avatar src={erica} name="Erica" dot /><Avatar src={frank} name="Frank" dot />
+        <Avatar src={cj} name="CJ" dot /><Avatar src={tess} name="Tess" hand /><Avatar src={max} name="Max" />
       </div>
       <div className="vc-controls vc-controls--low">
         <button type="button" aria-label="Flip camera"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8A8 8 0 0 0 4 7M4 14a8 8 0 0 0 14 1M3 3v5h5M19 19v-5h-5" /></svg></button>
@@ -209,7 +205,7 @@ function Chat({ go }: { go: (s: Screen) => void }) {
   const send = () => { if (text.trim()) { setMsgs((m) => [...m, text.trim()]); setText(''); } };
   return (
     <div className="vc-chat">
-      <img className="vc-chat__bg" src={james} alt="" />
+      <img className="vc-chat__bg" src={curly} alt="" />
       <Status time="4:41" />
       <img className="vc-room__pip vc-chat__pip" src={fashion} alt="" />
       <button type="button" className="vc-grab" aria-label="Back to the room" onClick={() => go('room')} />

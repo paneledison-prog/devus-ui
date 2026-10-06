@@ -25,7 +25,7 @@ Canvas: 327x703, scaled to the phone width. Coordinates are canvas pixels.
 
 ## Assets
 
-Artwork reused from Stitch assets already in the repo (a cartoon dog in black and white, an orange swirl, a hue-shifted furry creature, orb and ape avatars). The pictures are stand-ins generated earlier with the Stitch MCP (the Stitch image quota ran out before the exact subjects could be generated); regenerate them with `.claude/skills/stitch-image-assets/SKILL.md` when quota is available.
+Five pictures generated with the Stitch MCP (a black-and-white dog character with a beanie and headphones, a black head sculpture with an orange splash, a turquoise sheep with heart sunglasses and a halo, an orb and an astronaut avatar), stored in `src/components/AppUI/assets/auction/`. Prompts and the review loop are in `.claude/skills/stitch-image-assets/SKILL.md`.
 
 ## Reference implementation (real files)
 

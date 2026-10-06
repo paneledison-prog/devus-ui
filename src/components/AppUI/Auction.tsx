@@ -1,17 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { PhoneFrame } from './PhoneFrame';
 import './Auction.css';
-import dogArt from './assets/fomo/dog.jpg';
-import smokeArt from './assets/wabi/smoke.jpg';
-import creatureArt from './assets/fomo/creature.jpg';
-import orb from './assets/wabi/teal.jpg';
-import av2 from './assets/nft/ape3.jpg';
+import dogArt from './assets/auction/dog.jpg';
+import smokeArt from './assets/auction/dreamy.jpg';
+import creatureArt from './assets/auction/sheep.jpg';
+import orb from './assets/auction/orb.jpg';
+import av2 from './assets/auction/av2.jpg';
 import av3 from './assets/nft/ape1.jpg';
 
 /*
  * NFT auction flow: Live Bids -> item detail (one scrolling page with Bids / Offers, sticky actions) -> Place a bid sheet.
- * Canvas 327x703 scaled to the 320px phone (320 / 327). The pictures are stand-ins generated earlier with Stitch
- * (the Stitch quota ran out before the exact subjects could be generated).
+ * Canvas 327x703 scaled to the 320px phone (320 / 327). The artwork is generated with the Stitch MCP.
  */
 
 const Back = () => <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8 2 2 8l6 6" /></svg>;

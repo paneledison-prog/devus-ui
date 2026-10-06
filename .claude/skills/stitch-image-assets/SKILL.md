@@ -54,6 +54,12 @@ The photo: <subject, pose, expression, clothing, setting, light>, <realistic sma
 - Tall pictures: "tall vertical (9:16)" returns 286x512, so a full-bleed phone background is low resolution. Ask for a close-up so the subject fills the frame and you do not need to zoom, and use CSS blur for backgrounds.
 - 3D objects meant to sit on cards (an ape, a cart, sneakers, achievement shapes) were generated on flat gray and cut out with `cutout.py --outline 0` (no white sticker edge).
 
+## Quota (third run)
+
+- Generation can answer `Resource has been exhausted (e.g. check quota).` (the script then fails with a JSON decode error on the plain-text reply). When that happens nothing can be generated for a while: build the interface, use clearly labelled stand-ins only if the user accepts them, record it in the item's gaps, and retry later. It did come back within the same session, after roughly an hour.
+- A DESIGN screenshot fallback is a small framed picture (about 200px after cropping): fine for avatars and small cards, soft as a full-bleed background. Retrying with a shorter prompt did not turn it into an IMAGE screen every time; prefer to keep the first good crop instead of burning more calls.
+- 24 pictures for two flows (portraits, a stage photo, 3D animal characters, a head sculpture) matched their references on the first or second attempt at 2 parallel calls.
+
 ## Known strengths and limits
 
 - Photos of people, animals and scenes: very close to a reference described in a sentence (a groundhog in a cowboy hat, a laughing man with bleached hair, a woman in blue headphones all matched on the first try).

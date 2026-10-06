@@ -26,7 +26,7 @@ Public API: `Voice.tsx` exports; `PhoneFrame({ bare, height })`.
 - Flow: Sheets (Teaser, Universe, Creator Card, Your voice): the grab handle returns to Home; Universe options select; the payouts switch toggles; "Sell some voices" opens the Creator Card
 
 ## Known gaps
-- The portraits are look-alikes of other subjects, not the exact photos
+- The portraits are Stitch look-alikes (same kind of subject, not the exact photos); a few are small crops of Stitch design screenshots
 - Several small details (reward line, tabs) are read from a small poster and approximated
 - No audio or video; room states are visual
 - Mobile touch cursor tested in the large preview
