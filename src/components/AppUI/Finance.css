@@ -161,3 +161,6 @@
 .fin-sheet:not([data-dragging]) { transition: translate .2s ease; }
 .fin-tabs { touch-action: pan-y; }
 @media (prefers-reduced-motion: reduce) { .fin-sheet:not([data-dragging]) { transition: none; } .fin-pull i.is-spin { animation-duration: 2.4s; } }
+
+.inv-party__avatar { overflow: hidden; padding: 0; }
+.inv-party__avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }

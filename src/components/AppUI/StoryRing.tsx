@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react';
 import { Avatar } from '../Avatar/Avatar';
+import { portraitFor } from '../Avatar/portraits';
 import { useLongPress, usePanScroll } from './gestures';
 import './AppUI.css';
 
-export interface Story { name: string; initials: string; seen?: boolean }
+export interface Story { name: string; initials: string; seen?: boolean; /** Portrait; defaults to a face picked from the name. */ src?: string }
 
 function StoryItem({ s, seen, onSeen, onUnseen }: { s: Story; seen: boolean; onSeen: () => void; onUnseen: () => void }) {
   const lp = useLongPress(onUnseen, 480);
@@ -14,7 +15,7 @@ function StoryItem({ s, seen, onSeen, onUnseen }: { s: Story; seen: boolean; onS
         aria-label={`${s.name}${seen ? '' : ', new story'}. Press and hold to mark as new`}
         onClick={onSeen} {...lp.bind}
       >
-        <span className="app-story__ring"><Avatar fallback={s.initials} /></span>
+        <span className="app-story__ring"><Avatar src={s.src ?? portraitFor(s.name)} fallback={s.initials} /></span>
         <span className="app-story__name">{s.name}</span>
       </button>
     </li>

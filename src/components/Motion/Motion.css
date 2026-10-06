@@ -56,3 +56,5 @@
 .mo-stack__tip span { opacity: .7; }
 .mo-stack__av:hover .mo-stack__tip, .mo-stack__av:focus-visible .mo-stack__tip { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .mo-island, .mo-dock__item, .mo-dock__slot, .mo-stack li, .mo-stack__av { transition: none; } .mo-island__ring, .mo-tip__bubble { animation: none; } }
+
+.mo-stack__img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }

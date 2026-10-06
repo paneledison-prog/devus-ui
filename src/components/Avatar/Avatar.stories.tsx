@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { portraits } from './portraits';
 import { Avatar, AvatarGroup } from './Avatar';
 
 const meta = {
@@ -10,5 +11,5 @@ type Story = StoryObj<typeof meta>;
 
 export const Fallback: Story = {};
 export const Group: Story = {
-  render: () => <AvatarGroup><Avatar fallback="AB" /><Avatar fallback="CD" /><Avatar fallback="EF" /><Avatar fallback="+3" /></AvatarGroup>,
+  render: () => <AvatarGroup><Avatar src={portraits[0]} alt="Mara" /><Avatar src={portraits[2]} alt="Jonas" /><Avatar src={portraits[5]} alt="Iris" /><Avatar fallback="+3" /></AvatarGroup>,
 };

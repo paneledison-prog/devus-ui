@@ -4,6 +4,7 @@ import { Badge } from '../Badge/Badge';
 import { BellIcon, SearchIcon } from './icons';
 import { usePanScroll, usePull, useSwipe } from './gestures';
 import './Finance.css';
+import { portraitFor } from '../Avatar/portraits';
 
 /* ---------- Icons (24px grid, 2px stroke) ---------- */
 function I({ children, size = 18, fill = false }: { children: ReactNode; size?: number; fill?: boolean }) {
@@ -40,7 +41,7 @@ export function FinanceHeader({ name, initials, greeting = 'Good morning' }: { n
   return (
     <header className="fin-header">
       <div className="fin-header__who">
-        <Avatar fallback={initials} />
+        <Avatar src={portraitFor(name)} fallback={initials} />
         <div>
           <p className="fin-header__hi">{greeting}</p>
           <h1 className="fin-header__name">{name}</h1>
@@ -230,7 +231,7 @@ export function InvoiceParty({ name, email, initials }: { name: string; email: s
     <section className="inv-card" aria-labelledby="inv-billed">
       <h2 className="inv-card__title" id="inv-billed">Billed to</h2>
       <div className="inv-party">
-        <span className="inv-party__avatar" aria-hidden="true">{initials}</span>
+        <span className="inv-party__avatar" aria-hidden="true"><img src={portraitFor(name)} alt="" draggable={false} /></span>
         <div className="inv-party__text"><p className="inv-party__name">{name}</p><p className="inv-party__mail"><MailIcon /><span>{email}</span></p></div>
       </div>
     </section>

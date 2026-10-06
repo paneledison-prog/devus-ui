@@ -85,15 +85,16 @@ export function DynamicIsland({ defaultState = 'idle' }: { defaultState?: Island
 }
 
 /* ---------- Member stack ---------- */
+import { portraitFor } from '../Avatar/portraits';
+
 export interface Member { name: string; role?: string; color?: string }
 export function MemberStack({ members }: { members: Member[] }) {
-  const initials = (n: string) => n.split(' ').map((w) => w[0]).slice(0, 2).join('');
   return (
     <ul className="mo-stack" aria-label="Team members">
       {members.map((m) => (
         <li key={m.name}>
           <button type="button" className="mo-stack__av" style={{ background: m.color ?? 'var(--default-hover)' }} aria-label={m.role ? `${m.name}, ${m.role}` : m.name}>
-            {initials(m.name)}
+            <img className="mo-stack__img" src={portraitFor(m.name)} alt="" draggable={false} />
             <span className="mo-stack__tip" aria-hidden="true"><b>{m.name}</b>{m.role ? <span>{m.role}</span> : null}</span>
           </button>
         </li>

@@ -8,6 +8,7 @@ import { Card } from '../../components/Card/Card';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { SpinnerDemo } from '../../components/Spinner/SpinnerDemo';
 import { Avatar, AvatarGroup } from '../../components/Avatar/Avatar';
+import { portraits } from '../../components/Avatar/portraits';
 import type { SourceEntry } from './sourceFiles';
 import { slugify } from './slug';
 import { templateItems } from './templates';
@@ -165,8 +166,8 @@ const componentItems: BaseItem[] = [
   {
     name: 'Avatar',
     variants: 3,
-    preview: <AvatarGroup><Avatar fallback="AB" /><Avatar fallback="CD" /><Avatar fallback="+3" /></AvatarGroup>,
-    code: `<AvatarGroup>\n  <Avatar fallback="AB" />\n  <Avatar fallback="CD" />\n  <Avatar fallback="+3" />\n</AvatarGroup>`,
+    preview: <AvatarGroup><Avatar src={portraits[0]} alt="Mara" /><Avatar src={portraits[3]} alt="Jonas" /><Avatar src={portraits[6]} alt="Iris" /><Avatar fallback="+3" /></AvatarGroup>,
+    code: `<AvatarGroup>\n  <Avatar src="/avatars/mara.webp" alt="Mara" />\n  <Avatar src="/avatars/jonas.webp" alt="Jonas" />\n  <Avatar src="/avatars/iris.webp" alt="Iris" />\n  <Avatar fallback="+3" />\n</AvatarGroup>`,
   },
   {
     name: 'Button',
@@ -377,10 +378,10 @@ const blockItems: BaseItem[] = [
     preview: (
       <Card title="Design team" description="Shipping the next release."
         footer={<><Button size="sm">Follow</Button><Button size="sm" variant="secondary">Message</Button></>}>
-        <AvatarGroup><Avatar fallback="AB" /><Avatar fallback="CD" /><Avatar fallback="EF" /></AvatarGroup>
+        <AvatarGroup><Avatar src={portraits[1]} alt="Mara" /><Avatar src={portraits[4]} alt="Jonas" /><Avatar src={portraits[7]} alt="Iris" /></AvatarGroup>
       </Card>
     ),
-    code: `<Card\n  title="Design team"\n  description="Shipping the next release."\n  footer={<><Button size="sm">Follow</Button><Button size="sm" variant="secondary">Message</Button></>}\n>\n  <AvatarGroup>\n    <Avatar fallback="AB" />\n    <Avatar fallback="CD" />\n    <Avatar fallback="EF" />\n  </AvatarGroup>\n</Card>`,
+    code: `<Card\n  title="Design team"\n  description="Shipping the next release."\n  footer={<><Button size="sm">Follow</Button><Button size="sm" variant="secondary">Message</Button></>}\n>\n  <AvatarGroup>\n    <Avatar src="/avatars/mara.webp" alt="Mara" />\n    <Avatar src="/avatars/jonas.webp" alt="Jonas" />\n    <Avatar src="/avatars/iris.webp" alt="Iris" />\n  </AvatarGroup>\n</Card>`,
   },
   {
     name: 'New chat',
