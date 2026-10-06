@@ -219,3 +219,7 @@ button.app-row:active { background: var(--default); }
 /* Containment: nothing inside a phone may draw, scroll or position itself outside the phone, whatever a gesture does. */
 .app-phone { overflow: hidden; contain: layout paint; isolation: isolate;}
 .app-phone__screen { overflow: hidden; contain: paint; }
+
+/* Dynamic Island: part of the phone container, not of the screens. Screens that draw their own island keep it and do not get a second one. */
+.app-phone__screen::after { content: ""; position: absolute; z-index: 60; left: 50%; top: 10px; width: 92px; height: 26px; margin-left: -46px; border-radius: 999px; background: #000; pointer-events: none; }
+.app-phone--bare .app-phone__screen:has([class*="island"])::after { display: none; }
