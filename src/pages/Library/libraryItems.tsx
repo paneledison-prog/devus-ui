@@ -59,6 +59,7 @@ import { NftAuctionFlowExample } from '../../components/AppUI/examples/NftAuctio
 import { BookshelfFlowExample } from '../../components/AppUI/examples/BookshelfFlow';
 import { BookOnboardingFlowExample } from '../../components/AppUI/examples/BookOnboardingFlow';
 import { LiquidChatExample } from '../../components/AppUI/examples/LiquidChat';
+import { DitherShader } from '../../components/Backgrounds/DitherShader';
 import { KineticGrid } from '../../components/Backgrounds/KineticGrid';
 import { WeatherWidget, MeetingWidget, TimerWidget, AiPhotoWidget, ProfileWidget, ContactWidget, DroneWidget, FlightWidget, BalanceWidget, UsdcWidget, NowPlayingWidget, LampWidget } from '../../components/Widgets/Board';
 import { MoimoiSignInExample } from '../../components/AppUI/examples/MoimoiSignIn';
@@ -637,6 +638,16 @@ const backgroundItems: BaseItem[] = [
     preview: <div style={{ ...fillStyle, position: 'relative' }}><KineticGrid /></div>,
     sourceEntries: [{ path: 'src/components/Backgrounds/KineticGrid.tsx' }],
     code: `<div style={{ position: 'relative', height: '100vh' }}>\n  <KineticGrid />\n  {/* your content goes here */}\n</div>\n\n// Options:\n<KineticGrid spacing={30} reach={170} color="124, 92, 255" />`,
+  },
+  {
+    name: 'Dither shader',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'tsx',
+    preview: <div style={{ ...fillStyle, position: 'relative' }}><DitherShader /></div>,
+    sourceEntries: [{ path: 'src/components/Backgrounds/DitherShader.tsx' }],
+    code: `<div style={{ position: 'relative', height: '100vh' }}>\n  <DitherShader />\n  {/* your content goes here */}\n</div>\n\n// Options:\n<DitherShader cell={3} ink="#1a1233" paper="#efe9ff" speed={1} />`,
   },
 ];
 

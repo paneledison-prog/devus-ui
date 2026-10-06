@@ -21,3 +21,4 @@ export * from './components/Motion/Motion';
 export * from './components/BuildAgent/BuildAgent';
 export * from './components/LiquidChat/LiquidChat';
 export * from './components/Backgrounds/KineticGrid';
+export * from './components/Backgrounds/DitherShader';
