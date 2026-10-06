@@ -175,6 +175,7 @@ iOS-style messaging demo in the Liquid Glass look, inspired by github.com/Applla
 - Next: edison round 2 from untouched sources; shader backgrounds on request; Pricing page when asked.
 
 ## Changelog
+- 2026-10-06: Agent builder demo (Pairwise) is flat: no drop shadows (`--a-shadow` is neutralized under `.ag.pw`, the active segmented button gets a hairline instead of a shadow); borders are the existing 1px hairlines.
 - 2026-10-06: Composer focus fixed in the other templates too: Pairwise (Agent builder demo) and Build agent no longer show the hard global focus rectangle on their text areas (`.ag textarea:focus-visible { outline: none }` in `Agents.css`); the composer around the field shows a soft 2px ring on `:focus-within` instead (`.pw-prompt`, `.ba-composer`, `.ws-composer`, `.crm-cw__box`). Workspace and CRM already hid the textarea outline and now also get the composer ring.
 - 2026-10-06: Harbor composer focus: the text field no longer shows the global hard `.ag :focus-visible` rectangle; the whole composer gets a soft accent ring on `:focus-within` (and the caret is accent colored).
 - 2026-10-06: Harbor sidebar footer: the Light / Dark control is now a segmented control with a sliding thumb (`:has()` on the pressed button, spring easing, the active icon tilts) and the Getting started row has a hairline, hover and press states and an accent bolt. Scoped to `.hb-theme` / `.hb-gsbtn`, so other templates that use `.ag-seg` are unchanged.
