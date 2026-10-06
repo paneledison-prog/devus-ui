@@ -59,6 +59,8 @@ import { NftAuctionFlowExample } from '../../components/AppUI/examples/NftAuctio
 import { BookshelfFlowExample } from '../../components/AppUI/examples/BookshelfFlow';
 import { BookOnboardingFlowExample } from '../../components/AppUI/examples/BookOnboardingFlow';
 import { LiquidChatExample } from '../../components/AppUI/examples/LiquidChat';
+import tulipCode from '../../components/Backgrounds/assets/tulip-code.jpg';
+import tulipDigital from '../../components/Backgrounds/assets/tulip-digital.jpg';
 import { DitherShader } from '../../components/Backgrounds/DitherShader';
 import { KineticGrid } from '../../components/Backgrounds/KineticGrid';
 import { WeatherWidget, MeetingWidget, TimerWidget, AiPhotoWidget, ProfileWidget, ContactWidget, DroneWidget, FlightWidget, BalanceWidget, UsdcWidget, NowPlayingWidget, LampWidget } from '../../components/Widgets/Board';
@@ -661,6 +663,24 @@ const backgroundItems: BaseItem[] = [
   background-image: radial-gradient(circle, #d4d4d4 1px, transparent 1px);
   background-size: 20px 20px;
 }`,
+  },
+  {
+    name: 'Pink tulip code',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#9dbfe0', backgroundImage: `url(${tulipCode})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-tulip-code {\n  background-color: #9dbfe0;\n  background-image: url('/assets/tulip-code.jpg');\n  background-size: cover;\n  background-position: center;\n}`,
+  },
+  {
+    name: 'Pink tulip digital',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#9dbfe0', backgroundImage: `url(${tulipDigital})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />,
+    code: `.bg-tulip-digital {\n  background-color: #9dbfe0;\n  background-image: url('/assets/tulip-digital.jpg');\n  background-size: cover;\n  background-position: center;\n}`,
   },
 ];
 
