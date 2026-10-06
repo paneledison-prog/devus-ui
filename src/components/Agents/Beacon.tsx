@@ -18,34 +18,6 @@ const PEOPLE = CO.flatMap((c) => c.people.map((p) => ({ name: p, co: c })));
 const INVESTORS = Array.from(new Set(CO.flatMap((c) => c.investors))).map((n) => ({ name: n, cos: CO.filter((c) => c.investors.includes(n)) }));
 const initials = (n: string) => n.replace(/^Dr\. /, '').split(/[ &]+/).slice(0, 2).map((w) => w[0]).join('');
 
-/* ---------- ASCII sky ---------- */
-const RAMP = ' .·:-=+*#';
-function skyRows(t: number, cols: number, rows: number) {
-  const out: string[] = [];
-  for (let y = 0; y < rows; y++) {
-    let line = '';
-    const fade = 1 - y / rows;
-    for (let x = 0; x < cols; x++) {
-      const cloud = Math.sin(x * 0.11 + t * 0.35) + Math.cos(y * 0.9 - x * 0.05 + t * 0.2) + Math.sin((x + y * 3) * 0.07 - t * 0.15);
-      const star = ((x * 73 + y * 151) % 41 === 0) ? (Math.sin(t * 2 + x) > 0 ? 1.5 : 0.4) : 0;
-      const v = Math.max(0, (cloud + 1.4) / 4.4) * fade + star * 0.3;
-      line += RAMP[Math.min(RAMP.length - 1, Math.floor(v * RAMP.length))];
-    }
-    out.push(line);
-  }
-  return out;
-}
-function AsciiSky() {
-  const [t, setT] = useState(0);
-  useEffect(() => {
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
-    const id = window.setInterval(() => setT((v) => v + 0.12), 140);
-    return () => window.clearInterval(id);
-  }, []);
-  const rows = useMemo(() => skyRows(t, 120, 9), [t]);
-  return <pre className="bc-sky" aria-hidden="true">{rows.join('\n')}</pre>;
-}
-
 /* ---------- Charts ---------- */
 function FundingChart({ rounds, color }: { rounds: number[]; color: string }) {
   const max = Math.max(...rounds);
@@ -143,7 +115,7 @@ export function BeaconDemo({ startAt = 'list', defaultTheme }: BeaconDemoProps) 
           </div>
         ) : (
           <div className="ag-scroll">
-            <div className="bc-banner"><AsciiSky /><div className="bc-banner__copy"><h1>Know who is growing before everyone else</h1><p>Companies, people, funding and growth signals in one place.</p></div></div>
+            <div className="bc-banner"><div className="bc-banner__copy"><h1>Know who is growing before everyone else</h1><p>Companies, people, funding and growth signals in one place.</p></div></div>
             <div className="ag-tabs" role="tablist">
               {([['featured', 'Featured'], ['new', 'New this week'], ['watch', `Watchlist (${watch.size})`]] as const).map(([k, l]) => <button key={k} role="tab" aria-selected={tab === k} className="ag-tab" onClick={() => setTab(k)}>{l}</button>)}
               <span className="ag-grow" />

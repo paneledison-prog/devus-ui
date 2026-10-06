@@ -6,8 +6,7 @@
 .bc-search:hover { background: var(--a-hover); }
 .bc-ws { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px 0 6px; border: 0; border-radius: 10px; background: none; }
 .bc-ws:hover { background: var(--a-hover); }
-.bc-banner { position: relative; height: 150px; overflow: hidden; border-bottom: 1px solid var(--a-line); background: var(--a-side); }
-.bc-sky { position: absolute; inset: 0; margin: 0; padding: 6px 0 0; color: var(--a-muted); opacity: .9; font: 500 12px/14px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 3px; white-space: pre; overflow: hidden; user-select: none; }
+.bc-banner { position: relative; height: 120px; overflow: hidden; border-bottom: 1px solid var(--a-line); }
 .bc-banner__copy { position: absolute; left: 28px; bottom: 22px; }
 .bc-banner h1 { font: 600 24px/30px var(--font-sans); letter-spacing: -.01em; }
 .bc-banner p { margin-top: 2px; color: var(--a-muted); font-size: 14px; }

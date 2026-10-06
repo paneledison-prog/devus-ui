@@ -4,7 +4,7 @@ Product and copy guidelines. These are requirements, not suggestions.
 
 ## Product
 - Keep the template a finished, believable screen. It is a working demo: every control that looks clickable must do something visible.
-- Scope: A private-market research app: animated ASCII sky banner, company lists, command palette and a company detail page.
+- Scope: A private-market research app: plain title header, company lists, command palette and a company detail page.
 - Do not add pages, sections or features that the request did not ask for.
 - Never add a Pricing page unless the user asks.
 

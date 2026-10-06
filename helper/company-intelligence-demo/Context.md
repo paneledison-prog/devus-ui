@@ -4,7 +4,7 @@
 > Last updated: 2026-10-05
 
 ## What this is
-A private-market research app: animated ASCII sky banner, company lists, command palette and a company detail page.
+A private-market research app: plain title header, company lists, command palette and a company detail page.
 
 Brand: Beacon (fictional). Open it full window at `/?template=company-intelligence-demo`.
 
@@ -18,7 +18,7 @@ Brand: Beacon (fictional). Open it full window at `/?template=company-intelligen
 Public API: `BeaconDemo({ startAt?: "list" | "detail", defaultTheme? })`.
 
 ## What it does
-- Animated ASCII-art sky banner (static under reduced motion)
+- Plain title header (the earlier ASCII-art sky banner was removed)
 - Featured / New this week / Watchlist tabs, filter, sortable funding column, growth bars, watch stars
 - Command palette with Companies / People / Investors tabs, arrow keys and Enter (Ctrl/Cmd K once focus is inside the demo)
 - Company page with funding chart, signals, people and investors
