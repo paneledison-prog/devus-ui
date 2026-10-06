@@ -7,6 +7,7 @@ import { HarborDemo } from '../../components/Agents/Harbor';
 import { PairwiseDemo } from '../../components/Agents/Pairwise';
 import { BuildAgentDemo } from '../../components/BuildAgent/BuildAgent';
 import { LiquidChatDemo } from '../../components/LiquidChat/LiquidChat';
+import { MoodboardDemo } from '../../components/Moodboard/Moodboard';
 import { slugify } from './slug';
 
 type TemplateItem = Omit<LibraryItem, 'category' | 'prompt' | 'promptPath'>;
@@ -106,6 +107,19 @@ const templateBase: TemplateItem[] = [
 
 // Dark theme:
 <LiquidChatDemo defaultTheme="dark" />`,
+  },
+  {
+    name: 'Moodboard canvas',
+    sourceEntries: [{ path: 'src/components/Moodboard/Moodboard.tsx' }, { path: 'src/components/Moodboard/MoodboardArt.tsx' }, { path: 'src/components/Moodboard/Moodboard.css' }, { path: 'src/styles/tokens.css' }],
+    variants: 2,
+    tileZoom: 0.3,
+    defaultZoom: 0.75,
+    standalone: <MoodboardDemo />,
+    preview: <div style={{ width: 1000, height: 720 }}><MoodboardDemo /></div>,
+    code: `<MoodboardDemo />
+
+// Open another space:
+<MoodboardDemo initialSpace="Ideas" />`,
   },
 ];
 
