@@ -649,6 +649,19 @@ const backgroundItems: BaseItem[] = [
     sourceEntries: [{ path: 'src/components/Backgrounds/DitherShader.tsx' }],
     code: `<div style={{ position: 'relative', height: '100vh' }}>\n  <DitherShader />\n  {/* your content goes here */}\n</div>\n\n// Options:\n<DitherShader cell={3} ink="#1a1233" paper="#efe9ff" speed={1} />`,
   },
+  {
+    name: 'Dot grid',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#fff', backgroundImage: 'radial-gradient(circle, #d4d4d4 1px, transparent 1px)', backgroundSize: '20px 20px' }} />,
+    code: `.bg-dots {
+  background-color: #fff;
+  background-image: radial-gradient(circle, #d4d4d4 1px, transparent 1px);
+  background-size: 20px 20px;
+}`,
+  },
 ];
 
 const phoneProps = { tall: true, tileZoom: 0.55, defaultZoom: 0.75 } as const;
