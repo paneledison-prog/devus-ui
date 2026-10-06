@@ -8,6 +8,7 @@ import { PairwiseDemo } from '../../components/Agents/Pairwise';
 import { BuildAgentDemo } from '../../components/BuildAgent/BuildAgent';
 import { LiquidChatDemo } from '../../components/LiquidChat/LiquidChat';
 import { MoodboardDemo } from '../../components/Moodboard/Moodboard';
+import { ChatStudioDemo } from '../../components/ChatStudio/ChatStudio';
 import { slugify } from './slug';
 
 type TemplateItem = Omit<LibraryItem, 'category' | 'prompt' | 'promptPath'>;
@@ -120,6 +121,20 @@ const templateBase: TemplateItem[] = [
 
 // Open another space:
 <MoodboardDemo initialSpace="Ideas" />`,
+  },
+  {
+    name: 'AI chat studio',
+    sourceEntries: [{ path: 'src/components/ChatStudio/ChatStudio.tsx' }, { path: 'src/components/ChatStudio/ChatStudioArt.tsx' }, { path: 'src/components/ChatStudio/ChatStudio.css' }, { path: 'src/styles/tokens.css' }],
+    variants: 3,
+    tileZoom: 0.3,
+    defaultZoom: 0.75,
+    standalone: <ChatStudioDemo />,
+    preview: <div style={{ width: 1000, height: 625 }}><ChatStudioDemo /></div>,
+    code: `<ChatStudioDemo />
+
+// Open another view:
+<ChatStudioDemo startView="calendar" />
+<ChatStudioDemo startView="code" />`,
   },
 ];
 
