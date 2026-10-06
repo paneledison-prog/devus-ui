@@ -596,6 +596,18 @@ const backgroundItems: BaseItem[] = [
     preview: <div style={{ ...fillStyle, backgroundColor: '#000', backgroundRepeat: 'no-repeat', backgroundImage: 'radial-gradient(42% 46% at 0% 0%, rgb(186 156 200 / .75), transparent 100%), radial-gradient(70% 26% at 62% 52%, rgb(238 208 255 / .95), transparent 100%), linear-gradient(to bottom, #fbf7ff 0%, #fbf7ff 38%, #c9a2ee 52%, #5a2d82 66%, #120519 80%, #000 100%)' }} />,
     code: `.bg-lilac {\n  background-color: #000;\n  background-repeat: no-repeat;\n  background-image:\n    radial-gradient(42% 46% at 0% 0%, rgb(186 156 200 / .75), transparent 100%),\n    radial-gradient(70% 26% at 62% 52%, rgb(238 208 255 / .95), transparent 100%),\n    linear-gradient(to bottom, #fbf7ff 0%, #fbf7ff 38%, #c9a2ee 52%, #5a2d82 66%, #120519 80%, #000 100%);\n  border: 1px solid #fff;\n  border-radius: 24px;\n  aspect-ratio: 16 / 10;\n}`,
   },
+  {
+    name: 'Violet radial',
+    variants: 1,
+    fill: true,
+    landscape: true,
+    lang: 'css',
+    preview: <div style={{ ...fillStyle, backgroundColor: '#fff', backgroundImage: 'radial-gradient(125% 125% at 50% 10%, #fff 40%, #6633ee 100%)' }} />,
+    code: `.bg-violet {
+  background-color: #fff;
+  background-image: radial-gradient(125% 125% at 50% 10%, #fff 40%, #6633ee 100%);
+}`,
+  },
 ];
 
 const phoneProps = { tall: true, tileZoom: 0.55, defaultZoom: 0.75 } as const;
