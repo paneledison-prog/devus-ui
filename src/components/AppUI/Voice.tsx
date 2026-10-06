@@ -1,4 +1,5 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useHold, useLongPress, usePull, useSwipe } from './gestures';
 import { PhoneFrame } from './PhoneFrame';
 import './Voice.css';
 import stage from './assets/voice/stage.jpg';
@@ -64,11 +65,25 @@ function Avatar({ src, name, dot, hand }: { src: string; name: string; dot?: boo
   return <span className="vc-av"><img src={src} alt="" /><small>{name}{dot && <i />}</small>{hand && <b aria-hidden="true">&#9995;</b>}</span>;
 }
 
+/** A feed row that is hidden when swiped sideways. */
+function FeedRow({ className, onGone, children }: { className?: string; onGone: () => void; children: ReactNode }) {
+  const { bind, offset, dragging } = useSwipe({ axis: 'x', follow: true, threshold: 70, flickSpeed: 0.8, onSwipe: (d) => { if (d === 'left' || d === 'right') onGone(); } });
+  return (
+    <li className={className} data-dragging={dragging || undefined} style={{ transform: offset.x ? `translateX(${offset.x / 0.82}px)` : undefined, opacity: 1 - Math.min(0.7, Math.abs(offset.x) / 260) }} {...bind}>{children}</li>
+  );
+}
+
 /* ---------- 1. home ---------- */
 function Home({ go }: { go: (s: Screen) => void }) {
   const [tab, setTab] = useState<'universe' | 'room'>('room');
+  const [gone, setGone] = useState<number[]>([]);
+  const [bump, setBump] = useState(0);
+  const host = useRef<HTMLDivElement>(null);
+  const pull = usePull(host, () => setBump((b) => b + 1), { threshold: 60, ms: 900 });
+  const hide = (i: number) => setGone((g) => [...g, i]);
   return (
-    <div className="vc-home">
+    <div className="vc-home" ref={host}>
+      <div className="vc-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 36)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}><i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} /></div>
       <Status time="11:02" />
       <div className="vc-top">
         <button type="button" className="vc-top__me" onClick={() => go('chat')} aria-label="Messages, 9"><img src={tess} alt="" /><span>9 <Bubble /></span></button>
@@ -80,11 +95,12 @@ function Home({ go }: { go: (s: Screen) => void }) {
         <button type="button" className="vc-card vc-card--music" onClick={() => go('room')}><StageArt /><span className="vc-card__logo"><i />MUSIC</span></button>
         <button type="button" className="vc-card vc-card--yellow" onClick={() => go('teaser')}><img src={woman} alt="" /><span className="vc-card__tag"><Spark s={9} /> VOICE SS22</span><b>Behind the<br />Scenes</b></button>
       </div>
-      <ul className="vc-feed">
-        <li><button type="button" onClick={() => go('room')}><img src={frank} alt="" /><span className="vc-live">LIVE</span><span className="vc-meta">2 <i /></span><b>Moxie Marlinspike Show</b><em>7</em></button></li>
-        <li><button type="button" onClick={() => go('room')}><img src={cj} alt="" /><span className="vc-live">LIVE</span><span className="vc-meta">12 <i /></span><b>Town Hall: celebrating the Learn DAO launch</b></button></li>
-        <li><button type="button" onClick={() => go('teaser')}><img className="vc-pinkav" src={max} alt="" /><small>Tomorrow, 8:30am</small><b>Can I help you?</b><em>18</em></button></li>
-        <li className="vc-faded"><button type="button"><img src={james} alt="" /><small>January 29, 4pm</small><b>5 minutes with Griffin</b></button></li>
+      <ul className="vc-feed" aria-label="Rooms. Swipe a row sideways to hide it">
+        {!gone.includes(0) && <FeedRow onGone={() => hide(0)}><button type="button" onClick={() => go('room')}><img src={frank} alt="" /><span className="vc-live">LIVE</span><span className="vc-meta">{2 + bump * 3} <i /></span><b>Moxie Marlinspike Show</b><em>{7 + bump}</em></button></FeedRow>}
+        {!gone.includes(1) && <FeedRow onGone={() => hide(1)}><button type="button" onClick={() => go('room')}><img src={cj} alt="" /><span className="vc-live">LIVE</span><span className="vc-meta">{12 + bump * 5} <i /></span><b>Town Hall: celebrating the Learn DAO launch</b></button></FeedRow>}
+        {!gone.includes(2) && <FeedRow onGone={() => hide(2)}><button type="button" onClick={() => go('teaser')}><img className="vc-pinkav" src={max} alt="" /><small>Tomorrow, 8:30am</small><b>Can I help you?</b><em>{18 + bump}</em></button></FeedRow>}
+        {!gone.includes(3) && <FeedRow className="vc-faded" onGone={() => hide(3)}><button type="button"><img src={james} alt="" /><small>January 29, 4pm</small><b>5 minutes with Griffin</b></button></FeedRow>}
+        {gone.length > 0 && <li className="vc-undo"><button type="button" onClick={() => setGone([])}>Show hidden rooms ({gone.length})</button></li>}
       </ul>
       <div className="vc-switch" role="tablist">
         <button type="button" role="tab" aria-selected={tab === 'universe'} className={tab === 'universe' ? 'is-on' : ''} onClick={() => { setTab('universe'); go('universe'); }}><Spark s={15} /> Universe</button>
@@ -95,12 +111,19 @@ function Home({ go }: { go: (s: Screen) => void }) {
 }
 
 /* ---------- 2. live room ---------- */
-function BottomPills({ go, active, count = 112 }: { go: (s: Screen) => void; active: 'hand' | 'avatar'; count?: number }) {
+function BottomPills({ go, active, count = 112, raised, onRaise }: { go: (s: Screen) => void; active: 'hand' | 'avatar'; count?: number; raised?: boolean; onRaise?: () => void }) {
+  const held = useRef(false);
+  const hold = useHold(() => { held.current = true; onRaise?.(); }, 700);
   return (
     <div className="vc-pills">
       <button type="button" className={`vc-pill${active === 'avatar' ? ' is-white' : ''}`} onClick={() => go('people')}><img src={frank} alt="" />{count}</button>
       <button type="button" className="vc-pill" onClick={() => go('chat')}><Bubble />{count === 112 ? 71 : 11}</button>
-      <button type="button" className={`vc-pill${active === 'hand' ? ' is-white' : ''}`} onClick={() => go('people')}><Hand />{count === 112 ? '' : 2}</button>
+      <button
+        type="button" className={`vc-pill vc-pill--hand${active === 'hand' || raised ? ' is-white' : ''}`} aria-label={raised ? 'Hand raised. Tap to see participants' : 'Raise hand: press and hold. Tap to see participants'}
+        data-hold={hold.holding ? '' : undefined} style={{ ['--hold' as string]: hold.progress }}
+        onClick={() => { if (held.current) { held.current = false; return; } go('people'); }}
+        {...(onRaise ? { ...hold.bind, onPointerDown: (e: React.PointerEvent<Element>) => { held.current = false; hold.bind.onPointerDown(e); } } : {})}
+      ><Hand />{raised ? 3 : count === 112 ? '' : 2}</button>
     </div>
   );
 }
@@ -118,6 +141,8 @@ function Controls({ go }: { go: (s: Screen) => void }) {
   );
 }
 function Room({ go }: { go: (s: Screen) => void }) {
+  const [raised, setRaised] = useState(false);
+  useEffect(() => { if (!raised) return; const t = window.setTimeout(() => setRaised(false), 4000); return () => window.clearTimeout(t); }, [raised]);
   return (
     <div className="vc-room">
       <img className="vc-room__bg" src={michael} alt="" />
@@ -125,7 +150,8 @@ function Room({ go }: { go: (s: Screen) => void }) {
       <img className="vc-room__pip" src={pip} alt="" />
       <p className="vc-room__who"><span className="vc-live">LIVE</span> Michael <Spark s={16} /></p>
       <Controls go={go} />
-      <BottomPills go={go} active="hand" />
+      <BottomPills go={go} active="hand" raised={raised} onRaise={() => setRaised(true)} />
+      {raised && <p className="vc-toast vc-toast--hand" role="status">Hand raised, the host will see it</p>}
     </div>
   );
 }
@@ -197,6 +223,13 @@ function Universe({ go }: { go: (s: Screen) => void }) {
   );
 }
 
+/** A chat bubble: press and hold to react with a thumbs up. */
+function LBubble({ className = '', children }: { className?: string; children: ReactNode }) {
+  const [liked, setLiked] = useState(false);
+  const lp = useLongPress(() => setLiked((v) => !v), 450);
+  return <p className={`vc-bubble ${className}`} data-pressing={lp.pressing || undefined} {...lp.bind}>{children}{liked && <span className="vc-liked" aria-label="Liked">&#128077;</span>}</p>;
+}
+
 /* ---------- 6. chat ---------- */
 function Chat({ go }: { go: (s: Screen) => void }) {
   const [text, setText] = useState('');
@@ -213,12 +246,12 @@ function Chat({ go }: { go: (s: Screen) => void }) {
         <div className="vc-chat__tabs"><button type="button" aria-label="Notifications"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.600" aria-hidden="true"><path d="M3 14h12l-1.500-2V8a4.500 4.500 0 0 0-9 0v4L3 14Z" /></svg></button><button type="button">&#128204; Mu&ntilde;eca: Here is a li&hellip;</button><button type="button"><Spark s={10} /> Reward</button></div>
         <div className="vc-chat__list">
           <p className="vc-msg-meta"><img src={cj} alt="" /><b>Mu&ntilde;eca Diaz</b> 3:02pm</p>
-          <p className="vc-bubble">Today&rsquo;s show was fantastic!</p>
-          <p className="vc-bubble">Let&rsquo;s do this more often <small>&#10003;&#10003; 3:07pm</small></p>
+          <LBubble>Today&rsquo;s show was fantastic!</LBubble>
+          <LBubble>Let&rsquo;s do this more often <small>&#10003;&#10003; 3:07pm</small></LBubble>
           <p className="vc-bubble vc-bubble--dim">Totally <button type="button" className={`vc-react${liked ? ' is-on' : ''}`} aria-pressed={liked} aria-label="React" onClick={() => setLiked((v) => !v)}>&#128077;</button></p>
-          <p className="vc-bubble vc-bubble--dim">It&rsquo;s great connecting</p>
+          <LBubble className="vc-bubble--dim">It&rsquo;s great connecting</LBubble>
           <p className="vc-msg-meta"><img src={frank} alt="" /><b>Markus Sandler</b> 3:12pm</p>
-          <p className="vc-bubble">Does anyone know these creators? They&rsquo;d be dope guests</p>
+          <LBubble>Does anyone know these creators? They&rsquo;d be dope guests</LBubble>
           <span className="vc-chat__imgs"><img src={cliff} alt="" /><img src={imani} alt="" /></span>
           {msgs.map((m, i) => <p key={i} className="vc-bubble vc-bubble--me">{m}</p>)}
         </div>
@@ -268,12 +301,25 @@ function VoiceStats({ go }: { go: (s: Screen) => void }) {
   );
 }
 
-/** The Voice app: Home opens rooms, the teaser, the creator card and your stats; rooms lead to participants and chat; sheets close with their handle. */
+const BACK: Partial<Record<Screen, Screen>> = { room: 'home', people: 'room', chat: 'room', teaser: 'home', universe: 'home', card: 'home', voice: 'home' };
+
+/**
+ * The Voice app: Home opens rooms, the teaser, the creator card and your stats; rooms lead to participants and chat; sheets close with their handle.
+ * Gestures: swipe any screen down to go back, swipe Home left for the Universe, pull Home down to refresh, swipe a feed row sideways to hide it,
+ * press and hold the hand in a room to raise it, press and hold a chat message to react.
+ */
 export function VoiceFlow({ initial = 'home' }: { initial?: Screen }) {
   const [screen, setScreen] = useState<Screen>(initial);
+  const nav = useSwipe({
+    threshold: 90, flickSpeed: 0.9, ignore: 'input, .vc-chat__list, .vc-feed',
+    onSwipe: (d, { dx, dy }) => {
+      if (d === 'down' && Math.abs(dy) > Math.abs(dx) * 1.5) { const b = BACK[screen]; if (b) setScreen(b); }
+      if (d === 'left' && screen === 'home' && Math.abs(dx) > Math.abs(dy) * 1.5) setScreen('universe');
+    },
+  });
   return (
     <PhoneFrame bare height={692}>
-      <div className="vc">
+      <div className="vc" {...nav.bind}>
         <div className="vc-swap" key={screen}>
           {screen === 'home' && <Home go={setScreen} />}
           {screen === 'room' && <Room go={setScreen} />}

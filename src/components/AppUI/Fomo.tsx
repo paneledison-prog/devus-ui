@@ -1,4 +1,5 @@
-import { useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
+import { TiltButton, useDrift, useTiltAuto } from './gestures';
 import './Fomo.css';
 import cowboy from './assets/fomo/cowboy.jpg';
 import frog from './assets/fomo/frog.jpg';
@@ -51,17 +52,22 @@ export function Rays() {
 
 /** A round avatar: an image inside a ring. `blur` softens it as in the reference; `ring` is the border color. */
 function Avatar({ src, x, y, r, blur = 0, ring = '#fff', ringW = 3, shade = 0, zoom = 1, pos = '50% 50%' }: { src: string; x: number; y: number; r: number; blur?: number; ring?: string; ringW?: number; shade?: number; zoom?: number; pos?: string }) {
+  const drift = useDrift(Math.round(40 - r * 0.3));
   return (
-    <span className="fm-av" style={{ left: x - r, top: y - r, width: r * 2, height: r * 2, borderColor: ring, borderWidth: ringW, filter: blur ? `blur(${blur}px)` : undefined }}>
+    <span ref={drift.ref} className="fm-av" data-dragging={drift.dragging || undefined} {...drift.bind} style={{ left: x - r, top: y - r, width: r * 2, height: r * 2, borderColor: ring, borderWidth: ringW, filter: blur ? `blur(${blur}px)` : undefined, ...drift.style }}>
       <img src={src} alt="" style={{ objectPosition: pos, transform: `scale(${zoom})`, transformOrigin: pos }} />
       {shade > 0 && <i style={{ background: `rgb(0 0 0 / ${shade})` }} />}
     </span>
   );
 }
 
+/** Meme avatars. Tilt the phone (or move the pointer over it) and they drift at different depths; drag one and let go to fling it, it springs back. */
 export function Avatars() {
+  const root = useRef<HTMLDivElement>(null);
+  const tilt = useTiltAuto(root);
   return (
-    <div className="fm-avatars" aria-hidden="true">
+    <div ref={root} className="fm-avatars">
+      <TiltButton tilt={tilt} />
       <Avatar src={dog} x={249} y={-8} r={100} ring="#2f6a58" ringW={6} shade={0.25} />
       <Avatar src={astro} x={-22} y={118} r={88} ring="#d8e3e6" ringW={5} />
       <Avatar src={anime} x={503} y={130} r={100} ring="#b9bfd0" ringW={5} shade={0.1} />
@@ -74,7 +80,7 @@ export function Avatars() {
       <Avatar src={gold} x={483} y={640} r={78} blur={1} ring="#7a2a22" ringW={4} shade={0.1} />
       <Avatar src={duck} x={380} y={520} r={39} ringW={4} ring="#f2e4c4" zoom={2} pos="46% 60%" />
       <Avatar src={creature} x={236} y={582} r={63} ringW={4} ring="#dfe6ea" zoom={1.4} pos="50% 20%" />
-      <span className="fm-glow" style={{ left: 64, top: 497, width: 54, height: 54 }} />
+      <span className="fm-glow" style={{ left: 64, top: 497, width: 54, height: 54 }} aria-hidden="true" />
     </div>
   );
 }

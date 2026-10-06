@@ -88,3 +88,23 @@ button.ms-tile:active { transform: scale(.98); background: #2c2c2f; }
 .ms button:focus-visible { outline: 2px solid #5da8ff; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .ms-toggle, .ms-toggle i { transition: none; } }
 .ms-scroll > * { flex: none; }
+
+/* gestures */
+.ms-scroll { cursor: grab; }
+.ms-pull { position: absolute; z-index: 6; left: 50%; top: 36px; width: 34px; height: 34px; margin-left: -17px; display: grid; place-items: center; border-radius: 50%; background: #2a2a2d; box-shadow: 0 4px 14px rgb(0 0 0 / .4); pointer-events: none; }
+.ms-pull i { width: 16px; height: 16px; border: 2.5px solid #fff; border-right-color: transparent; border-radius: 50%; }
+.ms-pull i.is-spin { animation: ms-spin .8s linear infinite; }
+@keyframes ms-spin { to { transform: rotate(360deg); } }
+.ms-toast { position: absolute; z-index: 7; left: 50%; top: 50px; margin: 0; padding: 7px 14px; translate: -50% 0; border-radius: 999px; background: #fff; color: #111; font: 600 12px/14px var(--font-sans); animation: ms-in .25s ease both; }
+@keyframes ms-in { from { opacity: 0; translate: -50% -8px; } }
+.ms-away { touch-action: pan-y; }
+.ms-away:not([data-dragging]) { transition: transform .2s ease, opacity .2s ease; }
+.ms-latest--empty { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 14px; font: 400 13px/16px var(--font-sans); color: #b8b8bd; }
+.ms-latest--empty button { height: 32px; padding: 0 14px; border: 0; border-radius: 16px; background: #fff; color: #111; font: 600 12px/1 var(--font-sans); cursor: pointer; }
+.ms-bars { position: relative; touch-action: none; cursor: ew-resize; }
+.ms-bars i.is-on { background: #f0a030; }
+.ms-bars__read { position: absolute; top: -26px; translate: -50% 0; padding: 3px 8px; border-radius: 10px; background: #fff; color: #111; font: 600 11px/14px var(--font-sans); white-space: nowrap; }
+.ms-ach__item[data-pressing] { transform: scale(1.1); background: rgb(255 255 255 / .08); transition: transform .4s ease-in, background .4s; }
+.ms-ach__tip { grid-column: 1 / -1; margin: 4px 0 0; text-align: center; font: 500 12px/16px var(--font-sans); color: #d6d6da; }
+.ms-toggle { touch-action: pan-y; }
+@media (prefers-reduced-motion: reduce) { .ms-away:not([data-dragging]), .ms-ach__item[data-pressing], .ms-toast { transition: none; animation: none; } .ms-pull i.is-spin { animation-duration: 2.4s; } }

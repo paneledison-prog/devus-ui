@@ -1,4 +1,5 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useLongPress, usePanScroll, usePull, useSwipe } from './gestures';
 import { PhoneFrame } from './PhoneFrame';
 import './Books.css';
 
@@ -99,17 +100,40 @@ const initialRecents = ['Personal Finance', 'UI/UX Principles', 'Don Norman', 'A
 const trending: BookId[] = ['money', 'shoedog', 'subtle', 'hailmary'];
 const categories: [BookId, string][] = [['richdad', 'Finance'], ['thinking', 'Improvement'], ['design', 'Design'], ['hailmary', 'Science'], ['ikigai', 'Mind']];
 
+/** A trending book: tap to pick, press and hold to save it. */
+function TrendBook({ id, picked, onPick, onSave }: { id: BookId; picked: boolean; onPick: () => void; onSave: () => void }) {
+  const lp = useLongPress(onSave, 500);
+  return (
+    <button type="button" className={`bk-book${picked ? ' is-on' : ''}`} data-pressing={lp.pressing || undefined} onClick={onPick} aria-pressed={picked} aria-label={`${BOOKS[id].title}. Press and hold to save`} {...lp.bind}>
+      <span className="bk-book__frame"><Cover id={id} /></span>
+      <b>{BOOKS[id].short}</b><small>{BOOKS[id].author.split(' ').slice(-2).join(' ')}</small>
+    </button>
+  );
+}
+
 function Explore({ onTab }: { onTab: (t: Tab) => void }) {
   const [q, setQ] = useState('');
+  const [spin, setSpin] = useState(0);
+  const [toast, setToast] = useState<string | null>(null);
+  const host = useRef<HTMLDivElement>(null);
+  const rowRef = useRef<HTMLDivElement>(null);
+  const catRef = useRef<HTMLDivElement>(null);
+  const panRow = usePanScroll(rowRef, 'x');
+  const panCat = usePanScroll(catRef, 'x');
+  const pull = usePull(host, () => { setSpin((n) => n + 1); setToast('Updated just now'); }, { threshold: 60, ms: 900 });
+  useEffect(() => { if (!toast) return; const t = window.setTimeout(() => setToast(null), 1600); return () => window.clearTimeout(t); }, [toast]);
   const [recents, setRecents] = useState(initialRecents);
   const [picked, setPicked] = useState<BookId | null>(null);
   const [filter, setFilter] = useState(false);
   const shown = useMemo(() => {
     const t = q.trim().toLowerCase();
-    return t ? trending.filter((id) => (BOOKS[id].title + ' ' + BOOKS[id].author).toLowerCase().includes(t)) : trending;
-  }, [q]);
+    const order = trending.map((_, i) => trending[(i + spin) % trending.length]);
+    return t ? order.filter((id) => (BOOKS[id].title + ' ' + BOOKS[id].author).toLowerCase().includes(t)) : order;
+  }, [q, spin]);
   return (
-    <div className="bk-screen bk-screen--explore">
+    <div className="bk-screen bk-screen--explore" ref={host}>
+      <div className="bk-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 36)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}><i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} /></div>
+      {toast && <p className="bk-toast" role="status">{toast}</p>}
       <Status />
       <label className="bk-search">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#8a8a8e" strokeWidth="1.800" strokeLinecap="round" aria-hidden="true"><circle cx="9" cy="9" r="6.500" /><path d="m14 14 4 4" /></svg>
@@ -130,20 +154,15 @@ function Explore({ onTab }: { onTab: (t: Tab) => void }) {
       <section className={`bk-trend${recents.length === 0 ? ' is-up' : ''}`} aria-label="Trending">
         <h2><span className="bk-ico">&#128196;</span>Trending <em>This Weeks</em></h2>
         <button type="button" className="bk-link bk-link--dark">View All</button>
-        <div className="bk-row">
+        <div className="bk-row" ref={rowRef} {...panRow}>
           {shown.length === 0 && <p className="bk-empty">No books match &ldquo;{q}&rdquo;</p>}
-          {shown.map((id) => (
-            <button key={id} type="button" className={`bk-book${picked === id ? ' is-on' : ''}`} onClick={() => setPicked(picked === id ? null : id)} aria-pressed={picked === id}>
-              <span className="bk-book__frame"><Cover id={id} /></span>
-              <b>{BOOKS[id].short}</b><small>{BOOKS[id].author.split(' ').slice(-2).join(' ')}</small>
-            </button>
-          ))}
+          {shown.map((id) => <TrendBook key={id} id={id} picked={picked === id} onPick={() => setPicked(picked === id ? null : id)} onSave={() => setToast(`Saved \u201c${BOOKS[id].short.replace('\u2026', '')}\u201d to My Bookmarks`)} />)}
         </div>
       </section>
       <section className="bk-cats" aria-label="Categories">
         <h2><span className="bk-ico">&#128218;</span>Explore <em>by</em> Categories</h2>
         <button type="button" className="bk-link bk-link--dark">View All</button>
-        <div className="bk-cats__box">
+        <div className="bk-cats__box" ref={catRef} {...panCat}>
           {categories.map(([id, label]) => (
             <button key={label} type="button" className="bk-cat"><Cover id={id} /><small>{label}</small></button>
           ))}
@@ -161,30 +180,41 @@ const shelves: { title: string; sub: string; readers: number; books: BookId[]; t
   { title: 'Design & Craft', sub: 'Pixels, empathy, and problem-solving.', readers: 3, books: ['refactoring', 'design', 'dontmake'], tags: ['To Read', 'In Progress'] },
 ];
 
+/** A shelf card that is removed when swiped sideways. */
+function ShelfCard({ onGone, children }: { onGone: () => void; children: ReactNode }) {
+  const { bind, offset, dragging } = useSwipe({ axis: 'x', follow: true, threshold: 80, flickSpeed: 0.8, onSwipe: (d) => { if (d === 'left' || d === 'right') onGone(); } });
+  return (
+    <article className="bk-shelf" data-dragging={dragging || undefined} style={{ translate: offset.x ? `${offset.x / 0.82}px 0` : undefined, opacity: 1 - Math.min(0.7, Math.abs(offset.x) / 300) }} {...bind}>{children}</article>
+  );
+}
+
 function Library({ onTab }: { onTab: (t: Tab) => void }) {
   const [f, setF] = useState('All');
-  const list = shelves.filter((s) => f === 'All' || s.tags.includes(f));
+  const [removed, setRemoved] = useState<string[]>([]);
+  const fil = useRef<HTMLDivElement>(null);
+  const panFil = usePanScroll(fil, 'x');
+  const list = shelves.filter((s) => (f === 'All' || s.tags.includes(f)) && !removed.includes(s.title));
   return (
     <div className="bk-screen bk-screen--library">
       <Status />
       <h1 className="bk-title">My Bookmarks</h1>
       <button type="button" className="bk-roundbtn bk-roundbtn--more" aria-label="More"><svg width="22" height="6" viewBox="0 0 22 6" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="2.500" /><circle cx="11" cy="3" r="2.500" /><circle cx="19" cy="3" r="2.500" /></svg></button>
-      <div className="bk-filters" role="tablist" aria-label="Filter">
+      <div className="bk-filters" role="tablist" aria-label="Filter" ref={fil} {...panFil}>
         {filters.map((x) => <button key={x} type="button" role="tab" aria-selected={f === x} className={`bk-pill${f === x ? ' is-on' : ''}`} onClick={() => setF(x)}>{x}</button>)}
       </div>
       <h2 className="bk-saved">Recently Saved</h2>
       <button type="button" className="bk-link bk-link--saved">View All</button>
       <div className="bk-shelves">
         {list.map((s) => (
-          <article key={s.title} className="bk-shelf">
+          <ShelfCard key={s.title} onGone={() => setRemoved((l) => [...l, s.title])}>
             <span className="bk-shelf__chip"><span className="bk-faces" aria-hidden="true"><i /><i /><i /></span>{s.readers} Readers</span>
             <span className="bk-shelf__chip bk-shelf__chip--r"><svg width="14" height="16" viewBox="0 0 14 16" fill="#8a8a8e" aria-hidden="true"><rect x="2" y="1" width="10" height="14" rx="2" /></svg>{s.books.length + 1} books</span>
             <h3>{s.title}</h3>
             <p>{s.sub}</p>
             <span className="bk-fan"><Cover id={s.books[0]} /><Cover id={s.books[1]} /><Cover id={s.books[2]} /></span>
-          </article>
+          </ShelfCard>
         ))}
-        {list.length === 0 && <p className="bk-empty">Nothing here yet</p>}
+        {list.length === 0 && <p className="bk-empty">{removed.length ? <>Removed. <button type="button" className="bk-undo" onClick={() => setRemoved([])}>Undo</button></> : 'Nothing here yet'}</p>}
       </div>
       <button type="button" className="bk-fab" aria-label="Add bookmark"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#fff" strokeWidth="2.600" strokeLinecap="round" aria-hidden="true"><path d="M13 4v18M4 13h18" /></svg></button>
       <TabBar active="library" onSelect={onTab} />
@@ -192,7 +222,10 @@ function Library({ onTab }: { onTab: (t: Tab) => void }) {
   );
 }
 
-/** Explore and Library connected by the tab bar; search filters Trending, recent searches can be removed, filters change the shelves. */
+/**
+ * Explore and Library connected by the tab bar; search filters Trending, recent searches can be removed, filters change the shelves.
+ * Gestures: pan the trending books, categories and filters sideways, pull Explore down to refresh, press and hold a book to save it, swipe a shelf away.
+ */
 export function BookshelfFlow({ initial }: { initial: 'explore' | 'library' }) {
   const [tab, setTab] = useState<Tab>(initial);
   return (
@@ -222,7 +255,10 @@ const wall: BookId[] = ['inner', 'monk', 'money', 'atomic', 'ikigai', 'subtle', 
 
 type Step = 'intro' | 'topics' | 'book';
 
-/** Learn Smarter -> topics -> "Are you interested in this book?" (Yes/No moves through the books, then back to the start). */
+/**
+ * Learn Smarter -> topics -> "Are you interested in this book?" (Yes/No moves through the books, then back to the start).
+ * Gestures: swipe the intro to change the page, drag the book card right for Yes or left for No (a quick flick works too).
+ */
 export function OnboardingFlow({ initial = 'intro' }: { initial?: Step }) {
   const [step, setStep] = useState<Step>(initial);
   const [picked, setPicked] = useState<string[]>(['Time-Management']);
@@ -234,6 +270,11 @@ export function OnboardingFlow({ initial = 'intro' }: { initial?: Step }) {
     if (idx + 1 >= queue.length) { setIdx(0); setYes(0); setStep('intro'); } else setIdx(idx + 1);
   };
   const toggle = (t: string) => setPicked((l) => (l.includes(t) ? l.filter((x) => x !== t) : [...l, t]));
+  const card = useSwipe({
+    follow: true, threshold: 90, flickSpeed: 0.8,
+    onSwipe: (d) => { if (d === 'right') decide(true); if (d === 'left') decide(false); },
+  });
+  const pages = useSwipe({ axis: 'x', threshold: 40, onSwipe: (d) => setDot((p) => Math.max(0, Math.min(2, p + (d === 'left' ? 1 : -1)))) });
   const cur = queue[idx];
   const left = queue[(idx + queue.length - 1) % queue.length];
   const right = queue[(idx + 1) % queue.length];
@@ -241,7 +282,7 @@ export function OnboardingFlow({ initial = 'intro' }: { initial?: Step }) {
     <Frame>
       <div className="bk-swap bk-on" key={step}>
         {step === 'intro' && (
-          <div className="bk-screen bk-intro">
+          <div className="bk-screen bk-intro" {...pages.bind}>
             <div className="bk-wall" aria-hidden="true">{wall.map((id, i) => <Cover key={i} id={id} />)}</div>
             <span className="bk-intro__logo" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#111" /><path d="M14 10v20M14 14c10-2 14 3 12 7s-8 4-12 3" fill="none" stroke="#fff" strokeWidth="3.200" strokeLinecap="round" /></svg></span>
             <h1>Learn Smarter Not Longer</h1>
@@ -281,7 +322,10 @@ export function OnboardingFlow({ initial = 'intro' }: { initial?: Step }) {
             <div className="bk-stack" key={idx}>
               <span className="bk-stack__side bk-stack__side--l"><Cover id={left} /></span>
               <span className="bk-stack__side bk-stack__side--r"><Cover id={right} /></span>
-              <span className="bk-stack__main"><Cover id={cur} /></span>
+              <span
+                className="bk-stack__main" data-dragging={card.dragging || undefined} data-dir={card.offset.x > 40 ? 'yes' : card.offset.x < -40 ? 'no' : undefined}
+                style={{ translate: card.offset.x || card.offset.y ? `${card.offset.x / 0.82}px ${card.offset.y / 0.82}px` : undefined, rotate: card.offset.x ? `${card.offset.x / 14}deg` : undefined }} {...card.bind}
+              ><Cover id={cur} /></span>
             </div>
             <div className="bk-dots bk-dots--ask" aria-hidden="true">{queue.map((_, d) => <i key={d} className={d === idx ? 'is-on' : ''} />)}</div>
             <div className="bk-yesno">

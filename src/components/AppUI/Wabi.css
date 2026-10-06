@@ -45,3 +45,9 @@
 .wb-spin--light { border-color: rgb(255 255 255 / .2); border-top-color: #fff; }
 @keyframes wb-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .wb-sphere, .wb-plus svg { transition: none; } .wb-sphere.is-wave { animation: none; } .wb-spin { animation-duration: 2.4s; } }
+
+.wb-sphere { cursor: grab; }
+.wb-sphere:active, .wb-sphere[data-dragging] { cursor: grabbing; }
+.wb-spheres[data-snap] { transition: scale .4s cubic-bezier(.3, 1.4, .5, 1); }
+.wb .app-tilt-btn { position: absolute; left: 50%; top: 250px; translate: -50% 0; z-index: 6; padding: 22px 44px; font-size: 32px; }
+@media (prefers-reduced-motion: reduce) { .wb-spheres[data-snap] { transition: none; } }

@@ -1,4 +1,5 @@
-import { useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
+import { TiltButton, useDrift, usePinch, useTiltAuto } from './gestures';
 import './Wabi.css';
 import swirl from './assets/wabi/swirl.jpg';
 import irid from './assets/wabi/irid.jpg';
@@ -48,8 +49,9 @@ export function WabiLogo() {
 
 /** One glass sphere with a photo inside, a rim and soft highlights. */
 function Sphere({ src, x, y, r, pos = '50% 50%', zoom = 1.15, wave = false }: { src: string; x: number; y: number; r: number; pos?: string; zoom?: number; wave?: boolean }) {
+  const drift = useDrift(Math.round(34 - r * 0.22));
   return (
-    <span className={`wb-sphere${wave ? ' is-wave' : ''}`} style={{ left: x - r, top: y - r, width: r * 2, height: r * 2, animationDelay: wave ? `${Math.round((x + y) / 6)}ms` : undefined }}>
+    <span ref={drift.ref} className={`wb-sphere${wave ? ' is-wave' : ''}`} data-dragging={drift.dragging || undefined} {...drift.bind} style={{ left: x - r, top: y - r, width: r * 2, height: r * 2, animationDelay: wave ? `${Math.round((x + y) / 6)}ms` : undefined, ...drift.style }}>
       <img src={src} alt="" style={{ objectPosition: pos, transform: `scale(${zoom})`, transformOrigin: pos }} />
       <i className="wb-sphere__rim" />
       <i className="wb-sphere__hl" />
@@ -57,11 +59,19 @@ function Sphere({ src, x, y, r, pos = '50% 50%', zoom = 1.15, wave = false }: { 
   );
 }
 
+/**
+ * The sphere field. Tilt the phone (or move the pointer over it) for parallax, drag a sphere and let go to fling it,
+ * pinch (two fingers, or ctrl + wheel) to zoom the whole field, it eases back when you let go.
+ */
 export function Spheres() {
+  const root = useRef<HTMLDivElement>(null);
+  const tilt = useTiltAuto(root);
+  const [zoom, setZoom] = useState({ s: 1, snap: false });
+  const pinch = usePinch(root, ({ scale }) => setZoom({ s: scale, snap: false }), { min: 0.7, max: 2, onEnd: () => { pinch.reset(); setZoom({ s: 1, snap: true }); } });
   const [wave, setWave] = useState(false);
   const poke = () => { setWave(false); window.requestAnimationFrame(() => setWave(true)); window.setTimeout(() => setWave(false), 1400); };
   return (
-    <div className="wb-spheres">
+    <div ref={root} className="wb-spheres" data-snap={zoom.snap || undefined} style={{ scale: zoom.s, transformOrigin: '50% 460px' }}>
       <Sphere wave={wave} src={jump} x={685} y={288} r={64} zoom={1.5} pos="50% 38%" />
       <Sphere wave={wave} src={swirl} x={105} y={360} r={92} />
       <Sphere wave={wave} src={irid} x={62} y={452} r={94} />
@@ -77,6 +87,7 @@ export function Spheres() {
       <Sphere wave={wave} src={flower} x={278} y={555} r={102} zoom={1.3} pos="50% 30%" />
       <Sphere wave={wave} src={laugh} x={646} y={532} r={112} zoom={1.6} pos="35% 30%" />
       <Sphere wave={wave} src={headphones} x={460} y={552} r={118} zoom={1.7} pos="62% 38%" />
+      <TiltButton tilt={tilt} />
       <button type="button" className={`wb-plus${wave ? ' is-on' : ''}`} aria-label="Add" onClick={poke}><span className="wb-plus__shine" /><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#222" strokeWidth="2.600" strokeLinecap="round"><path d="M17 4v26M4 17h26" /></svg></button>
     </div>
   );

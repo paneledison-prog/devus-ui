@@ -1,4 +1,5 @@
-import { useId, useState, type ReactNode } from 'react';
+import { useId, useRef, useState, type ReactNode } from 'react';
+import { TiltButton, useLongPress, useSwipe, useTiltAuto } from './gestures';
 import { PhoneFrame } from './PhoneFrame';
 import './Orb.css';
 import hero from './assets/orb/hero.jpg';
@@ -86,21 +87,41 @@ function Chip({ x, w, icon, children }: { x: number; w: number; icon: ReactNode;
   return <button type="button" className="ob-chip" style={{ left: x, width: w }}>{icon}<span>{children}</span></button>;
 }
 
-/** The Orb profile screen. Badges pop, chips and the close/more buttons press, and the Friends button toggles. */
+/**
+ * The Orb profile screen. Badges pop, chips and the close/more buttons press, and the Friends button toggles.
+ * Gestures: tilt the phone (or move the pointer over it) and the photo and badges drift at different depths;
+ * swipe down anywhere (or tap close) to dismiss; press and hold the avatar to enlarge it.
+ */
 export function OrbProfile() {
   const [friends, setFriends] = useState(true);
+  const [open, setOpen] = useState(true);
+  const [big, setBig] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const tilt = useTiltAuto(root, open);
+  const swipe = useSwipe({ axis: 'y', threshold: 110, flickSpeed: 0.8, ignore: '.ob-avatar, .ob-big', onSwipe: (d) => { if (d === 'down') setOpen(false); } });
+  const hold = useLongPress(() => setBig(true), 450);
+  if (!open) {
+    return (
+      <PhoneFrame bare height={694}>
+        <div className="ob-closed"><p>Profile closed</p><button type="button" onClick={() => setOpen(true)}>Open Evelyn&rsquo;s profile</button></div>
+      </PhoneFrame>
+    );
+  }
   return (
     <PhoneFrame bare height={694}>
-      <div className="ob">
+      <div className="ob" ref={root} {...swipe.bind}>
         <img className="ob-hero" src={hero} alt="" />
         <div className="ob-frost" aria-hidden="true"><img src={hero} alt="" /></div>
         <div className="ob-shade" aria-hidden="true" />
         <Status />
-        <button type="button" className="ob-round ob-round--close" aria-label="Close"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" aria-hidden="true"><path d="m7 7 20 20M27 7 7 27" /></svg></button>
+        <button type="button" className="ob-round ob-round--close" aria-label="Close" onClick={() => setOpen(false)}><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" aria-hidden="true"><path d="m7 7 20 20M27 7 7 27" /></svg></button>
         <button type="button" className="ob-round ob-round--more" aria-label="More"><svg width="40" height="10" viewBox="0 0 40 10" fill="#fff" aria-hidden="true"><circle cx="5" cy="5" r="4.500" /><circle cx="20" cy="5" r="4.500" /><circle cx="35" cy="5" r="4.500" /></svg></button>
         <p className="ob-url">orb.club/@evelynsmith</p>
         <Badges />
-        <div className="ob-avatar"><img src={avatar} alt="Evelyn Smith" /></div>
+        <div
+          className="ob-avatar" role="button" tabIndex={0} aria-label="Evelyn Smith. Press and hold to enlarge" data-pressing={hold.pressing || undefined}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setBig(true); } }} {...hold.bind}
+        ><img src={avatar} alt="" /></div>
         <h1 className="ob-name">Evelyn Smith</h1>
         <p className="ob-stats"><span>2,425 Followers</span><span>377 Follow</span><span>14 Clubs</span></p>
         <p className="ob-bio">nft artist / visual designer<br />passionate about web3</p>
@@ -117,7 +138,11 @@ export function OrbProfile() {
         <button type="button" className={`ob-friends${friends ? '' : ' is-add'}`} aria-pressed={friends} onClick={() => setFriends((v) => !v)}>
           {friends ? <PersonCheck /> : <PersonPlus />}<span>{friends ? 'Friends' : 'Add Friend'}</span>
         </button>
+        {big && (
+          <button type="button" className="ob-big" aria-label="Close the enlarged photo" onClick={() => setBig(false)}><img src={avatar} alt="Evelyn Smith" /></button>
+        )}
         <span className="ob-home" aria-hidden="true" />
+        <TiltButton tilt={tilt} />
       </div>
     </PhoneFrame>
   );

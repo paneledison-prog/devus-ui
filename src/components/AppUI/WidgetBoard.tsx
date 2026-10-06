@@ -1,4 +1,5 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { TiltButton, useFling, useHold, useLongPress, usePanScroll, usePinch, usePull, useScrub, useSwipe, useTiltAuto } from './gestures';
 import { PhoneFrame } from './PhoneFrame';
 import './WidgetBoard.css';
 import man from './assets/widgets/man.jpg';
@@ -17,8 +18,8 @@ import lamp from './assets/widgets/lamp.png';
 
 const frozen = () => new URLSearchParams(window.location.search).get('bench') === '1';
 
-function Tile({ className, label, children, onClick }: { className: string; label: string; children: ReactNode; onClick?: () => void }) {
-  return <section className={`wd ${className}`} aria-label={label} onClick={onClick}>{children}</section>;
+function Tile({ className, label, children, onClick, hostRef, bind }: { className: string; label: string; children: ReactNode; onClick?: () => void; hostRef?: { current: HTMLElement | null }; bind?: object }) {
+  return <section ref={(el) => { if (hostRef) hostRef.current = el; }} className={`wd ${className}`} aria-label={label} onClick={onClick} {...bind}>{children}</section>;
 }
 
 /* 1. weather */
@@ -58,13 +59,15 @@ function Timer() {
     return () => window.clearInterval(t);
   }, [run]);
   const p = (n: number) => String(n).padStart(2, '0');
+  const reset = useHold(() => { setS(0); setRun(false); }, 700);
+  const fling = useFling();
   return (
     <Tile className="wd-timer" label="Timer">
       <button type="button" className="wd-timer__play" aria-label={run ? 'Pause timer' : 'Start timer'} aria-pressed={run} onClick={() => setRun((v) => !v)}>
         <span>{run ? <svg width="18" height="20" viewBox="0 0 18 20" fill="#2a2a2a" aria-hidden="true"><rect x="2" y="2" width="5" height="16" rx="1.500" /><rect x="11" y="2" width="5" height="16" rx="1.500" /></svg> : <svg width="18" height="20" viewBox="0 0 18 20" fill="#2a2a2a" aria-hidden="true"><path d="M3 2v16l13-8L3 2Z" /></svg>}</span>
       </button>
-      <button type="button" className="wd-timer__time" aria-label="Reset timer" onClick={() => { setS(0); setRun(false); }}>{p(Math.floor(s / 3600))}:{p(Math.floor((s % 3600) / 60))}:{p(s % 60)}</button>
-      <img src={cat} alt="" draggable={false} />
+      <button type="button" className="wd-timer__time" aria-label="Press and hold to reset the timer" data-hold={reset.holding ? '' : undefined} style={{ ['--hold' as string]: reset.progress }} {...reset.bind}>{p(Math.floor(s / 3600))}:{p(Math.floor((s % 3600) / 60))}:{p(s % 60)}</button>
+      <img className="wd-cat" src={cat} alt="" draggable={false} data-dragging={fling.dragging || undefined} style={{ translate: `${fling.pos.x}px ${fling.pos.y}px` }} {...fling.bind} />
     </Tile>
   );
 }
@@ -73,9 +76,12 @@ function Timer() {
 function Suggested() {
   const [ok, setOk] = useState(false);
   const [edit, setEdit] = useState(false);
+  const host = useRef<HTMLElement | null>(null);
+  const [zoom, setZoom] = useState({ s: 1, snap: false });
+  const pinch = usePinch(host, ({ scale }) => setZoom({ s: scale, snap: false }), { min: 1, max: 2.6, onEnd: () => { pinch.reset(); setZoom({ s: 1, snap: true }); } });
   return (
-    <Tile className="wd-ai" label="Suggested photo">
-      <img src={couple} alt="" draggable={false} />
+    <Tile className="wd-ai" label="Suggested photo" hostRef={host}>
+      <img src={couple} alt="" draggable={false} data-snap={zoom.snap || undefined} style={{ scale: zoom.s }} />
       <button type="button" className={`wd-ai__edit${edit ? ' is-on' : ''}`} aria-label="Edit photo" aria-pressed={edit} onClick={() => setEdit((v) => !v)}><svg width="26" height="26" viewBox="0 0 26 26" fill="#2a1a14" aria-hidden="true"><path d="m4 22 1-5L17 5l4 4L9 21l-5 1Z" /></svg></button>
       <button type="button" className="wd-ai__chip" aria-pressed={ok} onClick={() => setOk((v) => !v)}>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="#fff" aria-hidden="true"><rect x="2" y="3" width="14" height="14" rx="3" /><path d="M16 2v4M14 4h4" stroke="#fff" strokeWidth="1.600" /></svg>
@@ -111,13 +117,15 @@ function Profile() {
 /* 6. contact */
 function Contact() {
   const [act, setAct] = useState<string | null>(null);
+  const [fav, setFav] = useState(false);
+  const lp = useLongPress(() => setFav((v) => !v), 500);
   useEffect(() => { if (!act) return; const t = window.setTimeout(() => setAct(null), 1600); return () => window.clearTimeout(t); }, [act]);
   const btn = (id: string, label: string, icon: ReactNode) => <button type="button" aria-label={label} className={act === id ? 'is-on' : ''} onClick={() => setAct(id)}>{icon}</button>;
   return (
     <Tile className="wd-contact" label="Zion Carter">
-      <img className="wd-contact__av" src={zion} alt="" />
+      <img className={`wd-contact__av${fav ? ' is-fav' : ''}`} data-pressing={lp.pressing || undefined} src={zion} alt="" draggable={false} {...lp.bind} />
       <b className="wd-contact__name">Zion Carter</b>
-      <span className="wd-contact__sub">{act === 'call' ? 'Calling…' : act === 'chat' ? 'Opening chat…' : act === 'video' ? 'Starting video…' : 'best dude'}</span>
+      <span className="wd-contact__sub">{act === 'call' ? 'Calling…' : act === 'chat' ? 'Opening chat…' : act === 'video' ? 'Starting video…' : fav ? 'favorite \u2605' : 'best dude'}</span>
       <div className="wd-contact__btns">
         {btn('call', 'Call', <svg width="26" height="26" viewBox="0 0 26 26" fill="#d4f04a" aria-hidden="true"><path d="M7 3.500c1-.8 2.400-.5 3.100.6l1.500 2.400c.6 1 .4 2.200-.5 3l-.9.8c1.200 2.200 2.900 3.900 5.100 5.100l.8-.9c.8-.9 2-1.100 3-.5l2.400 1.500c1.100.7 1.400 2.100.6 3.100l-1 1.300c-1.300 1.600-3.500 2.100-5.400 1.300C11 20 6 15 3.500 9.300 2.700 7.400 3.200 5.200 4.800 3.900L7 3.500Z" /></svg>)}
         {btn('chat', 'Message', <svg width="26" height="26" viewBox="0 0 26 26" fill="#d4f04a" aria-hidden="true"><path d="M13 3c5.500 0 10 3.600 10 8.500S18.500 20 13 20c-1.300 0-2.600-.2-3.700-.6L4 22l1.400-4.300C3.900 16.200 3 14 3 11.500 3 6.600 7.500 3 13 3Z" /></svg>)}
@@ -131,6 +139,7 @@ function Contact() {
 function Drone() {
   const [pct, setPct] = useState(38);
   const [on, setOn] = useState(true);
+  const scrub = useScrub((f) => setPct(Math.max(5, Math.round(f * 100))));
   useEffect(() => {
     if (!on || frozen()) return;
     const t = window.setInterval(() => setPct((p) => (p >= 100 ? 100 : p + 1)), 400);
@@ -141,7 +150,7 @@ function Drone() {
       <svg className="wd-drone__ico" width="82" height="82" viewBox="0 0 82 82" fill="none" stroke="#8a8a8a" strokeWidth="4" aria-hidden="true"><circle cx="16" cy="16" r="12" /><circle cx="66" cy="16" r="12" /><circle cx="16" cy="66" r="12" /><circle cx="66" cy="66" r="12" /><path d="M24 24 58 58M58 24 24 58" strokeWidth="9" strokeLinecap="round" /></svg>
       <button type="button" className="wd-drone__more" aria-label="More" onClick={() => setOn((v) => !v)}><svg width="24" height="6" viewBox="0 0 24 6" fill="#ddd" aria-hidden="true"><circle cx="3" cy="3" r="2.500" /><circle cx="12" cy="3" r="2.500" /><circle cx="21" cy="3" r="2.500" /></svg></button>
       <b className="wd-drone__n">Dron DJI Neo</b><span className="wd-drone__m">1435 mAh</span>
-      <div className="wd-drone__bar" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}><i style={{ width: `${Math.max(12, pct * 2.2)}px` }} /></div>
+      <div className="wd-drone__bar" role="slider" tabIndex={0} aria-label="Battery charge, drag to set" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} data-active={scrub.active || undefined} {...scrub.bind} onKeyDown={(e) => { if (e.key === 'ArrowRight') setPct((p) => Math.min(100, p + 5)); if (e.key === 'ArrowLeft') setPct((p) => Math.max(5, p - 5)); }}><i style={{ width: `${Math.max(12, pct * 2.2)}px` }} /></div>
       <span className="wd-drone__s">{on ? `⚡ Charging…` : 'Paused'}</span>
     </Tile>
   );
@@ -198,8 +207,9 @@ function Flight() {
 function Balance() {
   const [view, setView] = useState<'card' | 'chart'>('card');
   const [dot, setDot] = useState(0);
+  const swipe = useSwipe({ axis: 'x', threshold: 40, ignore: '.wd-balance__dots, .wd-balance__pill', onSwipe: () => setView((v) => (v === 'card' ? 'chart' : 'card')) });
   return (
-    <Tile className="wd-balance" label="Balance">
+    <Tile className="wd-balance" label="Balance" bind={swipe.bind}>
       {view === 'card' ? (
         <div className="wd-balance__card" key="card">
           <b>Balance</b>
@@ -245,6 +255,7 @@ function Usdc() {
 function Music() {
   const [play, setPlay] = useState(false);
   const [t, setT] = useState(151);
+  const scrub = useScrub((f) => setT(Math.round(f * 214)));
   useEffect(() => {
     if (!play || frozen()) return;
     const id = window.setInterval(() => setT((v) => (v >= 214 ? 0 : v + 1)), 1000);
@@ -261,7 +272,7 @@ function Music() {
       <div className="wd-music__player">
         <button type="button" aria-label={play ? 'Pause' : 'Play'} aria-pressed={play} onClick={() => setPlay((v) => !v)}>{play ? <svg width="14" height="16" viewBox="0 0 14 16" fill="#2a2a2a" aria-hidden="true"><rect x="2" y="1" width="4" height="14" rx="1.200" /><rect x="8" y="1" width="4" height="14" rx="1.200" /></svg> : <svg width="14" height="16" viewBox="0 0 14 16" fill="#2a2a2a" aria-hidden="true"><path d="M2 1v14l11-7L2 1Z" /></svg>}</button>
         <b>Drive - The Cars</b>
-        <i className="wd-music__bar"><u style={{ width: `${(t / 214) * 100}%` }} /></i>
+        <i className="wd-music__bar" role="slider" tabIndex={0} aria-label="Track position" aria-valuemin={0} aria-valuemax={214} aria-valuenow={t} data-active={scrub.active || undefined} {...scrub.bind} onKeyDown={(e) => { if (e.key === 'ArrowRight') setT((v) => Math.min(214, v + 5)); if (e.key === 'ArrowLeft') setT((v) => Math.max(0, v - 5)); }}><u style={{ width: `${(t / 214) * 100}%` }} /></i>
         <small><span>{p(t)}</span><span>03:34</span></small>
       </div>
     </Tile>
@@ -271,8 +282,11 @@ function Music() {
 /* 12. lamp */
 function Lamp() {
   const [on, setOn] = useState(true);
+  const host = useRef<HTMLElement | null>(null);
+  const tilt = useTiltAuto(host);
   return (
-    <Tile className={`wd-lamp${on ? ' is-on' : ''}`} label="Lamp">
+    <Tile className={`wd-lamp${on ? ' is-on' : ''}`} label="Lamp" hostRef={host}>
+      <TiltButton tilt={tilt} />
       <span className="wd-lamp__glow" aria-hidden="true" />
       <img src={lamp} alt="" draggable={false} />
       <div className="wd-lamp__pill" role="group" aria-label="Light">
@@ -283,13 +297,24 @@ function Lamp() {
   );
 }
 
-/** Twelve live widgets: weather units, calendar chip, timer, AI suggestion, social pills, contact actions, drone charging, flight board, balance card, USDC, music player and a lamp. */
+/**
+ * Twelve live widgets: weather units, calendar chip, timer, AI suggestion, social pills, contact actions, drone charging, flight board, balance card, USDC, music player and a lamp.
+ * Gestures: scroll or drag the board, pull it down at the top to refresh, fling the cat, hold the time to reset the timer, pinch the photo,
+ * press and hold the avatar to favorite, drag the battery or the track bar, swipe the balance card to flip it, tilt the phone and the lamp glow moves.
+ */
 export function WidgetBoard() {
+  const sc = useRef<HTMLDivElement>(null);
+  const pan = usePanScroll(sc, 'y');
+  const [fresh, setFresh] = useState(false);
+  const pull = usePull(sc, () => setFresh(true), { threshold: 56, ms: 900 });
+  useEffect(() => { if (!fresh) return; const t = window.setTimeout(() => setFresh(false), 1500); return () => window.clearTimeout(t); }, [fresh]);
   return (
     <PhoneFrame bare height={692}>
       <div className="wdb">
         <div className="wdb-status" aria-hidden="true"><span>9:41</span><i /></div>
-        <div className="wdb-scroll">
+        <div className="wdb-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 40)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}><i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} /></div>
+        {fresh && <p className="wdb-toast" role="status">Widgets refreshed</p>}
+        <div className="wdb-scroll" ref={sc} {...pan}>
           <Weather /><Meeting /><Timer /><Suggested /><Profile /><Contact /><Drone /><Flight /><Balance /><Usdc /><Music /><Lamp />
         </div>
       </div>

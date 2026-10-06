@@ -46,3 +46,11 @@
 .cl-home { position: absolute; z-index: 30; left: 297px; top: 1966px; width: 330px; height: 12px; border-radius: 6px; background: #fff; }
 @keyframes cl-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .cl-grid, .cl-pad { animation: none; } }
+
+/* gestures */
+.cl-btn[data-hold] .cl-btn__disc::after { content: ""; position: absolute; inset: -16px; border-radius: 50%; background: conic-gradient(#fff calc(var(--hold) * 1turn), transparent 0); -webkit-mask: radial-gradient(circle, transparent 60%, #000 62%); mask: radial-gradient(circle, transparent 60%, #000 62%); pointer-events: none; }
+.cl-btn--red { touch-action: none; user-select: none; }
+.cl-btn:focus-visible .cl-btn__disc { outline: 6px solid #fff; outline-offset: 8px; }
+.cl-hint { position: absolute; left: 0; right: 0; top: 1250px; margin: 0; text-align: center; font: 500 40px/48px var(--font-sans); color: rgb(255 255 255 / .9); animation: cl-in .25s ease both; }
+.cl-key[data-pressing] { background: rgb(255 255 255 / .5); transition: background .45s ease-in; }
+.cl-pad { touch-action: none; }

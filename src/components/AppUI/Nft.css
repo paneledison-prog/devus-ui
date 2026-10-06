@@ -19,7 +19,9 @@
 .nf-h1 { position: absolute; left: 26px; top: 233px; font: 600 35px/42px var(--font-sans); letter-spacing: -.02em; }
 .nf-sub { position: absolute; left: 26px; display: flex; align-items: center; gap: 14px; font: 400 24px/30px var(--font-sans); letter-spacing: -.02em; }
 .nf-count { display: inline-grid; place-items: center; min-width: 32px; height: 32px; padding: 0 9px; border-radius: 16px; background: rgb(255 255 255 / .16); font: 400 18px/1 var(--font-sans); }
-.nf-avatars { position: absolute; left: 0; top: 342px; width: 517px; height: 86px; }
+.nf-avatars { position: absolute; left: 0; top: 334px; width: 517px; height: 102px; padding-top: 8px; box-sizing: border-box; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; cursor: grab; touch-action: pan-x; }
+.nf-avatars::-webkit-scrollbar { display: none; }
+.nf-avatars__track { position: relative; width: 1040px; height: 86px; }
 .nf-av { position: absolute; top: 0; width: 86px; height: 86px; padding: 0; overflow: hidden; border: 0; border-radius: 50%; background: rgb(255 255 255 / .1); transition: transform .15s ease, box-shadow .2s ease; }
 .nf-av img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .nf-av:active { transform: scale(.94); }
@@ -50,3 +52,6 @@
 .nf button:focus-visible, .nf-search:focus-within { outline: 3px solid #b99cff; outline-offset: 3px; }
 .nf-home { position: absolute; z-index: 30; left: 172px; top: 1109px; width: 172px; height: 6px; border-radius: 3px; background: #fff; }
 @media (prefers-reduced-motion: reduce) { .nf-card { transition: none; } }
+
+/* gestures */
+.nf-card { touch-action: pan-y; user-select: none; }

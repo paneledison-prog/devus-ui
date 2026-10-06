@@ -97,3 +97,29 @@
 .wd-lamp img { position: absolute; left: 40px; top: 6px; width: 200px; height: 200px; object-fit: contain; filter: brightness(.7) saturate(.7); transition: filter .3s ease; } .wd-lamp.is-on img { filter: none; }
 .wd-lamp__pill { position: absolute; left: 85px; top: 207px; width: 116px; height: 62px; display: flex; align-items: center; justify-content: space-around; border-radius: 31px; background: #2a2a2c; } .wd-lamp__pill button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: none; transition: background .25s ease; } .wd-lamp__pill .is-on { background: #e9b7fb; }
 @media (prefers-reduced-motion: reduce) { .wd, .wd-balance__card, .wd-lamp, .wd-lamp img, .wd-lamp__glow, .wd-drone__bar i, .wd-music__bar u { transition: none; animation: none; } }
+
+/* gestures */
+.wdb-scroll { cursor: grab; }
+.wdb-pull { position: absolute; z-index: 6; left: 50%; top: 46px; width: 34px; height: 34px; margin-left: -17px; display: grid; place-items: center; border-radius: 50%; background: #2c2c2e; box-shadow: 0 4px 14px rgb(0 0 0 / .4); pointer-events: none; }
+.wdb-pull i { width: 16px; height: 16px; border: 2.5px solid #fff; border-right-color: transparent; border-radius: 50%; }
+.wdb-pull i.is-spin { animation: wd-spin .8s linear infinite; }
+@keyframes wd-spin { to { transform: rotate(360deg); } }
+.wdb-toast { position: absolute; z-index: 7; left: 50%; top: 58px; margin: 0; padding: 7px 14px; translate: -50% 0; border-radius: 999px; background: #fff; color: #111; font: 600 12px/14px var(--font-sans); }
+.wd-timer__time { position: absolute; overflow: hidden; touch-action: none; user-select: none; }
+.wd-timer__time::before { content: ""; position: absolute; inset: 0; width: calc(var(--hold, 0) * 100%); background: rgb(255 255 255 / .16); pointer-events: none; }
+.wd-timer img.wd-cat { pointer-events: auto; cursor: grab; touch-action: none; user-select: none; }
+.wd-timer img.wd-cat[data-dragging] { cursor: grabbing; }
+.wd-ai img[data-snap] { transition: scale .35s cubic-bezier(.3, 1.3, .5, 1); }
+.wd-contact__av { touch-action: none; user-select: none; transition: box-shadow .2s, transform .45s ease-in; }
+.wd-contact__av[data-pressing] { transform: scale(1.1); }
+.wd-contact__av.is-fav { border-color: #d4f04a; box-shadow: 0 0 0 3px rgb(212 240 74 / .35); }
+.wd-drone__bar { cursor: ew-resize; touch-action: none; }
+.wd-drone__bar:focus-visible, .wd-music__bar:focus-visible { outline: 2px solid #d4f04a; outline-offset: 3px; }
+.wd-music__bar { cursor: ew-resize; touch-action: none; }
+.wd-music__bar::after { content: ""; position: absolute; inset: -10px -4px; }
+.wd-balance { touch-action: pan-y; }
+.wd-balance__card { animation: wd-flip .5s cubic-bezier(.3, .9, .3, 1) both; }
+@keyframes wd-flip { from { transform: perspective(700px) rotateY(-90deg); opacity: .3; } }
+.wd-lamp__glow { translate: calc(var(--tx, 0) * 26px) calc(var(--ty, 0) * 18px); }
+.wd-lamp .app-tilt-btn { position: absolute; left: 50%; bottom: 14px; z-index: 3; }
+@media (prefers-reduced-motion: reduce) { .wd-ai img[data-snap], .wd-contact__av { transition: none; } .wdb-pull i.is-spin { animation-duration: 2.4s; } }

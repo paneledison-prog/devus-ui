@@ -35,3 +35,14 @@
 .pt button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 .pt-home { position: absolute; z-index: 30; left: 172px; top: 1109px; width: 172px; height: 6px; border-radius: 3px; background: #fff; }
 @media (prefers-reduced-motion: reduce) { .pt-rsvp__pill { transition: none; } }
+
+/* gestures */
+.pt { touch-action: pan-x; }
+.pt-rsvp { cursor: grab; touch-action: none; }
+.pt-rsvp[data-sliding] { cursor: grabbing; }
+.pt-rsvp[data-sliding] .pt-rsvp__pill { transition-duration: .12s; }
+.pt-closed { flex: 1; display: grid; place-content: center; justify-items: center; gap: 14px; background: #1c3a3c; color: #fff; font-family: var(--font-sans); }
+.pt-closed p { margin: 0; font: 500 14px/20px var(--font-sans); opacity: .8; }
+.pt-closed button { height: 44px; padding: 0 22px; border: 0; border-radius: 999px; background: #fff; color: #1c3a3c; font: 700 14px/1 var(--font-sans); cursor: pointer; }
+.pt-closed button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.pt-closed button:active { transform: scale(.96); }

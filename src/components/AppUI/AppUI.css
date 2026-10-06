@@ -150,3 +150,47 @@ button.app-row:active { background: var(--default); }
 /* Bare phone: only the rounded frame; the content draws status bar, artwork and home indicator itself. */
 .app-phone--bare { aspect-ratio: auto; width: 320px; height: var(--phone-h, 660px); border-radius: 39px; background: transparent; }
 .app-phone--bare .app-phone__screen { background: transparent; border-radius: 0; }
+
+/* ---------- Gestures ---------- */
+.app-sheet { touch-action: none; }
+.app-sheet:not([data-dragging]) { transition: transform .28s cubic-bezier(.2, .9, .3, 1); }
+.app-drag { touch-action: none; cursor: grab; user-select: none; }
+.app-drag[data-dragging] { cursor: grabbing; }
+.app-row-swipe { position: relative; overflow: hidden; touch-action: pan-y; }
+.app-row-swipe__slide { position: relative; background: var(--app-card-bg, var(--surface)); }
+.app-row-swipe__slide:not([data-dragging]) { transition: transform .24s cubic-bezier(.2, .9, .3, 1); }
+.app-row-swipe + .app-row-swipe, .app-row + .app-row-swipe, .app-row-swipe + .app-row { box-shadow: inset 0 1px 0 var(--separator); }
+.app-row__delete { position: absolute; top: 0; right: 0; bottom: 0; width: 88px; border: 0; background: #e5334d; color: #fff; cursor: pointer; font: 600 var(--text-sm)/1 var(--font-sans); }
+.app-row__delete:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -3px; }
+.app-row__delete:active { filter: brightness(.9); }
+.app-tabbar { touch-action: pan-y; }
+.app-stories { cursor: grab; touch-action: pan-x; scrollbar-width: none; }
+.app-stories::-webkit-scrollbar { display: none; }
+.app-story__ring { transition: transform .15s; }
+.app-story[data-pressing] .app-story__ring { transform: scale(.9); transition: transform .45s ease-in; }
+.app-week { overflow: hidden; touch-action: pan-y; }
+.app-week__track { display: flex; gap: var(--space-0-5); width: 100%; }
+.app-week__track:not([data-dragging]) { transition: transform .25s; }
+
+.app-flip { perspective: 900px; width: 280px; max-width: 100%; touch-action: pan-y; }
+.app-phone .app-flip { width: 100%; }
+.app-flip__inner { display: grid; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.3, .9, .3, 1); }
+.app-flip[data-flipped="true"] .app-flip__inner { transform: rotateY(180deg); }
+.app-flip__face { grid-area: 1 / 1; width: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.app-flip__back { transform: rotateY(180deg); justify-content: space-between; background: linear-gradient(135deg, #1c1c24, #0b0b0e); }
+.app-balance__tools { display: flex; align-items: center; gap: var(--space-2); }
+.app-balance__flip { display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: var(--radius-full); background: rgb(255 255 255 / .14); color: #fff; cursor: pointer; }
+.app-balance__flip:active { transform: scale(.92); }
+.app-balance__flip:focus-visible, .app-balance__pill:focus-visible, .app-balance__actions button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.app-balance__num { letter-spacing: .04em; }
+.app-balance__facts { display: flex; gap: var(--space-4); margin: 0; }
+.app-balance__facts dt { color: rgb(255 255 255 / .6); font: 400 10px/14px var(--font-sans); }
+.app-balance__facts dd { margin: 0; font: 600 var(--text-sm)/var(--leading-sm) var(--font-sans); }
+@media (prefers-reduced-motion: reduce) { .app-flip__inner, .app-sheet, .app-row-swipe__slide, .app-week__track { transition: none !important; } }
+
+.app-steps-scrub { touch-action: pan-y; cursor: ew-resize; padding: var(--space-1) 0; border-radius: var(--radius-lg); }
+.app-steps-scrub:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.app-steps-scrub[data-active] .app-steps li[data-state="active"] .app-steps__dot { box-shadow: 0 0 0 5px color-mix(in srgb, var(--foreground) 18%, transparent); }
+
+.app-tilt-btn { position: absolute; left: 50%; bottom: 40px; translate: -50% 0; z-index: 9; height: 36px; padding: 0 var(--space-4); border: 0; border-radius: var(--radius-full); background: var(--foreground); color: var(--background); cursor: pointer; font: 600 var(--text-xs)/1 var(--font-sans); }
+.app-tilt-btn:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }

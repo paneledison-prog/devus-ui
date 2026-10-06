@@ -14,6 +14,10 @@ export const appStories = [
   { name: 'You', initials: 'ME' },
   { name: 'Ada', initials: 'AL' },
   { name: 'Linus', initials: 'LT', seen: true },
+  { name: 'Grace', initials: 'GH' },
+  { name: 'Alan', initials: 'AT', seen: true },
+  { name: 'Joan', initials: 'JC' },
+  { name: 'Dennis', initials: 'DR' },
 ];
 
 export const appDays = [

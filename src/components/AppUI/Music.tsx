@@ -1,4 +1,5 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useLongPress, usePanScroll, usePull, useScrub, useSwipe } from './gestures';
 import { PhoneFrame } from './PhoneFrame';
 import './Music.css';
 import cover from './assets/music/cover.jpg';
@@ -25,7 +26,22 @@ import gem from './assets/music/gem.png';
  */
 
 /* ---------- shared pieces ---------- */
+const ZOOM = 0.820513;
+
+/**
+ * Every page scrolls. Gestures: scroll or drag the page (mouse drag scrolls too), pull down at the top to refresh,
+ * swipe a notification away, press and hold an achievement, drag along the listening bars, slide a switch.
+ */
 function Shell({ children }: { children: ReactNode }) {
+  const sc = useRef<HTMLDivElement>(null);
+  const pan = usePanScroll(sc, 'y');
+  const [toast, setToast] = useState(false);
+  const pull = usePull(sc, () => setToast(true), { threshold: 56, ms: 900 });
+  useEffect(() => {
+    if (!toast) return;
+    const t = window.setTimeout(() => setToast(false), 1500);
+    return () => window.clearTimeout(t);
+  }, [toast]);
   return (
     <PhoneFrame bare height={692}>
       <div className="ms">
@@ -36,7 +52,11 @@ function Shell({ children }: { children: ReactNode }) {
           <svg className="ms-status__wifi" width="18" height="14" viewBox="0 0 24 18" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M2 6.500a14 14 0 0 1 20 0" /><path d="M6 11a8.500 8.500 0 0 1 12 0" /><circle cx="12" cy="15.400" r="1.800" fill="currentColor" stroke="none" /></svg>
           <svg className="ms-status__battery" width="28" height="13" viewBox="0 0 32 14" fill="none"><rect x="0.500" y="0.500" width="27" height="13" rx="4" stroke="currentColor" opacity=".4" /><rect x="2.500" y="2.500" width="23" height="9" rx="2.400" fill="currentColor" /><rect x="29" y="4.500" width="2.200" height="5" rx="1.100" fill="currentColor" opacity=".45" /></svg>
         </div>
-        <div className="ms-scroll">
+        <div className="ms-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 44)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}>
+          <i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} />
+        </div>
+        {toast && <p className="ms-toast" role="status">Обновлено</p>}
+        <div ref={sc} className="ms-scroll" {...pan}>
           <span className="ms-grab" aria-hidden="true" />
           {children}
         </div>
@@ -52,7 +72,16 @@ function H({ children, count, chevron = false }: { children: ReactNode; count?: 
 }
 
 function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
-  return <button type="button" role="switch" aria-checked={on} aria-label={label} className={`ms-toggle${on ? ' is-on' : ''}`} onClick={() => onChange(!on)}><i /></button>;
+  const slide = useSwipe({ axis: 'x', threshold: 8, onSwipe: (d) => { if (d === 'right') onChange(true); if (d === 'left') onChange(false); } });
+  return <button type="button" role="switch" aria-checked={on} aria-label={label} className={`ms-toggle${on ? ' is-on' : ''}`} onClick={() => onChange(!on)} {...slide.bind}><i /></button>;
+}
+
+/** A row that leaves the list when it is swiped sideways. */
+function SwipeAway({ onGone, children }: { onGone: () => void; children: ReactNode }) {
+  const { bind, offset, dragging } = useSwipe({ axis: 'x', follow: true, threshold: 70, flickSpeed: 0.8, onSwipe: (d) => { if (d === 'left' || d === 'right') onGone(); } });
+  return (
+    <div className="ms-away" data-dragging={dragging || undefined} style={{ transform: offset.x ? `translateX(${offset.x / ZOOM}px)` : undefined, opacity: 1 - Math.min(0.7, Math.abs(offset.x) / 260) }} {...bind}>{children}</div>
+  );
 }
 
 function Avatars({ srcs, size = 24 }: { srcs: string[]; size?: number }) {
@@ -73,8 +102,12 @@ function Stat({ value, plus, label, avs, className = '' }: { value: string; plus
 function Latest() {
   const [paused, setPaused] = useState(false);
   const [sel, setSel] = useState(0);
+  const [gone, setGone] = useState<number[]>([]);
+  const away = (i: number) => setGone((g) => [...g, i]);
+  if (gone.length === 3) return <div className="ms-latest ms-latest--empty"><span>Нет новых уведомлений</span><button type="button" onClick={() => setGone([])}>Вернуть</button></div>;
   return (
     <div className="ms-latest">
+      {!gone.includes(0) && <SwipeAway onGone={() => away(0)}>
       <div className={`ms-latest__hero${sel === 0 ? ' is-sel' : ''}`} onClick={() => setSel(0)}>
         <img src={cover} alt="" />
         <span className="ms-latest__title">ПОСЛЕДНИЙ ГЕРОЙ <b>E</b><small>GSPD</small></span>
@@ -83,16 +116,24 @@ function Latest() {
           {paused ? <svg width="14" height="16" viewBox="0 0 14 16" fill="#fff"><path d="M2 1.500v13L13 8 2 1.500Z" /></svg> : <svg width="14" height="16" viewBox="0 0 14 16" fill="#fff"><rect x="1.500" y="1" width="3.800" height="14" rx="1.200" /><rect x="8.700" y="1" width="3.800" height="14" rx="1.200" /></svg>}
         </button>
         <span className="ms-latest__meta"><img src={art2} alt="" /><em>GSPD</em> · Сингл<i>Только что</i></span>
-      </div>
-      <button type="button" className={`ms-latest__row ms-latest__row--navy${sel === 1 ? ' is-sel' : ''}`} onClick={() => setSel(1)}><img src={art4} alt="" /><span>Arca · Сингл</span><i>4 ч</i></button>
-      <button type="button" className={`ms-latest__row ms-latest__row--olive${sel === 2 ? ' is-sel' : ''}`} onClick={() => setSel(2)}><img src={art1} alt="" /><span>Dmitry K · Новый плейлист</span><i>5 ч</i></button>
+      </div></SwipeAway>}
+      {!gone.includes(1) && <SwipeAway onGone={() => away(1)}><button type="button" className={`ms-latest__row ms-latest__row--navy${sel === 1 ? ' is-sel' : ''}`} onClick={() => setSel(1)}><img src={art4} alt="" /><span>Arca · Сингл</span><i>4 ч</i></button></SwipeAway>}
+      {!gone.includes(2) && <SwipeAway onGone={() => away(2)}><button type="button" className={`ms-latest__row ms-latest__row--olive${sel === 2 ? ' is-sel' : ''}`} onClick={() => setSel(2)}><img src={art1} alt="" /><span>Dmitry K · Новый плейлист</span><i>5 ч</i></button></SwipeAway>}
     </div>
   );
 }
 
 function Bars({ n = 40, seed = 3 }: { n?: number; seed?: number }) {
   const hs = Array.from({ length: n }, (_, i) => 6 + Math.abs(Math.sin(i * 1.7 + seed) * 18 + Math.cos(i * 0.6 + seed * 2) * 14));
-  return <span className="ms-bars" aria-hidden="true">{hs.map((h, i) => <i key={i} style={{ height: h }} />)}</span>;
+  const [at, setAt] = useState<number | null>(null);
+  const scrub = useScrub((f, final) => { setAt(f); if (final) window.setTimeout(() => setAt(null), 900); });
+  const lit = at === null ? -1 : Math.round(at * (n - 1));
+  return (
+    <span className="ms-bars" role="img" aria-label="Часы прослушивания по дням. Проведите по ним пальцем" {...scrub.bind}>
+      {hs.map((h, i) => <i key={i} className={i <= lit ? 'is-on' : undefined} style={{ height: h }} />)}
+      {at !== null && <b className="ms-bars__read" style={{ left: `${at * 100}%` }}>{Math.round(at * 234)} ч</b>}
+    </span>
+  );
 }
 
 function Hours() {
@@ -108,15 +149,27 @@ function Hours() {
 
 const shapes = [prism, gem, cyl, ringShape, spring, ringShape, gem, ringShape, prism, gem, spring, cyl];
 const bars = ['#f0a030', '#f0a030', '#f0a030', '#3bb7e8', '#3bb7e8', '#3bb7e8', '#3bb7e8', '#3bb7e8', '#3bb7e8', '#3bb7e8', '#3bb7e8', '#3bb7e8'];
+function AchItem({ src, i, sel, onSel, onTip }: { src: string; i: number; sel: boolean; onSel: () => void; onTip: () => void }) {
+  const lp = useLongPress(onTip, 450);
+  return (
+    <button type="button" className={`ms-ach__item${sel ? ' is-sel' : ''}`} data-pressing={lp.pressing || undefined} aria-label={`Достижение ${i + 1}. Нажмите и удерживайте, чтобы узнать подробнее`} onClick={onSel} {...lp.bind}>
+      <img src={src} alt="" /><i style={{ background: bars[i] }} />
+    </button>
+  );
+}
+
 function Achievements({ strip = false }: { strip?: boolean }) {
   const [sel, setSel] = useState<number | null>(null);
+  const [tip, setTip] = useState<number | null>(null);
+  useEffect(() => {
+    if (tip === null) return;
+    const t = window.setTimeout(() => setTip(null), 2200);
+    return () => window.clearTimeout(t);
+  }, [tip]);
   return (
     <div className={`ms-tile ms-ach${strip ? ' ms-ach--strip' : ''}`}>
-      {(strip ? shapes.slice(0, 4) : shapes).map((s, i) => (
-        <button key={i} type="button" className={`ms-ach__item${sel === i ? ' is-sel' : ''}`} aria-label={`Достижение ${i + 1}`} onClick={() => setSel(sel === i ? null : i)}>
-          <img src={s} alt="" /><i style={{ background: bars[i] }} />
-        </button>
-      ))}
+      {(strip ? shapes.slice(0, 4) : shapes).map((s, i) => <AchItem key={i} src={s} i={i} sel={sel === i} onSel={() => setSel(sel === i ? null : i)} onTip={() => { setSel(i); setTip(i); }} />)}
+      {tip !== null && <p className="ms-ach__tip" role="status">Достижение {tip + 1} · {tip < 3 ? 'получено' : 'ещё не получено'}</p>}
     </div>
   );
 }

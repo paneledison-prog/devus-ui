@@ -76,3 +76,15 @@
 .sk-trash { transition: transform .12s ease; }
 .sk-trash:active { transform: scale(.88); }
 @media (prefers-reduced-motion: reduce) { .sk-sheet, .sk-grid, .sk-sticker--tap { transition: none; animation: none; } }
+
+/* gestures */
+.sk-sheet { touch-action: none; }
+.sk-sticker--tap[data-pressing] { transform: scale(1.12); transition: transform .42s ease-in; }
+.sk-sticker--drag[data-pressing] { filter: drop-shadow(0 10px 12px rgb(0 0 0 / .3)); }
+.sk-frame[data-selected="false"] { opacity: .35; }
+.sk-peek { position: absolute; z-index: 8; left: 50%; top: -180px; width: 210px; height: 210px; margin-left: -105px; display: grid; place-items: center; border-radius: 28px; background: rgb(255 255 255 / .94); box-shadow: 0 16px 40px rgb(0 0 0 / .25); animation: sk-pop .3s cubic-bezier(.3, 1.6, .5, 1); pointer-events: none; }
+.sk-peek img { width: 170px; height: 170px; object-fit: contain; }
+.sk-circle__track { pointer-events: stroke; cursor: pointer; touch-action: none; }
+.sk-circle__arc { pointer-events: none; }
+.sk-circle__arc .sk-circle__track { pointer-events: stroke; }
+@media (prefers-reduced-motion: reduce) { .sk-sticker--tap[data-pressing] { transition: none; } .sk-peek { animation: none; } }

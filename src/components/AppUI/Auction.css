@@ -60,3 +60,29 @@
 .au-toast { position: absolute; z-index: 70; left: 50%; bottom: 96px; transform: translateX(-50%); padding: 10px 18px; border-radius: 20px; background: #e2f47c; color: #151515; font: 600 14px/18px var(--font-sans); white-space: nowrap; animation: au-in .2s ease both; }
 .au button:focus-visible { outline: 2px solid #e2f47c; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .au-swap, .au-list, .au-actions, .au-sheet, .au-toast { animation: none; transition: none; } }
+
+/* gestures */
+.au-card { touch-action: pan-y; user-select: none; }
+.au-card:not([data-dragging]) { transition: transform .25s ease; }
+.au-card[data-liked] { box-shadow: 0 0 0 2px #ff5a6e; }
+.au-pull { position: absolute; z-index: 9; left: 50%; top: 60px; width: 34px; height: 34px; margin-left: -17px; display: grid; place-items: center; border-radius: 50%; background: #2c2c2e; box-shadow: 0 4px 14px rgb(0 0 0 / .4); pointer-events: none; }
+.au-pull i { width: 16px; height: 16px; border: 2.5px solid #fff; border-right-color: transparent; border-radius: 50%; }
+.au-pull i.is-spin { animation: au-spin .8s linear infinite; }
+@keyframes au-spin { to { transform: rotate(360deg); } }
+.au-toast--top { top: 112px; bottom: auto; }
+.au-hero { touch-action: pan-y; }
+.au-hero img { transform-origin: 50% 40%; }
+.au-hero[data-snap] img { transition: scale .35s cubic-bezier(.3, 1.3, .5, 1); }
+.au-sheet { touch-action: none; }
+.au-range { position: relative; height: 28px; margin: 16px 4px 4px; touch-action: none; cursor: ew-resize; }
+.au-range::before { content: ""; position: absolute; left: 0; right: 0; top: 12px; height: 4px; border-radius: 2px; background: #3a3a3d; }
+.au-range i { position: absolute; left: 0; top: 12px; height: 4px; border-radius: 2px; background: #d8ff3b; }
+.au-range b { position: absolute; top: 4px; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgb(0 0 0 / .4); }
+.au-range[data-active] b { transform: scale(1.2); }
+.au-range:focus-visible { outline: 2px solid #d8ff3b; outline-offset: 4px; border-radius: 6px; }
+.au-hold { position: relative; overflow: hidden; touch-action: none; user-select: none; }
+.au-hold::before { content: ""; position: absolute; inset: 0; width: calc(var(--hold, 0) * 100%); background: rgb(0 0 0 / .22); pointer-events: none; }
+.au-hold span { position: relative; }
+.au-bid { user-select: none; }
+.au-bid[data-pressing] { background: rgb(255 255 255 / .07); border-radius: 12px; transition: background .45s ease-in; }
+@media (prefers-reduced-motion: reduce) { .au-card:not([data-dragging]), .au-hero[data-snap] img { transition: none; } .au-pull i.is-spin { animation-duration: 2.4s; } }

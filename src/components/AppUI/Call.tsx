@@ -1,4 +1,5 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, type HTMLAttributes, type ReactNode } from 'react';
+import { useHold, useLongPress, useSwipe } from './gestures';
 import { PhoneFrame } from './PhoneFrame';
 import './Call.css';
 
@@ -18,9 +19,10 @@ const AddIcon = () => <Ico><circle cx="58" cy="38" r="20" stroke="currentColor" 
 const KeypadIcon = () => <Ico><g fill="currentColor">{[22, 50, 78].flatMap((x) => [14, 38, 62].map((y) => <circle key={`${x}${y}`} cx={x} cy={y} r="7.500" />))}<circle cx="50" cy="86" r="7.500" /></g></Ico>;
 const EndIcon = () => <Ico><path d="M50 36c-22 0-36 9-40 20-2 5 0 10 4 12l12 4c4 1 8-1 9-5l2-8c10-3 19-3 26 0l2 8c1 4 5 6 9 5l12-4c4-2 6-7 4-12-4-11-18-20-40-20Z" fill="currentColor" /></Ico>;
 
-function Round({ label, on, onClick, children, disabled, tone = 'glass', className = '' }: { label: string; on?: boolean; onClick?: () => void; children: ReactNode; disabled?: boolean; tone?: 'glass' | 'red'; className?: string }) {
+function Round({ label, on, onClick, children, disabled, tone = 'glass', className = '', hold, extra }: { label: string; on?: boolean; onClick?: () => void; children: ReactNode; disabled?: boolean; tone?: 'glass' | 'red'; className?: string; hold?: number; extra?: HTMLAttributes<HTMLButtonElement> }) {
   return (
-    <button type="button" className={`cl-btn cl-btn--${tone}${on ? ' is-on' : ''} ${className}`} aria-pressed={on === undefined ? undefined : on} disabled={disabled} onClick={onClick}>
+    <button type="button" className={`cl-btn cl-btn--${tone}${on ? ' is-on' : ''} ${className}`} aria-pressed={on === undefined ? undefined : on} disabled={disabled} onClick={onClick}
+      data-hold={hold ? '' : undefined} style={hold ? { ['--hold' as string]: hold } : undefined} {...extra}>
       <span className="cl-btn__disc">{children}</span>
       <span className="cl-btn__label">{label}</span>
     </button>
@@ -44,10 +46,24 @@ function StatusBar() {
 
 function pad(n: number) { return String(n).padStart(2, '0'); }
 
+function Key({ d, l, onType }: { d: string; l: string; onType: (c: string) => void }) {
+  const lp = useLongPress(() => onType('+'), 500);
+  return (
+    <button type="button" className="cl-key" data-pressing={d === '0' && lp.pressing ? '' : undefined} aria-label={d === '0' ? '0, press and hold for plus' : d} onClick={() => onType(d)} {...(d === '0' ? lp.bind : {})}>
+      <span className="cl-key__d">{d}</span>
+      <span className="cl-key__l">{l}</span>
+    </button>
+  );
+}
+
 type View = 'call' | 'keypad' | 'ended';
 const KEYS: [string, string][] = [['1', ''], ['2', 'ABC'], ['3', 'DEF'], ['4', 'GHI'], ['5', 'JKL'], ['6', 'MNO'], ['7', 'PQRS'], ['8', 'TUV'], ['9', 'WXYZ'], ['*', ''], ['0', '+'], ['#', '']];
 
-/** The call screen. Speaker and Mute toggle, the timer runs, Keypad opens a dial pad, End shows "Call Ended" and then returns to the call. */
+/**
+ * The call screen. Speaker and Mute toggle, the timer runs, Keypad opens a dial pad, End shows "Call Ended" and then returns to the call.
+ * Gestures: press and hold End to hang up (a ring fills; a tap only shows the hint), press and hold 0 for +, swipe the keypad down to hide it,
+ * and type digits on a real keyboard.
+ */
 export function CallScreen() {
   const [view, setView] = useState<View>('call');
   const [seconds, setSeconds] = useState(216); // 03:36
@@ -71,6 +87,29 @@ export function CallScreen() {
   }, [view]);
 
   const ended = view === 'ended';
+  const [hint, setHint] = useState(false);
+  const holdEnd = useHold(() => { setHint(false); setView('ended'); }, 900);
+  const swipePad = useSwipe({ axis: 'y', threshold: 70, flickSpeed: 0.7, onSwipe: (d) => { if (d === 'down') setView('call'); } });
+  const type = (c: string) => setTyped((t) => (t + c).slice(-14));
+
+  useEffect(() => {
+    if (!hint) return;
+    const t = window.setTimeout(() => setHint(false), 1800);
+    return () => window.clearTimeout(t);
+  }, [hint]);
+
+  useEffect(() => {
+    if (view !== 'keypad') return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (/^[0-9*#+]$/.test(e.key)) type(e.key);
+      else if (e.key === 'Backspace') setTyped((t) => t.slice(0, -1));
+      else if (e.key === 'Escape') setView('call');
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [view]);
+
   const clock = `${pad(Math.floor(seconds / 60))}:${pad(seconds % 60)}`;
 
   return (
@@ -90,19 +129,16 @@ export function CallScreen() {
             <Round label="FaceTime" disabled={ended}><FaceTimeIcon /></Round>
             <Round label="Mute" on={muted} disabled={ended} onClick={() => setMuted((v) => !v)}><MuteIcon /></Round>
             <Round label="Add" disabled={ended}><AddIcon /></Round>
-            <Round label="End" tone="red" disabled={ended} onClick={() => setView('ended')}><EndIcon /></Round>
+            <Round label="End" tone="red" disabled={ended} hold={holdEnd.progress} onClick={() => setHint(true)} extra={holdEnd.bind}><EndIcon /></Round>
             <Round label="Keypad" disabled={ended} onClick={() => setView('keypad')}><KeypadIcon /></Round>
           </div>
         )}
 
+        {hint && !ended && <p className="cl-hint" role="status">Press and hold End to hang up</p>}
+
         {view === 'keypad' && (
-          <div className="cl-pad" key="pad">
-            {KEYS.map(([d, l]) => (
-              <button key={d} type="button" className="cl-key" onClick={() => setTyped((t) => (t + d).slice(-14))}>
-                <span className="cl-key__d">{d}</span>
-                <span className="cl-key__l">{l}</span>
-              </button>
-            ))}
+          <div className="cl-pad" key="pad" {...swipePad.bind}>
+            {KEYS.map(([d, l]) => <Key key={d} d={d} l={l} onType={type} />)}
             <Round label="End" tone="red" className="cl-pad__end" onClick={() => setView('ended')}><EndIcon /></Round>
             <button type="button" className="cl-hide" onClick={() => setView('call')}>Hide</button>
           </div>

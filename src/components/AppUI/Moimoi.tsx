@@ -1,4 +1,5 @@
-import { useId, useState, type ReactNode } from 'react';
+import { useId, useRef, useState, type ReactNode } from 'react';
+import { TiltButton, useFling, useTiltAuto } from './gestures';
 import './Moimoi.css';
 
 /*
@@ -48,15 +49,30 @@ const Eye = ({ x, y, rx, ry, px, py, pr }: { x: number; y: number; rx: number; r
   </g>
 );
 
+/** Moves a character: tilt the phone (or move the pointer over it) for parallax; drag it and let go to fling it around, it springs back. */
+function Mover({ depth, children }: { depth: number; children: ReactNode }) {
+  const g = useRef<SVGGElement>(null);
+  const fling = useFling();
+  const k = (g.current?.ownerSVGElement?.getBoundingClientRect().width ?? 558) / 558 || 1;
+  return (
+    <g className="mm-par" style={{ transform: `translate(calc(var(--tx, 0) * ${depth}px), calc(var(--ty, 0) * ${depth}px))` }}>
+      <g ref={g} className="mm-fling" data-dragging={fling.dragging || undefined} style={{ transform: `translate(${fling.pos.x / k}px, ${fling.pos.y / k}px)` }} {...fling.bind}>{children}</g>
+    </g>
+  );
+}
+
 const Stroke = ({ d, w = 9 }: { d: string; w?: number | string }) => <path d={d} fill="none" stroke="#050505" strokeWidth={w} strokeLinecap="round" strokeLinejoin="round" />;
 
 /** The six round characters, the loose lines and the "Hello~" bubble. Circles are cropped by the screen edges. */
 export function Cast() {
   const id = useId().replace(/:/g, '');
   const [pop, setPop] = useState<string | null>(null);
+  const svg = useRef<SVGSVGElement>(null);
+  const tilt = useTiltAuto(svg);
   const ch = (name: string) => ({ className: `mm-ch${pop === name ? ' is-pop' : ''}`, onClick: () => setPop(name), onAnimationEnd: () => setPop(null) });
   return (
-    <svg className="mm-cast" width="558" height="800" viewBox="0 0 558 800" aria-hidden="true" focusable="false">
+    <>
+    <svg ref={svg} className="mm-cast" width="558" height="800" viewBox="0 0 558 800" aria-hidden="true" focusable="false">
       <defs>
         <radialGradient id={`${id}-g`} cx=".4" cy=".35" r=".8"><stop offset="0" stopColor="#b6f58a" /><stop offset="1" stopColor="#7fdc4a" /></radialGradient>
         <radialGradient id={`${id}-p`} cx=".4" cy=".3" r=".8"><stop offset="0" stopColor="#ffb3dc" /><stop offset="1" stopColor="#f26cb8" /></radialGradient>
@@ -69,6 +85,7 @@ export function Cast() {
       </defs>
 
       {/* green */}
+      <Mover depth={10}>
       <g {...ch('green')}>
       <circle cx="44" cy="382" r="88" fill={`url(#${id}-g)`} filter={`url(#${id}-sh)`} />
       <circle cx="67" cy="350" r="18" fill="#fff" />
@@ -77,19 +94,23 @@ export function Cast() {
       <g filter={`url(#${id}-hair)`}><Stroke d="M30 276C55 280 90 298 118 308" w="9" /></g>
       <Stroke d="M0 445C70 448 140 438 155 392C160 372 135 368 122 388" w="3" />
       </g>
+      </Mover>
 
       {/* pink */}
+      <Mover depth={26}>
       <g {...ch('pink')}>
       <circle cx="242" cy="298" r="49" fill={`url(#${id}-p)`} filter={`url(#${id}-sh)`} />
       <rect x="228.500" y="278" width="5.500" height="14" rx="2.700" fill="#050505" />
       <rect x="259.500" y="279" width="5.500" height="14" rx="2.700" fill="#050505" />
       <Stroke d="M241 309q6 6 12 0" w="3" />
       </g>
+      </Mover>
 
       {/* swoosh between pink and coral */}
       <Stroke d="M175 386C210 358 230 328 250 338C265 350 240 363 232 350C240 318 330 288 422 306" w="3" />
 
       {/* coral */}
+      <Mover depth={14}>
       <g {...ch('coral')}>
       <circle cx="463" cy="379" r="93" fill={`url(#${id}-r)`} filter={`url(#${id}-sh)`} />
       <Eye x={415} y={333} rx={17} ry={19} px={418} py={332} pr={8} />
@@ -100,8 +121,10 @@ export function Cast() {
       <g filter={`url(#${id}-hair)`}><Stroke d="M425 283C455 308 510 308 555 336" w="10" /></g>
       <circle cx="508" cy="285" r="11" fill="none" stroke="#050505" strokeWidth="5" />
       </g>
+      </Mover>
 
       {/* blue */}
+      <Mover depth={8}>
       <g {...ch('blue')}>
       <circle cx="75" cy="626" r="133" fill={`url(#${id}-b)`} filter={`url(#${id}-sh)`} />
       <Eye x={115} y={563} rx={31} ry={33} px={115} py={566} pr={17} />
@@ -110,8 +133,10 @@ export function Cast() {
       <g filter={`url(#${id}-hair)`}><Stroke d="M0 548C50 528 100 503 135 498" w="15" /></g>
       <Stroke d="M62 538Q90 520 120 530" w="6" />
       </g>
+      </Mover>
 
       {/* yellow */}
+      <Mover depth={12}>
       <g {...ch('yellow')}>
       <circle cx="450" cy="638" r="120" fill={`url(#${id}-y)`} filter={`url(#${id}-sh)`} />
       <Eye x={397} y={583} rx={28} ry={30} px={395} py={586} pr={17} />
@@ -122,8 +147,10 @@ export function Cast() {
       <g filter={`url(#${id}-hair)`}><Stroke d="M435 488C430 548 480 583 555 586" w="12" /><Stroke d="M520 673Q548 671 558 663" w="10" /></g>
       <Stroke d="M392 538Q420 520 445 540" w="6" />
       </g>
+      </Mover>
 
       {/* orange */}
+      <Mover depth={30}>
       <g {...ch('orange')}>
       <circle cx="253" cy="698" r="41" fill={`url(#${id}-o)`} filter={`url(#${id}-sh)`} />
       <circle cx="250" cy="676" r="14" fill="#fff8f0" stroke="#050505" strokeWidth="3" />
@@ -133,6 +160,7 @@ export function Cast() {
       <circle cx="262" cy="696" r="5" fill="#8a3a14" stroke="#050505" strokeWidth="2.500" />
       <Stroke d="M220 746l18 3M222 752l14 3M288 733l12 7" w="2.500" />
       </g>
+      </Mover>
 
       {/* sprout and spark marks */}
       <circle cx="220" cy="450" r="9" fill="#ff7a8a" />
@@ -147,6 +175,8 @@ export function Cast() {
         </g>
       </g>
     </svg>
+    <TiltButton tilt={tilt} />
+    </>
   );
 }
 

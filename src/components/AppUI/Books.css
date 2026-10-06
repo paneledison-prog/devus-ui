@@ -106,3 +106,24 @@
 .bk button:focus-visible { outline: 2px solid #4c8df6; outline-offset: 2px; }
 .bk-ask .bk-dots--ask { pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .bk-swap, .bk-shelf, .bk-stack__main { animation: none; } .bk-prog i b, .bk-trend { transition: none; } }
+
+/* gestures */
+.bk-row, .bk-cats__box, .bk-filters { overflow-x: auto; scrollbar-width: none; cursor: grab; touch-action: pan-x; }
+.bk-row::-webkit-scrollbar, .bk-cats__box::-webkit-scrollbar, .bk-filters::-webkit-scrollbar { display: none; }
+.bk-row > *, .bk-cats__box > *, .bk-filters > * { flex: none; }
+.bk-book[data-pressing] { transform: scale(1.06); transition: transform .45s ease-in; }
+.bk-pull { position: absolute; z-index: 9; left: 50%; top: 52px; width: 34px; height: 34px; margin-left: -17px; display: grid; place-items: center; border-radius: 50%; background: #111; box-shadow: 0 4px 14px rgb(0 0 0 / .25); pointer-events: none; }
+.bk-pull i { width: 16px; height: 16px; border: 2.5px solid #fff; border-right-color: transparent; border-radius: 50%; }
+.bk-pull i.is-spin { animation: bk-spin .8s linear infinite; }
+@keyframes bk-spin { to { transform: rotate(360deg); } }
+.bk-toast { position: absolute; z-index: 10; left: 50%; top: 96px; margin: 0; padding: 8px 16px; translate: -50% 0; border-radius: 18px; background: #111; color: #fff; font: 600 12px/16px var(--font-sans); white-space: nowrap; }
+.bk-shelf { touch-action: pan-y; }
+.bk-shelf:not([data-dragging]) { transition: translate .2s ease, opacity .2s ease; }
+.bk-undo { padding: 0; border: 0; background: none; color: #2d6cdf; font: 600 14px/18px var(--font-sans); cursor: pointer; }
+.bk-intro { touch-action: pan-y; }
+.bk-stack__main { cursor: grab; touch-action: none; user-select: none; }
+.bk-stack__main[data-dragging] { cursor: grabbing; }
+.bk-stack__main:not([data-dragging]) { transition: translate .25s ease, rotate .25s ease, box-shadow .2s; }
+.bk-stack__main[data-dir="yes"] { box-shadow: 0 8px 28px rgb(0 0 0 / .14), 0 0 0 3px #3ecf7a; }
+.bk-stack__main[data-dir="no"] { box-shadow: 0 8px 28px rgb(0 0 0 / .14), 0 0 0 3px #e5484d; }
+@media (prefers-reduced-motion: reduce) { .bk-book[data-pressing], .bk-shelf:not([data-dragging]), .bk-stack__main:not([data-dragging]) { transition: none; } .bk-pull i.is-spin { animation-duration: 2.4s; } }

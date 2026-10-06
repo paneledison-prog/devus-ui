@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useHold, useLongPress, usePinch, usePull, useScrub, useSwipe } from './gestures';
 import { PhoneFrame } from './PhoneFrame';
 import './Auction.css';
 import dogArt from './assets/auction/dog.jpg';
@@ -48,12 +49,24 @@ const seedBids: BidRow[] = [
   { id: 3, who: 'Shehzad', when: '2 hours ago', price: 0.575, img: av3 },
 ];
 
+/** A live-bid card. Swipe it right to like it, left to unlike it; tap to open. */
+function LiveCard({ tone, onOpen, liked, setLiked, children }: { tone: 'orange' | 'blue'; onOpen: () => void; liked: boolean; setLiked: (v: boolean) => void; children: ReactNode }) {
+  const { bind, offset, dragging } = useSwipe({ axis: 'x', follow: true, threshold: 60, flickSpeed: 0.8, onSwipe: (d) => { if (d === 'right') setLiked(true); if (d === 'left') setLiked(false); } });
+  return (
+    <article className={`au-card au-card--${tone}`} data-dragging={dragging || undefined} data-liked={liked || undefined} aria-label={liked ? 'Liked' : undefined} style={{ transform: offset.x ? `translateX(${offset.x * 0.4}px) rotate(${offset.x / 40}deg)` : undefined }} onClick={onOpen} {...bind}>{children}</article>
+  );
+}
+
 /* ---------- Live bids ---------- */
 function Live({ onOpen }: { onOpen: () => void }) {
   const [liked, setLiked] = useState<Record<string, boolean>>({});
   const t = useCountdown(8 * 3600 + 40 * 60 + 20);
+  const host = useRef<HTMLDivElement>(null);
+  const [fresh, setFresh] = useState(false);
+  const pull = usePull(host, () => setFresh(true), { threshold: 60, ms: 900 });
+  useEffect(() => { if (!fresh) return; const id = window.setTimeout(() => setFresh(false), 1500); return () => window.clearTimeout(id); }, [fresh]);
   const card = (key: string, tone: 'orange' | 'blue', art: string, artClass: string) => (
-    <article key={key} className={`au-card au-card--${tone}`} onClick={onOpen}>
+    <LiveCard key={key} tone={tone} onOpen={onOpen} liked={!!liked[key]} setLiked={(v) => setLiked((l) => ({ ...l, [key]: v }))}>
       <img className={`au-card__art ${artClass}`} src={art} alt="" draggable={false} />
       <span className="au-card__time">{String(t.h).padStart(2, '0')}h {String(t.m).padStart(2, '0')}m {String(t.s).padStart(2, '0')}s</span>
       <button type="button" className="au-icon au-icon--a" aria-label="Like" aria-pressed={!!liked[key]} onClick={(e) => { e.stopPropagation(); setLiked((l) => ({ ...l, [key]: !l[key] })); }}><Heart on={!!liked[key]} /></button>
@@ -61,12 +74,14 @@ function Live({ onOpen }: { onOpen: () => void }) {
       <div className="au-card__panel">
         <b>Shedd Aquarium</b>
         <span className="au-card__by"><img src={orb} alt="" />Bull will</span>
-        <span className="au-card__bid"><small>Current bid</small>1.12 ETH</span>
+        <span className="au-card__bid"><small>Current bid</small>{fresh ? '1.18' : '1.12'} ETH</span>
       </div>
-    </article>
+    </LiveCard>
   );
   return (
-    <div className="au-live">
+    <div className="au-live" ref={host}>
+      <div className="au-pull" aria-hidden={!pull.refreshing} style={{ transform: `translateY(${Math.max(0, pull.pull - 36)}px)`, opacity: Math.min(1, pull.progress * 1.2) }}><i className={pull.refreshing ? 'is-spin' : ''} style={pull.refreshing ? undefined : { rotate: `${pull.progress * 300}deg` }} /></div>
+      {fresh && <div className="au-toast au-toast--top" role="status">Bids refreshed</div>}
       <Status />
       <button type="button" className="au-sq au-sq--back" aria-label="Back"><Back /></button>
       <button type="button" className="au-sq au-sq--bell" aria-label="Notifications"><Bell /></button>
@@ -94,17 +109,26 @@ function Detail({ onBack }: { onBack: () => void }) {
   const next = useRef(10);
   const current = useMemo(() => Math.max(1.12, ...bids.map((b) => b.price)), [bids]);
 
+  // gestures
+  const hero = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState({ s: 1, snap: false });
+  const pinch = usePinch(hero, ({ scale }) => setZoom({ s: scale, snap: false }), { min: 1, max: 3, onEnd: () => { pinch.reset(); setZoom({ s: 1, snap: true }); } });
+  const sheetSwipe = useSwipe({ axis: 'y', follow: true, threshold: 90, flickSpeed: 0.7, ignore: 'button', onSwipe: (d) => { if (d === 'down') setSheet(false); } });
+  const amountScrub = useScrub((f) => setAmount(+(Math.round((current + 0.05 + f * 1.8) / 0.05) * 0.05).toFixed(2)));
+  const hold = useHold(() => confirm(), 800);
+  const holdTip = () => setToast('Press and hold to confirm');
+
   useEffect(() => {
     if (!toast) return;
     const id = window.setTimeout(() => setToast(null), 1800);
     return () => window.clearTimeout(id);
   }, [toast]);
 
-  const confirm = () => {
+  function confirm() {
     setBids((l) => [{ id: next.current++, who: 'You', when: 'just now', price: amount, img: av2 }, ...l]);
     setSheet(false);
     setToast(`Bid of ${amount.toFixed(2)} ETH placed`);
-  };
+  }
   const clock = (
     <span className="au-clock">{t.d}<sub>d</sub> {t.h}<sub>h</sub> {t.m}<sub>m</sub> {t.s}<sub>s</sub></span>
   );
@@ -112,7 +136,7 @@ function Detail({ onBack }: { onBack: () => void }) {
   return (
     <div className="au-detail">
       <div className="au-scroll" onScroll={(e) => setScrolled(e.currentTarget.scrollTop > 160)}>
-        <div className="au-hero"><img src={dogArt} alt="" draggable={false} /><div className="au-hero__fade" /></div>
+        <div className="au-hero" ref={hero} data-snap={zoom.snap || undefined}><img src={dogArt} alt="" draggable={false} style={{ scale: zoom.s }} /><div className="au-hero__fade" /></div>
         <div className="au-auction"><span><small>Auction ends in</small>{clock}</span><span className="au-auction__bid"><small>Current bid</small>{current.toFixed(2)} ETH</span></div>
         <h2 className="au-name">Shedd Aquarium</h2>
         <div className="au-tags"><span>Art</span><span>Photography</span></div>
@@ -122,7 +146,7 @@ function Detail({ onBack }: { onBack: () => void }) {
         <div className="au-tabs" role="tablist"><button type="button" role="tab" aria-selected={tab === 'bids'} className={tab === 'bids' ? 'is-on' : ''} onClick={() => setTab('bids')}>Bids{tab === 'bids' && <i />}</button><button type="button" role="tab" aria-selected={tab === 'offers'} className={tab === 'offers' ? 'is-on' : ''} onClick={() => setTab('offers')}>Offers{tab === 'offers' && <i />}</button></div>
         <div className="au-list" key={tab}>
           {tab === 'bids' ? bids.map((b) => (
-            <div key={b.id} className="au-bid"><img src={b.img} alt="" /><span><b>{b.who}</b><small>{b.when}</small></span><em>{b.price.toFixed(3)} <small>ETH</small></em></div>
+            <BidItem key={b.id} onTip={() => setToast('Bid details copied')}><img src={b.img} alt="" /><span><b>{b.who}</b><small>{b.when}</small></span><em>{b.price.toFixed(3)} <small>ETH</small></em></BidItem>
           )) : <p className="au-none">No offers yet</p>}
         </div>
         <div className="au-pad" />
@@ -144,7 +168,7 @@ function Detail({ onBack }: { onBack: () => void }) {
 
       {sheet && (
         <div className="au-sheetwrap" onClick={() => setSheet(false)}>
-          <div className="au-sheet" role="dialog" aria-label="Place a bid" onClick={(e) => e.stopPropagation()}>
+          <div className="au-sheet" role="dialog" aria-label="Place a bid" onClick={(e) => e.stopPropagation()} {...sheetSwipe.bind} style={{ translate: sheetSwipe.offset.y > 0 ? `0 ${sheetSwipe.offset.y}px` : undefined }}>
             <span className="au-sheet__grab" />
             <h3>Place a bid</h3>
             <p>Current bid {current.toFixed(2)} ETH. Your bid must be higher.</p>
@@ -153,7 +177,12 @@ function Detail({ onBack }: { onBack: () => void }) {
               <b>{amount.toFixed(2)} <small>ETH</small></b>
               <button type="button" aria-label="Raise bid" onClick={() => setAmount((a) => +(a + 0.05).toFixed(2))}>+</button>
             </div>
-            <button type="button" className="au-lime au-lime--wide" onClick={confirm}>Confirm bid</button>
+            <div
+              className="au-range" role="slider" tabIndex={0} aria-label="Bid amount" aria-valuemin={+(current + 0.05).toFixed(2)} aria-valuemax={+(current + 1.85).toFixed(2)} aria-valuenow={amount} aria-valuetext={`${amount.toFixed(2)} ETH`}
+              data-active={amountScrub.active || undefined} {...amountScrub.bind}
+              onKeyDown={(e) => { if (e.key === 'ArrowRight') setAmount((a) => +(a + 0.05).toFixed(2)); if (e.key === 'ArrowLeft') setAmount((a) => Math.max(+(current + 0.05).toFixed(2), +(a - 0.05).toFixed(2))); }}
+            ><i style={{ width: `${Math.max(0, Math.min(100, ((amount - current - 0.05) / 1.8) * 100))}%` }} /><b style={{ left: `${Math.max(0, Math.min(100, ((amount - current - 0.05) / 1.8) * 100))}%` }} /></div>
+            <button type="button" className="au-lime au-lime--wide au-hold" data-hold={hold.holding ? '' : undefined} style={{ ['--hold' as string]: hold.progress }} onClick={holdTip} {...hold.bind}><span>Hold to confirm bid</span></button>
           </div>
         </div>
       )}
@@ -162,7 +191,16 @@ function Detail({ onBack }: { onBack: () => void }) {
   );
 }
 
-/** Live Bids opens the item; the item page scrolls, follows, likes, switches Bids / Offers and places a bid. */
+/** A bid row: press and hold to copy its details. */
+function BidItem({ onTip, children }: { onTip: () => void; children: ReactNode }) {
+  const lp = useLongPress(onTip, 480);
+  return <div className="au-bid" data-pressing={lp.pressing || undefined} {...lp.bind}>{children}</div>;
+}
+
+/**
+ * Live Bids opens the item; the item page scrolls, follows, likes, switches Bids / Offers and places a bid.
+ * Gestures: swipe a live card right to like or left to unlike, pull Live Bids down to refresh, pinch the item picture (two fingers or ctrl + wheel) and it eases back,
+ * swipe the bid sheet down to close it, drag along the bar to set your bid, press and hold Confirm to place it, press and hold a bid to copy it. */
 export function AuctionFlow({ initial = 'live' }: { initial?: 'live' | 'detail' }) {
   const [screen, setScreen] = useState<'live' | 'detail'>(initial);
   return (

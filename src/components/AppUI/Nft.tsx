@@ -1,4 +1,5 @@
-import { useState, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
+import { usePanScroll, useSwipe } from './gestures';
 import { PhoneFrame } from './PhoneFrame';
 import './Nft.css';
 import ape1 from './assets/nft/ape1.jpg';
@@ -28,13 +29,20 @@ const navItems: { id: string; label: string; icon: ReactNode }[] = [
 ];
 const navX = [70, 158, 258, 358, 446];
 
-/** The search results screen. Collections can be selected, the two NFT cards swap places when tapped, the tab bar is live and the field is a real input. */
+/**
+ * The search results screen. Collections can be selected, the two NFT cards swap places when tapped, the tab bar is live and the field is a real input.
+ * Gestures: pan the collections row sideways (drag, it coasts), flick or swipe a card to throw it to the front or back.
+ */
 export function NftResults() {
   const [query, setQuery] = useState('Solana Monkeys');
   const [pick, setPick] = useState(1);
   const [front, setFront] = useState<'hawaii' | 'apiens'>('hawaii');
   const [tab, setTab] = useState('home');
-  const covers = [ape1, ape2, ape3];
+  const covers = [ape1, ape2, ape3, ape2, ape3, ape1, ape3, ape2];
+  const row = useRef<HTMLDivElement>(null);
+  const pan = usePanScroll(row, 'x');
+  const flickApiens = useSwipe({ threshold: 36, flickSpeed: 0.6, onSwipe: () => setFront((f) => (f === 'apiens' ? 'hawaii' : 'apiens')) });
+  const flickHawaii = useSwipe({ threshold: 36, flickSpeed: 0.6, onSwipe: () => setFront((f) => (f === 'hawaii' ? 'apiens' : 'hawaii')) });
   return (
     <PhoneFrame bare height={697}>
       <div className="nf">
@@ -54,22 +62,24 @@ export function NftResults() {
 
         <h2 className="nf-h1">Results</h2>
         <p className="nf-sub" style={{ top: 281 }}>Collections <span className="nf-count">8</span></p>
-        <div className="nf-avatars" role="radiogroup" aria-label="Collections">
-          {covers.map((src, i) => (
-            <button key={i} type="button" role="radio" aria-checked={pick === i} className={`nf-av${pick === i ? ' is-on' : ''}`} style={{ left: 26 + i * 100 }} onClick={() => setPick(i)} aria-label={`Collection ${i + 1}`}><img src={src} alt="" /></button>
-          ))}
-          <button type="button" className="nf-av nf-av--more" style={{ left: 327 }} aria-label="More collections"><Chevron /></button>
+        <div ref={row} className="nf-avatars" role="radiogroup" aria-label="Collections" {...pan}>
+          <div className="nf-avatars__track">
+            {covers.map((src, i) => (
+              <button key={i} type="button" role="radio" aria-checked={pick === i} className={`nf-av${pick === i ? ' is-on' : ''}`} style={{ left: 26 + i * 100 }} onClick={() => setPick(i)} aria-label={`Collection ${i + 1}`}><img src={src} alt="" style={i > 2 ? { filter: `hue-rotate(${(i - 2) * 38}deg)` } : undefined} /></button>
+            ))}
+            <button type="button" className="nf-av nf-av--more" style={{ left: 26 + covers.length * 100 }} aria-label="More collections" onClick={() => row.current?.scrollTo({ left: 400, behavior: 'smooth' })}><Chevron /></button>
+          </div>
         </div>
         <p className="nf-sub" style={{ top: 491 }}>Top - Seller NFT <span className="nf-count">12</span></p>
 
-        <article className={`nf-card nf-card--apiens ${front === 'apiens' ? 'is-front' : 'is-back'}`} onClick={() => setFront('apiens')} aria-label="Apiens, 5 SOL floor price">
+        <article className={`nf-card nf-card--apiens ${front === 'apiens' ? 'is-front' : 'is-back'}`} onClick={() => setFront('apiens')} aria-label="Apiens, 5 SOL floor price" {...flickApiens.bind}>
           <p className="nf-card__price">5 SOL</p>
           <p className="nf-card__floor">Floor price</p>
           <span className="nf-card__eth"><Eth /></span>
           <p className="nf-card__title">Apes</p>
           <p className="nf-card__by">Apiens</p>
         </article>
-        <article className={`nf-card nf-card--hawaii ${front === 'hawaii' ? 'is-front' : 'is-back'}`} onClick={() => setFront('hawaii')} aria-label="Hawaii by Chill Monkeys, 12 SOL floor price">
+        <article className={`nf-card nf-card--hawaii ${front === 'hawaii' ? 'is-front' : 'is-back'}`} onClick={() => setFront('hawaii')} aria-label="Hawaii by Chill Monkeys, 12 SOL floor price" {...flickHawaii.bind}>
           <p className="nf-card__price">12 SOL</p>
           <p className="nf-card__floor">Floor price</p>
           <span className="nf-card__eth"><Eth /></span>
